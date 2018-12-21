@@ -16,7 +16,7 @@ import airtickets.dto.rentacar.VehicleDTO;
 public class Vehicle implements Serializable {
 
 	/**
-	 * 
+	 * author: Nikola
 	 */
 	private static final long serialVersionUID = 3007380165050154845L;
 	@Id
