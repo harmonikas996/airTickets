@@ -6,12 +6,18 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { VehicleComponent } from './rentAcar/vehicle/vehicle.component';
+import { LoginWidgetComponent } from './navigation/login-widget/login-widget.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    VehicleComponent
+    VehicleComponent,
+    LoginWidgetComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
