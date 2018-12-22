@@ -16,7 +16,7 @@ import airtickets.dto.rentacar.VehicleDTO;
 public class Vehicle implements Serializable {
 
 	/**
-	 * author: Nikola Rebraca
+	 *
 	 */
 	private static final long serialVersionUID = 3007380165050154845L;
 	@Id
@@ -37,6 +37,8 @@ public class Vehicle implements Serializable {
 	@Column
 	private double averageRate;
 	@Column
+	private String image;
+	@Column
 	private int numberOfRates;
 	@Column
 	private double pricePerDay;
@@ -50,12 +52,13 @@ public class Vehicle implements Serializable {
 		id = vehicle.getId();
 		name = vehicle.getName();
 		brand = vehicle.getBrand();
-		model = vehicle.getBrand();
+		model = vehicle.getModel();
 		yearOfProduction = vehicle.getYearOfProduction();
 		numberOfSeats = vehicle.getNumberOfSeats();
 		numberOfRates = vehicle.getNumberOfRates();
 		setType(vehicle.getType());
 		averageRate = vehicle.getAverageRate();
+		image = vehicle.getImage();
 		numberOfRates = vehicle.getNumberOfRates();
 		pricePerDay = vehicle.getPricePerDay();
 		branch = new BranchOffice();
@@ -170,4 +173,13 @@ public class Vehicle implements Serializable {
 			return "Van";
 		return "SUV";
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 }

@@ -6,4 +6,5 @@ import airtickets.model.rentacar.Vehicle;
 
 public interface VehiclesRepository extends JpaRepository<Vehicle, Long> {
 	public Vehicle findById(long id);
+	public Vehicle deleteById(long id);
 }

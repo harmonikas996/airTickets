@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import airtickets.model.City;
-
 @Entity
 public class BranchOffice implements Serializable {
 
@@ -32,9 +30,8 @@ public class BranchOffice implements Serializable {
 	private String address;
 	@OneToMany(mappedBy = "branch", cascade=CascadeType.ALL)
 	private List<Vehicle> vehicles;
-	@JoinColumn(name = "city_id")
-	@ManyToOne
-	private City city;
+	@Column
+	private String city;
 
 	public BranchOffice() {}
 
@@ -60,6 +57,18 @@ public class BranchOffice implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
 	}
 
 }
