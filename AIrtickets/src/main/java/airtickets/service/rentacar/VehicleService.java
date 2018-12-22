@@ -35,6 +35,7 @@ public class VehicleService {
 	public VehicleDTO addVehicle(VehicleDTO vehicleDTO) {
 		Vehicle vehicle = new Vehicle(vehicleDTO);
 		vehicleRepository.save(vehicle);
+		vehicleDTO.setId(vehicle.getId());
 		return vehicleDTO;
 	}
 }

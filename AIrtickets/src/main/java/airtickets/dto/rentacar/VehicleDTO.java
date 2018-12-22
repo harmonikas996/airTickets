@@ -22,7 +22,7 @@ public class VehicleDTO {
 		id = vehicle.getId();
 		name = vehicle.getName();
 		brand = vehicle.getBrand();
-		model = vehicle.getBrand();
+		model = vehicle.getModel();
 		yearOfProduction = vehicle.getYearOfProduction();
 		numberOfSeats = vehicle.getNumberOfSeats();
 		numberOfRates = vehicle.getNumberOfRates();
