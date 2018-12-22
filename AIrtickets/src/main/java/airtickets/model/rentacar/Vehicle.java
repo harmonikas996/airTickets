@@ -37,6 +37,8 @@ public class Vehicle implements Serializable {
 	@Column
 	private double averageRate;
 	@Column
+	private String image;
+	@Column
 	private int numberOfRates;
 	@Column
 	private double pricePerDay;
@@ -56,6 +58,7 @@ public class Vehicle implements Serializable {
 		numberOfRates = vehicle.getNumberOfRates();
 		setType(vehicle.getType());
 		averageRate = vehicle.getAverageRate();
+		image = vehicle.getImage();
 		numberOfRates = vehicle.getNumberOfRates();
 		pricePerDay = vehicle.getPricePerDay();
 		branch = new BranchOffice();
@@ -170,4 +173,13 @@ public class Vehicle implements Serializable {
 			return "Van";
 		return "SUV";
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 }

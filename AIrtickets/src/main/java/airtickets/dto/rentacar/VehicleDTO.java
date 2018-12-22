@@ -15,6 +15,7 @@ public class VehicleDTO {
 	private int numberOfRates;
 	private double pricePerDay;
 	private long branchId;
+	private String image;
 
 	public VehicleDTO() {}
 
@@ -27,6 +28,7 @@ public class VehicleDTO {
 		numberOfSeats = vehicle.getNumberOfSeats();
 		numberOfRates = vehicle.getNumberOfRates();
 		type = vehicle.getTypeString();
+		image = vehicle.getImage();
 		averageRate = vehicle.getAverageRate();
 		numberOfRates = vehicle.getNumberOfRates();
 		pricePerDay = vehicle.getPricePerDay();
@@ -120,4 +122,13 @@ public class VehicleDTO {
 	public void setBranchId(long branchId) {
 		this.branchId = branchId;
 	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 }
