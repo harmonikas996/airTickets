@@ -12,7 +12,7 @@ import airtickets.repo.rentacar.VehiclesRepository;
 
 @Service
 public class VehicleService {
-// aj dont giv komentar
+
 	@Autowired
 	VehiclesRepository vehicleRepository;
 
