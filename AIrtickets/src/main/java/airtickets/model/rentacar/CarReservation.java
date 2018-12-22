@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import airtickets.dto.rentacar.CarReservationDTO;
+
 @Entity
 public class CarReservation implements Serializable {
 
@@ -36,6 +38,17 @@ public class CarReservation implements Serializable {
 
 	public CarReservation() {}
 
+	public CarReservation(CarReservationDTO c) {
+		this.id = c.getId();
+		this.vehicle = new Vehicle();
+		this.vehicle.setId(c.getVehicleId());
+		this.dateFrom = c.getDateFrom();
+		this.dateTo = c.getDateTo();
+		this.price = c.getPrice();
+		this.rentACar = new RentACar();
+		this.rentACar.setId(c.getRentACarId());
+	}
+	
 	public RentACar getRentACar() {
 		return rentACar;
 	}
@@ -76,4 +89,12 @@ public class CarReservation implements Serializable {
 		this.price = price;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 }
