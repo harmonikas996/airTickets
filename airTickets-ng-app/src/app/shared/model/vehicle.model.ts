@@ -9,5 +9,6 @@ export class Vehicle {
     averageRate: number;
     numberOfRates: number;
     pricePerDay: number;
-    branchId: 1;
+    branchId: number;
+    image: string;
 }
