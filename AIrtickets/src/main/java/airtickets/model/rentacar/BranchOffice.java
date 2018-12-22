@@ -67,4 +67,8 @@ public class BranchOffice implements Serializable {
 		this.city = city;
 	}
 
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
 }

@@ -38,4 +38,8 @@ public class VehicleService {
 		vehicleDTO.setId(vehicle.getId());
 		return vehicleDTO;
 	}
+
+	public void deleteVehicle(long id) {
+		vehicleRepository.deleteById(id);
+	}
 }
