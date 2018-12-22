@@ -11,8 +11,8 @@ public class VehicleDTO {
 	private int yearOfProduction;
 	private int numberOfSeats;
 	private String type;
-	private double averageRate;
-	private int numberOfRates;
+	//private double averageRate;
+	//private int numberOfRates;
 	private double pricePerDay;
 	private long branchId;
 	private String image;
@@ -26,11 +26,10 @@ public class VehicleDTO {
 		model = vehicle.getModel();
 		yearOfProduction = vehicle.getYearOfProduction();
 		numberOfSeats = vehicle.getNumberOfSeats();
-		numberOfRates = vehicle.getNumberOfRates();
 		type = vehicle.getTypeString();
 		image = vehicle.getImage();
-		averageRate = vehicle.getAverageRate();
-		numberOfRates = vehicle.getNumberOfRates();
+		//averageRate = vehicle.getAverageRate();
+		//numberOfRates = vehicle.getNumberOfRates();
 		pricePerDay = vehicle.getPricePerDay();
 		branchId = vehicle.getBranch().getId();
 	}
@@ -91,21 +90,21 @@ public class VehicleDTO {
 		this.type = type;
 	}
 
-	public double getAverageRate() {
-		return averageRate;
-	}
-
-	public void setAverageRate(double averageRate) {
-		this.averageRate = averageRate;
-	}
-
-	public int getNumberOfRates() {
-		return numberOfRates;
-	}
-
-	public void setNumberOfRates(int numberOfRates) {
-		this.numberOfRates = numberOfRates;
-	}
+//	public double getAverageRate() {
+//		return averageRate;
+//	}
+//
+//	public void setAverageRate(double averageRate) {
+//		this.averageRate = averageRate;
+//	}
+//
+//	public int getNumberOfRates() {
+//		return numberOfRates;
+//	}
+//
+//	public void setNumberOfRates(int numberOfRates) {
+//		this.numberOfRates = numberOfRates;
+//	}
 
 	public double getPricePerDay() {
 		return pricePerDay;

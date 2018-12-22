@@ -1,7 +1,9 @@
 package airtickets.model.rentacar;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import airtickets.dto.rentacar.VehicleDTO;
 
@@ -34,17 +37,19 @@ public class Vehicle implements Serializable {
 	private int numberOfSeats;
 	@Column
 	private CarType type;
-	@Column
-	private double averageRate;
+	//private double averageRate;
+	//private int numberOfRates;
 	@Column
 	private String image;
-	@Column
-	private int numberOfRates;
 	@Column
 	private double pricePerDay;
 	@JoinColumn(name = "branch_id")
 	@ManyToOne
 	private BranchOffice branch;
+	@OneToMany(mappedBy = "vehicle", cascade=CascadeType.ALL)
+	private List<CarRating> ratings;
+	@OneToMany(mappedBy = "vehicle", cascade=CascadeType.ALL)
+	private List<CarReservation> reservations;
 
 	public Vehicle() {}
 
@@ -55,11 +60,10 @@ public class Vehicle implements Serializable {
 		model = vehicle.getModel();
 		yearOfProduction = vehicle.getYearOfProduction();
 		numberOfSeats = vehicle.getNumberOfSeats();
-		numberOfRates = vehicle.getNumberOfRates();
 		setType(vehicle.getType());
-		averageRate = vehicle.getAverageRate();
 		image = vehicle.getImage();
-		numberOfRates = vehicle.getNumberOfRates();
+		//averageRate = vehicle.getAverageRate();
+		//numberOfRates = vehicle.getNumberOfRates();
 		pricePerDay = vehicle.getPricePerDay();
 		branch = new BranchOffice();
 		branch.setId(vehicle.getBranchId());
@@ -121,21 +125,21 @@ public class Vehicle implements Serializable {
 		this.type = type;
 	}
 
-	public double getAverageRate() {
-		return averageRate;
-	}
-
-	public void setAverageRate(double averageRate) {
-		this.averageRate = averageRate;
-	}
-
-	public int getNumberOfRates() {
-		return numberOfRates;
-	}
-
-	public void setNumberOfRates(int numberOfRates) {
-		this.numberOfRates = numberOfRates;
-	}
+//	public double getAverageRate() {
+//		return averageRate;
+//	}
+//
+//	public void setAverageRate(double averageRate) {
+//		this.averageRate = averageRate;
+//	}
+//
+//	public int getNumberOfRates() {
+//		return numberOfRates;
+//	}
+//
+//	public void setNumberOfRates(int numberOfRates) {
+//		this.numberOfRates = numberOfRates;
+//	}
 
 	public double getPricePerDay() {
 		return pricePerDay;

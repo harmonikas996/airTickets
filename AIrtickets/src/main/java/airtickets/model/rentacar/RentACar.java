@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import airtickets.dto.rentacar.RentACarDTO;
+
 @Entity
 public class RentACar implements Serializable {
 	
@@ -27,16 +29,25 @@ public class RentACar implements Serializable {
 	private String address;
 	@Column
 	private String description;
-	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)
-	private List<Income> incomes;
 	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)// kaskad = cvrsta veza kao kompozicija u pauer diz.
 	private List<BranchOffice> branches;	// kod meniTuMeni lejzi loud, ne mora i moze, sta znam
-	@Column
-	double averageRate;
-	@Column
-	int numberOfRates;
+//	@Column
+//	private double averageRate;
+//	@Column
+//	private int numberOfRates;
+	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)
+	private List<CarReservation> reservations;
 
 	public RentACar() {}
+
+	public RentACar(RentACarDTO r) {
+		this.id = r.getId();
+		this.name = r.getName();
+		this.address = r.getAddress();
+		this.description = r.getDescription();
+//		this.averageRate = r.getAverageRate();
+//		this.numberOfRates = r.getNumberOfRates();
+	}
 
 	public long getId() {
 		return id;
@@ -70,28 +81,20 @@ public class RentACar implements Serializable {
 		this.description = description;
 	}
 
-	public List<Income> getIncomes() {
-		return incomes;
-	}
+//	public double getAverageRate() {
+//		return averageRate;
+//	}
+//
+//	public void setAverageRate(double averageRate) {
+//		this.averageRate = averageRate;
+//	}
+//
+//	public int getNumberOfRates() {
+//		return numberOfRates;
+//	}
+//
+//	public void setNumberOfRates(int numberOfRates) {
+//		this.numberOfRates = numberOfRates;
+//	}
 
-	public void setIncomes(List<Income> incomes) {
-		this.incomes = incomes;
-	}
-
-	public double getAverageRate() {
-		return averageRate;
-	}
-
-	public void setAverageRate(double averageRate) {
-		this.averageRate = averageRate;
-	}
-
-	public int getNumberOfRates() {
-		return numberOfRates;
-	}
-
-	public void setNumberOfRates(int numberOfRates) {
-		this.numberOfRates = numberOfRates;
-	}
-	
 }

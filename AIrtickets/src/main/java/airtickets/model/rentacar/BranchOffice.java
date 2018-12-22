@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import airtickets.dto.rentacar.BranchOfficeDTO;
+
 @Entity
 public class BranchOffice implements Serializable {
 
@@ -34,6 +36,14 @@ public class BranchOffice implements Serializable {
 	private String city;
 
 	public BranchOffice() {}
+	
+	public BranchOffice(BranchOfficeDTO b) {
+		this.id = b.getId();
+		this.rentACar = new RentACar();
+		this.rentACar.setId(b.getRentACarId());
+		this.address = b.getAddress();
+		this.city = b.getCity();
+	}
 
 	public long getId() {
 		return id;
