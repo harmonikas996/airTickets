@@ -43,9 +43,9 @@ public class Vehicle implements Serializable {
 	private String image;
 	@Column
 	private double pricePerDay;
-	@JoinColumn(name = "branch_id")
+	@JoinColumn(name = "rentACar_id")
 	@ManyToOne
-	private BranchOffice branch;
+	private RentACar rentACar;
 	@OneToMany(mappedBy = "vehicle", cascade=CascadeType.ALL)
 	private List<CarRating> ratings;
 	@OneToMany(mappedBy = "vehicle", cascade=CascadeType.ALL)
@@ -65,8 +65,8 @@ public class Vehicle implements Serializable {
 		//averageRate = vehicle.getAverageRate();
 		//numberOfRates = vehicle.getNumberOfRates();
 		pricePerDay = vehicle.getPricePerDay();
-		branch = new BranchOffice();
-		branch.setId(vehicle.getBranchId());
+		rentACar = new RentACar();
+		rentACar.setId(vehicle.getRentACarId());
 	}
 
 	public long getId() {
@@ -149,12 +149,12 @@ public class Vehicle implements Serializable {
 		this.pricePerDay = pricePerDay;
 	}
 
-	public BranchOffice getBranch() {
-		return branch;
+	public RentACar getRentACar() {
+		return rentACar;
 	}
 
-	public void setBranch(BranchOffice branch) {
-		this.branch = branch;
+	public void setRentACar(RentACar rentACar) {
+		this.rentACar = rentACar;
 	}
 
 	public void setType(String type) {

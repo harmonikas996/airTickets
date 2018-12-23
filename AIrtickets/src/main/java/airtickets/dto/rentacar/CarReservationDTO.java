@@ -11,7 +11,7 @@ public class CarReservationDTO {
 	private LocalDateTime dateFrom;
 	private LocalDateTime dateTo;
 	private double price;
-	private long rentACarId;
+//	private long rentACarId;
 	
 	public CarReservationDTO() {}
 	
@@ -21,7 +21,7 @@ public class CarReservationDTO {
 		this.dateFrom = c.getDateFrom();
 		this.dateTo = c.getDateTo();
 		this.price = c.getPrice();
-		this.rentACarId = c.getRentACar().getId();
+//		this.rentACarId = c.getRentACar().getId();
 	}
 	
 	public long getId() {
@@ -54,10 +54,10 @@ public class CarReservationDTO {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public long getRentACarId() {
-		return rentACarId;
-	}
-	public void setRentACarId(long rentACarId) {
-		this.rentACarId = rentACarId;
-	}
+//	public long getRentACarId() {
+//		return rentACarId;
+//	}
+//	public void setRentACarId(long rentACarId) {
+//		this.rentACarId = rentACarId;
+//	}
 }

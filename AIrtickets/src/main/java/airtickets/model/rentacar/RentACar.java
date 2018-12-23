@@ -36,7 +36,7 @@ public class RentACar implements Serializable {
 //	@Column
 //	private int numberOfRates;
 	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)
-	private List<CarReservation> reservations;
+	private List<Vehicle> vehicles;
 
 	public RentACar() {}
 
@@ -79,6 +79,10 @@ public class RentACar implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Vehicle> getVehicles() {
+		return vehicles;
 	}
 
 //	public double getAverageRate() {

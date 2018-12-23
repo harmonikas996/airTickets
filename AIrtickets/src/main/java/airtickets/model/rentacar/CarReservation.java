@@ -32,9 +32,9 @@ public class CarReservation implements Serializable {
 	private LocalDateTime dateTo;
 	@Column
 	private double price;
-	@JoinColumn(name = "rentacar_id")
-	@ManyToOne
-	private RentACar rentACar;
+//	@JoinColumn(name = "rentacar_id")
+//	@ManyToOne
+//	private RentACar rentACar;
 
 	public CarReservation() {}
 
@@ -45,17 +45,17 @@ public class CarReservation implements Serializable {
 		this.dateFrom = c.getDateFrom();
 		this.dateTo = c.getDateTo();
 		this.price = c.getPrice();
-		this.rentACar = new RentACar();
-		this.rentACar.setId(c.getRentACarId());
-	}
-	
-	public RentACar getRentACar() {
-		return rentACar;
+//		this.rentACar = new RentACar();
+//		this.rentACar.setId(c.getRentACarId());
 	}
 
-	public void setRentACar(RentACar rentACar) {
-		this.rentACar = rentACar;
-	}
+//	public RentACar getRentACar() {
+//		return rentACar;
+//	}
+//
+//	public void setRentACar(RentACar rentACar) {
+//		this.rentACar = rentACar;
+//	}
 
 	public Vehicle getVehicle() {
 		return vehicle;
@@ -96,5 +96,5 @@ public class CarReservation implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 }

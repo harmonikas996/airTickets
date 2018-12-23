@@ -1,9 +1,7 @@
 package airtickets.model.rentacar;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import airtickets.dto.rentacar.BranchOfficeDTO;
 
@@ -30,13 +27,11 @@ public class BranchOffice implements Serializable {
 	private RentACar rentACar;
 	@Column
 	private String address;
-	@OneToMany(mappedBy = "branch", cascade=CascadeType.ALL)
-	private List<Vehicle> vehicles;
 	@Column
 	private String city;
 
 	public BranchOffice() {}
-	
+
 	public BranchOffice(BranchOfficeDTO b) {
 		this.id = b.getId();
 		this.rentACar = new RentACar();
@@ -75,10 +70,6 @@ public class BranchOffice implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
-	}
-
-	public List<Vehicle> getVehicles() {
-		return vehicles;
 	}
 
 }
