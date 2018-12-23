@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 public class Discount implements Serializable {
 
 	/**
-	 * 
+	 * ova klasa povezuje spec. offer i amenity kao da su medjusobno povezane many-to-many vezom
 	 */
 	private static final long serialVersionUID = -4854194133193581618L;
 	@Id
