@@ -1,16 +1,11 @@
 package airtickets.model.hotel;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Discount implements Serializable {
@@ -20,15 +15,13 @@ public class Discount implements Serializable {
 	 */
 	private static final long serialVersionUID = -4854194133193581618L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	@Column
-	private double percentage;
-	@ManyToMany
-    @JoinTable(name = "discounts_amenities",
-            joinColumns = { @JoinColumn(name = "discount_id") },
-            inverseJoinColumns = { @JoinColumn(name = "amenity_id") })
-	private List<Amenity> amenities;
+	@JoinColumn(name = "amenity_id")
+	@ManyToOne
+	private Amenity amenity;
+	@JoinColumn(name = "offer_id")
+	@ManyToOne
+	private SpecialOffer offer;
 
 	public Discount() {}
 
@@ -40,16 +33,20 @@ public class Discount implements Serializable {
 		this.id = id;
 	}
 
-	public double getPercentage() {
-		return percentage;
+	public Amenity getAmenity() {
+		return amenity;
 	}
 
-	public void setPercentage(double percentage) {
-		this.percentage = percentage;
+	public void setAmenity(Amenity amenity) {
+		this.amenity = amenity;
 	}
 
-	public List<Amenity> getAmenities() {
-		return amenities;
+	public SpecialOffer getOffer() {
+		return offer;
+	}
+
+	public void setOffer(SpecialOffer offer) {
+		this.offer = offer;
 	}
 
 }

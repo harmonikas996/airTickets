@@ -3,14 +3,15 @@ package airtickets.model.hotel;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Amenity implements Serializable {
@@ -29,7 +30,7 @@ public class Amenity implements Serializable {
 	@JoinColumn(name = "hotel_id")
 	@ManyToOne
 	private Hotel hotel;
-	@ManyToMany(mappedBy = "amenities")
+	@OneToMany(mappedBy = "amenity", cascade=CascadeType.ALL)
 	private List<Discount> discounts;
 
 	public Amenity() {}
