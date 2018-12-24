@@ -1,4 +1,4 @@
-package airtickets.model.rentacar;
+package airtickets.model.aircompany;
 
 import java.io.Serializable;
 
@@ -13,25 +13,25 @@ import javax.persistence.ManyToOne;
 import airtickets.model.user.User;
 
 @Entity
-public class CarRating implements Serializable {
+public class FlightRating implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5484694255026783452L;
+	private static final long serialVersionUID = 1250948464407409944L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	@JoinColumn(name = "user_id")
 	@ManyToOne
 	private User user;
-	@JoinColumn(name = "vehicle_id")
+	@JoinColumn(name = "flight_id")
 	@ManyToOne
-	private Vehicle vehicle;
+	private Flight flight;
 	@Column
 	private int rating;
 
-	public CarRating() {}
+	public FlightRating() {}
 
 	public long getId() {
 		return id;
@@ -49,12 +49,12 @@ public class CarRating implements Serializable {
 		this.user = user;
 	}
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public Flight getFlight() {
+		return flight;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public void setFlight(Flight flight) {
+		this.flight = flight;
 	}
 
 	public int getRating() {

@@ -1,12 +1,19 @@
 package airtickets.model.aircompany;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import airtickets.model.user.Invitation;
 
 @Entity
 public class Seat implements Serializable {
@@ -16,6 +23,7 @@ public class Seat implements Serializable {
 	 */
 	private static final long serialVersionUID = 2993706379896649796L;
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	@Column
 	private String firstName;
@@ -26,6 +34,10 @@ public class Seat implements Serializable {
 	@JoinColumn(name = "flight_id")
 	@ManyToOne
 	private Flight flight;
+	@OneToMany(mappedBy = "seat")
+	private List<SeatReservation> reservations;
+	@OneToMany(mappedBy = "seat", cascade=CascadeType.ALL)
+	private List<Invitation> invitations;
 
 	public Seat() {}
 

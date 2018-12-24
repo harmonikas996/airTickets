@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +22,7 @@ public class Flight implements Serializable {
 	 */
 	private static final long serialVersionUID = -2601282512499947023L;
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	@Column
 	private LocalDateTime timeBegin;
@@ -47,6 +50,8 @@ public class Flight implements Serializable {
 	@JoinColumn(name = "company_id")
 	@ManyToOne
 	private Aircompany company;
+	@OneToMany(mappedBy = "flight", cascade=CascadeType.ALL)
+	private List<FlightRating> ratings;
 
 	public Flight() {}
 

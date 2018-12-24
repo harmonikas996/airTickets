@@ -31,6 +31,8 @@ public class Hotel implements Serializable{
 	private List<Room> rooms;
 	@OneToMany(mappedBy = "hotel", cascade=CascadeType.ALL)
 	private List<Amenity> amenities;
+	@OneToMany(mappedBy = "hotel", cascade=CascadeType.ALL)
+	private List<HotelRating> ratings;
 
 	public Hotel() {}
 

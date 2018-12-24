@@ -1,7 +1,9 @@
 package airtickets.model.hotel;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Room implements Serializable{
@@ -31,6 +34,12 @@ public class Room implements Serializable{
 	@JoinColumn(name = "hotel_id")
 	@ManyToOne
 	private Hotel hotel;
+	@OneToMany(mappedBy = "room", cascade=CascadeType.ALL)
+	private List<RoomRating> ratings;
+	@OneToMany(mappedBy = "room", cascade=CascadeType.ALL)
+	private List<RoomPrice> prices;
+	@OneToMany(mappedBy = "room")
+	private List<RoomReservation> reservations;
 
 	public Room() {}
 

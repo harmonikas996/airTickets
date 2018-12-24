@@ -37,6 +37,8 @@ public class RentACar implements Serializable {
 //	private int numberOfRates;
 	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)
 	private List<Vehicle> vehicles;
+	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)
+	private List<RentACarRating> ratings;
 
 	public RentACar() {}
 
