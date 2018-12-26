@@ -12,7 +12,6 @@ import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
     NavigationComponent,
     VehicleComponent,
     LoginWidgetComponent,
