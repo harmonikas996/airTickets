@@ -13,7 +13,7 @@ import { tap } from 'rxjs/operators';
 export class CompanyProfileComponent implements OnInit {
 
   rentacar: Observable<RentACar>;
-  rentacarModel: RentACar;
+  //rentacarModel: RentACar;
   companyProfileForm: FormGroup;
   
 
@@ -50,4 +50,8 @@ export class CompanyProfileComponent implements OnInit {
      });
      };
     }
+
+  onCancel() {
+    location.reload();
+  }
 }

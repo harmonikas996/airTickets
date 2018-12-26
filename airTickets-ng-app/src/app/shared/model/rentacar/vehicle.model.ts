@@ -6,9 +6,7 @@ export interface Vehicle {
     yearOfProduction: number;
     numberOfSeats: number;
     type: string;
-    averageRate: number;
-    numberOfRates: number;
     pricePerDay: number;
-    branchId: number;
+    rentACarId: number;
     image: string;
 }

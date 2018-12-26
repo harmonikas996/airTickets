@@ -20,8 +20,12 @@ export class RentacarService {
     private http: HttpClient
   ) { }
 
+  getRentacars(): Observable<RentACar[]> {
+    return this.http.get<RentACar[]>(this.rentacarsUrl + '/all');
+  } 
+
   getRentacarById(id: number): Observable<RentACar> {
-    return this.http.get<RentACar>(this.rentacarsUrl+'/'+id);
+    return this.http.get<RentACar>(this.rentacarsUrl + '/' + id);
   }  
 
   updateRentacar(rentacar: RentACar): Observable<Object> {
