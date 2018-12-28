@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import airtickets.model.user.User;
+import airtickets.model.user.Client;
 
 @Entity
 public class RoomRating implements Serializable {
@@ -24,7 +24,7 @@ public class RoomRating implements Serializable {
 	private long id;
 	@JoinColumn(name = "user_id")
 	@ManyToOne
-	private User user;
+	private Client user;
 	@JoinColumn(name = "room_id")
 	@ManyToOne
 	private Room room;
@@ -42,11 +42,11 @@ public class RoomRating implements Serializable {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public Client getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Client user) {
 		this.user = user;
 	}
 

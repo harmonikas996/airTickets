@@ -186,4 +186,12 @@ public class Vehicle implements Serializable {
 		this.image = image;
 	}
 
+	public List<CarRating> getRatings() {
+		return ratings;
+	}
+
+	public List<CarReservation> getReservations() {
+		return reservations;
+	}
+
 }

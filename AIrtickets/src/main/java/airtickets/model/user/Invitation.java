@@ -24,10 +24,10 @@ public class Invitation implements Serializable {
 	private long id;
 	@JoinColumn(name = "inviter_id")
 	@ManyToOne
-	private User inviter;
+	private Client inviter;
 	@JoinColumn(name = "invited_id")
 	@ManyToOne
-	private User invited;
+	private Client invited;
 	@JoinColumn(name = "seat_id")
 	@ManyToOne
 	private Seat seat;
@@ -44,19 +44,19 @@ public class Invitation implements Serializable {
 		this.id = id;
 	}
 
-	public User getInviter() {
+	public Client getInviter() {
 		return inviter;
 	}
 
-	public void setInviter(User inviter) {
+	public void setInviter(Client inviter) {
 		this.inviter = inviter;
 	}
 
-	public User getInvited() {
+	public Client getInvited() {
 		return invited;
 	}
 
-	public void setInvited(User invited) {
+	public void setInvited(Client invited) {
 		this.invited = invited;
 	}
 
