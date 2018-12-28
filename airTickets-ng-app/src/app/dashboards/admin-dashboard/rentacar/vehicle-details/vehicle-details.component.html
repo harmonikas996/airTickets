@@ -1,0 +1,76 @@
+<div *ngIf="vehicle" class="row">
+        <div  class="col-sm-12">
+            <form *ngIf="vehicle | async; else loading" [formGroup]="vehicleDetailsForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-long-arrow-alt-left"></i></button>
+                        <h3 class="mt-4">Vehicle Details</h3>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="name">Name<span class="text-danger">*</span></label>
+                            <input type="text" formControlName="name" class="form-control" placeholder="Enter Name" required>
+                            <small *ngIf="vehicleDetailsForm.controls.name.errors?.required && vehicleDetailsForm.controls.name.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand">Brand<span class="text-danger">*</span></label>
+                            <input type="text" formControlName="brand" class="form-control" placeholder="Enter Brand" required>
+                            <small *ngIf="vehicleDetailsForm.controls.brand.errors?.required && vehicleDetailsForm.controls.brand.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="model">Model<span class="text-danger">*</span></label>
+                            <input type="text" formControlName="model" class="form-control" placeholder="Enter Model" required>
+                            <small *ngIf="vehicleDetailsForm.controls.model.errors?.required && vehicleDetailsForm.controls.model.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="yearOfProduction">Year Of Production<span class="text-danger">*</span></label>
+                            <input type="text" formControlName="yearOfProduction" class="form-control" placeholder="Enter Year Of Production" required>
+                            <small *ngIf="vehicleDetailsForm.controls.yearOfProduction.errors?.required && vehicleDetailsForm.controls.yearOfProduction.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="numberOfSeats">Number Of Seats<span class="text-danger">*</span></label>
+                            <input type="text" formControlName="numberOfSeats" class="form-control" placeholder="Enter Number Of Seats" required>
+                            <small *ngIf="vehicleDetailsForm.controls.numberOfSeats.errors?.required && vehicleDetailsForm.controls.numberOfSeats.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Type<span class="text-danger">*</span></label>
+                            <input type="text" formControlName="type" class="form-control" placeholder="Enter Type" required>
+                            <small *ngIf="vehicleDetailsForm.controls.type.errors?.required && vehicleDetailsForm.controls.type.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="pricePerDay">Price Per Day<span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <input type="text" formControlName="pricePerDay" class="form-control" placeholder="Enter Price Per Day" required>
+                                <div class="input-group-append">
+                                        <div class="input-group-text">€</div>
+                                </div>
+
+                            </div>
+                            <small *ngIf="vehicleDetailsForm.controls.pricePerDay.errors?.required && vehicleDetailsForm.controls.pricePerDay.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="rentACarId">Rent A Car Id<span class="text-danger">*</span></label>
+                            <input type="text" formControlName="rentACarId" class="form-control" placeholder="Enter Rent A Car Id" required>
+                            <small *ngIf="vehicleDetailsForm.controls.rentACarId.errors?.required && vehicleDetailsForm.controls.rentACarId.touched" class="form-text text-danger">*Required</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="text" formControlName="image" class="form-control" placeholder="Enter Image Name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" [disabled]="!vehicleDetailsForm.valid" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>

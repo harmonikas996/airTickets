@@ -1,28 +1,34 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { HttpClientModule }    from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { NavigationComponent } from './navigation/navigation.component';
 import { AppRoutingModule } from './/app-routing.module';
-import { VehicleComponent } from './rentAcar/vehicle/vehicle.component';
-import { LoginWidgetComponent } from './navigation/login-widget/login-widget.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+import { DashboardsModule } from './dashboards/dashboards.module';
+import { LoginWidgetComponent } from './shared/navigation/login-widget/login-widget.component';
+import { NavigationComponent } from './shared/navigation/navigation.component';
+import { LoginComponent } from './user-authentication/login/login.component';
+import { RegisterComponent } from './user-authentication/register/register.component';
+import { UserAuthenticationModule } from './user-authentication/user-authentication.module';
+import { VehiclesModule } from './vehicles/vehicles.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    VehicleComponent,
     LoginWidgetComponent,
     LoginComponent,
     RegisterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CoreModule,
+    VehiclesModule,
+    UserAuthenticationModule,
+    DashboardsModule,
+    AppRoutingModule, // ovaj modul uvek nek ide ispod svih drugih modula. Pravilo zlatno
   ],
   providers: [],
   bootstrap: [AppComponent]

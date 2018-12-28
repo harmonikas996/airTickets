@@ -1,0 +1,17 @@
+app
+    --- [M] Vehicles
+    --- [M] Hotels
+    --- [M] Flights
+    --- [M] UserAuthentication
+    --- [M] AdminDashboard
+    --- [F] Shared
+            -D- [F] Model
+            -D- [C] Navigation
+                    -D- [C] Login-Widget
+            --- [F] Services
+                    -D- [S] Vehicle ?
+                    --- [S] Hotel ?
+                    --- [S] Flight ?
+
+    --- [M] Core
+            --- [S] UserAuthentication
