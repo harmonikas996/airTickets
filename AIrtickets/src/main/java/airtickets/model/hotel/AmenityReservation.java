@@ -10,27 +10,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class RoomReservation implements Serializable {
+public class AmenityReservation implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -6872517284834872418L;
+	private static final long serialVersionUID = 8852133278546528410L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	@JoinColumn(name = "room_id")
+	@JoinColumn(name = "amenity_id")
 	@ManyToOne
-	private Room room;
+	private Amenity amenity;
 	@JoinColumn(name = "hotelReservation_id")
 	@ManyToOne
 	private HotelReservation hotelReservation;
-	
-//	@JoinColumn(name = "hotel_id")
-//	@ManyToOne
-//	private Hotel hotel;
 
-	public RoomReservation() {}
+	public AmenityReservation() {}
 
 	public long getId() {
 		return id;
@@ -40,12 +36,12 @@ public class RoomReservation implements Serializable {
 		this.id = id;
 	}
 
-	public Room getRoom() {
-		return room;
+	public Amenity getAmenity() {
+		return amenity;
 	}
 
-	public void setRoom(Room room) {
-		this.room = room;
+	public void setAmenity(Amenity amenity) {
+		this.amenity = amenity;
 	}
 
 	public HotelReservation getHotelReservation() {
@@ -55,13 +51,5 @@ public class RoomReservation implements Serializable {
 	public void setHotelReservation(HotelReservation hotelReservation) {
 		this.hotelReservation = hotelReservation;
 	}
-
-//	public Hotel getHotel() {
-//		return hotel;
-//	}
-//
-//	public void setHotel(Hotel hotel) {
-//		this.hotel = hotel;
-//	}
 
 }

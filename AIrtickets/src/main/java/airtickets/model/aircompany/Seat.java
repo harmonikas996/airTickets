@@ -19,7 +19,7 @@ import airtickets.model.user.Invitation;
 public class Seat implements Serializable {
 
 	/**
-	 * 
+	 * Flight
 	 */
 	private static final long serialVersionUID = 2993706379896649796L;
 	@Id
@@ -34,8 +34,9 @@ public class Seat implements Serializable {
 	@JoinColumn(name = "flight_id")
 	@ManyToOne
 	private Flight flight;
-	@OneToMany(mappedBy = "seat")
-	private List<SeatReservation> reservations;
+	@JoinColumn(name = "reservation_id")
+	@ManyToOne
+	private FlightReservation reservation;
 	@OneToMany(mappedBy = "seat", cascade=CascadeType.ALL)
 	private List<Invitation> invitations;
 
@@ -79,6 +80,18 @@ public class Seat implements Serializable {
 
 	public void setFlight(Flight flight) {
 		this.flight = flight;
+	}
+
+	public FlightReservation getReservation() {
+		return reservation;
+	}
+
+	public void setReservation(FlightReservation reservation) {
+		this.reservation = reservation;
+	}
+
+	public List<Invitation> getInvitations() {
+		return invitations;
 	}
 
 }

@@ -23,6 +23,8 @@ public class Hotel extends Company implements Serializable{
 	private List<Amenity> amenities;
 	@OneToMany(mappedBy = "hotel", cascade=CascadeType.ALL)
 	private List<HotelRating> ratings;
+	@OneToMany(mappedBy = "hotel")
+	private List<HotelReservation> reservations;
 
 	public Hotel() {}
 
@@ -36,6 +38,10 @@ public class Hotel extends Company implements Serializable{
 
 	public List<HotelRating> getRatings() {
 		return ratings;
+	}
+
+	public List<HotelReservation> getReservations() {
+		return reservations;
 	}
 
 }

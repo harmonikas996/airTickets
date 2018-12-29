@@ -33,6 +33,8 @@ public class Flight implements Serializable {
 	@Column
 	private double price;
 	@Column
+	private AirplaneType airplaneType;
+	@Column
 	private double loweredPrice;
 	@JoinColumn(name = "from_id")
 	@ManyToOne
@@ -40,9 +42,6 @@ public class Flight implements Serializable {
 	@JoinColumn(name = "destination_id")
 	@ManyToOne
 	private Airport placeTo;
-	@JoinColumn(name = "airplane_id")
-	@ManyToOne
-	private Airplane airplane;
 	@OneToMany(mappedBy = "flight", cascade=CascadeType.ALL)
 	private List<Stop> stops;
 	@OneToMany(mappedBy = "flight", cascade=CascadeType.ALL)
@@ -52,6 +51,8 @@ public class Flight implements Serializable {
 	private Aircompany company;
 	@OneToMany(mappedBy = "flight", cascade=CascadeType.ALL)
 	private List<FlightRating> ratings;
+	@OneToMany(mappedBy = "flight")
+	private List<FlightReservation> reservations;
 
 	public Flight() {}
 
@@ -119,12 +120,12 @@ public class Flight implements Serializable {
 		this.placeTo = placeTo;
 	}
 
-	public Airplane getAirplane() {
-		return airplane;
+	public AirplaneType getAirplaneType() {
+		return airplaneType;
 	}
 
-	public void setAirplane(Airplane airplane) {
-		this.airplane = airplane;
+	public void setAirplaneType(AirplaneType airplaneType) {
+		this.airplaneType = airplaneType;
 	}
 
 	public List<Stop> getStops() {
@@ -141,6 +142,14 @@ public class Flight implements Serializable {
 
 	public void setCompany(Aircompany company) {
 		this.company = company;
+	}
+
+	public List<FlightRating> getRatings() {
+		return ratings;
+	}
+
+	public List<FlightReservation> getReservations() {
+		return reservations;
 	}
 
 }

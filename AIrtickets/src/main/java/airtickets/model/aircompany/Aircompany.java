@@ -20,18 +20,12 @@ public class Aircompany extends Company implements Serializable {
 	@OneToMany(mappedBy = "company", cascade=CascadeType.ALL)
 	private List<Flight> flights;
 	@OneToMany(mappedBy = "company", cascade=CascadeType.ALL)
-	private List<Airplane> airplanes;
-	@OneToMany(mappedBy = "company", cascade=CascadeType.ALL)
 	private List<AircompanyRating> ratings;
 
 	public Aircompany() {}
 
 	public List<Flight> getFlights() {
 		return flights;
-	}
-
-	public List<Airplane> getAirplanes() {
-		return airplanes;
 	}
 
 	public List<AircompanyRating> getRatings() {

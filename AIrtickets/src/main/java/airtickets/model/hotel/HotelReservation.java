@@ -1,8 +1,10 @@
-package airtickets.model.rentacar;
+package airtickets.model.hotel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,66 +12,55 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import airtickets.dto.rentacar.CarReservationDTO;
 import airtickets.model.aircompany.FlightReservation;
 
 @Entity
-public class CarReservation implements Serializable {
+public class HotelReservation implements Serializable {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4426569286511251516L;
+	private static final long serialVersionUID = 3134647799978892038L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	@JoinColumn(name = "vehicle_id")
+	@JoinColumn(name = "hotel_id")
 	@ManyToOne
-	private Vehicle vehicle;
+	private Hotel hotel;
 	@Column
 	private LocalDateTime dateFrom;
 	@Column
 	private LocalDateTime dateTo;
 	@Column
 	private double price;
+	@OneToMany(mappedBy = "hotelReservation", cascade=CascadeType.ALL)
+	private List<RoomReservation> roomReservations;
+	@OneToMany(mappedBy = "hotelReservation", cascade=CascadeType.ALL)
+	private List<AmenityReservation> amenityReservations;
 	
 	//@JoinColumn(name = "flight_reservation_id")
-	@OneToOne(mappedBy = "carReservation")
+	@OneToOne(mappedBy = "hotelReservation")
 	private FlightReservation flightReservation;
-	
-//	@JoinColumn(name = "rentacar_id")
-//	@ManyToOne
-//	private RentACar rentACar;
 
-	public CarReservation() {}
+	public HotelReservation() {}
 
-	public CarReservation(CarReservationDTO c) {
-		this.id = c.getId();
-		this.vehicle = new Vehicle();
-		this.vehicle.setId(c.getVehicleId());
-		this.dateFrom = c.getDateFrom();
-		this.dateTo = c.getDateTo();
-		this.price = c.getPrice();
-//		this.rentACar = new RentACar();
-//		this.rentACar.setId(c.getRentACarId());
+	public long getId() {
+		return id;
 	}
 
-//	public RentACar getRentACar() {
-//		return rentACar;
-//	}
-//
-//	public void setRentACar(RentACar rentACar) {
-//		this.rentACar = rentACar;
-//	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
+	public void setId(long id) {
+		this.id = id;
 	}
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 
 	public LocalDateTime getDateFrom() {
@@ -96,12 +87,12 @@ public class CarReservation implements Serializable {
 		this.price = price;
 	}
 
-	public long getId() {
-		return id;
+	public List<RoomReservation> getRoomReservations() {
+		return roomReservations;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public List<AmenityReservation> getAmenityReservations() {
+		return amenityReservations;
 	}
 
 	public FlightReservation getFlightReservation() {
