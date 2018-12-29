@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 
 import airtickets.model.aircompany.AircompanyRating;
 import airtickets.model.aircompany.FlightRating;
+import airtickets.model.aircompany.Seat;
 import airtickets.model.hotel.HotelRating;
 import airtickets.model.hotel.RoomRating;
 import airtickets.model.rentacar.CarRating;
@@ -57,6 +58,8 @@ public class Client extends User implements Serializable {
 	private List<RentACarRating> rentACarRatings;
 	@OneToMany(mappedBy = "user", cascade=CascadeType.ALL)
 	private List<AircompanyRating> aircompanyRatings;
+	@OneToMany(mappedBy = "client", cascade=CascadeType.ALL)
+	private List<Seat> reservations;
 
 	public Client() {}
 
@@ -148,6 +151,9 @@ public class Client extends User implements Serializable {
 		return aircompanyRatings;
 	}
 
+	public List<Seat> getReservations() {
+		return reservations;
+	}
 
 //	public String getPassport() {
 //		return passport;
