@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import airtickets.dto.aircompany.AirportDTO;
+
 @Entity
 public class Airport implements Serializable {
 
@@ -24,6 +26,12 @@ public class Airport implements Serializable {
 	private String address;
 
 	public Airport() {}
+	
+	public Airport(AirportDTO a) {
+		id = a.getId();
+		city = a.getCity();
+		address = a.getAddress();
+	}
 
 	public long getId() {
 		return id;

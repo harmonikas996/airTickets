@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import airtickets.dto.aircompany.FlightDTO;
 import airtickets.model.rentacar.CarType;
 
 @Entity
@@ -57,6 +58,32 @@ public class Flight implements Serializable {
 	private List<FlightReservation> reservations;
 
 	public Flight() {}
+	
+	public Flight(FlightDTO f) {
+		id = f.getId();
+		timeBegin = f.getTimeBegin();
+		timeEnd = f.getTimeEnd();
+		distance = f.getDistance();
+		price = f.getPrice();
+			
+		if (f.getAirplaneType().equals("AirbusA320"))
+			this.airplaneType = AirplaneType.AirbusA320;
+		else if (f.getAirplaneType().equals("Boeing747"))
+			this.airplaneType = AirplaneType.Boeing747;
+		else
+			this.airplaneType = AirplaneType.Boeing777;
+		
+		loweredPrice = f.getLoweredPrice();
+		this.placeFrom = new Airport();
+		this.placeFrom.setId(f.getPlaceFromId());
+		
+		this.placeTo = new Airport();
+		this.placeTo.setId(f.getPlaceToId());
+		
+		this.company = new Aircompany();
+		this.company.setId(f.getAircompanyId());
+		
+	}
 
 	public long getId() {
 		return id;

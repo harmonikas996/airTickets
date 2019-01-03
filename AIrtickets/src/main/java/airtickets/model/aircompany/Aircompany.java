@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import airtickets.dto.aircompany.AircompanyDTO;
 import airtickets.model.Company;
 
 @Entity
@@ -23,6 +24,10 @@ public class Aircompany extends Company implements Serializable {
 	private List<AircompanyRating> ratings;
 
 	public Aircompany() {}
+	
+	public Aircompany(AircompanyDTO a) {
+		super(a.getId(), a.getName(), a.getAddress(), a.getDescription());
+	}
 
 	public List<Flight> getFlights() {
 		return flights;
