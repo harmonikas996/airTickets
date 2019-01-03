@@ -15,6 +15,7 @@ import { tap } from 'rxjs/operators';
 export class VehicleDetailsComponent implements OnInit {
 
   vehicle: Observable<Vehicle>;
+  vehicleModel: Vehicle;
   vehicleDetailsForm: FormGroup;
 
   constructor(
@@ -65,6 +66,11 @@ export class VehicleDetailsComponent implements OnInit {
     }
 
   onCancel() {
+    this.location.back();
+  }
+
+  onRemove(vehicle: Vehicle) {
+    this.vehicleService.removeVehicle(vehicle.id).subscribe(vehicle => this.vehicleModel = vehicle);
     this.location.back();
   }
 

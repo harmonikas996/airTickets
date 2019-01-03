@@ -5,6 +5,9 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { VehiclesListComponent } from './admin-dashboard/rentacar/vehicles-list/vehicles-list.component';
 import { VehicleDetailsComponent } from './admin-dashboard/rentacar/vehicle-details/vehicle-details.component';
 import { VehicleNewComponent } from './admin-dashboard/rentacar/vehicle-new/vehicle-new.component';
+import { BranchesListComponent } from './admin-dashboard/rentacar/branches-list/branches-list.component';
+import { BranchNewComponent } from './admin-dashboard/rentacar/branch-new/branch-new.component';
+import { BranchDetailsComponent } from './admin-dashboard/rentacar/branch-details/branch-details.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'admin-dashboard', component: AdminDashboardComponent, children: [
@@ -12,6 +15,9 @@ const dashboardsRoutes: Routes = [
     { path: 'vehicles', component: VehiclesListComponent },
     { path: 'vehicles/new', component: VehicleNewComponent },
     { path: 'vehicle-details/:id', component: VehicleDetailsComponent },
+    { path: 'branches', component: BranchesListComponent },
+    { path: 'branches/new', component: BranchNewComponent },
+    { path: 'branch-details/:id', component: BranchDetailsComponent },
     { path: '', redirectTo: 'company-profile', pathMatch: 'full' },
     { path: '**', redirectTo: 'company-profile', pathMatch: 'full' }
   ] }
