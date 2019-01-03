@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import airtickets.model.rentacar.CarType;
+
 @Entity
 public class Flight implements Serializable {
 
@@ -120,12 +122,21 @@ public class Flight implements Serializable {
 		this.placeTo = placeTo;
 	}
 
-	public AirplaneType getAirplaneType() {
-		return airplaneType;
+	public void setAirplaneType(String airplaneType) {
+		if (airplaneType.equals("AirbusA320"))
+			this.airplaneType = AirplaneType.AirbusA320;
+		else if (airplaneType.equals("Boeing747"))
+			this.airplaneType = AirplaneType.Boeing747;
+		else
+			this.airplaneType = AirplaneType.Boeing777;
 	}
 
-	public void setAirplaneType(AirplaneType airplaneType) {
-		this.airplaneType = airplaneType;
+	public String getTypeString() {
+		if (airplaneType.equals(AirplaneType.AirbusA320))
+			return "AirbusA320";
+		else if (airplaneType.equals(AirplaneType.Boeing747))
+			return "Boeing747";
+		return "Boeing777";
 	}
 
 	public List<Stop> getStops() {

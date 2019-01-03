@@ -80,4 +80,12 @@ public class Seat implements Serializable {
 		return invitations;
 	}
 
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
 }
