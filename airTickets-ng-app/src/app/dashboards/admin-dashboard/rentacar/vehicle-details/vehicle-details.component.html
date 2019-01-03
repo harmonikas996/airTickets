@@ -69,6 +69,7 @@
                     <div class="col-12">
                         <button type="submit" [disabled]="!vehicleDetailsForm.valid" class="btn btn-primary">Save Changes</button>
                         <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
+                        <button *ngIf="vehicle | async as vehicle" type="button" class="btn btn-danger ml-2" (click)="onRemove(vehicle)">Remove</button>
                     </div>
                 </div>
             </form>

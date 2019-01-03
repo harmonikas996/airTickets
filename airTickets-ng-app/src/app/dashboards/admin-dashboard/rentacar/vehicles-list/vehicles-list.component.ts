@@ -11,6 +11,7 @@ import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service
 export class VehiclesListComponent implements OnInit {
 
   vehicles: Vehicle[];
+  vehicle: Vehicle;
   
 
   constructor(private vehicleService: VehicleService) { }
@@ -24,6 +25,11 @@ export class VehiclesListComponent implements OnInit {
   getVehiclesByRentACarId(): void {
     // dobaviti samo ona vozila koja pripadaju rentacar servisu sa 'id' koji je prosledjen
     this.vehicleService.getVehicles().subscribe(vehicles => this.vehicles = vehicles);
+  }
+
+  onRemove(vehicle: Vehicle): void {
+    this.vehicles = this.vehicles.filter(v => v !== vehicle);
+    this.vehicleService.removeVehicle(vehicle.id).subscribe(vehicle => this.vehicle = vehicle);
   }
 
 }
