@@ -14,6 +14,7 @@ public class SeatDTO {
 	
 	public SeatDTO(Seat s) {
 		id = s.getId();
+		passport = s.getPassport();
 		clientId = s.getClient().getId();
 		flightId = s.getFlight().getId();
 		flightResId = s.getReservation().getId();

@@ -24,8 +24,10 @@ public class RentACar extends Company implements Serializable {
 //	private double averageRate;
 //	@Column
 //	private int numberOfRates;
+	
 	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)
 	private List<Vehicle> vehicles;
+	
 	@OneToMany(mappedBy = "rentACar", cascade=CascadeType.ALL)
 	private List<RentACarRating> ratings;
 

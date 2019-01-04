@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import airtickets.dto.aircompany.StopDTO;
+
 @Entity
 public class Stop implements Serializable {
 
@@ -27,6 +29,14 @@ public class Stop implements Serializable {
 	private Flight flight;
 
 	public Stop() {}
+	
+	public Stop(StopDTO s) {
+		id = s.getId();
+		airport = new Airport();
+		airport.setId(s.getAirportId());
+		flight = new Flight();
+		flight.setId(s.getFlightId());
+	}
 
 	public long getId() {
 		return id;

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import airtickets.dto.aircompany.FlightRatingDTO;
 import airtickets.model.user.Client;
 
 @Entity
@@ -32,6 +33,15 @@ public class FlightRating implements Serializable {
 	private int rating;
 
 	public FlightRating() {}
+	
+	public FlightRating(FlightRatingDTO f) {
+		id = f.getId();
+		user = new Client();
+		user.setId(f.getClientId());
+		flight = new Flight();
+		flight.setId(f.getFlightId());
+		rating = f.getRating();
+	}
 
 	public long getId() {
 		return id;

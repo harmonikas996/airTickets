@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import airtickets.dto.aircompany.FlightDTO;
-import airtickets.model.rentacar.CarType;
 
 @Entity
 public class Flight implements Serializable {
@@ -39,32 +38,38 @@ public class Flight implements Serializable {
 	private AirplaneType airplaneType;
 	@Column
 	private double loweredPrice;
+	
 	@JoinColumn(name = "from_id")
 	@ManyToOne
 	private Airport placeFrom;
+	
 	@JoinColumn(name = "destination_id")
 	@ManyToOne
 	private Airport placeTo;
+	
 	@OneToMany(mappedBy = "flight", cascade=CascadeType.ALL)
 	private List<Stop> stops;
 	@OneToMany(mappedBy = "flight", cascade=CascadeType.ALL)
 	private List<Seat> seats;
+	
 	@JoinColumn(name = "company_id")
 	@ManyToOne
 	private Aircompany company;
+	
 	@OneToMany(mappedBy = "flight", cascade=CascadeType.ALL)
 	private List<FlightRating> ratings;
+	
 	@OneToMany(mappedBy = "flight")
 	private List<FlightReservation> reservations;
 
 	public Flight() {}
 	
 	public Flight(FlightDTO f) {
-		id = f.getId();
-		timeBegin = f.getTimeBegin();
-		timeEnd = f.getTimeEnd();
-		distance = f.getDistance();
-		price = f.getPrice();
+		this.id = f.getId();
+		this.timeBegin = f.getTimeBegin();
+		this.timeEnd = f.getTimeEnd();
+		this.distance = f.getDistance();
+		this.price = f.getPrice();
 			
 		if (f.getAirplaneType().equals("AirbusA320"))
 			this.airplaneType = AirplaneType.AirbusA320;
@@ -73,7 +78,7 @@ public class Flight implements Serializable {
 		else
 			this.airplaneType = AirplaneType.Boeing777;
 		
-		loweredPrice = f.getLoweredPrice();
+		this.loweredPrice = f.getLoweredPrice();
 		this.placeFrom = new Airport();
 		this.placeFrom.setId(f.getPlaceFromId());
 		

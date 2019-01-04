@@ -43,9 +43,11 @@ public class Vehicle implements Serializable {
 	private String image;
 	@Column
 	private double pricePerDay;
+	
 	@JoinColumn(name = "rentACar_id")
 	@ManyToOne
 	private RentACar rentACar;
+	
 	@OneToMany(mappedBy = "vehicle", cascade=CascadeType.ALL)
 	private List<CarRating> ratings;
 	@OneToMany(mappedBy = "vehicle")

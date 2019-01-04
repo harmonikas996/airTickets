@@ -15,7 +15,7 @@ public class FlightReservationDTO {
 		id = f.getId();
 		flightId = f.getFlight().getId();
 		hotelResId = f.getHotelReservation().getId();
-		carResId = f.getHotelReservation().getId();
+		carResId = f.getCarReservation().getId();
 	}
 
 	public long getId() {
@@ -49,4 +49,5 @@ public class FlightReservationDTO {
 	public void setCarResId(long carResId) {
 		this.carResId = carResId;
 	}
+
 }

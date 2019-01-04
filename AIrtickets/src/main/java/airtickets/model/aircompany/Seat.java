@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import airtickets.dto.aircompany.SeatDTO;
 import airtickets.model.user.Client;
 import airtickets.model.user.Invitation;
 
@@ -43,6 +44,17 @@ public class Seat implements Serializable {
 	private List<Invitation> invitations;
 
 	public Seat() {}
+	
+	public Seat(SeatDTO s) {
+		id = s.getId();
+		client = new Client();
+		client.setId(s.getClientId());
+		passport = s.getPassport();
+		flight = new Flight();
+		flight.setId(s.getFlightId());
+		reservation =new FlightReservation();
+		reservation.setId(s.getFlightResId());
+	}
 
 	public long getId() {
 		return id;

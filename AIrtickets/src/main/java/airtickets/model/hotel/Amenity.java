@@ -32,6 +32,8 @@ public class Amenity implements Serializable {
 	private Hotel hotel;
 	@OneToMany(mappedBy = "amenity", cascade=CascadeType.ALL)
 	private List<Discount> discounts;
+	@OneToMany(mappedBy = "amenity", cascade=CascadeType.ALL)
+	private List<AmenityReservation> amenityReservation;
 
 	public Amenity() {}
 
@@ -70,5 +72,10 @@ public class Amenity implements Serializable {
 	public List<Discount> getDiscounts() {
 		return discounts;
 	}
+
+	public List<AmenityReservation> getAmenityReservation() {
+		return amenityReservation;
+	}
+	
 
 }

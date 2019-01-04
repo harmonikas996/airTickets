@@ -1,12 +1,15 @@
 package airtickets.model.aircompany;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import airtickets.dto.aircompany.AirportDTO;
 
@@ -24,6 +27,15 @@ public class Airport implements Serializable {
 	private String city;
 	@Column
 	private String address;
+	
+	@OneToMany(mappedBy = "placeFrom", cascade=CascadeType.ALL)
+	private List<Flight> froms;
+	
+	@OneToMany(mappedBy = "placeTo", cascade=CascadeType.ALL)
+	private List<Flight> destinations;
+	
+	@OneToMany(mappedBy = "airport", cascade=CascadeType.ALL)
+	private List<Stop> stop;
 
 	public Airport() {}
 	
@@ -57,4 +69,16 @@ public class Airport implements Serializable {
 		this.address = address;
 	}
 
+	public List<Flight> getFroms() {
+		return froms;
+	}
+
+	public List<Flight> getDestinations() {
+		return destinations;
+	}
+
+	public List<Stop> getStop() {
+		return stop;
+	}
+	
 }

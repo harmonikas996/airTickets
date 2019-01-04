@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import airtickets.dto.aircompany.FlightReservationDTO;
 import airtickets.model.hotel.HotelReservation;
 import airtickets.model.rentacar.CarReservation;
 
@@ -26,9 +27,11 @@ public class FlightReservation implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	
 	@JoinColumn(name = "flight_id")
 	@ManyToOne
 	private Flight flight;
+	
 	@OneToMany(mappedBy = "reservation", cascade=CascadeType.ALL)
 	private List<Seat> seats;
 	
@@ -39,9 +42,19 @@ public class FlightReservation implements Serializable {
 	@JoinColumn(name = "car_reservation_id")
 	@OneToOne(cascade=CascadeType.ALL)
 	private CarReservation carReservation;
-
+	
 	public FlightReservation() {}
-
+	
+	public FlightReservation(FlightReservationDTO f) {
+		id = f.getId();
+		flight = new Flight();
+		flight.setId(f.getFlightId());
+		hotelReservation = new HotelReservation();
+		hotelReservation.setId(f.getHotelResId());
+		carReservation = new CarReservation();
+		carReservation.setId(f.getCarResId());
+	}
+	
 	public long getId() {
 		return id;
 	}
