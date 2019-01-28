@@ -22,10 +22,10 @@ public class Friendship implements Serializable {
 	private long id;
 	@JoinColumn(name = "initier_id")
 	@ManyToOne
-	private Client initier;
+	private User initier;
 	@JoinColumn(name = "confirmer_id")
 	@ManyToOne
-	private Client confirmer;
+	private User confirmer;
 	@Column
 	private boolean confirmed;
 
@@ -39,19 +39,19 @@ public class Friendship implements Serializable {
 		this.id = id;
 	}
 
-	public Client getInitier() {
+	public User getInitier() {
 		return initier;
 	}
 
-	public void setInitier(Client initier) {
+	public void setInitier(User initier) {
 		this.initier = initier;
 	}
 
-	public Client getConfirmer() {
+	public User getConfirmer() {
 		return confirmer;
 	}
 
-	public void setConfirmer(Client confirmer) {
+	public void setConfirmer(User confirmer) {
 		this.confirmer = confirmer;
 	}
 

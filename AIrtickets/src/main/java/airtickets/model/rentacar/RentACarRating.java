@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import airtickets.model.user.Client;
+import airtickets.model.user.User;
 
 @Entity
 public class RentACarRating implements Serializable {
@@ -24,7 +24,7 @@ public class RentACarRating implements Serializable {
 	private long id;
 	@JoinColumn(name = "user_id")
 	@ManyToOne
-	private Client user;
+	private User user;
 	@JoinColumn(name = "rentacar_id")
 	@ManyToOne
 	private RentACar rentACar;
@@ -41,11 +41,11 @@ public class RentACarRating implements Serializable {
 		this.id = id;
 	}
 
-	public Client getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Client user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

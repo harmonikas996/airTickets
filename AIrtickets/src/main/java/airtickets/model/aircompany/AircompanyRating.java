@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import airtickets.dto.aircompany.AircompanyRatingDTO;
-import airtickets.model.user.Client;
+import airtickets.model.user.User;
 
 @Entity
 public class AircompanyRating implements Serializable {
@@ -25,7 +25,7 @@ public class AircompanyRating implements Serializable {
 	private long id;
 	@JoinColumn(name = "user_id")
 	@ManyToOne
-	private Client user;
+	private User user;
 	@JoinColumn(name = "company_id")
 	@ManyToOne
 	private Aircompany company;
@@ -36,7 +36,7 @@ public class AircompanyRating implements Serializable {
 	
 	public AircompanyRating(AircompanyRatingDTO a) {
 		id = a.getId();
-		user = new Client();
+		user = new User();
 		user.setId(a.getClientId());
 		company = new Aircompany();
 		company.setId(a.getAircompanyId());
@@ -51,11 +51,11 @@ public class AircompanyRating implements Serializable {
 		this.id = id;
 	}
 
-	public Client getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Client user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

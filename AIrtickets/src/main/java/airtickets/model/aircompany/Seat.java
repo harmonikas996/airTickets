@@ -14,8 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import airtickets.dto.aircompany.SeatDTO;
-import airtickets.model.user.Client;
 import airtickets.model.user.Invitation;
+import airtickets.model.user.User;
 
 @Entity
 public class Seat implements Serializable {
@@ -30,7 +30,7 @@ public class Seat implements Serializable {
 	
 	@JoinColumn(name = "client_id")
 	@ManyToOne
-	private Client client;
+	private User client;
 	
 	@Column
 	private String passport;
@@ -47,7 +47,7 @@ public class Seat implements Serializable {
 	
 	public Seat(SeatDTO s) {
 		id = s.getId();
-		client = new Client();
+		client = new User();
 		client.setId(s.getClientId());
 		passport = s.getPassport();
 		flight = new Flight();
@@ -92,11 +92,11 @@ public class Seat implements Serializable {
 		return invitations;
 	}
 
-	public Client getClient() {
+	public User getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(User client) {
 		this.client = client;
 	}
 

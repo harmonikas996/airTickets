@@ -11,8 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-
-import airtickets.model.user.Admin;
+import airtickets.model.user.User;
 
 @Entity
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
@@ -29,7 +28,7 @@ public abstract class Company {
 	private String description;
 
 	@OneToMany(mappedBy = "company", cascade=CascadeType.ALL)
-	private List<Admin> admins;
+	private List<User> admins;
 
 	public Company() {}
 
@@ -72,7 +71,7 @@ public abstract class Company {
 		this.description = description;
 	}
 
-	public List<Admin> getAdmins() {
+	public List<User> getAdmins() {
 		return admins;
 	}
 
