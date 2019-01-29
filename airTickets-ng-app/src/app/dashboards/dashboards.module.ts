@@ -20,7 +20,16 @@ import { BranchDetailsComponent } from './admin-dashboard/rentacar/branch-detail
     DashboardsRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [AdminDashboardComponent, CompanyProfileComponent, VehiclesListComponent, VehicleDetailsComponent, VehicleNewComponent, BranchesListComponent, BranchNewComponent, BranchDetailsComponent],
-  
+  declarations: [
+    AdminDashboardComponent,
+    CompanyProfileComponent,
+    VehiclesListComponent,
+    VehicleDetailsComponent,
+    VehicleNewComponent,
+    BranchesListComponent,
+    BranchNewComponent,
+    BranchDetailsComponent
+  ],
+
 })
 export class DashboardsModule { }

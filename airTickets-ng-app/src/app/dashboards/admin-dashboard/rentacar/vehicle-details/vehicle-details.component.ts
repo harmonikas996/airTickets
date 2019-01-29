@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'vehicle-details',
+  selector: 'app-vehicle-details',
   templateUrl: './vehicle-details.component.html',
   styleUrls: ['./vehicle-details.component.css']
 })
@@ -42,9 +42,9 @@ export class VehicleDetailsComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id');
     this.getVehicleById(id);
 
-    
+
   }
-  
+
   getVehicleById(id: number): void {
     this.vehicle = this.vehicleService.getVehicleById(id).pipe(
       tap(vehicle => this.vehicleDetailsForm.patchValue(vehicle))
@@ -55,22 +55,22 @@ export class VehicleDetailsComponent implements OnInit {
     // obavezna provera da li to vozilo pripada rentakaru za koga je korisnik ADMIN
     if (this.vehicleDetailsForm.valid) {
       this.vehicleService.updateVehicle(this.vehicleDetailsForm.value).subscribe((response) => {
-        console.log("Response is: ", response);
+        console.log('Response is: ', response);
         this.location.back();
      },
      (error) => {
-        //catch the error
-        console.error("An error occurred, ", error);
+        // catch the error
+        console.error('An error occurred, ', error);
      });
-     };
+     }
     }
 
   onCancel() {
     this.location.back();
   }
 
-  onRemove(vehicle: Vehicle) {
-    this.vehicleService.removeVehicle(vehicle.id).subscribe(vehicle => this.vehicleModel = vehicle);
+  onRemove(vehicle1: Vehicle) {
+    this.vehicleService.removeVehicle(vehicle1.id).subscribe(vehicle => this.vehicleModel = vehicle1);
     this.location.back();
   }
 

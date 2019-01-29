@@ -1,8 +1,15 @@
   <!-- Kada se doda autentifikacija menjace se izgled ove komponente -->
-  <div class="navbar-nav">
+  <div *ngIf="info.token; else loggedOut"  class="navbar-nav">
     <!-- Rec Rentacar iz Rentacar Admin linka ce biti uklonjena kada se implementiraju svi paneli,
        jer ce se u komponenti admin panela proveriti ko je ulogovan i pozvace se adekvatna komponenta -->
     <a class="nav-item nav-link" routerLink="/admin-dashboard">Rentacar Admin</a>
-    <a class="nav-item nav-link" routerLink="/login"><i class="fas fa-sign-in-alt icon"></i>Login</a>
-    <a class="nav-item nav-link" routerLink="/register"><i class="fas fa-user-plus icon"></i>Register</a>
+    <button class="btn btn-secondary" (click)="logout()">Logout</button>
+
   </div>
+  <ng-template #loggedOut>
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/login"><i class="fas fa-sign-in-alt icon"></i>Login</a>
+      <a class="nav-item nav-link" routerLink="/register"><i class="fas fa-user-plus icon"></i>Register</a>
+    </div>
+  </ng-template>
+

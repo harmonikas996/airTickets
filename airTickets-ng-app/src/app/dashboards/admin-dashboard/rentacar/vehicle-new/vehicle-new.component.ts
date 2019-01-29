@@ -14,13 +14,13 @@ import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service
 export class VehicleNewComponent implements OnInit {
 
   rentacar: Observable<Vehicle>;
-  //rentacarModel: RentACar;
+  // rentacarModel: RentACar;
   newVehicleForm: FormGroup;
-  
+
 
   constructor(
-    private vehicleService: VehicleService, 
-    private formBuilder: FormBuilder, 
+    private vehicleService: VehicleService,
+    private formBuilder: FormBuilder,
     private location: Location,
   ) { }
 
@@ -38,20 +38,20 @@ export class VehicleNewComponent implements OnInit {
       rentACarId: ['', Validators.required],
       image: [''],
     });
-    
+
   }
 
   onSubmit() {
     if (this.newVehicleForm.valid) {
       this.vehicleService.addVehicle(this.newVehicleForm.value).subscribe((response) => {
-        console.log("Response is: ", response);
+        console.log('Response is: ', response);
         this.location.back();
      },
      (error) => {
-        //catch the error
-        console.error("An error occurred, ", error);
+        // catch the error
+        console.error('An error occurred, ', error);
      });
-     };
+     }
     }
 
   onCancel() {

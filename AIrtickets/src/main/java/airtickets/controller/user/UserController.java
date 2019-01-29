@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.user.UserDTO;
 import airtickets.model.user.User;
 import airtickets.service.user.UserService;
 
@@ -29,20 +30,20 @@ public class UserController {
 	// Ukoliko nema, server ce vratiti gresku 403 Forbidden
 	// Korisnik jeste autentifikovan, ali nije autorizovan da pristupi resursu
 	@RequestMapping(method = GET, value = "/user/{userId}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public Optional<User> loadById(@PathVariable Long userId) {
+	//@PreAuthorize("hasRole('ADMIN')")
+	public UserDTO loadById(@PathVariable Long userId) {
 		return this.userService.findById(userId);
 	}
 
 	@RequestMapping(method = GET, value = "/user/all")
-	@PreAuthorize("hasRole('ADMIN')")
-	public List<User> loadAll() {
+	//@PreAuthorize("hasRole('ADMIN')")
+	public List<UserDTO> loadAll() {
 		return this.userService.findAll();
 	}
 
 	@RequestMapping("/whoami")
 	@PreAuthorize("hasRole('USER')")
-	public User user(Principal user) {
+	public UserDTO user(Principal user) {
 		return this.userService.findByUsername(user.getName());
 	}
 }

@@ -67,13 +67,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			// svim korisnicima dopusti da pristupe putanjama /auth/** i /h2-console/**
 			.authorizeRequests()
-			.antMatchers("/auth/**").permitAll()
-			
+			//.antMatchers("/auth/**").permitAll()
+			.antMatchers("/**").permitAll();
 			// svaki zahtev mora biti autorizovan
-			.anyRequest().authenticated().and()
+			//.anyRequest().authenticated().and()
 			
 			// presretni svaki zahtev filterom
-			.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService), BasicAuthenticationFilter.class);
+			//.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService), BasicAuthenticationFilter.class);
 
 		http.csrf().disable();
 	}

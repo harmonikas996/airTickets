@@ -1,3 +1,4 @@
+import { TokenStorageService } from './../../../user-authentication/service/token-storage.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginWidgetComponent implements OnInit {
 
-  constructor() { }
+  info: any;
+  constructor(private token: TokenStorageService) { }
 
   ngOnInit() {
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
+  }
+
+  logout() {
+    this.token.signOut();
+    window.location.reload();
   }
 
 }

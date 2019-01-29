@@ -12,6 +12,7 @@ import { LoginComponent } from './user-authentication/login/login.component';
 import { RegisterComponent } from './user-authentication/register/register.component';
 import { UserAuthenticationModule } from './user-authentication/user-authentication.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { VehiclesModule } from './vehicles/vehicles.module';
     NavigationComponent,
     LoginWidgetComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
