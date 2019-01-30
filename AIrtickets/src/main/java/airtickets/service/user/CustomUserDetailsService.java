@@ -36,6 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		User user = userRepository.findByEmail(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(String.format("No user found with username '%s'.", username));
+			//return null;
 		} else {
 			return user;
 		}
@@ -70,11 +71,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	public String register(User user) {
 		// proveravamo da li imamo korisnika sa tom mejl adresom
-		if(loadUserByUsername(user.getEmail()) == null) {
+		try {
+			loadUserByUsername(user.getEmail());
+		} catch (UsernameNotFoundException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 			userRepository.save(user);
 			return "success";
-		} else
-			return "User with email: " + user.getEmail() + " already exists.";
+		}
+		return "Email already exists.";
 	}
 }

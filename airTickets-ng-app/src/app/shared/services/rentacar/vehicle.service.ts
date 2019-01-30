@@ -27,7 +27,7 @@ export class VehicleService {
     return this.http.get<Vehicle>(this.vehiclesUrl + '/' + id);
   }
 
-  // TO DO
+  // TODO
   getVehiclesByRentACarId(id: number): Observable<Vehicle> {
     return null;
   }

@@ -108,7 +108,11 @@ public class AuthenticationController {
 		
 		Map<String, String> result = new HashMap<>();
 		result.put("result", message);
-		return ResponseEntity.accepted().body(result);
+		
+		if(message.equals("Email already exists."))
+			return ResponseEntity.badRequest().body(result);
+		else
+			return ResponseEntity.accepted().body(result);
 	}
 
 	static class PasswordChanger {

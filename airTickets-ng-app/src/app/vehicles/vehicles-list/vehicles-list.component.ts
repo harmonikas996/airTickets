@@ -9,7 +9,7 @@ import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service
 })
 export class VehiclesListComponent implements OnInit {
 
-  vehicles: Vehicle[];
+  vehiclesLocal: Vehicle[];
 
   constructor(private vehicleService: VehicleService) { }
 
@@ -18,7 +18,7 @@ export class VehiclesListComponent implements OnInit {
   }
 
   getVehicles(): void {
-    this.vehicleService.getVehicles().subscribe(vehicles => this.vehicles = vehicles);
+    this.vehicleService.getVehicles().subscribe(vehicles => this.vehiclesLocal = vehicles);
   }
 
 }

@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { JwtResponse } from './jwt-response';
-import { AuthLoginInfo } from './login-info';
 import { SignUpInfo } from './signup-info';
 import { User } from 'src/app/shared/model/user/user.model';
 
@@ -22,7 +21,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
+  attemptAuth(credentials: Object): Observable<JwtResponse> {
     return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
   }
 
