@@ -2,7 +2,11 @@
   <div *ngIf="info.token; else loggedOut"  class="navbar-nav">
     <!-- Rec Rentacar iz Rentacar Admin linka ce biti uklonjena kada se implementiraju svi paneli,
        jer ce se u komponenti admin panela proveriti ko je ulogovan i pozvace se adekvatna komponenta -->
-    <a class="nav-item nav-link" routerLink="/admin-dashboard">Rentacar Admin</a>
+    <a *ngIf="token.isSysAdmin()" class="nav-item nav-link" routerLink="/admin-dashboard">Admin</a>
+    <a *ngIf="token.isRentacar()" class="nav-item nav-link" routerLink="/admin-dashboard">Rentacar Admin</a>
+    <a *ngIf="token.isAircompany()" class="nav-item nav-link" routerLink="/admin-dashboard">AirCompany Admin</a>
+    <a *ngIf="token.isHotel()" class="nav-item nav-link" routerLink="/admin-dashboard">Hotel Admin</a>
+    <p *ngIf="info">{{info.username}}</p>
     <button class="btn btn-secondary" (click)="logout()">Logout</button>
 
   </div>

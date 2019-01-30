@@ -14,6 +14,7 @@ public class UserDTO {
 	private long company;
 	private String firstName;
 	private String lastName;
+	private String password;
 	private String city;
 	private String phone;
 	private boolean activated;
@@ -33,6 +34,7 @@ public class UserDTO {
 			company = -1;
 		firstName = u.getFirstName();
 		lastName = u.getLastName();
+		password = u.getPassword();
 		city = u.getCity();
 		phone = u.getPhone();
 		activated = u.isActivated();
@@ -49,6 +51,7 @@ public class UserDTO {
 			company = -1;
 		firstName = u.get().getFirstName();
 		lastName = u.get().getLastName();
+		password = u.get().getPassword();
 		city = u.get().getCity();
 		phone = u.get().getPhone();
 		activated = u.get().isActivated();
@@ -135,5 +138,13 @@ public class UserDTO {
 	public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
 		this.lastPasswordResetDate = lastPasswordResetDate;
 	}
-		
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 }

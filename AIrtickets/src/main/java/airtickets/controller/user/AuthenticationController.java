@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.common.DeviceProvider;
+import airtickets.dto.user.UserDTO;
 import airtickets.model.user.User;
 import airtickets.model.user.UserTokenState;
 import airtickets.security.TokenUtils;
@@ -98,6 +99,15 @@ public class AuthenticationController {
 		
 		Map<String, String> result = new HashMap<>();
 		result.put("result", "success");
+		return ResponseEntity.accepted().body(result);
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> register(@RequestBody User user, HttpServletResponse response) {
+		String message = userDetailsService.register(user);
+		
+		Map<String, String> result = new HashMap<>();
+		result.put("result", message);
 		return ResponseEntity.accepted().body(result);
 	}
 

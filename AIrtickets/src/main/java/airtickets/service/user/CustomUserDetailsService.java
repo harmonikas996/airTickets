@@ -67,4 +67,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 		userRepository.save(user);
 
 	}
+	
+	public String register(User user) {
+		// proveravamo da li imamo korisnika sa tom mejl adresom
+		if(loadUserByUsername(user.getEmail()) == null) {
+			user.setPassword(passwordEncoder.encode(user.getPassword()));
+			userRepository.save(user);
+			return "success";
+		} else
+			return "User with email: " + user.getEmail() + " already exists.";
+	}
 }

@@ -11,6 +11,8 @@ import { VehiclesListComponent } from './admin-dashboard/rentacar/vehicles-list/
 import { BranchesListComponent } from './admin-dashboard/rentacar/branches-list/branches-list.component';
 import { BranchNewComponent } from './admin-dashboard/rentacar/branch-new/branch-new.component';
 import { BranchDetailsComponent } from './admin-dashboard/rentacar/branch-details/branch-details.component';
+import { AuthGuard } from '../shared/services/guards/auth-guard.service';
+import { RoleGuard } from '../shared/services/guards/role-guard.service';
 
 
 
@@ -30,6 +32,10 @@ import { BranchDetailsComponent } from './admin-dashboard/rentacar/branch-detail
     BranchNewComponent,
     BranchDetailsComponent
   ],
+  providers: [
+    AuthGuard,
+    RoleGuard
+  ]
 
 })
 export class DashboardsModule { }

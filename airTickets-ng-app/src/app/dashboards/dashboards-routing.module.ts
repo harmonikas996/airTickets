@@ -8,20 +8,25 @@ import { VehicleNewComponent } from './admin-dashboard/rentacar/vehicle-new/vehi
 import { BranchesListComponent } from './admin-dashboard/rentacar/branches-list/branches-list.component';
 import { BranchNewComponent } from './admin-dashboard/rentacar/branch-new/branch-new.component';
 import { BranchDetailsComponent } from './admin-dashboard/rentacar/branch-details/branch-details.component';
+import { AuthGuard } from '../shared/services/guards/auth-guard.service';
+import { RoleGuard } from '../shared/services/guards/role-guard.service';
 
 const dashboardsRoutes: Routes = [
-  { path: 'admin-dashboard', component: AdminDashboardComponent, children: [
-    { path: 'company-profile', component: CompanyProfileComponent },
-    { path: 'vehicles', component: VehiclesListComponent },
-    { path: 'vehicles/new', component: VehicleNewComponent },
-    { path: 'vehicle-details/:id', component: VehicleDetailsComponent },
-    { path: 'branches', component: BranchesListComponent },
-    { path: 'branches/new', component: BranchNewComponent },
-    { path: 'branch-details/:id', component: BranchDetailsComponent },
-    { path: '', redirectTo: 'company-profile', pathMatch: 'full' },
-    { path: '**', redirectTo: 'company-profile', pathMatch: 'full' }
-  ] }
-  
+  { path: 'admin-dashboard', 
+    component: AdminDashboardComponent, 
+    canActivate: [RoleGuard],
+    data: {role: 'rentacar'},
+    children: [
+      { path: 'company-profile', component: CompanyProfileComponent },
+      { path: 'vehicles', component: VehiclesListComponent },
+      { path: 'vehicles/new', component: VehicleNewComponent },
+      { path: 'vehicle-details/:id', component: VehicleDetailsComponent },
+      { path: 'branches', component: BranchesListComponent },
+      { path: 'branches/new', component: BranchNewComponent },
+      { path: 'branch-details/:id', component: BranchDetailsComponent },
+      { path: '', redirectTo: 'company-profile', pathMatch: 'full' },
+      { path: '**', redirectTo: 'company-profile', pathMatch: 'full' }
+    ] }
 ];
 
 @NgModule({

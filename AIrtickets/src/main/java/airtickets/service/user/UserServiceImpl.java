@@ -13,6 +13,7 @@ import airtickets.dto.aircompany.AirportDTO;
 import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.dto.user.UserDTO;
 import airtickets.model.aircompany.Airport;
+import airtickets.model.rentacar.Vehicle;
 import airtickets.model.user.User;
 import airtickets.repo.user.UserRepository;
 
@@ -45,5 +46,12 @@ public class UserServiceImpl implements UserService {
 			usersDTO.add(userDTO);
 		}
 		return usersDTO;
+	}
+	
+	public UserDTO addUser(User user) {
+		userRepository.save(user);
+		//userDTO.setId(user.getId());
+		UserDTO userDTO = new UserDTO(user);
+		return userDTO;
 	}
 }

@@ -8,6 +8,7 @@ import { TokenStorageService } from '../../user-authentication/service/token-sto
 import { AuthLoginInfo } from '../../user-authentication/service/login-info';
 import { User } from 'src/app/shared/model/user/user.model';
 import { UserService } from 'src/app/shared/services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -26,13 +27,13 @@ export class LoginComponent implements OnInit {
   user: Observable<User>;
   LoginForm: FormGroup;
 
-
   constructor(
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
     private userService: UserService,
     private formBuilder: FormBuilder,
     private location: Location,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -68,6 +69,8 @@ export class LoginComponent implements OnInit {
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.roles = this.tokenStorage.getAuthorities();
+          //this.router.navigate(['/register']);
+          this.location.replaceState('/');
           this.reloadPage();
         },
         error => {

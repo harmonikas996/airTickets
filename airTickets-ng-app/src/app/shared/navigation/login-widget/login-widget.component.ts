@@ -1,5 +1,7 @@
 import { TokenStorageService } from './../../../user-authentication/service/token-storage.service';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user/user.service';
+import { User } from '../../model/user/user.model';
 
 @Component({
   selector: 'app-login-widget',
@@ -9,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 export class LoginWidgetComponent implements OnInit {
 
   info: any;
-  constructor(private token: TokenStorageService) { }
+  user: User;
+  constructor(private token: TokenStorageService, private userService: UserService) { }
 
   ngOnInit() {
     this.info = {
@@ -17,6 +20,10 @@ export class LoginWidgetComponent implements OnInit {
       username: this.token.getUsername(),
       authorities: this.token.getAuthorities()
     };
+  }
+
+  getProfile() {
+    this.userService.getUserById().subscribe(user => this.user = user);
   }
 
   logout() {

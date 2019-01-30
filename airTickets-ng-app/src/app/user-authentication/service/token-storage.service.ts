@@ -49,4 +49,32 @@ export class TokenStorageService {
 
     return this.roles;
   }
+
+  public isSysAdmin() : boolean {
+    if(this.roles.includes('sysadmin'))
+      return true;
+    else
+      return false;
+  }
+
+  public isHotel() : boolean {
+    if(this.roles.includes('hotel'))
+    return true;
+    else
+      return false;
+  }
+
+  public isRentacar() : boolean {
+    if(this.roles.includes('rentacar'))
+    return true;
+    else
+      return false;
+  }
+
+  public isAircompany() : boolean {
+    if(this.roles.includes('aircompany'))
+      return true;
+    else
+      return false;
+  }
 }

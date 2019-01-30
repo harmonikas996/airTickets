@@ -3,15 +3,22 @@ package airtickets.controller.user;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.user.UserDTO;
@@ -41,9 +48,9 @@ public class UserController {
 		return this.userService.findAll();
 	}
 
-	@RequestMapping("/whoami")
-	@PreAuthorize("hasRole('USER')")
-	public UserDTO user(Principal user) {
-		return this.userService.findByUsername(user.getName());
+	@RequestMapping("user/profile/{username}")
+	//@PreAuthorize("hasRole('USER')")
+	public UserDTO userProfile(@PathVariable String username) {
+		return this.userService.findByUsername(username);
 	}
 }
