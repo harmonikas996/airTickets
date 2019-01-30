@@ -1,6 +1,6 @@
 export interface BranchOffice {
-	id: number;
-	rentACarId: number;
-	address: string;
-	city: string;
+  id: number;
+  rentACarId: number;
+  address: string;
+  city: string;
 }

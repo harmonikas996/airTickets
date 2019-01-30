@@ -13,6 +13,7 @@ import { RegisterComponent } from './user-authentication/register/register.compo
 import { UserAuthenticationModule } from './user-authentication/user-authentication.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { ProfileComponent } from './profile/profile.component';
+import { AircompanyDashboardComponent } from './dashboards/aircompany-dashboard/aircompany-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ProfileComponent } from './profile/profile.component';
     LoginWidgetComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    AircompanyDashboardComponent
   ],
   imports: [
     BrowserModule,

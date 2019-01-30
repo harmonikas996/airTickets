@@ -12,14 +12,14 @@ export class VehiclesListComponent implements OnInit {
 
   vehicles: Vehicle[];
   vehicle: Vehicle;
-  
+
 
   constructor(private vehicleService: VehicleService) { }
 
   ngOnInit() {
     // srediti preuzimanje ID-a tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
     this.getVehiclesByRentACarId();
-    
+
   }
 
   getVehiclesByRentACarId(): void {
