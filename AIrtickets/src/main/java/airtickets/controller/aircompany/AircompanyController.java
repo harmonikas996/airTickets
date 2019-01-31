@@ -17,7 +17,7 @@ import airtickets.dto.aircompany.AircompanyDTO;
 import airtickets.service.aircompany.AircompanyService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/aircompanies")
 public class AircompanyController {
 	
