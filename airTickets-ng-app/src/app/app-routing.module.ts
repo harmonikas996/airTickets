@@ -6,6 +6,7 @@ import { RegisterComponent } from './user-authentication/register/register.compo
 import { VehiclesListComponent } from './vehicles/vehicles-list/vehicles-list.component';
 
 const routes: Routes = [
+  // { path: 'flights', component: VehiclesListComponent },
   { path: 'vehicles', component: VehiclesListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
@@ -16,8 +17,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ 
-    RouterModule.forRoot(routes) 
+  imports: [
+    RouterModule.forRoot(routes)
   ],
   exports: [ RouterModule ]
 })

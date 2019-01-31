@@ -1,0 +1,27 @@
+<div class="row mt-4 mb-4">
+  <div class="col-12">
+      <h3>Company Details</h3>
+  </div>
+</div>
+<div *ngIf="aircompany" class="row">
+<div  class="col-sm-6">
+    <form *ngIf="aircompany | async; else loading" [formGroup]="aircompanyProfileForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Company Name<span class="text-danger">*</span></label>
+        <input type="email" formControlName="name" class="form-control" placeholder="Enter Name" required>
+        <small *ngIf="aircompanyProfileForm.controls.name.errors?.required && aircompanyProfileForm.controls.name.touched" class="form-text text-danger">*Required</small>
+      </div>
+      <div class="form-group">
+        <label for="address">Company Address<span class="text-danger">*</span></label>
+        <input type="text" formControlName="address" class="form-control" placeholder="Enter Address" required>
+        <small *ngIf="aircompanyProfileForm.controls.address.errors?.required && aircompanyProfileForm.controls.address.touched" class="form-text text-danger">*Required</small>
+      </div>
+      <div class="form-group">
+        <label for="description">Short Description <span class="text-muted">(max: 160 characters)</span></label>
+        <textarea rows="4" formControlName="description" class="form-control" placeholder="A few words about your company..." maxlength="160"></textarea>
+      </div>
+      <button type="submit" [disabled]="!companyProfileForm.valid" class="btn btn-primary">Save Changes</button>
+      <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
+    </form>
+</div>
+</div>

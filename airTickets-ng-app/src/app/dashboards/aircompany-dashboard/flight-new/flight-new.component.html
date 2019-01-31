@@ -1,0 +1,79 @@
+<div  class="col-sm-12">
+    <form [formGroup]="newFlightForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-long-arrow-alt-left"></i></button>
+                <h3 class="mt-4">Flight Details</h3>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="timeBegin">Time begin<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="timeBegin" class="form-control" placeholder="Enter Time begin" required>
+                    <small *ngIf="newFlightForm.controls.timeBegin.errors?.required && newFlightForm.controls.timeBegin.touched" class="form-text text-danger">*Required</small>
+                </div>
+                <div class="form-group">
+                    <label for="placeFromId">Place from<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="placeFromId" class="form-control" placeholder="Enter Place from" required>
+                    <small *ngIf="newFlightForm.controls.placeFromId.errors?.required && newFlightForm.controls.placeFromId.touched" class="form-text text-danger">*Required</small>
+                </div>
+                <div class="form-group">
+                  <label for="price">Price<span class="text-danger">*</span></label>
+                  <div class="input-group">
+                      <input type="text" formControlName="price" class="form-control" placeholder="Enter price" required>
+                      <div class="input-group-append">
+                              <div class="input-group-text">€</div>
+                      </div>
+                  </div>
+                  <small *ngIf="newFlightForm.controls.price.errors?.required && newFlightForm.controls.price.touched" class="form-text text-danger">*Required</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="timeEnd">Time end<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="timeEnd" class="form-control" placeholder="Enter Time end" required>
+                    <small *ngIf="newFlightForm.controls.timeEnd.errors?.required && newFlightForm.controls.timeEnd.touched" class="form-text text-danger">*Required</small>
+                </div>
+                <div class="form-group">
+                    <label for="placeToId">Place to<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="placeToId" class="form-control" placeholder="Enter Place to" required>
+                    <small *ngIf="newFlightForm.controls.placeToId.errors?.required && newFlightForm.controls.placeToId.touched" class="form-text text-danger">*Required</small>
+                </div>
+                <div class="form-group">
+                    <label for="loweredPrice">Lowered price<span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <input type="text" formControlName="loweredPrice" class="form-control" placeholder="Enter Lowered price" required>
+                        <div class="input-group-append">
+                                <div class="input-group-text">€</div>
+                        </div>
+                    </div>
+                    <small *ngIf="newFlightForm.controls.loweredPrice.errors?.required && newFlightForm.controls.loweredPrice.touched" class="form-text text-danger">*Required</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="distance">Distance<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="distance" class="form-control" placeholder="Enter Distance" required>
+                    <small *ngIf="newFlightForm.controls.distance.errors?.required && newFlightForm.controls.distance.touched" class="form-text text-danger">*Required</small>
+                </div>
+                <div class="form-group">
+                    <label for="airplaneType">Airplane type</label>
+                    <input type="text" formControlName="airplaneType" class="form-control" placeholder="Enter Airplane type" required>
+                    <small *ngIf="newFlightForm.controls.airplaneType.errors?.required && newFlightForm.controls.airplaneType.touched" class="form-text text-danger">*Required</small>
+                </div>
+                <div class="form-group">
+                  <label for="aircompanyId">Air company</label>
+                  <input type="text" formControlName="aircompanyId" class="form-control" placeholder="Enter Air company" required>
+                  <small *ngIf="newFlightForm.controls.aircompanyId.errors?.required && newFlightForm.controls.aircompanyId.touched" class="form-text text-danger">*Required</small>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button type="submit" [disabled]="!newFlightForm.valid" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>

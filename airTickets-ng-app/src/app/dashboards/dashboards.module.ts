@@ -13,6 +13,10 @@ import { BranchNewComponent } from './rentacar-dashaboard/branch-new/branch-new.
 import { BranchDetailsComponent } from './rentacar-dashaboard/branch-details/branch-details.component';
 import { AuthGuard } from '../shared/services/guards/auth-guard.service';
 import { RoleGuard } from '../shared/services/guards/role-guard.service';
+import { AircompanyProfileComponent } from './aircompany-dashboard/aircompany-profile/aircompany-profile.component';
+import { FlightsComponent } from './aircompany-dashboard/flights/flights.component';
+import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
+import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
 
 
 
@@ -30,7 +34,11 @@ import { RoleGuard } from '../shared/services/guards/role-guard.service';
     VehicleNewComponent,
     BranchesListComponent,
     BranchNewComponent,
-    BranchDetailsComponent
+    BranchDetailsComponent,
+    AircompanyProfileComponent,
+    FlightsComponent,
+    FlightDetailsComponent,
+    FlightNewComponent,
   ],
   providers: [
     AuthGuard,

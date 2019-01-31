@@ -11,6 +11,10 @@ import { BranchDetailsComponent } from './rentacar-dashaboard/branch-details/bra
 import { AuthGuard } from '../shared/services/guards/auth-guard.service';
 import { RoleGuard } from '../shared/services/guards/role-guard.service';
 import { AircompanyDashboardComponent } from './aircompany-dashboard/aircompany-dashboard.component';
+import { AircompanyProfileComponent } from './aircompany-dashboard/aircompany-profile/aircompany-profile.component';
+import { FlightsComponent } from './aircompany-dashboard/flights/flights.component';
+import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
+import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -34,15 +38,12 @@ const dashboardsRoutes: Routes = [
     canActivate: [RoleGuard],
     data: {role: 'aircompany'},
     children: [
-      // { path: 'company-profile', component: CompanyProfileComponent },
-      // { path: 'vehicles', component: VehiclesListComponent },
-      // { path: 'vehicles/new', component: VehicleNewComponent },
-      // { path: 'vehicle-details/:id', component: VehicleDetailsComponent },
-      // { path: 'branches', component: BranchesListComponent },
-      // { path: 'branches/new', component: BranchNewComponent },
-      // { path: 'branch-details/:id', component: BranchDetailsComponent },
-      // { path: '', redirectTo: 'company-profile', pathMatch: 'full' },
-      // { path: '**', redirectTo: 'company-profile', pathMatch: 'full' }
+      { path: 'aircompany-profile', component: AircompanyProfileComponent },
+      { path: 'flights', component: FlightsComponent },
+      { path: 'flights/new', component: FlightNewComponent },
+      { path: 'flights-details/:id', component: FlightDetailsComponent },
+      { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
+      { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
     ]
   }
 ];
