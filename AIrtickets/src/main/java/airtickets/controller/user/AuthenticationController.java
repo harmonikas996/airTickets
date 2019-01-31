@@ -2,11 +2,15 @@ package airtickets.controller.user;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.common.DeviceProvider;
 import airtickets.dto.user.UserDTO;
+import airtickets.model.user.Authority;
 import airtickets.model.user.User;
 import airtickets.model.user.UserTokenState;
 import airtickets.security.TokenUtils;
@@ -33,10 +39,10 @@ import airtickets.service.user.CustomUserDetailsService;
 
 //Kontroler zaduzen za autentifikaciju korisnika
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
-
+	
 	@Autowired
 	TokenUtils tokenUtils;
 
@@ -67,7 +73,7 @@ public class AuthenticationController {
 		User user = (User) authentication.getPrincipal();
 		String jwt = tokenUtils.generateToken(user.getUsername()/*, device*/);
 		int expiresIn = tokenUtils.getExpiredIn();
-
+		
 		// Vrati token kao odgovor na uspesno autentifikaciju
 		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getEmail(), user.getAuthorities()));
 	}

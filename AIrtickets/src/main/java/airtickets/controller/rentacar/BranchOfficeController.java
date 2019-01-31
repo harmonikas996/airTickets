@@ -17,7 +17,7 @@ import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.service.rentacar.BranchOfficeService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/branchoffices")
 public class BranchOfficeController {
 	

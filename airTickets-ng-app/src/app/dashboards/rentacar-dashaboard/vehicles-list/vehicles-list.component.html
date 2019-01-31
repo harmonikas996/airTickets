@@ -17,6 +17,7 @@
           <th scope="col">model</th>
           <th scope="col">yop</th>
           <th scope="col">price /d</th>
+          <th scope="col">rentacar</th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -28,6 +29,7 @@
           <td class="align-middle">{{vehicle.model}}</td>
           <td class="align-middle">{{vehicle.yearOfProduction}}</td>
           <td class="align-middle">{{vehicle.pricePerDay}}€</td>
+          <td class="align-middle">{{vehicle.rentACarId}}</td>
           <td class="align-middle"><a type="button" class="btn btn-primary" routerLink="../vehicle-details/{{vehicle.id}}"><i class="fas fa-edit"></i></a></td>
           <td class="align-middle"><a type="button" class="btn btn-danger" (click)="onRemove(vehicle)"><i class="fas fa-trash text-white"></i></a></td>
         </tr>

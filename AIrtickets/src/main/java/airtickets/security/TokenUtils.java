@@ -3,6 +3,9 @@ package airtickets.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mobile.device.Device;
@@ -17,6 +20,8 @@ import java.util.Date;
 
 @Component
 public class TokenUtils {
+	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
 	@Value("airtickets")
 	private String APP_NAME;
@@ -103,6 +108,9 @@ public class TokenUtils {
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		User user = (User) userDetails;
+		log.debug("debug level log");
+	    log.info("info level log");
+	    log.error("error level log");
 		final String username = getUsernameFromToken(token);
 		final Date created = getIssuedAtDateFromToken(token);
 		

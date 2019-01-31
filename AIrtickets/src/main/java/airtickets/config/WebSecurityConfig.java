@@ -1,4 +1,4 @@
-package airtickets.config;
+ package airtickets.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -59,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.cors().and()
 			// komunikacija izmedju klijenta i servera je stateless
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			
@@ -67,14 +68,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			// svim korisnicima dopusti da pristupe putanjama /auth/** i /h2-console/**
 			.authorizeRequests()
-			//.antMatchers("/auth/**").permitAll()
-			.antMatchers("/**").permitAll();
+			.antMatchers("/auth/**").permitAll()
+			.antMatchers("/vehicles/all").permitAll()//;
 			// svaki zahtev mora biti autorizovan
-			//.anyRequest().authenticated().and()
+			.anyRequest().authenticated().and()
 			
 			// presretni svaki zahtev filterom
-			//.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService), BasicAuthenticationFilter.class);
+			.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService), BasicAuthenticationFilter.class);
 
+//		http.headers().cacheControl().disable();
+//		http.requestCache().disable();
 		http.csrf().disable();
 	}
 

@@ -4,6 +4,7 @@ import { RentacarService } from 'src/app/shared/services/rentacar/rentacar.servi
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 
 @Component({
   selector: 'company-profile',
@@ -17,7 +18,11 @@ export class CompanyProfileComponent implements OnInit {
   companyProfileForm: FormGroup;
   
 
-  constructor(private rentacarService: RentacarService, private formBuilder: FormBuilder) { }
+  constructor(
+    private rentacarService: RentacarService,
+    private formBuilder: FormBuilder,
+    private token: TokenStorageService
+  ) { }
 
   ngOnInit() {
     // srediti preuzimanje ID-a tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
@@ -27,13 +32,13 @@ export class CompanyProfileComponent implements OnInit {
       address: ['', Validators.required],
       description: ['']
     });
-    this.getRentacarById(1);
+    this.getRentacarById();
     
   }
 
-  getRentacarById(id: number): void {
+  getRentacarById(): void {
     // this.rentacarService.getRentacarById(id).subscribe(rentacar => this.rentacar = rentacar);
-    this.rentacar = this.rentacarService.getRentacarById(id).pipe(
+    this.rentacar = this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).pipe(
       tap(rentacar => this.companyProfileForm.patchValue(rentacar))
     );
   }

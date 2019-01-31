@@ -7,6 +7,6 @@ export interface Vehicle {
     numberOfSeats: number;
     type: string;
     pricePerDay: number;
-    rentACarId: number;
+    rentACarId: any;
     image: string;
 }

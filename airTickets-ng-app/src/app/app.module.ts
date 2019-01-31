@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -14,6 +14,7 @@ import { UserAuthenticationModule } from './user-authentication/user-authenticat
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { ProfileComponent } from './profile/profile.component';
 import { AircompanyDashboardComponent } from './dashboards/aircompany-dashboard/aircompany-dashboard.component';
+import { AuthInterceptor, httpInterceptorProviders } from './user-authentication/service/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,12 @@ import { AircompanyDashboardComponent } from './dashboards/aircompany-dashboard/
     DashboardsModule,
     AppRoutingModule, // ovaj modul uvek nek ide ispod svih drugih modula. Pravilo zlatno
   ],
-  providers: [],
+  // exports: [
+  //   HttpClientModule
+  // ],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

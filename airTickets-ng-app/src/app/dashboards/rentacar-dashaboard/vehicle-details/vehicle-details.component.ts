@@ -51,6 +51,10 @@ export class VehicleDetailsComponent implements OnInit {
     );
   }
 
+  getCompanyName() : void {
+
+  }
+
   onSubmit() {
     // obavezna provera da li to vozilo pripada rentakaru za koga je korisnik ADMIN
     if (this.vehicleDetailsForm.valid) {

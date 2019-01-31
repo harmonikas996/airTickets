@@ -26,7 +26,11 @@ export class RentacarService {
 
   getRentacarById(id: number): Observable<RentACar> {
     return this.http.get<RentACar>(this.rentacarsUrl + '/' + id);
-  }  
+  } 
+  
+  getRentacarByAdminUsername(adminUsername: String): Observable<RentACar> {
+    return this.http.get<RentACar>(this.rentacarsUrl + '/admin/' + adminUsername);
+  } 
 
   updateRentacar(rentacar: RentACar): Observable<Object> {
     return this.http.put(this.rentacarsUrl + '/' + rentacar.id + '/update', rentacar, httpOptions);

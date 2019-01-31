@@ -21,7 +21,7 @@ export class RoleGuard implements CanActivate {
     }
     console.log('Nema dozvolu!');
     // navigate to not found page
-    this.router.navigate(['/login']);
+    //this.router.navigate(['/login']);
     return false;
   }
 
