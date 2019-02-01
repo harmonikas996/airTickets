@@ -17,6 +17,7 @@ export class AuthService {
 
   private loginUrl = 'http://localhost:8080/auth/login';
   private signupUrl = 'http://localhost:8080/auth/register';
+  private refreshTokenUrl = 'http://localhost:8080/auth/refresh';
 
   constructor(private http: HttpClient) {
   }
@@ -27,5 +28,9 @@ export class AuthService {
 
   signUp(user: User): Observable<string> {
     return this.http.post<string>(this.signupUrl, user, httpOptions);
+  }
+
+  refreshToken(): Observable<JwtResponse> {
+    return this.http.post<JwtResponse>(this.refreshTokenUrl, httpOptions);
   }
 }

@@ -25,13 +25,13 @@ export class CompanyProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // srediti preuzimanje ID-a tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
     this.companyProfileForm = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
       address: ['', Validators.required],
       description: ['']
     });
+    // srediti preuzimanje ID-a kompanije tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
     this.getRentacarById();
     
   }
