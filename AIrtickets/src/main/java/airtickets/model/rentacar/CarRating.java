@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import airtickets.dto.rentacar.CarRatingDTO;
 import airtickets.model.user.User;
 
 @Entity
@@ -31,6 +33,15 @@ public class CarRating implements Serializable {
 	private int rating;
 
 	public CarRating() {}
+	
+	public CarRating(CarRatingDTO c) {
+		id = c.getId();
+		user = new User();
+		user.setId(c.getClientId());
+		vehicle = new Vehicle();
+		vehicle.setId(c.getVehicleId());
+		rating = c.getRating();
+	}
 
 	public long getId() {
 		return id;
