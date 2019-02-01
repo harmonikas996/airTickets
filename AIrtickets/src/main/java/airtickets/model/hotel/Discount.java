@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import airtickets.dto.hotel.DiscountDTO;
+
 @Entity
 public class Discount implements Serializable {
 
@@ -27,6 +29,12 @@ public class Discount implements Serializable {
 	private SpecialOffer offer;
 
 	public Discount() {}
+
+	public Discount(DiscountDTO discount) {
+		this.id = discount.getId();
+		this.amenity.setId(discount.getAmenityId());;
+		this.offer.setId(discount.getOfferId());;
+	}
 
 	public long getId() {
 		return id;

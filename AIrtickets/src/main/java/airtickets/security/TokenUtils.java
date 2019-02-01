@@ -108,9 +108,6 @@ public class TokenUtils {
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		User user = (User) userDetails;
-		log.debug("debug level log");
-	    log.info("info level log");
-	    log.error("error level log");
 		final String username = getUsernameFromToken(token);
 		final Date created = getIssuedAtDateFromToken(token);
 		

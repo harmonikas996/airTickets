@@ -66,10 +66,6 @@ public class RentACarController {
 	@GetMapping("/admin/{username}")
 	@PreAuthorize("hasAuthority('rentacar')")
 	public RentACarDTO getByAdminUsername(@PathVariable String username) {
-		log.info("u metodi GETBYADMINUSERNAME");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		UserDetails userDetails = (UserDetails) auth.getPrincipal();
-		UserDTO userDTO = userService.findByUsername(userDetails.getUsername());
-		return rentACarService.getRentACar(userDTO.getCompany());
+		return rentACarService.getRentACarByAdmin(username);
 	}
 }

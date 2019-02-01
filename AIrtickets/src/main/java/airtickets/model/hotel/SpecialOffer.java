@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import airtickets.dto.hotel.SpecialOfferDTO;
+
 @Entity
 public class SpecialOffer implements Serializable {
 
@@ -29,6 +31,12 @@ public class SpecialOffer implements Serializable {
 	private List<Discount> discounts;
 
 	public SpecialOffer() {}
+
+	public SpecialOffer(SpecialOfferDTO specialOffer) {
+		this.id = specialOffer.getId();
+		this.percentage = specialOffer.getPercentage();
+		this.title = specialOffer.getTitle();
+	}
 
 	public long getId() {
 		return id;

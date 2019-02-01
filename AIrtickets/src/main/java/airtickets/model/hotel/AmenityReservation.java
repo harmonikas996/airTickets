@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import airtickets.dto.hotel.AmenityReservationDTO;
+
 @Entity
 public class AmenityReservation implements Serializable {
 
@@ -27,6 +29,12 @@ public class AmenityReservation implements Serializable {
 	private HotelReservation hotelReservation;
 
 	public AmenityReservation() {}
+
+	public AmenityReservation(AmenityReservationDTO amenityReservation) {
+		this.id = amenityReservation.getId();
+		this.amenity.setId(amenityReservation.getAmenityId());
+		this.hotelReservation.setId(amenityReservation.getHotelReservationId());;
+	}
 
 	public long getId() {
 		return id;

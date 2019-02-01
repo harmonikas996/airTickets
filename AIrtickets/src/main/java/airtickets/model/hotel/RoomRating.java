@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import airtickets.dto.hotel.RoomRatingDTO;
 import airtickets.model.user.User;
 
 @Entity
@@ -32,6 +34,13 @@ public class RoomRating implements Serializable {
 	
 
 	public RoomRating() {}
+
+	public RoomRating(RoomRatingDTO roomRating) {
+		this.id = roomRating.getId();
+		this.user.setId(roomRating.getUserId());
+		this.room.setId(roomRating.getRoomId());
+		this.rating = roomRating.getRating();
+	}
 
 	public long getId() {
 		return id;

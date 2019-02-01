@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import airtickets.dto.hotel.HotelReservationDTO;
 import airtickets.model.aircompany.FlightReservation;
 
 @Entity
@@ -46,6 +47,14 @@ public class HotelReservation implements Serializable {
 	private FlightReservation flightReservation;
 
 	public HotelReservation() {}
+
+	public HotelReservation(HotelReservationDTO hotelReservation) {
+		this.id = hotelReservation.getId();
+		this.hotel.setId(hotelReservation.getHotel());
+		this.dateFrom = hotelReservation.getDateFrom();
+		this.dateTo = hotelReservation.getDateTo();
+		this.price = hotelReservation.getPrice();
+	}
 
 	public long getId() {
 		return id;

@@ -59,8 +59,6 @@ public class AuthenticationController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
 			HttpServletResponse response/*, Device device*/) throws AuthenticationException, IOException {
 		
-		//System.out.println("OVO JE ZAHTEV: " + authenticationRequest);
-
 		final Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(
 						authenticationRequest.getUsername(),
@@ -125,4 +123,5 @@ public class AuthenticationController {
 		public String oldPassword;
 		public String newPassword;
 	}
+	
 }

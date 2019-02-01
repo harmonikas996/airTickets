@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import airtickets.dto.hotel.HotelDTO;
 import airtickets.model.Company;
 
 @Entity
@@ -27,6 +28,10 @@ public class Hotel extends Company implements Serializable{
 	private List<HotelReservation> reservations;
 
 	public Hotel() {}
+
+	public Hotel(HotelDTO hotel) {
+		super(hotel.getId(), hotel.getName(), hotel.getAddress(), hotel.getDescription());
+	}
 
 	public List<Room> getRooms() {
 		return rooms;

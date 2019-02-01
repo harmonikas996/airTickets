@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import airtickets.dto.hotel.RoomPriceDTO;
+
 @Entity
 public class RoomPrice implements Serializable {
 
@@ -32,6 +34,14 @@ public class RoomPrice implements Serializable {
 	private Room room;
 
 	public RoomPrice() {}
+
+	public RoomPrice(RoomPriceDTO roomPrice) {
+		this.id = roomPrice.getId();
+		this.datoFrom = roomPrice.getDatoFrom();
+		this.datoTo = roomPrice.getDatoTo();
+		this.price = roomPrice.getPrice();
+		this.room.setId(roomPrice.getRoomId());;
+	}
 
 	public long getId() {
 		return id;
