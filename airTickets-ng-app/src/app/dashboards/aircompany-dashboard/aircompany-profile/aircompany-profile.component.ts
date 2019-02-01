@@ -4,6 +4,7 @@ import { AircompanyService } from './../../../shared/services/aircompany/aircomp
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { tap } from 'rxjs/operators';
+import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 
 @Component({
   selector: 'app-aircompany-profile',
@@ -17,7 +18,8 @@ export class AircompanyProfileComponent implements OnInit {
 
   constructor(
     private aircompanyService: AircompanyService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private token: TokenStorageService
   ) { }
 
   ngOnInit() {
@@ -27,11 +29,11 @@ export class AircompanyProfileComponent implements OnInit {
       address: ['', Validators.required],
       description: ['']
     });
-    this.getAircompanyById(9);
+    this.getAircompanyById();
   }
 
-  getAircompanyById(id: number): void {
-    this.aircompany = this.aircompanyService.getAircompanyById(id).pipe(
+  getAircompanyById(): void {
+    this.aircompany = this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).pipe(
       tap(aircompany => this.aircompanyProfileForm.patchValue(aircompany))
     );
   }

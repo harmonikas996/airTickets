@@ -43,8 +43,6 @@ export class VehiclesListComponent implements OnInit {
       () => v.rentACarId = r.name
       );
     }
-
-    
   }
 
   onRemove(vehicle: Vehicle): void {
