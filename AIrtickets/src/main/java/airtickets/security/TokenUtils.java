@@ -29,10 +29,10 @@ public class TokenUtils {
 	@Value("perisicevbrk")
 	public String SECRET;
 
-	@Value("300")
+	@Value("9000")
 	private int EXPIRES_IN;
 
-	@Value("600")
+	@Value("9000")
 	private int MOBILE_EXPIRES_IN;
 
 	@Value("Authorization")

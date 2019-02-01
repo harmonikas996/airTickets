@@ -40,7 +40,8 @@ public class RoomPrice implements Serializable {
 		this.datoFrom = roomPrice.getDatoFrom();
 		this.datoTo = roomPrice.getDatoTo();
 		this.price = roomPrice.getPrice();
-		this.room.setId(roomPrice.getRoomId());;
+		this.room = new Room();
+		this.room.setId(roomPrice.getRoomId());
 	}
 
 	public long getId() {

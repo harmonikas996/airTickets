@@ -37,7 +37,9 @@ public class RoomRating implements Serializable {
 
 	public RoomRating(RoomRatingDTO roomRating) {
 		this.id = roomRating.getId();
+		this.user = new User();
 		this.user.setId(roomRating.getUserId());
+		this.room = new Room();
 		this.room.setId(roomRating.getRoomId());
 		this.rating = roomRating.getRating();
 	}

@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.hotel.RoomDTO;
-import airtickets.service.hotel.RoomService;
+import airtickets.dto.hotel.RoomPriceDTO;
+import airtickets.service.hotel.RoomPriceService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -22,31 +23,31 @@ import airtickets.service.hotel.RoomService;
 public class RoomPriceController {
 
 	@Autowired
-	private RoomService roomService;
+	private RoomPriceService roomPriceService;
 	
 	@GetMapping("/all")
-	public List<RoomDTO> getAllRooms(){
-		return roomService.getRooms();
+	public List<RoomPriceDTO> getAllRoomPrices(){
+		return roomPriceService.getRoomPrices();
 	}
 	
 	@GetMapping("/{id}")
-	public RoomDTO getById(@PathVariable Long id){
-		return roomService.getRoom(id);
+	public RoomPriceDTO getById(@PathVariable Long id){
+		return roomPriceService.getRoomPrice(id);
 	}
 	
 	@PostMapping("/new")
-	public RoomDTO addRoom(@RequestBody RoomDTO room) {
-		return roomService.addRoom(room);
+	public RoomPriceDTO addRoom(@RequestBody RoomPriceDTO roomPrice) {
+		return roomPriceService.addRoomPrice(roomPrice);
 	}
 	
 	@PutMapping("{id}/update")
-	public RoomDTO updateRoom(@RequestBody RoomDTO room, @PathVariable Long id) {
-		room.setId(id);
-		return roomService.addRoom(room);
+	public RoomPriceDTO updateRoom(@RequestBody RoomPriceDTO roomPrice, @PathVariable Long id) {
+		roomPrice.setId(id);
+		return roomPriceService.addRoomPrice(roomPrice);
 	}
 	
 	@DeleteMapping("{id}/delete")
 	public void deleteRoom(@PathVariable Long id) {
-		roomService.deleteRoom(id);
+		roomPriceService.deleteRoomPrice(id);
 	}
 }

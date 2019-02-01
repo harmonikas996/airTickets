@@ -40,7 +40,7 @@ public class Room implements Serializable{
 	private List<RoomRating> ratings;
 	@OneToMany(mappedBy = "room", cascade=CascadeType.ALL)
 	private List<RoomPrice> prices;
-	@OneToMany(mappedBy = "room")
+	@OneToMany(mappedBy = "room", cascade=CascadeType.ALL)
 	private List<RoomReservation> reservations;
 
 	public Room() {}
@@ -51,7 +51,8 @@ public class Room implements Serializable{
 		this.floor = room.getFloor();
 		this.noOfBeds = room.getNoOfBeds();
 		this.type = room.getType();
-		this.hotel.setId(room.getHotelId());;
+		this.hotel = new Hotel();
+		this.hotel.setId(room.getHotelId());
 	}
 
 	public long getId() {
@@ -100,6 +101,18 @@ public class Room implements Serializable{
 
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
+	}
+
+	public List<RoomRating> getRatings() {
+		return ratings;
+	}
+
+	public List<RoomPrice> getPrices() {
+		return prices;
+	}
+
+	public List<RoomReservation> getReservations() {
+		return reservations;
 	}
 
 }

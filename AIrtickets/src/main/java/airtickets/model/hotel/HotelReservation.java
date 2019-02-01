@@ -50,6 +50,7 @@ public class HotelReservation implements Serializable {
 
 	public HotelReservation(HotelReservationDTO hotelReservation) {
 		this.id = hotelReservation.getId();
+		this.hotel = new Hotel();
 		this.hotel.setId(hotelReservation.getHotel());
 		this.dateFrom = hotelReservation.getDateFrom();
 		this.dateTo = hotelReservation.getDateTo();

@@ -24,7 +24,7 @@ public class Hotel extends Company implements Serializable{
 	private List<Amenity> amenities;
 	@OneToMany(mappedBy = "hotel", cascade=CascadeType.ALL)
 	private List<HotelRating> ratings;
-	@OneToMany(mappedBy = "hotel")
+	@OneToMany(mappedBy = "hotel", cascade=CascadeType.ALL)
 	private List<HotelReservation> reservations;
 
 	public Hotel() {}

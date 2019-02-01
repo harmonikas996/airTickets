@@ -36,8 +36,10 @@ public class HotelRating implements Serializable {
 
 	public HotelRating(HotelRatingDTO hotelRating) {
 		this.id = hotelRating.getId();
-		this.user.setId(hotelRating.getUserId());;
-		this.hotel.setId(hotelRating.getHotelId());;
+		this.user = new User();
+		this.user.setId(hotelRating.getUserId());
+		this.hotel = new Hotel();
+		this.hotel.setId(hotelRating.getHotelId());
 		this.rating = hotelRating.getRating();
 	}
 

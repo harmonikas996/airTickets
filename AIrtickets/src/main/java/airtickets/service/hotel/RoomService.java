@@ -3,6 +3,8 @@ package airtickets.service.hotel;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import airtickets.repo.hotel.RoomRepository;
 @Service
 public class RoomService {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	RoomRepository roomRepository;
 	
@@ -35,6 +39,7 @@ public class RoomService {
 	}
 	
 	public RoomDTO addRoom(RoomDTO roomDTO) {
+		//log.info("ROOM HOTELID: " + roomDTO.getHotelId());
 		Room room = new Room(roomDTO);
 		roomRepository.save(room);
 		roomDTO.setId(room.getId());

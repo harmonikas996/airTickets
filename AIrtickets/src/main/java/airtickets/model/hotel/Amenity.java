@@ -43,6 +43,7 @@ public class Amenity implements Serializable {
 		this.id = amenity.getId();
 		this.title = amenity.getTitle();
 		this.price = amenity.getPrice();
+		this.hotel = new Hotel();
 		this.hotel.setId(amenity.getHotelId());
 	}
 

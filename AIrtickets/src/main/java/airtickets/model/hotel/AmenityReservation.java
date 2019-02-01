@@ -32,7 +32,9 @@ public class AmenityReservation implements Serializable {
 
 	public AmenityReservation(AmenityReservationDTO amenityReservation) {
 		this.id = amenityReservation.getId();
+		this.amenity = new Amenity();
 		this.amenity.setId(amenityReservation.getAmenityId());
+		this.hotelReservation = new HotelReservation();
 		this.hotelReservation.setId(amenityReservation.getHotelReservationId());;
 	}
 

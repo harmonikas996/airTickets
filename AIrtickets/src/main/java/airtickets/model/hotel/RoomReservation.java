@@ -36,8 +36,10 @@ public class RoomReservation implements Serializable {
 
 	public RoomReservation(RoomReservationDTO roomReservation) {
 		this.id = roomReservation.getId();
-		this.room.setId(roomReservation.getRoomId());;
-		this.hotelReservation.setId(roomReservation.getHotelReservationId());;
+		this.room = new Room();
+		this.room.setId(roomReservation.getRoomId());
+		this.hotelReservation = new HotelReservation();
+		this.hotelReservation.setId(roomReservation.getHotelReservationId());
 	}
 
 	public long getId() {

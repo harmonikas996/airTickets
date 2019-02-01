@@ -32,7 +32,9 @@ public class Discount implements Serializable {
 
 	public Discount(DiscountDTO discount) {
 		this.id = discount.getId();
+		this.amenity = new Amenity();
 		this.amenity.setId(discount.getAmenityId());;
+		this.offer = new SpecialOffer();
 		this.offer.setId(discount.getOfferId());;
 	}
 
