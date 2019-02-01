@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import airtickets.dto.hotel.HotelRatingDTO;
 import airtickets.model.hotel.HotelRating;
 import airtickets.repo.hotel.HotelRatingRepository;
 
+@Service
 public class HotelRatingService {
 
 	@Autowired

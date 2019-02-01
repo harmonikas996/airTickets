@@ -20,6 +20,7 @@ import airtickets.service.hotel.AmenityService;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RequestMapping("/amenities")
 public class AmenityController {
+
 	@Autowired
 	private AmenityService amenityService;
 	
