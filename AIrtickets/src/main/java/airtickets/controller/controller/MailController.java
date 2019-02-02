@@ -21,10 +21,10 @@ public class MailController {
   private MailerHelper mailerHelper;
 
   @RequestMapping("send-mail")
-  public String sendMail(@RequestParam(value="address") String address, @RequestParam(value="jwt") String jwt) {
+  public String sendMail(@RequestParam(value="address") String address, @RequestParam(value="jwt") String jwt, @RequestParam(value="username") String username) {
     Long start = System.currentTimeMillis();
     logger.info("starting controller");
-    mailerHelper.sendMail(address, jwt);
+    mailerHelper.sendMail(address, username);
     return String.format("Message sent to %s in %d ms", address, System.currentTimeMillis() - start);
   }
 

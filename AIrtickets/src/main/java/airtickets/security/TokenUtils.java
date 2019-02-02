@@ -108,8 +108,10 @@ public class TokenUtils {
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		User user = (User) userDetails;
+		//log.info("DATUM USERA: " + user.getLastPasswordResetDate());
 		final String username = getUsernameFromToken(token);
 		final Date created = getIssuedAtDateFromToken(token);
+		//log.info("DATUM TOKENA: " + created);
 		
 		return (username != null && username.equals(userDetails.getUsername())
 				&& !isCreatedBeforeLastPasswordReset(created, user.getLastPasswordResetDate()));

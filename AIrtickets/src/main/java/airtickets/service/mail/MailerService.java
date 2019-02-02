@@ -16,7 +16,7 @@ public class MailerService {
   private MailerHelper mailerHelper;
 
   @Async
-  public void sendMail(String address, String jwt) {
-    mailerHelper.sendMail(address, jwt);
+  public void sendMail(String address, String username) {
+    mailerHelper.sendMail(address, username);
   }
 }

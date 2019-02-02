@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +43,10 @@ import airtickets.service.user.UserService;
 @RequestMapping(value = "/auth", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AuthenticationController {
 	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
-	TokenUtils tokenUtils;
+	private TokenUtils tokenUtils;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -112,17 +116,21 @@ public class AuthenticationController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> register(@RequestBody User user, HttpServletResponse response) {
-		String message = userDetailsService.register(user);
+	public ResponseEntity<?> register(@RequestBody UserDTO userDTO, HttpServletResponse response) {
 		
+		User user = new User(userDTO);
+		
+		String message = userDetailsService.register(user);
 		Map<String, String> result = new HashMap<>();
 		result.put("result", message);
 		
-		if(message.equals("Email already exists."))
+		
+		if(message.equals("Email already exists.")) {
+				
 			return ResponseEntity.badRequest().body(result);
+		}
 		else {
-			String jwt = tokenUtils.generateToken(user.getUsername()/*, device*/);
-			mailerService.sendMail(user.getEmail(), jwt);
+			mailerService.sendMail(user.getEmail(), user.getUsername());
 			return ResponseEntity.accepted().body(result);
 		}
 	}
@@ -132,12 +140,15 @@ public class AuthenticationController {
 		
 		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 		if(tokenUtils.validateToken(token, userDetails)) {
-			//UserDTO userDTO = userService.findByUsername(userDetails.getUsername());
-			//User user = new User(userDTO);
-			//userService.addUser(userDTO);
+			UserDTO userDTO = userService.findByUsername(userDetails.getUsername());
+			userDTO.setActivated(true);
+			userService.addUser(userDTO);
+			return "Your email address has been verified. Login -> http://localhost:8080/auth/login";
+		} else {
+			
+			return "Failed to verify email address. Token invalid or expired.";
 		}
 		
-		return "Success";
 	}
 
 	static class PasswordChanger {
