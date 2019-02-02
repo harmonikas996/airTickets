@@ -7,19 +7,19 @@
 <div  class="col-sm-6">
     <form *ngIf="user | async; else loading" [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="firstName">First Name<span class="text-danger">*</span></label>
+        <label for="firstName">First Name</label>
         <input type="text" formControlName="firstName" class="form-control" placeholder="Enter first name">
       </div>
       <div class="form-group">
-        <label for="lastName">Last Name<span class="text-danger">*</span></label>
+        <label for="lastName">Last Name</label>
         <input type="text" formControlName="lastName" class="form-control" placeholder="Enter last name">
       </div>
       <div class="form-group">
-        <label for="city">City<span class="text-danger">*</span></label>
+        <label for="city">City</label>
         <input type="text" formControlName="city" class="form-control" placeholder="Enter city">
       </div>
       <div class="form-group">
-        <label for="phone">Phone<span class="text-danger">*</span></label>
+        <label for="phone">Phone</label>
         <input type="text" formControlName="phone" class="form-control" placeholder="Enter phone">
       </div>
       <button type="submit" [disabled]="!userProfileForm.valid" class="btn btn-primary">Save Changes</button>

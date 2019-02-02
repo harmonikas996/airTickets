@@ -1,4 +1,4 @@
-import { User } from './../../../shared/model/user/user.model';
+import { User } from './../../shared/model/user/user.model';
 import { Observable } from 'rxjs';
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
@@ -27,10 +27,10 @@ export class UserProfileComponent implements OnInit {
       id: [''],
       email: [''],
       company: [''],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      city: ['', Validators.required],
-      phone: ['', Validators.required],
+      firstName: [''],
+      lastName: [''],
+      city: [''],
+      phone: [''],
       password: [''],
       activated: [''],
       bonusPoints: [''],
