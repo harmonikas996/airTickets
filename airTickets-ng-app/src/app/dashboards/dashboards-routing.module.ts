@@ -20,7 +20,7 @@ import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new
 import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flight-rating.component';
 import { RoomDetailsComponent } from './hotel-dashboard/room-details/room-details.component';
 import { RoomNewComponent } from './hotel-dashboard/room-new/room-new.component';
-import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const dashboardsRoutes: Routes = [
@@ -36,6 +36,7 @@ const dashboardsRoutes: Routes = [
       { path: 'branches', component: BranchesListComponent },
       { path: 'branches/new', component: BranchNewComponent },
       { path: 'branch-details/:id', component: BranchDetailsComponent },
+      { path: 'user-profile', component: UserProfileComponent },
       { path: '', redirectTo: 'company-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'company-profile', pathMatch: 'full' }
     ]
@@ -50,6 +51,7 @@ const dashboardsRoutes: Routes = [
       { path: 'flights/new', component: FlightNewComponent },
       { path: 'flight-rating', component: FlightRatingComponent },
       { path: 'flights-details/:id', component: FlightDetailsComponent },
+      { path: 'user-profile', component: UserProfileComponent },
       { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
     ]
@@ -61,6 +63,7 @@ const dashboardsRoutes: Routes = [
     children: [
       // { path: 'hotel-profile', component: HotelProfileComponent },
       { path: 'rooms', component:  RoomListComponent},
+      { path: 'user-profile', component: UserProfileComponent },
       { path: 'rooms/new', component: RoomNewComponent },
       { path: 'room-details/:id', component: RoomDetailsComponent },
       // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },

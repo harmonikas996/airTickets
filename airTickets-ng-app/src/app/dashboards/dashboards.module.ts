@@ -22,7 +22,7 @@ import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.compo
 import { RoomDetailsComponent } from './hotel-dashboard/room-details/room-details.component';
 import { RoomNewComponent } from './hotel-dashboard/room-new/room-new.component';
 import { RoomListComponent } from './hotel-dashboard/room-list/room-list.component';
-import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 

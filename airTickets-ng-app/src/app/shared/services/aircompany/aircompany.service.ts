@@ -21,19 +21,19 @@ export class AircompanyService {
     return this.http.get<Aircompany[]>(this.aircomapnyurl + '/all');
   }
 
-  getAircompanyById(id: number): Observable<Aircompany>{
+  getAircompanyById(id: number): Observable<Aircompany> {
     return this.http.get<Aircompany>(this.aircomapnyurl + '/' + id);
   }
 
-  updateAircompany(aircompany: Aircompany): Observable<Object>{
+  updateAircompany(aircompany: Aircompany): Observable<Object> {
     return this.http.put(this.aircomapnyurl + '/' + aircompany.id + '/update', aircompany, httpOptions);
   }
 
-  getAircompanyByAdminUsername(adminUsername: String): Observable<Aircompany>{
+  getAircompanyByAdminUsername(adminUsername: String): Observable<Aircompany> {
     return this.http.get<Aircompany>(this.aircomapnyurl + '/admin/' + adminUsername);
   }
 
-  removeAirCompany(aircomapny: Aircompany | number): Observable<Aircompany>{
+  removeAirCompany(aircomapny: Aircompany | number): Observable<Aircompany> {
     const id = typeof aircomapny === 'number' ? aircomapny : aircomapny.id;
     return this.http.delete<Aircompany>(this.aircomapnyurl + '/' + id + '/delete', httpOptions).pipe(
       tap(_ => console.log(`deleted aircompany id=${id}`))
