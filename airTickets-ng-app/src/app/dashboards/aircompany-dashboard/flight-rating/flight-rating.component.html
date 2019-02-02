@@ -1,0 +1,26 @@
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+      <h3>Ratings</h3>
+  </div>
+</div>
+<div class="row">
+<div class="col-12">
+  <table *ngIf="flightRatings" class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Flight</th>
+        <th scope="col">Client</th>
+        <th scope="col">Rating</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let flightR of flightRatings">
+        <td class="align-middle">{{flightR.flightId}}</td>
+        <td class="align-middle">{{flightR.clientId}}</td>
+        <td class="align-middle">{{flightR.rating}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

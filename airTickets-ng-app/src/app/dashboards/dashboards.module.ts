@@ -1,3 +1,4 @@
+import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -17,9 +18,7 @@ import { AircompanyProfileComponent } from './aircompany-dashboard/aircompany-pr
 import { FlightsComponent } from './aircompany-dashboard/flights/flights.component';
 import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
 import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
-import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.component';
-
-
+import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flight-rating.component';
 
 @NgModule({
   imports: [
@@ -41,6 +40,7 @@ import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.compo
     FlightDetailsComponent,
     FlightNewComponent,
     HotelDashboardComponent,
+    FlightRatingComponent,
   ],
   providers: [
     AuthGuard,

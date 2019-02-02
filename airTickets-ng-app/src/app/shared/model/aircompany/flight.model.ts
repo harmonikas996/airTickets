@@ -6,8 +6,8 @@ export class Flight {
   price: number;
   airplaneType: string;
   loweredPrice: number;
-  placeFromId: number;
-  placeToId: number;
-  aircompanyId: number;
+  placeFromId: any;
+  placeToId: any;
+  aircompanyId: any;
 }
 

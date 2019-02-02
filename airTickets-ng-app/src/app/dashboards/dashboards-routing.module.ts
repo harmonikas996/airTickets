@@ -15,6 +15,7 @@ import { AircompanyProfileComponent } from './aircompany-dashboard/aircompany-pr
 import { FlightsComponent } from './aircompany-dashboard/flights/flights.component';
 import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
 import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
+import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flight-rating.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -41,6 +42,7 @@ const dashboardsRoutes: Routes = [
       { path: 'aircompany-profile', component: AircompanyProfileComponent },
       { path: 'flights', component: FlightsComponent },
       { path: 'flights/new', component: FlightNewComponent },
+      { path: 'flight-rating', component: FlightRatingComponent },
       { path: 'flights-details/:id', component: FlightDetailsComponent },
       { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }

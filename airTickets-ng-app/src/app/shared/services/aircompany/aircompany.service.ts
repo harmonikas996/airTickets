@@ -29,10 +29,14 @@ export class AircompanyService {
     return this.http.put(this.aircomapnyurl + '/' + aircompany.id + '/update', aircompany, httpOptions);
   }
 
+  getAircompanyByAdminUsername(adminUsername: String): Observable<Aircompany>{
+    return this.http.get<Aircompany>(this.aircomapnyurl + '/admin/' + adminUsername);
+  }
+
   removeAirCompany(aircomapny: Aircompany | number): Observable<Aircompany>{
     const id = typeof aircomapny === 'number' ? aircomapny : aircomapny.id;
     return this.http.delete<Aircompany>(this.aircomapnyurl + '/' + id + '/delete', httpOptions).pipe(
-      tap(_ => console.log(`deleted branch id=${id}`))
+      tap(_ => console.log(`deleted aircompany id=${id}`))
     );
   }
 
