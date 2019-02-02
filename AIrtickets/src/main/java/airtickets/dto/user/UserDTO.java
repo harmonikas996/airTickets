@@ -22,7 +22,6 @@ public class UserDTO {
 	private Timestamp lastPasswordResetDate;
 	
 	public UserDTO() {
-		
 	}
 	
 	public UserDTO(User u) {
@@ -31,7 +30,7 @@ public class UserDTO {
 		if(u.getCompany() != null)
 			company = u.getCompany().getId();
 		else
-			company = -1;
+			company = 0;
 		firstName = u.getFirstName();
 		lastName = u.getLastName();
 		password = u.getPassword();
@@ -48,7 +47,7 @@ public class UserDTO {
 		if(u.get().getCompany() != null)
 			company = u.get().getCompany().getId();
 		else
-			company = -1;
+			company = 0;
 		firstName = u.get().getFirstName();
 		lastName = u.get().getLastName();
 		password = u.get().getPassword();

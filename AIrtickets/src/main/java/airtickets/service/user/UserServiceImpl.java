@@ -48,10 +48,12 @@ public class UserServiceImpl implements UserService {
 		return usersDTO;
 	}
 	
-	public UserDTO addUser(User user) {
+	public UserDTO addUser(UserDTO userDTO) {
+		
+		User user = new User(userDTO);
 		userRepository.save(user);
-		//userDTO.setId(user.getId());
-		UserDTO userDTO = new UserDTO(user);
+		userDTO.setId(user.getId());
+		
 		return userDTO;
 	}
 }

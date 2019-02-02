@@ -3,6 +3,8 @@ package airtickets.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,6 +17,16 @@ public class Authority implements GrantedAuthority {
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+	
+	@ManyToMany(fetch = FetchType.EAGER,
+    cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    })
+	@JoinTable(name = "user_authority",
+    joinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"),
+	inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
+    private Set<User> authorities;
 
     @Column(name="name")
     String name;
