@@ -24,7 +24,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import airtickets.dto.user.UserDTO;
 import airtickets.model.Company;
+import airtickets.model.aircompany.Aircompany;
 import airtickets.model.aircompany.AircompanyRating;
 import airtickets.model.aircompany.FlightRating;
 import airtickets.model.aircompany.Seat;
@@ -52,10 +54,12 @@ public class User implements UserDetails {
 	@Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_authority",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+	@ManyToMany(fetch = FetchType.EAGER,
+    cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    },
+    mappedBy = "authorities")
     private Set<Authority> authorities;
 	
 	// admin
@@ -219,6 +223,27 @@ public class User implements UserDetails {
 		this.bonusPoints = 0;
 	}
 
+	public User(UserDTO user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		if (user.getCompany() != 0) {
+			this.company = new Company();
+			this.company.setId(user.getCompany());
+		}
+		else {
+			this.company = null;
+		}
+		this.firstName = user.getFirstName();
+		this.lastName = user.getLastName();
+		this.password = user.getPassword();
+		this.phone = user.getPhone();
+		this.activated = user.isActivated();
+		this.city = user.getCity();		
+		this.activated = user.isActivated();
+		this.bonusPoints = user.getBonusPoints();
+		this.lastPasswordResetDate = user.getLastPasswordResetDate();
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -240,9 +265,11 @@ public class User implements UserDetails {
 	}
 
 	public void setPassword(String password) {
-		Timestamp now = new Timestamp(DateTime.now().getMillis());
-        this.setLastPasswordResetDate( now );
-		this.password = password;
+		if (!this.password.equals(password)) {
+			Timestamp now = new Timestamp(DateTime.now().getMillis());
+	        this.setLastPasswordResetDate( now );
+			this.password = password;
+		}
 	}
 	
 	public Timestamp getLastPasswordResetDate() {

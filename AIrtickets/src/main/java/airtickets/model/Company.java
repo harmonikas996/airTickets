@@ -15,7 +15,7 @@ import airtickets.model.user.User;
 
 @Entity
 @Inheritance( strategy = InheritanceType.TABLE_PER_CLASS )
-public abstract class Company {
+public class Company {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
