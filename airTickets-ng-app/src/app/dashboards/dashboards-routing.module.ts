@@ -66,7 +66,7 @@ const dashboardsRoutes: Routes = [
       // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },
       // { path: '**', redirectTo: 'hotel-profile', pathMatch: 'full' }
     ]
-  }
+  },
   { path: 'user-dashboard',
   component: UserDashboardComponent,
   canActivate: [RoleGuard],
