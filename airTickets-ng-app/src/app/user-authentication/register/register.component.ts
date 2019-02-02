@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.RegisterForm.valid) {
-      console.log(this.RegisterForm);
+      console.log(this.RegisterForm.value);
 
       // if (this.RegisterForm.controls.password.value != this.RegisterForm.controls.repeatPassword.value) {
       //   this.RegisterForm.controls.repeatPassword.setErrors({'incorrect': true});

@@ -7,6 +7,7 @@ export interface User {
   city?: any;
   phone?: any;
   activated?: boolean;
+  password?: string;
   bonusPoints?: number;
   lastPasswordResetDate?: any;
 }
