@@ -265,7 +265,7 @@ public class User implements UserDetails {
 	}
 
 	public void setPassword(String password) {
-		if (!this.password.equals(password)) {
+		if (!this.password.equals(password)) {    
 			Timestamp now = new Timestamp(DateTime.now().getMillis());
 	        this.setLastPasswordResetDate( now );
 			this.password = password;
