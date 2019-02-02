@@ -52,7 +52,7 @@ public class Room implements Serializable{
 		this.noOfBeds = room.getNoOfBeds();
 		this.type = room.getType();
 		this.hotel = new Hotel();
-		this.hotel.setId(room.getHotelId());
+		this.hotel.setId(room.getHotel());
 	}
 
 	public long getId() {

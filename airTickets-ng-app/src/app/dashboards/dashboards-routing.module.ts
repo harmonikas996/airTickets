@@ -1,3 +1,5 @@
+import { RoomListComponent } from './hotel-dashboard/room-list/room-list.component';
+import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RentacarDashboardComponent } from './rentacar-dashaboard/rentacar-dashboard.component';
@@ -16,6 +18,10 @@ import { FlightsComponent } from './aircompany-dashboard/flights/flights.compone
 import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
 import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
 import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flight-rating.component';
+import { RoomDetailsComponent } from './hotel-dashboard/room-details/room-details.component';
+import { RoomNewComponent } from './hotel-dashboard/room-new/room-new.component';
+import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -47,7 +53,31 @@ const dashboardsRoutes: Routes = [
       { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
     ]
-  }
+  },
+  { path: 'hotel-dashboard',
+    component: HotelDashboardComponent,
+    canActivate: [RoleGuard],
+    data: {role: 'hotel'},
+    children: [
+      // { path: 'hotel-profile', component: HotelProfileComponent },
+      { path: 'rooms', component:  RoomListComponent},
+      { path: 'rooms/new', component: RoomNewComponent },
+      { path: 'room-details/:id', component: RoomDetailsComponent },
+      // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },
+      // { path: '**', redirectTo: 'hotel-profile', pathMatch: 'full' }
+    ]
+  },
+  { path: 'user-dashboard',
+  component: UserDashboardComponent,
+  canActivate: [RoleGuard],
+  data: {role: 'client'},
+  children: [
+    { path: 'user-profile', component: UserProfileComponent },
+    { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
+    { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
+  ]
+}
+
 ];
 
 @NgModule({
