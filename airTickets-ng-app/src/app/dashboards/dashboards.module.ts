@@ -17,6 +17,7 @@ import { AircompanyProfileComponent } from './aircompany-dashboard/aircompany-pr
 import { FlightsComponent } from './aircompany-dashboard/flights/flights.component';
 import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
 import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
+import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.component';
 
 
 
@@ -39,6 +40,7 @@ import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new
     FlightsComponent,
     FlightDetailsComponent,
     FlightNewComponent,
+    HotelDashboardComponent,
   ],
   providers: [
     AuthGuard,
