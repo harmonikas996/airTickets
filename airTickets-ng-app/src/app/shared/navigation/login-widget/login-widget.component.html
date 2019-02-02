@@ -6,6 +6,7 @@
     <a *ngIf="token.isRentacar()" class="nav-item nav-link" routerLink="/rentacar-dashboard">Rentacar Admin</a>
     <a *ngIf="token.isAircompany()" class="nav-item nav-link" routerLink="/aircompany-dashboard">AirCompany Admin</a>
     <a *ngIf="token.isHotel()" class="nav-item nav-link" routerLink="/admin-dashboard">Hotel Admin</a>
+    <a *ngIf="token.isUser" class="nav-item nav-link" routerLink="/user-dashboard">User</a>
     <p *ngIf="info">{{info.username}}</p>
     <button class="btn btn-secondary" (click)="logout()">Logout</button>
 

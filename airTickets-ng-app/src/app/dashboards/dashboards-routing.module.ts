@@ -16,6 +16,8 @@ import { FlightsComponent } from './aircompany-dashboard/flights/flights.compone
 import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
 import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
 import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flight-rating.component';
+import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -47,7 +49,18 @@ const dashboardsRoutes: Routes = [
       { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
     ]
-  }
+  },
+  { path: 'user-dashboard',
+  component: UserDashboardComponent,
+  canActivate: [RoleGuard],
+  data: {role: 'client'},
+  children: [
+    { path: 'user-profile', component: UserProfileComponent },
+    { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
+    { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
+  ]
+}
+
 ];
 
 @NgModule({

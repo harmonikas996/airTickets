@@ -18,6 +18,7 @@ import { FlightsComponent } from './aircompany-dashboard/flights/flights.compone
 import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
 import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
 import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flight-rating.component';
+import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
 
 
 
@@ -41,6 +42,7 @@ import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flig
     FlightDetailsComponent,
     FlightNewComponent,
     FlightRatingComponent,
+    UserProfileComponent,
   ],
   providers: [
     AuthGuard,
