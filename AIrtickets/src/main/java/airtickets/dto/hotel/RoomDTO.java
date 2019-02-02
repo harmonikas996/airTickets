@@ -8,7 +8,7 @@ public class RoomDTO {
 	private int floor;
 	private int noOfBeds;
 	private String type;
-	private long hotelId;
+	private long hotel;
 	
 	public RoomDTO() {}
 	
@@ -18,7 +18,7 @@ public class RoomDTO {
 		floor = room.getFloor();
 		noOfBeds = room.getNoOfBeds();
 		type = room.getType();
-		hotelId = room.getHotel().getId();
+		hotel = room.getHotel().getId();
 	}
 
 	public long getId() {
@@ -61,11 +61,11 @@ public class RoomDTO {
 		this.type = type;
 	}
 
-	public long getHotelId() {
-		return hotelId;
+	public long getHotel() {
+		return hotel;
 	}
 
-	public void setHotelId(long hotelId) {
-		this.hotelId = hotelId;
+	public void setHotel(long hotelId) {
+		this.hotel = hotelId;
 	}
 }
