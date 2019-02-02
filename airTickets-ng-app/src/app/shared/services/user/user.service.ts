@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../../model/user/user.model'
+import { User } from '../../model/user/user.model';
 import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 import { tokenKey } from '@angular/core/src/view';
 
@@ -23,5 +23,9 @@ export class UserService {
 
   getUserById(): Observable<User> {
     return this.http.get<User>(this.profileUrl + '/' + this.token.getUsername());
+  }
+
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(this.profileUrl + '/update/' + this.token.getUsername(), user, httpOptions);
   }
 }

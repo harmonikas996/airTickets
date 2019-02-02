@@ -1,0 +1,77 @@
+<div *ngIf="room" class="row">
+  <div  class="col-sm-12">
+      <form *ngIf="room | async; else loading" [formGroup]="roomDetailsForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+              <div class="col-6">
+                  <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-long-arrow-alt-left"></i></button>
+                  <h3 class="mt-4">Room Details</h3>
+              </div>
+          </div>
+          <div class="row mt-4">
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label for="number">Number<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="number" class="form-control" placeholder="Enter Number" required>
+                      <small *ngIf="roomDetailsForm.controls.number.errors?.required && roomDetailsForm.controls.number.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                      <label for="noOfBeds">Number Of Beds<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="noOfBeds" class="form-control" placeholder="Enter Number Of Beds" required>
+                      <small *ngIf="roomDetailsForm.controls.noOfBeds.errors?.required && roomDetailsForm.controls.noOfBeds.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="floor">Floor<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="floor" class="form-control" placeholder="Enter Floor" required>
+                    <small *ngIf="roomDetailsForm.controls.floor.errors?.required && roomDetailsForm.controls.floor.touched" class="form-text text-danger">*Required</small>
+                </div>
+                  <div class="form-group">
+                      <label for="type">Type<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="type" class="form-control" placeholder="Enter Type" required>
+                      <small *ngIf="roomDetailsForm.controls.type.errors?.required && roomDetailsForm.controls.type.touched" class="form-text text-danger">*Required</small>
+                  </div>
+              </div>
+              <!--<div class="col-md-4">
+                  <div class="form-group">
+                      <label for="numberOfSeats">Number Of Seats<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="numberOfSeats" class="form-control" placeholder="Enter Number Of Seats" required>
+                      <small *ngIf="roomDetailsForm.controls.numberOfSeats.errors?.required && roomDetailsForm.controls.numberOfSeats.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                      <label for="type">Type<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="type" class="form-control" placeholder="Enter Type" required>
+                      <small *ngIf="roomDetailsForm.controls.type.errors?.required && roomDetailsForm.controls.type.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                      <label for="pricePerDay">Price Per Day<span class="text-danger">*</span></label>
+                      <div class="input-group">
+                          <input type="text" formControlName="pricePerDay" class="form-control" placeholder="Enter Price Per Day" required>
+                          <div class="input-group-append">
+                                  <div class="input-group-text">€</div>
+                          </div>
+
+                      </div>
+                      <small *ngIf="roomDetailsForm.controls.pricePerDay.errors?.required && roomDetailsForm.controls.pricePerDay.touched" class="form-text text-danger">*Required</small>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label for="rentACarId">Rent A Car Id<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="rentACarId" class="form-control" placeholder="Enter Rent A Car Id" required>
+                      <small *ngIf="roomDetailsForm.controls.rentACarId.errors?.required && roomDetailsForm.controls.rentACarId.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                      <label for="image">Image</label>
+                      <input type="text" formControlName="image" class="form-control" placeholder="Enter Image Name" required>
+                  </div>
+              </div>-->
+          </div>
+          <div class="row">
+              <div class="col-12">
+                  <button type="submit" [disabled]="!roomDetailsForm.valid" class="btn btn-primary">Save Changes</button>
+                  <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
+                  <button *ngIf="room | async as room" type="button" class="btn btn-danger ml-2" (click)="onRemove(room)">Remove</button>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>

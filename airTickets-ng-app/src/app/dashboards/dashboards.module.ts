@@ -18,6 +18,11 @@ import { FlightsComponent } from './aircompany-dashboard/flights/flights.compone
 import { FlightDetailsComponent } from './aircompany-dashboard/flight-details/flight-details.component';
 import { FlightNewComponent } from './aircompany-dashboard/flight-new/flight-new.component';
 import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flight-rating.component';
+import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.component';
+import { RoomDetailsComponent } from './hotel-dashboard/room-details/room-details.component';
+import { RoomNewComponent } from './hotel-dashboard/room-new/room-new.component';
+import { RoomListComponent } from './hotel-dashboard/room-list/room-list.component';
+import { UserProfileComponent } from './user-dashboard/user-profile/user-profile.component';
 
 
 
@@ -41,6 +46,11 @@ import { FlightRatingComponent } from './aircompany-dashboard/flight-rating/flig
     FlightDetailsComponent,
     FlightNewComponent,
     FlightRatingComponent,
+    HotelDashboardComponent,
+    RoomDetailsComponent,
+    RoomNewComponent,
+    RoomListComponent,
+    UserProfileComponent,
   ],
   providers: [
     AuthGuard,

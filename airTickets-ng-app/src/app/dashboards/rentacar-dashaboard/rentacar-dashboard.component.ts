@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'rentacar-dashboard',
+  selector: 'app-rentacar-dashboard',
   templateUrl: './rentacar-dashboard.component.html',
   styleUrls: ['./rentacar-dashboard.component.css']
 })

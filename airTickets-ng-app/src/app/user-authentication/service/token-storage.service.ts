@@ -77,4 +77,11 @@ export class TokenStorageService {
     else
       return false;
   }
+
+  public isUser() : boolean {
+    if(this.roles.includes('client'))
+      return true;
+    else
+      return false;
+  }
 }

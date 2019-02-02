@@ -36,13 +36,11 @@ export class VehicleDetailsComponent implements OnInit {
       type: ['', Validators.required],
       pricePerDay: ['', Validators.required],
       rentACarId: ['', Validators.required],
-      image: [''],
+      image: ['']
     });
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.getVehicleById(id);
-
-
   }
 
   getVehicleById(id: number): void {
@@ -51,7 +49,7 @@ export class VehicleDetailsComponent implements OnInit {
     );
   }
 
-  getCompanyName() : void {
+  getCompanyName(): void {
 
   }
 

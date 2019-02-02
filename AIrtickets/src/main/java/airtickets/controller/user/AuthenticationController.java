@@ -59,6 +59,7 @@ public class AuthenticationController {
 	@Autowired
 	private UserService userService;
 
+	@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
 			HttpServletResponse response/*, Device device*/) throws AuthenticationException, IOException {
@@ -101,7 +102,7 @@ public class AuthenticationController {
 	}
 
 	@RequestMapping(value = "/change-password", method = RequestMethod.POST)
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('client')")
 	public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
 		userDetailsService.changePassword(passwordChanger.oldPassword, passwordChanger.newPassword);
 		

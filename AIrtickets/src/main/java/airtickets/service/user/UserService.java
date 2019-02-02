@@ -10,5 +10,5 @@ public interface UserService {
 	UserDTO findById(Long id);
     UserDTO findByUsername(String username);
     List<UserDTO> findAll ();
-    UserDTO addUser(User user);
+    UserDTO addUser(UserDTO user);
 }

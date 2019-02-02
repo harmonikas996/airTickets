@@ -15,6 +15,7 @@ import { VehiclesModule } from './vehicles/vehicles.module';
 import { ProfileComponent } from './profile/profile.component';
 import { AircompanyDashboardComponent } from './dashboards/aircompany-dashboard/aircompany-dashboard.component';
 import { AuthInterceptor, httpInterceptorProviders } from './user-authentication/service/auth-interceptor';
+import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AuthInterceptor, httpInterceptorProviders } from './user-authentication
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    AircompanyDashboardComponent
+    AircompanyDashboardComponent,
+    UserDashboardComponent
   ],
   imports: [
     BrowserModule,
