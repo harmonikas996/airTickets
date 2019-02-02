@@ -31,6 +31,7 @@ export class UserProfileComponent implements OnInit {
       lastName: ['', Validators.required],
       city: ['', Validators.required],
       phone: ['', Validators.required],
+      password: [''],
       activated: [''],
       bonusPoints: [''],
       lastPasswordResetDate: ['']
@@ -45,16 +46,18 @@ export class UserProfileComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.userProfileForm.valid) {
-    //   this.userService(this.aircompanyProfileForm.value).subscribe((response) => {
-    //     console.log('Response is: ', response);
-    //     location.reload();
-    //  },
-    //  (error) => {
-    //     //catch the error
-    //     console.error('An error occurred, ', error);
-    //  });
-    //  };
+    if (this.userProfileForm.valid) {
+      console.log("PRE: "+this.token.getToken());
+      this.userService.updateUser(this.userProfileForm.value).subscribe((response) => {
+        console.log('Response is: ', response);
+        location.reload();
+     },
+     (error) => {
+        // catch the error
+        console.error('An error occurred, ', error);
+     }
+     );
+     }
   }
 
 }
