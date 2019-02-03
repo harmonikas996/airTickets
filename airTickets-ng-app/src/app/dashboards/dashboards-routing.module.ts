@@ -1,3 +1,6 @@
+import { RentacarsListComponent } from './system-dashboard/rentacars-list/rentacars-list.component';
+import { HotelsListComponent } from './system-dashboard/hotels-list/hotels-list.component';
+import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/aircompanies-list.component';
 import { RoomListComponent } from './hotel-dashboard/room-list/room-list.component';
 import { HotelDashboardComponent } from './hotel-dashboard/hotel-dashboard.component';
 import { NgModule } from '@angular/core';
@@ -22,6 +25,7 @@ import { RoomDetailsComponent } from './hotel-dashboard/room-details/room-detail
 import { RoomNewComponent } from './hotel-dashboard/room-new/room-new.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { SystemDashboardComponent } from './system-dashboard/system-dashboard.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -79,8 +83,19 @@ const dashboardsRoutes: Routes = [
     { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
     { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
   ]
-}
-
+  },
+  { path: 'admin-dashboard',
+  component: SystemDashboardComponent,
+  canActivate: [RoleGuard],
+  data: {role: 'sysadmin'},
+  children: [
+    { path: 'aircompanies', component: AircompaniesListComponent },
+    { path: 'hotels', component: HotelsListComponent },
+    { path: 'rentacars', component: RentacarsListComponent },
+    { path: '', redirectTo: 'aircompanies', pathMatch: 'full' },
+    { path: '**', redirectTo: 'aircompanies', pathMatch: 'full' }
+  ]
+  }
 ];
 
 @NgModule({
