@@ -1,0 +1,33 @@
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+      <h3>Rentacars List</h3>
+  </div>
+  <div class="col-6 text-right">
+      <a type="button" class="btn btn-primary" routerLink="../rentacars/new"><i class="far fa-plus-square mr-2"></i>Add Rentacar</a>
+  </div>
+</div>
+<div class="row">
+<div class="col-12">
+  <table *ngIf="rentacars" class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">name</th>
+        <th scope="col">address of beds</th>
+        <th scope="col">description</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rentacar of rentacars">
+        <td><img height="60" src="../../../../../assets/img/rentacar/{{rentacar.image}}"></td>
+        <td class="align-middle">{{rentacar.name}}</td>
+        <td class="align-middle">{{rentacar.address}}</td>
+        <td class="align-middle">{{rentacar.description}}</td>
+        <td class="align-middle"><a type="button" class="btn btn-primary" routerLink="../rentacar-details/{{rentacar.id}}"><i class="fas fa-edit"></i></a></td>
+        <td class="align-middle"><a type="button" class="btn btn-danger" (click)="onRemove(rentacar)"><i class="fas fa-trash text-white"></i></a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>

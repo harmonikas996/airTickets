@@ -10,4 +10,5 @@ export interface User {
   password?: string;
   bonusPoints?: number;
   lastPasswordResetDate?: any;
+  type: any;
 }

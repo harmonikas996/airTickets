@@ -33,4 +33,15 @@ export class HotelService {
   updateHotel(hotel: Hotel): Observable<Object> {
     return this.http.put(this.hotelsUrl + '/' + hotel.id + '/update', hotel, httpOptions);
   }
+
+  removeHotel(rentacar: Hotel | number):  Observable<Hotel> {
+    const id = typeof hotel === 'number' ? hotel : hotel.id;
+    return this.http.delete<Hotel>(this.hotelsUrl + '/' + id + '/delete', httpOptions).pipe(
+      tap(_ => console.log(`deleted hotel id=${id}`))
+    );
+  }
+
+  addRentacar(room: Hotel): Observable<Object> {
+    return this.http.post<Hotel>(this.hotelsUrl + '/new', room, httpOptions);
+  }
 }
