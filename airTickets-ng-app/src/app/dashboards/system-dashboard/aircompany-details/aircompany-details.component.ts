@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Aircompany } from './../../../shared/model/aircompany/aircompany.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-aircompany-details',
@@ -37,7 +39,7 @@ export class AircompanyDetailsComponent implements OnInit {
 
   getAircompanyById(id: number): void {
     this.aircompany = this.aircompanyService.getAircompanyById(id).pipe(
-      tap(aircompany => this.aircompanyService.patchValue(aircompany))
+      tap(aircompany => this.aircompanyDetailsForm.patchValue(aircompany))
     );
   }
 

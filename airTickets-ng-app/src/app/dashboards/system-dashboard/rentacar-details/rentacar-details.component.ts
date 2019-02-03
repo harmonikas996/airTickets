@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { RentACar } from 'src/app/shared/model/rentacar/rentacar.model';
 import { Observable } from 'rxjs';
 import { RentacarService } from 'src/app/shared/services/rentacar/rentacar.service';
+import { tap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-rentacar-details',
@@ -37,7 +39,7 @@ export class RentacarDetailsComponent implements OnInit {
 
   getRentacarById(id: number): void {
     this.rentacar = this.rentacarService.getRentacarById(id).pipe(
-      tap(rentacar => this.rentacarService.patchValue(rentacar))
+      tap(rentacar => this.rentacarDetailsForm.patchValue(rentacar))
     );
   }
 

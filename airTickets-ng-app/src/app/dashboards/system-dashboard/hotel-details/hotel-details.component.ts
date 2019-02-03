@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Hotel } from './../../../shared/model/hotel/hotel.model';
 import { Component, OnInit } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-hotel-details',
@@ -37,7 +39,7 @@ export class HotelDetailsComponent implements OnInit {
 
   getHotelById(id: number): void {
     this.hotel = this.hotelService.getHotelById(id).pipe(
-      tap(hotel => this.hotelService.patchValue(hotel))
+      tap(hotel => this.hotelDetailsForm.patchValue(hotel))
     );
   }
 
