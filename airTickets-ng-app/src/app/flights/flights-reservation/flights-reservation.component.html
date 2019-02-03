@@ -1,0 +1,33 @@
+<div class="row mt-4 mb-4">
+  <div class="col-12">
+      <h3>Flight reservations</h3>
+  </div>
+</div>
+<div  class="col-sm-10">
+  <form [formGroup]="flightResForm" novalidate>
+    <div class="row">
+        <div class="col">
+          <input type="text" class="form-control" placeholder="From" formControlName="placeFromId">
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="Destination" formControlName="placeToId">
+        </div>
+        <div class="col">
+          <my-date-picker [options]="myDatePickerOptions" formControlName="timeBegin"></my-date-picker>
+        </div>
+        <div class="col">
+            <my-date-picker [options]="myDatePickerOptions" formControlName="timeEnd"></my-date-picker>
+        </div>
+        <div class="col">
+            <button type="submit" [disabled]="!flightResForm.valid" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+  </form>
+
+
+
+
+
+
+
+</div>
