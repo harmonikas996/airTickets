@@ -28,7 +28,7 @@ export class AircompaniesListComponent implements OnInit {
   }
 
   onRemove(aircompany: Aircompany): void {
-    this.aircompany = this.aircompanies.filter(v => v !== aircompany);
+    this.aircompanies = this.aircompanies.filter(v => v !== aircompany);
     this.aircompanyService.removeAirCompany(aircompany.id).subscribe(aircompany => this.aircompany = aircompany);
   }
 }

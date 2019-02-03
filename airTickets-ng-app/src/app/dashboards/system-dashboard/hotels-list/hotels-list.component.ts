@@ -28,7 +28,7 @@ export class HotelsListComponent implements OnInit {
   }
 
   onRemove(hotel: Hotel): void {
-    this.hotel = this.hotels.filter(v => v !== hotel);
+    this.hotels = this.hotels.filter(v => v !== hotel);
     this.hotelService.removeHotel(hotel.id).subscribe(hotel => this.hotel = hotel);
   }
 }

@@ -28,7 +28,7 @@ export class HotelNewComponent implements OnInit {
 
   onSubmit() {
     if (this.newHotelForm.valid) {
-      this.hotelService.addRentacar(this.newHotelForm.value).subscribe((response) => {
+      this.hotelService.addHotel(this.newHotelForm.value).subscribe((response) => {
         console.log('Response is: ', response);
         this.location.back();
      },

@@ -40,5 +40,8 @@ export class AircompanyService {
     );
   }
 
+  addAircompany(aircomp: Aircompany): Observable<Object> {
+    return this.http.post<Aircompany>(this.aircomapnyurl + '/new', aircomp, httpOptions);
+  }
 }
 

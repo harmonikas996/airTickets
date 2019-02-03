@@ -29,7 +29,7 @@ export class RentacarsListComponent implements OnInit {
   }
 
   onRemove(rentacar: RentACar): void {
-    this.rentacar = this.rentacars.filter(v => v !== rentacar);
+    this.rentacars = this.rentacars.filter(v => v !== rentacar);
     this.rentacarService.removeRentacar(rentacar.id).subscribe(rentacar => this.rentacar = rentacar);
   }
 }

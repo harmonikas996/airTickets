@@ -28,7 +28,7 @@ export class AircompanyNewComponent implements OnInit {
 
   onSubmit() {
     if (this.newAircompanyForm.valid) {
-      this.aircompanyService.addRentacar(this.newAircompanyForm.value).subscribe((response) => {
+      this.aircompanyService.addAircompany(this.newAircompanyForm.value).subscribe((response) => {
         console.log('Response is: ', response);
         this.location.back();
      },
