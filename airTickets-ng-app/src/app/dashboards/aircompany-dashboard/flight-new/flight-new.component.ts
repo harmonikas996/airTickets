@@ -4,6 +4,7 @@ import { Flight } from './../../../shared/model/aircompany/flight.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-flight-new',
@@ -11,6 +12,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./flight-new.component.css']
 })
 export class FlightNewComponent implements OnInit {
+
+  public myDatePickerOptions: IMyDpOptions = {
+
+    dateFormat: 'yyyy-mm-dd'
+  };
 
   flight: Observable<Flight>;
   newFlightForm: FormGroup;

@@ -1,33 +1,80 @@
 <div class="row mt-4 mb-4">
-  <div class="col-12">
+  <div class="col-10">
       <h3>Flight reservations</h3>
   </div>
 </div>
 <div  class="col-sm-10">
   <form [formGroup]="flightResForm" novalidate>
+
+    <div class="col-5" id="type">
+      <div class="row">
+        <div class="col">
+          <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+              <label class="form-check-label" for="defaultCheck1">Round trip</label>
+          </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">One way</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">Multi city</label>
+            </div>
+        </div>
+
+      </div>
+    </div>
+
     <div class="row">
         <div class="col">
-          <input type="text" class="form-control" placeholder="From" formControlName="placeFromId">
+            <label>Depart from</label>
+            <ng-select [items]="airports"
+              bindLabel="city"
+              autofocus
+              bindValue="city">
+            </ng-select>
         </div>
         <div class="col">
-          <input type="text" class="form-control" placeholder="Destination" formControlName="placeToId">
+            <label>Arrive at</label>
+            <ng-select [items]="airports"
+              bindLabel="city"
+              autofocus
+              bindValue="city">
+            </ng-select>
         </div>
         <div class="col">
+          <label>Departure date</label>
           <my-date-picker [options]="myDatePickerOptions" formControlName="timeBegin"></my-date-picker>
         </div>
         <div class="col">
+            <label>Return date</label>
             <my-date-picker [options]="myDatePickerOptions" formControlName="timeEnd"></my-date-picker>
         </div>
+
         <div class="col">
-            <button type="submit" [disabled]="!flightResForm.valid" class="btn btn-primary">Search</button>
+          <label>Passengers</label>
+          <select class="form-control form-control-sm">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+            </select>
+          </div>
+
+        <div class="col">
+            <button id="buttonSearch" type="submit" class="btn btn-primary">Search</button>
         </div>
-    </div>
+  </div>
   </form>
-
-
-
-
-
-
 
 </div>
