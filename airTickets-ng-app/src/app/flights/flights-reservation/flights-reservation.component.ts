@@ -1,7 +1,8 @@
+import { AirportService } from './../../shared/services/aircompany/airport.service';
+import { Airport } from './../../shared/model/aircompany/airport.model';
 import { FlightReservationService } from './../../shared/services/aircompany/flight-reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-// import * as $ from 'jquery';
 import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
@@ -18,10 +19,12 @@ export class FlightsReservationComponent implements OnInit {
   };
 
   flightResForm: FormGroup;
+  airports: Airport[];
 
   constructor(
     private flightResService: FlightReservationService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private airportService: AirportService
   ) { }
 
   ngOnInit() {
@@ -32,6 +35,12 @@ export class FlightsReservationComponent implements OnInit {
       timeBegin: [null, Validators.required],
       timeEnd: [null, Validators.required]
     });
+
+    this.getAirPorts();
+  }
+
+  getAirPorts(): void {
+      this.airportService.getAirports().subscribe(airport => this.airports = airport);
   }
 
   onSubmit() {
