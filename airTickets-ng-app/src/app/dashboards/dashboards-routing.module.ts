@@ -35,6 +35,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { SystemDashboardComponent } from './system-dashboard/system-dashboard.component';
 import { RentacarNewComponent } from './system-dashboard/rentacar-new/rentacar-new.component';
 import { RentacarDetailsComponent } from './system-dashboard/rentacar-details/rentacar-details.component';
+import { HotelProfileComponent } from './hotel-dashboard/hotel-profile/hotel-profile.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -75,6 +76,7 @@ const dashboardsRoutes: Routes = [
     data: {role: 'hotel'},
     children: [
       // { path: 'hotel-profile', component: HotelProfileComponent },
+      { path: 'hotel-profile', component: HotelProfileComponent },
       { path: 'rooms', component:  RoomListComponent},
       { path: 'amenities', component:  AmenityListComponent},
       { path: 'user-profile', component: UserProfileComponent },
