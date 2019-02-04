@@ -1,3 +1,7 @@
+import { HotelDetailsComponent } from './system-dashboard/hotel-details/hotel-details.component';
+import { HotelNewComponent } from './system-dashboard/hotel-new/hotel-new.component';
+import { AircompanyDetailsComponent } from './system-dashboard/aircompany-details/aircompany-details.component';
+import { AircompanyNewComponent } from './system-dashboard/aircompany-new/aircompany-new.component';
 import { RentacarsListComponent } from './system-dashboard/rentacars-list/rentacars-list.component';
 import { HotelsListComponent } from './system-dashboard/hotels-list/hotels-list.component';
 import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/aircompanies-list.component';
@@ -26,6 +30,8 @@ import { RoomNewComponent } from './hotel-dashboard/room-new/room-new.component'
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { SystemDashboardComponent } from './system-dashboard/system-dashboard.component';
+import { RentacarNewComponent } from './system-dashboard/rentacar-new/rentacar-new.component';
+import { RentacarDetailsComponent } from './system-dashboard/rentacar-details/rentacar-details.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -90,8 +96,14 @@ const dashboardsRoutes: Routes = [
   data: {role: 'sysadmin'},
   children: [
     { path: 'aircompanies', component: AircompaniesListComponent },
+    { path: 'aircompanies/new', component: AircompanyNewComponent },
+    { path: 'aircompany-details/:id', component: AircompanyDetailsComponent },
     { path: 'hotels', component: HotelsListComponent },
+    { path: 'hotels/new', component: HotelNewComponent },
+    { path: 'hotel-details/:id', component: HotelDetailsComponent },
     { path: 'rentacars', component: RentacarsListComponent },
+    { path: 'rentacars/new', component: RentacarNewComponent },
+    { path: 'rentacar-details/:id', component: RentacarDetailsComponent },
     { path: '', redirectTo: 'aircompanies', pathMatch: 'full' },
     { path: '**', redirectTo: 'aircompanies', pathMatch: 'full' }
   ]
