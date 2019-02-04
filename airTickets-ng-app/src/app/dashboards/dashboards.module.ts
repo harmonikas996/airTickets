@@ -34,6 +34,9 @@ import { HotelsListComponent } from './system-dashboard/hotels-list/hotels-list.
 import { AircompanyDetailsComponent } from './system-dashboard/aircompany-details/aircompany-details.component';
 import { AircompanyNewComponent } from './system-dashboard/aircompany-new/aircompany-new.component';
 import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/aircompanies-list.component';
+import { AmenityNewComponent } from './hotel-dashboard/amenity-new/amenity-new.component';
+import { AmenityListComponent } from './hotel-dashboard/amenity-list/amenity-list.component';
+import { AmenityDetailsComponent } from './hotel-dashboard/amenity-details/amenity-details.component';
 
 
 
@@ -73,6 +76,9 @@ import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/
     AircompanyDetailsComponent,
     AircompanyNewComponent,
     AircompaniesListComponent,
+    AmenityNewComponent,
+    AmenityListComponent,
+    AmenityDetailsComponent,
   ],
   providers: [
     AuthGuard,

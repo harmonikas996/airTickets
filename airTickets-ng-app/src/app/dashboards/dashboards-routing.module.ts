@@ -1,3 +1,6 @@
+import { AmenityDetailsComponent } from './hotel-dashboard/amenity-details/amenity-details.component';
+import { AmenityNewComponent } from './hotel-dashboard/amenity-new/amenity-new.component';
+import { AmenityListComponent } from './hotel-dashboard/amenity-list/amenity-list.component';
 import { HotelDetailsComponent } from './system-dashboard/hotel-details/hotel-details.component';
 import { HotelNewComponent } from './system-dashboard/hotel-new/hotel-new.component';
 import { AircompanyDetailsComponent } from './system-dashboard/aircompany-details/aircompany-details.component';
@@ -73,9 +76,12 @@ const dashboardsRoutes: Routes = [
     children: [
       // { path: 'hotel-profile', component: HotelProfileComponent },
       { path: 'rooms', component:  RoomListComponent},
+      { path: 'amenities', component:  AmenityListComponent},
       { path: 'user-profile', component: UserProfileComponent },
       { path: 'rooms/new', component: RoomNewComponent },
+      { path: 'amenities/new', component: AmenityNewComponent },
       { path: 'room-details/:id', component: RoomDetailsComponent },
+      { path: 'amenity-details/:id', component: AmenityDetailsComponent },
       // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },
       // { path: '**', redirectTo: 'hotel-profile', pathMatch: 'full' }
     ]
