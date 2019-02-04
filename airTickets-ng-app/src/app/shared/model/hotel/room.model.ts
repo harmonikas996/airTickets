@@ -5,4 +5,5 @@ export interface Room {
     noOfBeds: number;
     type: string;
     hotel: any;
+    image: any;
 }

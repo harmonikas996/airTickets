@@ -117,9 +117,8 @@ public class AuthenticationController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody UserDTO userDTO, HttpServletResponse response) {
-		
+		userDTO.setType("client");
 		User user = new User(userDTO);
-		
 		String message = userDetailsService.register(user);
 		Map<String, String> result = new HashMap<>();
 		result.put("result", message);

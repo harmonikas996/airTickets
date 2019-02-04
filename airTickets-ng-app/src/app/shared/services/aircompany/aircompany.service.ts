@@ -1,8 +1,10 @@
+import { User } from 'src/app/shared/model/user/user.model';
 import { Aircompany } from './../../model/aircompany/aircompany.model';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { UserService } from '../user/user.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,7 +17,10 @@ export class AircompanyService {
 
   private aircomapnyurl = 'http://localhost:8080/aircompanies';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private userService: UserService
+  ) { }
 
   getAircompanies(): Observable<Aircompany[]>{
     return this.http.get<Aircompany[]>(this.aircomapnyurl + '/all');
@@ -40,5 +45,22 @@ export class AircompanyService {
     );
   }
 
+  addAircompany(aircomp: Aircompany): Observable<Object> {
+    return this.http.post<Aircompany>(this.aircomapnyurl + '/new', aircomp, httpOptions);
+  }
+
+  addAdmin(companyId: any, adminEmail: String): void {
+    let user: User;
+
+    this.userService.getUserByEmail(adminEmail).subscribe(
+      userToBeAdmin => user = userToBeAdmin,
+      error => console.log('Error: ', error),
+      () => {
+        user.type = 'aircompany';
+        user.company = companyId;
+        this.userService.updateNotLoggedUser(user).subscribe();
+      }
+    );
+  }
 }
 

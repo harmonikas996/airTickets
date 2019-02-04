@@ -4,9 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './user-authentication/login/login.component';
 import { RegisterComponent } from './user-authentication/register/register.component';
 import { VehiclesListComponent } from './vehicles/vehicles-list/vehicles-list.component';
+import { FlightsReservationComponent } from './flights/flights-reservation/flights-reservation.component';
 
 const routes: Routes = [
-  // { path: 'flights', component: VehiclesListComponent },
+  { path: 'flightreservations', component: FlightsReservationComponent },
   { path: 'vehicles', component: VehiclesListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

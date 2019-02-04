@@ -19,6 +19,7 @@ public class UserDTO {
 	private String phone;
 	private boolean activated;
 	private int bonusPoints;
+	private String type;
 	private Timestamp lastPasswordResetDate;
 	
 	public UserDTO() {
@@ -39,6 +40,7 @@ public class UserDTO {
 		activated = u.isActivated();
 		bonusPoints = u.getBonusPoints();
 		lastPasswordResetDate = u.getLastPasswordResetDate();
+		type = u.getType();
 	}
 	
 	public UserDTO(Optional<User> u) {
@@ -56,6 +58,7 @@ public class UserDTO {
 		activated = u.get().isActivated();
 		bonusPoints = u.get().getBonusPoints();
 		lastPasswordResetDate = u.get().getLastPasswordResetDate();
+		type = u.get().getType();
 	}
 
 	public long getId() {
@@ -128,6 +131,14 @@ public class UserDTO {
 
 	public void setBonusPoints(int bonusPoints) {
 		this.bonusPoints = bonusPoints;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public Timestamp getLastPasswordResetDate() {

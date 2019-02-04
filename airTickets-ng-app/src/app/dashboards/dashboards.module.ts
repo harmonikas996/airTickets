@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { DashboardsRoutingModule } from './/dashboards-routing.module';
 import { RentacarDashboardComponent } from './rentacar-dashaboard/rentacar-dashboard.component';
@@ -23,6 +24,16 @@ import { RoomDetailsComponent } from './hotel-dashboard/room-details/room-detail
 import { RoomNewComponent } from './hotel-dashboard/room-new/room-new.component';
 import { RoomListComponent } from './hotel-dashboard/room-list/room-list.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { SystemDashboardComponent } from './system-dashboard/system-dashboard.component';
+import { RentacarsListComponent } from './system-dashboard/rentacars-list/rentacars-list.component';
+import { RentacarNewComponent } from './system-dashboard/rentacar-new/rentacar-new.component';
+import { RentacarDetailsComponent } from './system-dashboard/rentacar-details/rentacar-details.component';
+import { HotelDetailsComponent } from './system-dashboard/hotel-details/hotel-details.component';
+import { HotelNewComponent } from './system-dashboard/hotel-new/hotel-new.component';
+import { HotelsListComponent } from './system-dashboard/hotels-list/hotels-list.component';
+import { AircompanyDetailsComponent } from './system-dashboard/aircompany-details/aircompany-details.component';
+import { AircompanyNewComponent } from './system-dashboard/aircompany-new/aircompany-new.component';
+import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/aircompanies-list.component';
 
 
 
@@ -30,7 +41,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
   imports: [
     CommonModule,
     DashboardsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule,
   ],
   declarations: [
     RentacarDashboardComponent,
@@ -51,6 +63,16 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     RoomNewComponent,
     RoomListComponent,
     UserProfileComponent,
+    SystemDashboardComponent,
+    RentacarsListComponent,
+    RentacarNewComponent,
+    RentacarDetailsComponent,
+    HotelDetailsComponent,
+    HotelNewComponent,
+    HotelsListComponent,
+    AircompanyDetailsComponent,
+    AircompanyNewComponent,
+    AircompaniesListComponent,
   ],
   providers: [
     AuthGuard,

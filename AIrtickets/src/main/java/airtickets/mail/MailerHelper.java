@@ -17,8 +17,6 @@ import com.sendgrid.SendGrid;
 
 import airtickets.security.TokenUtils;
 
-
-
 @Component
 public class MailerHelper {
   private static final Logger logger = LoggerFactory.getLogger(MailerHelper.class);

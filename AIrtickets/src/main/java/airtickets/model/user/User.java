@@ -33,6 +33,7 @@ import airtickets.model.aircompany.Seat;
 import airtickets.model.hotel.HotelRating;
 import airtickets.model.hotel.RoomRating;
 import airtickets.model.rentacar.CarRating;
+import airtickets.model.rentacar.CarType;
 import airtickets.model.rentacar.RentACarRating;
 
 @Entity
@@ -93,7 +94,9 @@ public class User implements UserDetails {
 	@Column
 	private int bonusPoints;
 	
-//	@Column
+	@Column
+	private UserType type;
+	//	@Column
 //	private String passport;
 	@OneToMany(mappedBy = "initier", cascade=CascadeType.ALL)
 	private List<Friendship> added;
@@ -242,6 +245,7 @@ public class User implements UserDetails {
 		this.activated = user.isActivated();
 		this.bonusPoints = user.getBonusPoints();
 		this.lastPasswordResetDate = user.getLastPasswordResetDate();
+		setType(user.getType());
 	}
 
 	public long getId() {
@@ -283,6 +287,31 @@ public class User implements UserDetails {
 	public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
+	
+	public String getType() {
+		if (type.equals(UserType.sysadmin))
+			return "sysadmin";
+		else if (type.equals(UserType.rentacar))
+			return "rentacar";
+		else if (type.equals(UserType.hotel))
+			return "hotel";
+		else if (type.equals(UserType.aircompany))
+			return "aircompany";
+		return "client";
+	}
+
+	public void setType(String type) {
+		if (type.equals("sysadmin"))
+			this.type = UserType.sysadmin;
+		else if (type.equals("rentacar"))
+			this.type = UserType.rentacar;
+		else if (type.equals("hotel"))
+			this.type = UserType.hotel;
+		else if (type.equals("aircompany"))
+			this.type = UserType.aircompany;
+		else
+			this.type = UserType.client;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

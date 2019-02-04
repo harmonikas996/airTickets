@@ -1,6 +1,8 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { AppRoutingModule } from './/app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +18,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AircompanyDashboardComponent } from './dashboards/aircompany-dashboard/aircompany-dashboard.component';
 import { AuthInterceptor, httpInterceptorProviders } from './user-authentication/service/auth-interceptor';
 import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboard.component';
+import { FlightsModule } from './flights/flights.module';
+import { MyDatePickerModule } from 'mydatepicker';
 
 @NgModule({
   declarations: [
@@ -26,13 +30,18 @@ import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboa
     RegisterComponent,
     ProfileComponent,
     AircompanyDashboardComponent,
-    UserDashboardComponent
+    UserDashboardComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     CoreModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgSelectModule,
+    MyDatePickerModule,
     VehiclesModule,
+    FlightsModule,
     UserAuthenticationModule,
     DashboardsModule,
     AppRoutingModule, // ovaj modul uvek nek ide ispod svih drugih modula. Pravilo zlatno
@@ -43,6 +52,6 @@ import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboa
   providers: [
     httpInterceptorProviders
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

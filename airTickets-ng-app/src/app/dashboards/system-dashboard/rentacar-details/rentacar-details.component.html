@@ -1,0 +1,56 @@
+<div *ngIf="rentacar" class="row">
+  <div  class="col-sm-12">
+      <form *ngIf="rentacar | async; else loading" [formGroup]="rentacarDetailsForm" (ngSubmit)="onSubmit()">
+          <div class="row">
+              <div class="col-6">
+                  <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-long-arrow-alt-left"></i></button>
+                  <h3 class="mt-4">Rentacar Details</h3>
+              </div>
+          </div>
+          <div class="row mt-4">
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <label for="name">Name<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="name" class="form-control" placeholder="Enter Name" required>
+                      <small *ngIf="rentacarDetailsForm.controls.name.errors?.required && rentacarDetailsForm.controls.name.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                      <label for="address">Address<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="address" class="form-control" placeholder="Enter Address" required>
+                      <small *ngIf="rentacarDetailsForm.controls.address.errors?.required && rentacarDetailsForm.controls.address.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <input type="text" formControlName="description" class="form-control" placeholder="Enter Description" required>
+                    <small *ngIf="rentacarDetailsForm.controls.description.errors?.required && rentacarDetailsForm.controls.description.touched" class="form-text text-danger">*Required</small>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-12">
+                  <button type="submit" [disabled]="!rentacarDetailsForm.valid" class="btn btn-primary">Save Changes</button>
+                  <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
+                  <button *ngIf="rentacar | async as rentacar" type="button" class="btn btn-danger ml-2" (click)="onRemove(rentacar)">Remove</button>
+              </div>
+          </div>
+      </form>
+      <form *ngIf="rentacar | async; else loading" [formGroup]="addAdminForm" (ngSubmit)="onAddAdmin()">
+          <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <input type="text" formControlName="companyId" class="form-control" hidden></div>
+                <div class="form-group">
+                    <label for="admin">Add Company Admin</label>
+                    <ng-select [items]="clients"
+                              bindLabel="email"
+                              autofocus
+                              bindValue="email"
+                              formControlName="selectedUser" required>
+                    </ng-select>
+                </div>
+              <button type="submit" [disabled]="!addAdminForm.valid" class="btn btn-success ml-2">Add Admin</button>
+            </div>
+          </div>
+          </form>
+  </div>
+</div>
