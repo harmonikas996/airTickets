@@ -1,0 +1,31 @@
+<div class="row mt-4 mb-4">
+    <div class="col-6">
+        <h3>Amenities List</h3>
+    </div>
+    <div class="col-6 text-right">
+        <a type="button" class="btn btn-primary" routerLink="../amenities/new"><i class="far fa-plus-square mr-2"></i>Add Amenity</a>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-12">
+    <table *ngIf="amenities" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">title</th>
+          <th scope="col">price</th>
+          <th scope="col">hotel</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let amenity of amenities">
+          <td class="align-middle">{{amenity.title}}</td>
+          <td class="align-middle">{{amenity.price}}</td>
+          <td class="align-middle">{{amenity.hotelId}}</td>
+          <td class="align-middle"><a type="button" class="btn btn-primary" routerLink="../amenity-details/{{amenity.id}}"><i class="fas fa-edit"></i></a></td>
+          <td class="align-middle"><a type="button" class="btn btn-danger" (click)="onRemove(amenity)"><i class="fas fa-trash text-white"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>

@@ -37,6 +37,11 @@ import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/
 import { MyDatePickerModule } from 'mydatepicker';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AmenityNewComponent } from './hotel-dashboard/amenity-new/amenity-new.component';
+import { AmenityListComponent } from './hotel-dashboard/amenity-list/amenity-list.component';
+import { AmenityDetailsComponent } from './hotel-dashboard/amenity-details/amenity-details.component';
+import { HotelProfileComponent } from './hotel-dashboard/hotel-profile/hotel-profile.component';
+
 
 
 @NgModule({
@@ -79,6 +84,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AircompanyDetailsComponent,
     AircompanyNewComponent,
     AircompaniesListComponent,
+    AmenityNewComponent,
+    AmenityListComponent,
+    AmenityDetailsComponent,
+    HotelProfileComponent,
   ],
   providers: [
     AuthGuard,

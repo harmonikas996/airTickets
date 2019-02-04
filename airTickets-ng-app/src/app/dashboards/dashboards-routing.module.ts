@@ -1,3 +1,6 @@
+import { AmenityDetailsComponent } from './hotel-dashboard/amenity-details/amenity-details.component';
+import { AmenityNewComponent } from './hotel-dashboard/amenity-new/amenity-new.component';
+import { AmenityListComponent } from './hotel-dashboard/amenity-list/amenity-list.component';
 import { HotelDetailsComponent } from './system-dashboard/hotel-details/hotel-details.component';
 import { HotelNewComponent } from './system-dashboard/hotel-new/hotel-new.component';
 import { AircompanyDetailsComponent } from './system-dashboard/aircompany-details/aircompany-details.component';
@@ -32,6 +35,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { SystemDashboardComponent } from './system-dashboard/system-dashboard.component';
 import { RentacarNewComponent } from './system-dashboard/rentacar-new/rentacar-new.component';
 import { RentacarDetailsComponent } from './system-dashboard/rentacar-details/rentacar-details.component';
+import { HotelProfileComponent } from './hotel-dashboard/hotel-profile/hotel-profile.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -72,10 +76,14 @@ const dashboardsRoutes: Routes = [
     data: {role: 'hotel'},
     children: [
       // { path: 'hotel-profile', component: HotelProfileComponent },
+      { path: 'hotel-profile', component: HotelProfileComponent },
       { path: 'rooms', component:  RoomListComponent},
+      { path: 'amenities', component:  AmenityListComponent},
       { path: 'user-profile', component: UserProfileComponent },
       { path: 'rooms/new', component: RoomNewComponent },
+      { path: 'amenities/new', component: AmenityNewComponent },
       { path: 'room-details/:id', component: RoomDetailsComponent },
+      { path: 'amenity-details/:id', component: AmenityDetailsComponent },
       // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },
       // { path: '**', redirectTo: 'hotel-profile', pathMatch: 'full' }
     ]
