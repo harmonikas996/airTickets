@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
 import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service';
 
+
+
 @Component({
   selector: 'app-vehicle-new',
   templateUrl: './vehicle-new.component.html',
@@ -16,6 +18,7 @@ export class VehicleNewComponent implements OnInit {
   rentacar: Observable<Vehicle>;
   // rentacarModel: RentACar;
   newVehicleForm: FormGroup;
+  types = [];
 
 
   constructor(
@@ -38,6 +41,8 @@ export class VehicleNewComponent implements OnInit {
       rentACarId: ['', Validators.required],
       image: [''],
     });
+
+    this.types = [ 'Sedan', 'Station Wagon', 'Van', 'SUV' ];
 
   }
 

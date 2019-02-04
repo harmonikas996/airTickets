@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { DashboardsRoutingModule } from './/dashboards-routing.module';
 import { RentacarDashboardComponent } from './rentacar-dashaboard/rentacar-dashboard.component';
@@ -40,7 +41,8 @@ import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/
   imports: [
     CommonModule,
     DashboardsRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelectModule,
   ],
   declarations: [
     RentacarDashboardComponent,
