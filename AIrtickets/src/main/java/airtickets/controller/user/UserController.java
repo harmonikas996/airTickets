@@ -45,7 +45,7 @@ public class UserController {
 	
 	@RequestMapping(method = GET, value = "/user/clients")
 	public List<UserDTO> loadAllClients() {
-		return this.userService.findAll(); // TODO srediti da vraca samo klijente
+		return this.userService.findClients(); // TODO srediti da vraca samo klijente
 	}
 
 	@RequestMapping("user/profile/{username}")

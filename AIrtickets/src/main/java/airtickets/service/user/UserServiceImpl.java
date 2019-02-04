@@ -52,6 +52,20 @@ public class UserServiceImpl implements UserService {
 		return usersDTO;
 	}
 	
+	public List<UserDTO> findClients() throws AccessDeniedException {
+		
+		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
+		List<User> users = userRepository.findAll();
+		
+		for(User u : users) {
+			if (u.getType().equals("client")) {
+				UserDTO userDTO = new UserDTO(u);
+				usersDTO.add(userDTO);
+			}
+		}
+		return usersDTO;
+	}
+	
 	public UserDTO addUser(UserDTO userDTO) {
 		
 		User user = new User(userDTO);
