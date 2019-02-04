@@ -14,8 +14,7 @@ export class VehiclesListComponent implements OnInit {
 
   vehicles: Vehicle[];
   vehicle: Vehicle;
-
-
+  
   constructor(private vehicleService: VehicleService, private rentacarService: RentacarService) { }
 
   ngOnInit() {

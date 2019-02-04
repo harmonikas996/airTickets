@@ -20,6 +20,7 @@ import { AuthInterceptor, httpInterceptorProviders } from './user-authentication
 import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboard.component';
 import { FlightsModule } from './flights/flights.module';
 import { MyDatePickerModule } from 'mydatepicker';
+import { VehiclesComponent } from './vehicles/vehicles.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     ProfileComponent,
     AircompanyDashboardComponent,
     UserDashboardComponent,
+    VehiclesComponent,
   ],
   imports: [
     BrowserModule,

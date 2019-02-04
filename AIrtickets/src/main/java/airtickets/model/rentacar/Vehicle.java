@@ -11,10 +11,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import airtickets.dto.rentacar.VehicleDTO;
 
+@NamedQuery(name="Vehicle.findByRentACarId", query="select v from Vehicle v where (?1 is null or v.rentACar.id = ?1) and v.name = ?2")
+//@NamedQuery(name="Vehicle.findByRentACarId", query="select v from Vehicle v where NULLIF(?1,NULL)OR v.rentACar.id = ?1")
+// WHERE :value is null or o.category = :value
+// COALESCE( null, :listParameter ) is null
+//:customer is null or :customer='' or  ord.customer = :customer
 @Entity
 public class Vehicle implements Serializable {
 

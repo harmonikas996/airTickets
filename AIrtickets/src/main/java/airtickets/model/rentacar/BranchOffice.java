@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 
 import airtickets.dto.rentacar.BranchOfficeDTO;
 
+@NamedQuery(name="BranchOffice.findAllCities", query="select distinct bo.city from BranchOffice bo")
 @Entity
 public class BranchOffice implements Serializable {
 
