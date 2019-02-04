@@ -21,6 +21,7 @@ import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboa
 import { FlightsModule } from './flights/flights.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { VehiclesComponent } from './vehicles/vehicles.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,8 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     MyDatePickerModule,
     VehiclesModule,
     FlightsModule,

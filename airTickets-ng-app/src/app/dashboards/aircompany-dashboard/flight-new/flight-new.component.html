@@ -8,14 +8,18 @@
         </div>
         <div class="row mt-4">
             <div class="col-md-4">
+
                 <div class="form-group">
-                    <label for="timeBegin">Time begin<span class="text-danger">*</span></label>
-                    <!-- <my-date-picker [options]="myDatePickerOptions" formControlName="timeBegin"></my-date-picker> -->
-                    <small *ngIf="newFlightForm.controls.timeBegin.errors?.required && newFlightForm.controls.timeBegin.touched" class="form-text text-danger">*Required</small>
+                    <input class="form-control" placeholder="Date Time Range:"
+                            [style.width]="'350px'"
+                            [selectMode]="'range'"
+                            [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1">
+                    <owl-date-time #dtRange1></owl-date-time>
                 </div>
+
                 <div class="form-group">
                     <label for="placeFromId">Place from<span class="text-danger">*</span></label>
-                    <input type="text" formControlName="placeFromId" class="form-control" placeholder="Enter Place from" required>
+                    <ng-select [items]="airportsFrom" formControlName="placeFromId" bindLabel="id" bindValue="id"></ng-select>
                     <small *ngIf="newFlightForm.controls.placeFromId.errors?.required && newFlightForm.controls.placeFromId.touched" class="form-text text-danger">*Required</small>
                 </div>
                 <div class="form-group">
@@ -30,14 +34,18 @@
                 </div>
             </div>
             <div class="col-md-4">
+
+
                 <div class="form-group">
                     <label for="timeEnd">Time end<span class="text-danger">*</span></label>
-                    <input type="text" formControlName="timeEnd" class="form-control" placeholder="Enter Time end" required>
+                    <my-date-picker [options]="myDatePickerOptions" formControlName="timeEnd"></my-date-picker>
                     <small *ngIf="newFlightForm.controls.timeEnd.errors?.required && newFlightForm.controls.timeEnd.touched" class="form-text text-danger">*Required</small>
                 </div>
+
+
                 <div class="form-group">
                     <label for="placeToId">Place to<span class="text-danger">*</span></label>
-                    <input type="text" formControlName="placeToId" class="form-control" placeholder="Enter Place to" required>
+                    <ng-select [items]="airportsTo" bindLabel="id" bindValue="id" formControlName="placeToId"></ng-select>
                     <small *ngIf="newFlightForm.controls.placeToId.errors?.required && newFlightForm.controls.placeToId.touched" class="form-text text-danger">*Required</small>
                 </div>
                 <div class="form-group">
@@ -59,14 +67,10 @@
                 </div>
                 <div class="form-group">
                     <label for="airplaneType">Airplane type</label>
-                    <input type="text" formControlName="airplaneType" class="form-control" placeholder="Enter Airplane type" required>
+                    <ng-select [items]="types" formControlName="airplaneType"></ng-select>
                     <small *ngIf="newFlightForm.controls.airplaneType.errors?.required && newFlightForm.controls.airplaneType.touched" class="form-text text-danger">*Required</small>
                 </div>
-                <div class="form-group">
-                  <label for="aircompanyId">Air company</label>
-                  <input type="text" formControlName="aircompanyId" class="form-control" placeholder="Enter Air company" required>
-                  <small *ngIf="newFlightForm.controls.aircompanyId.errors?.required && newFlightForm.controls.aircompanyId.touched" class="form-text text-danger">*Required</small>
-              </div>
+
             </div>
         </div>
         <div class="row">
