@@ -1,7 +1,7 @@
 export class Flight {
   id: number;
-  timeBegin: Date;
-  timeEnd: Date;
+  timeBegin: any;
+  timeEnd: any;
   distance: number;
   price: number;
   airplaneType: string;

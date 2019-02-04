@@ -4,25 +4,25 @@
   </div>
 </div>
 <div  class="col-sm-10">
-  <form [formGroup]="flightResForm" novalidate>
+  <form [formGroup]="flightResForm">
 
     <div class="col-5" id="type">
       <div class="row">
         <div class="col">
-          <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
               <label class="form-check-label" for="defaultCheck1">Round trip</label>
           </div>
         </div>
         <div class="col">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
                 <label class="form-check-label" for="defaultCheck1">One way</label>
             </div>
         </div>
         <div class="col">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
                 <label class="form-check-label" for="defaultCheck1">Multi city</label>
             </div>
         </div>
@@ -35,25 +35,27 @@
             <label>Depart from</label>
             <ng-select [items]="airports"
               bindLabel="city"
-              autofocus
-              bindValue="city">
+              bindValue="city" formControlName="placeFromId">
             </ng-select>
+            <small *ngIf="flightResForm.controls.placeFromId.errors?.required && flightResForm.controls.placeFromId.touched" class="form-text text-danger">*Required</small>
         </div>
         <div class="col">
             <label>Arrive at</label>
             <ng-select [items]="airports"
               bindLabel="city"
-              autofocus
-              bindValue="city">
+              bindValue="city" formControlName="placeToId">
             </ng-select>
+            <small *ngIf="flightResForm.controls.placeToId.errors?.required && flightResForm.controls.placeToId.touched" class="form-text text-danger">*Required</small>
         </div>
         <div class="col">
           <label>Departure date</label>
           <my-date-picker [options]="myDatePickerOptions" formControlName="timeBegin"></my-date-picker>
+          <small *ngIf="flightResForm.controls.timeBegin.errors?.required && flightResForm.controls.timeBegin.touched" class="form-text text-danger">*Required</small>
         </div>
         <div class="col">
             <label>Return date</label>
             <my-date-picker [options]="myDatePickerOptions" formControlName="timeEnd"></my-date-picker>
+            <small *ngIf="flightResForm.controls.timeEnd.errors?.required && flightResForm.controls.timeEnd.touched" class="form-text text-danger">*Required</small>
         </div>
 
         <div class="col">
@@ -72,7 +74,7 @@
           </div>
 
         <div class="col">
-            <button id="buttonSearch" type="submit" class="btn btn-primary">Search</button>
+            <button id="buttonSearch" [disabled]="!flightResForm.valid" type="submit" class="btn btn-primary">Search</button>
         </div>
   </div>
   </form>

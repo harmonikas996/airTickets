@@ -34,15 +34,21 @@ import { HotelsListComponent } from './system-dashboard/hotels-list/hotels-list.
 import { AircompanyDetailsComponent } from './system-dashboard/aircompany-details/aircompany-details.component';
 import { AircompanyNewComponent } from './system-dashboard/aircompany-new/aircompany-new.component';
 import { AircompaniesListComponent } from './system-dashboard/aircompanies-list/aircompanies-list.component';
-
+import { MyDatePickerModule } from 'mydatepicker';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardsRoutingModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     ReactiveFormsModule,
     NgSelectModule,
+    MyDatePickerModule,
+    BrowserAnimationsModule
   ],
   declarations: [
     RentacarDashboardComponent,
