@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { User } from 'src/app/shared/model/user/user.model';
 
 @Component({
   selector: 'app-aircompany-details',
@@ -15,14 +17,17 @@ import { Location } from '@angular/common';
 export class AircompanyDetailsComponent implements OnInit {
 
   aircompany: Observable<Aircompany>;
+  clients: User[];
   aircompanyModel: Aircompany;
   aircompanyDetailsForm: FormGroup;
+  addAdminForm: FormGroup;
 
   constructor(
     private aircompanyService: AircompanyService,
     private route: ActivatedRoute,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -33,14 +38,27 @@ export class AircompanyDetailsComponent implements OnInit {
       description: ['']
     });
 
+    this.addAdminForm = this.formBuilder.group({
+      selectedUser: ['', Validators.required],
+      companyId: ['']
+    });
+
     const id = +this.route.snapshot.paramMap.get('id');
     this.getAircompanyById(id);
+    this.getUsers();
   }
 
   getAircompanyById(id: number): void {
     this.aircompany = this.aircompanyService.getAircompanyById(id).pipe(
-      tap(aircompany => this.aircompanyDetailsForm.patchValue(aircompany))
+      tap(aircompany => {
+        this.aircompanyDetailsForm.patchValue(aircompany);
+        this.addAdminForm.controls['companyId'].setValue(aircompany.id);
+      })
     );
+  }
+
+  getUsers(): void {
+    this.userService.getClients().subscribe(data => this.clients = data);
   }
 
   onSubmit() {
@@ -64,5 +82,14 @@ export class AircompanyDetailsComponent implements OnInit {
   onRemove(aircomp: Aircompany) {
     this.aircompanyService.removeAirCompany(aircomp.id).subscribe(aircompany => this.aircompanyModel = aircompany);
     this.location.back();
+  }
+
+  onAddAdmin() {
+
+    if (this.addAdminForm.valid) {
+      this.aircompanyService.addAdmin(
+        this.addAdminForm.controls['companyId'].value, this.addAdminForm.controls['selectedUser'].value
+        );
+     }
   }
 }

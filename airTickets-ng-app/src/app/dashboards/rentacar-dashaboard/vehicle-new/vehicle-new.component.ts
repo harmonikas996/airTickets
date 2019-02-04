@@ -24,7 +24,7 @@ export class VehicleNewComponent implements OnInit {
   constructor(
     private vehicleService: VehicleService,
     private formBuilder: FormBuilder,
-    private location: Location,
+    private location: Location
   ) { }
 
   ngOnInit() {

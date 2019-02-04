@@ -40,6 +40,7 @@ public class UserDTO {
 		activated = u.isActivated();
 		bonusPoints = u.getBonusPoints();
 		lastPasswordResetDate = u.getLastPasswordResetDate();
+		type = u.getType();
 	}
 	
 	public UserDTO(Optional<User> u) {

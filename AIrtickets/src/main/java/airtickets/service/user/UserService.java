@@ -10,5 +10,6 @@ public interface UserService {
 	UserDTO findById(Long id);
     UserDTO findByUsername(String username);
     List<UserDTO> findAll ();
+    List<UserDTO> findClients ();
     UserDTO addUser(UserDTO user);
 }

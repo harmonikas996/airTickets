@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,8 @@ import airtickets.repo.user.UserRepository;
 @Service
 public class UserServiceImpl implements UserService {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -44,6 +48,20 @@ public class UserServiceImpl implements UserService {
 		for(User u : users) {
 			UserDTO userDTO = new UserDTO(u);
 			usersDTO.add(userDTO);
+		}
+		return usersDTO;
+	}
+	
+	public List<UserDTO> findClients() throws AccessDeniedException {
+		
+		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
+		List<User> users = userRepository.findAll();
+		
+		for(User u : users) {
+			if (u.getType().equals("client")) {
+				UserDTO userDTO = new UserDTO(u);
+				usersDTO.add(userDTO);
+			}
 		}
 		return usersDTO;
 	}

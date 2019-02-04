@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Hotel } from '../../model/hotel/hotel.model';
 import { tap } from 'rxjs/operators';
+import { UserService } from '../user/user.service';
+import { User } from '../../model/user/user.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -16,7 +18,8 @@ export class HotelService {
   private hotelsUrl = 'http://localhost:8080/hotels';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) { }
 
   gethotels(): Observable<Hotel[]> {
@@ -44,5 +47,19 @@ export class HotelService {
 
   addHotel(hotel: Hotel): Observable<Object> {
     return this.http.post<Hotel>(this.hotelsUrl + '/new', hotel, httpOptions);
+  }
+
+  addAdmin(companyId: any, adminEmail: String): void {
+    let user: User;
+
+    this.userService.getUserByEmail(adminEmail).subscribe(
+      userToBeAdmin => user = userToBeAdmin,
+      error => console.log('Error: ', error),
+      () => {
+        user.type = 'hotel';
+        user.company = companyId;
+        this.userService.updateNotLoggedUser(user).subscribe();
+      }
+    );
   }
 }
