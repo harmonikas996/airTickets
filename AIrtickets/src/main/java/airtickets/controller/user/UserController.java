@@ -5,6 +5,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +23,8 @@ import airtickets.service.user.UserService;
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private UserService userService;
 
@@ -38,6 +42,11 @@ public class UserController {
 	public List<UserDTO> loadAll() {
 		return this.userService.findAll();
 	}
+	
+	@RequestMapping(method = GET, value = "/user/clients")
+	public List<UserDTO> loadAllClients() {
+		return this.userService.findAll(); // TODO srediti da vraca samo klijente
+	}
 
 	@RequestMapping("user/profile/{username}")
 	//@PreAuthorize("hasRole('USER')")
@@ -47,6 +56,8 @@ public class UserController {
 	
 	@RequestMapping(method = PUT, value="user/profile/update/{username}")
 	public UserDTO updateUser(@RequestBody UserDTO user, @PathVariable String username) {
+		log.info("USAO SAM OVDE");
+		log.info(user.getEmail());
 		user.setEmail(username);
 		return this.userService.addUser(user);
 	}

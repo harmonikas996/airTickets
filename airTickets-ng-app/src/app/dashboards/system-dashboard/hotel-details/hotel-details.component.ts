@@ -6,6 +6,8 @@ import { Hotel } from './../../../shared/model/hotel/hotel.model';
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { User } from 'src/app/shared/model/user/user.model';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-hotel-details',
@@ -17,12 +19,15 @@ export class HotelDetailsComponent implements OnInit {
   hotel: Observable<Hotel>;
   hotelModel: Hotel;
   hotelDetailsForm: FormGroup;
+  clients: User[];
+  addAdminForm: FormGroup;
 
   constructor(
     private hotelService: HotelService,
     private route: ActivatedRoute,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -33,13 +38,22 @@ export class HotelDetailsComponent implements OnInit {
       description: ['']
     });
 
+    this.addAdminForm = this.formBuilder.group({
+      selectedUser: ['', Validators.required],
+      companyId: ['']
+    });
+
     const id = +this.route.snapshot.paramMap.get('id');
     this.getHotelById(id);
+    this.getUsers();
   }
 
   getHotelById(id: number): void {
     this.hotel = this.hotelService.getHotelById(id).pipe(
-      tap(hotel => this.hotelDetailsForm.patchValue(hotel))
+      tap(hotel => {
+        this.hotelDetailsForm.patchValue(hotel);
+        this.addAdminForm.controls['companyId'].setValue(hotel.id);
+      })
     );
   }
 
@@ -64,5 +78,18 @@ export class HotelDetailsComponent implements OnInit {
   onRemove(hotel: Hotel) {
     this.hotelService.removeHotel(hotel.id).subscribe(hotel => this.hotelModel = hotel);
     this.location.back();
+  }
+
+  getUsers(): void {
+    this.userService.getClients().subscribe(data => this.clients = data);
+  }
+
+  onAddAdmin() {
+
+    if (this.addAdminForm.valid) {
+      this.hotelService.addAdmin(
+        this.addAdminForm.controls['companyId'].value, this.addAdminForm.controls['selectedUser'].value
+        );
+     }
   }
 }

@@ -25,7 +25,19 @@ export class UserService {
     return this.http.get<User>(this.profileUrl + '/' + this.token.getUsername());
   }
 
+  getUserByEmail(username: String): Observable<User> {
+    return this.http.get<User>(this.profileUrl + '/' + username);
+  }
+
   updateUser(user: User): Observable<User> {
     return this.http.put<User>(this.profileUrl + '/update/' + this.token.getUsername(), user, httpOptions);
+  }
+
+  updateNotLoggedUser(user: User): Observable<User> {
+    return this.http.put<User>(this.profileUrl + '/update/' + user.email, user, httpOptions);
+  }
+
+  getClients(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:8080/api/user/clients');
   }
 }

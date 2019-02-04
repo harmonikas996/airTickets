@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { RentACar } from '../../model/rentacar/rentacar.model';
+import { UserService } from '../user/user.service';
+import { User } from '../../model/user/user.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,7 +19,8 @@ export class RentacarService {
   private rentacarsUrl = 'http://localhost:8080/rentacars';
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private userService: UserService
   ) { }
 
   getRentacars(): Observable<RentACar[]> {
@@ -45,5 +48,19 @@ export class RentacarService {
 
   addRentacar(room: RentACar): Observable<Object> {
     return this.http.post<RentACar>(this.rentacarsUrl + '/new', room, httpOptions);
+  }
+
+  addAdmin(companyId: any, adminEmail: String): void {
+    let user: User;
+
+    this.userService.getUserByEmail(adminEmail).subscribe(
+      userToBeAdmin => user = userToBeAdmin,
+      error => console.log('Error: ', error),
+      () => {
+        user.type = 'rentacar';
+        user.company = companyId;
+        this.userService.updateNotLoggedUser(user).subscribe();
+      }
+    );
   }
 }
