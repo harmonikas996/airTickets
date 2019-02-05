@@ -40,8 +40,8 @@ export class FlightNewComponent implements OnInit {
     private formBuilder: FormBuilder,
     private location: Location,
     private airportService: AirportService,
-    private aircompanyService: AircompanyService,
-    private token: TokenStorageService
+    // private aircompanyService: AircompanyService,
+    // private token: TokenStorageService
   ) { }
 
   ngOnInit() {
@@ -50,7 +50,7 @@ export class FlightNewComponent implements OnInit {
     this.newFlightForm = this.formBuilder.group({
       aircompanyId: [''],
       timeBegin: ['', Validators.required],
-      timeEnd: ['', Validators.required],
+      timeEnd: [''],
       distance: ['', Validators.required],
       price: ['', Validators.required],
       airplaneType: ['', Validators.required],
@@ -59,25 +59,10 @@ export class FlightNewComponent implements OnInit {
       placeToId: ['', Validators.required]
     });
 
-    this.setDate();
     this.types = [ 'AirbusA320', 'Boeing747', 'Boeing777'];
     this.getAirPortsFrom();
     this.getAirPortsTO();
 
-  }
-
-  setDate(): void {
-    let date = new Date();
-    this.newFlightForm.patchValue({myDate: {
-    date: {
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-        day: date.getDate(),
-        hours: date.getHours(),
-        minutes: date.getMinutes(),
-        seconds: date.getSeconds(),
-      }
-    }});
   }
 
   getAirPortsFrom(): void {
@@ -90,44 +75,47 @@ export class FlightNewComponent implements OnInit {
 
   }
 
-  getAircompanyById(): void {
-    // this.aircompany = this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).pipe(
-    //   tap(aircompany => this)
-    // );
-
-    this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).subscribe(
-      company => this.flightObj.aircompanyId = company.id,
-      error => console.log('Error: ', error),
-      () => this.submitFlight()
-    );
-  }
+  // getAircompanyById(): void {
+  //   this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).subscribe(
+  //     company => this.flightObj.aircompanyId = company.id,
+  //     error => console.log('Error: ', error),
+  //     () => this.submitFlight()
+  //   );
+  // }
 
   onSubmit() {
     if (this.newFlightForm.valid) {
 
       this.flightObj = this.newFlightForm.value;
-      this.nastavak = 'T00:00:00.000';
-      this.flightObj.timeBegin = this.newFlightForm.controls['timeBegin'].value.formatted + this.nastavak;
-      console.log(this.flightObj);
 
-      this.flightObj.timeEnd = this.newFlightForm.controls['timeEnd'].value.formatted + this.nastavak;
-      this.getAircompanyById();
+      console.log('Ovdeeeeeeee' + this.newFlightForm.controls['timeBegin'].value);
+
+      this.flightsService.addFlight(this.newFlightForm.value).subscribe((response) => {
+        console.log('Response is: ', response);
+        this.location.back();
+      });
+      // console.log(this.dateTimeRange.values);
+      // this.flightObj = this.newFlightForm.value;
+      // this.nastavak = 'T00:00:00.000';
+      // this.flightObj.timeBegin = this.newFlightForm.controls['timeBegin'].value.formatted + this.nastavak;
+      // console.log(this.flightObj);
+      // this.flightObj.timeEnd = this.newFlightForm.controls['timeEnd'].value.formatted + this.nastavak;
+      // this.getAircompanyById();
     }
   }
 
-  submitFlight() {
-    console.log(this.flightObj);
-    this.flightsService.addFlight(this.flightObj).subscribe(
-      (response) => {
-        console.log('Response is: ', response);
-        this.location.back();
-      },
-      (error) => {
-          // catch the error
-          console.error('An error occurred, ', error);
-      });
-
-  }
+  // submitFlight() {
+  //   console.log(this.flightObj);
+  //   this.flightsService.addFlight(this.flightObj).subscribe(
+  //     (response) => {
+  //       console.log('Response is: ', response);
+  //       this.location.back();
+  //     },
+  //     (error) => {
+  //         // catch the error
+  //         console.error('An error occurred, ', error);
+  //     });
+  // }
 
 
 

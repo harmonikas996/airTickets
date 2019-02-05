@@ -10,10 +10,11 @@
             <div class="col-md-4">
 
                 <div class="form-group">
+                    <label for="placeFromId">Date<span class="text-danger">*</span></label>
                     <input class="form-control" placeholder="Date Time Range:"
                             [style.width]="'350px'"
                             [selectMode]="'range'"
-                            [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1">
+                            [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="timeBegin">
                     <owl-date-time #dtRange1></owl-date-time>
                 </div>
 
@@ -34,15 +35,6 @@
                 </div>
             </div>
             <div class="col-md-4">
-
-
-                <div class="form-group">
-                    <label for="timeEnd">Time end<span class="text-danger">*</span></label>
-                    <my-date-picker [options]="myDatePickerOptions" formControlName="timeEnd"></my-date-picker>
-                    <small *ngIf="newFlightForm.controls.timeEnd.errors?.required && newFlightForm.controls.timeEnd.touched" class="form-text text-danger">*Required</small>
-                </div>
-
-
                 <div class="form-group">
                     <label for="placeToId">Place to<span class="text-danger">*</span></label>
                     <ng-select [items]="airportsTo" bindLabel="id" bindValue="id" formControlName="placeToId"></ng-select>

@@ -22,7 +22,6 @@ import { FlightsModule } from './flights/flights.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
-import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 
 // export const MY_MOMENT_FORMATS = {
 //   // parseInput: 'l LT',

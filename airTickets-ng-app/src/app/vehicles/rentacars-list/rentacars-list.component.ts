@@ -74,21 +74,4 @@ export class RentacarsListComponent implements OnInit {
     this.timeBegin = moment(this.rentacarSearchForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
     this.timeEnd = moment(this.rentacarSearchForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
   }
-
-  setDate(): void {
-    // Set today date using the patchValue function
-    let date = new Date();
-    this.rentacarSearchForm.patchValue({myDate: {
-    date: {
-        year: date.getFullYear(),
-        month: date.getMonth() + 1,
-        day: date.getDate()}
-    }});
-  }
-
-  clearDate(): void {
-      // Clear the date using the patchValue function
-      this.rentacarSearchForm.patchValue({myDate: null});
-  }
-
 }
