@@ -3,43 +3,57 @@
       <h3>Rentacar Services</h3>
   </div>
 </div>
-<div  class="col-sm-10">
-  <form [formGroup]="rentacarSearchForm" (ngSubmit)="onSubmit()">
+<div class="row mt-4 mb-4">
 
-    <div class="row">
-        <div class="col">
-            <label>Rentacar Name</label>
-            <ng-select  [items]="rentacars"
-              bindLabel="name"
-              autofocus
-              bindValue="name"
-              formControlName="rentacarName"
-              [required]="!rentacarSearchForm.controls.rentacarLocation.value">
-            </ng-select>
-        </div>
-        <div class="col">
-            <label>Location</label>
-            <ng-select  [items]="locations"
-              formControlName="rentacarLocation"
-              [required]="!rentacarSearchForm.controls.rentacarName.value">
-            </ng-select>
-        </div>
-        <div class="col">
-          <div class="form-group">
-              <label>Select Date Period</label>
-              <input class="form-control" placeholder="Choose Dates"
-                      [style.width]="'350px'"
-                      [selectMode]="'range'"
-                      [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="datePeriod">
-              <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
+  <div  class="col-sm-10">
+    <form [formGroup]="rentacarSearchForm" (ngSubmit)="onSubmit()">
+  
+      <div class="row">
+          <div class="col">
+              <label>Rentacar Name</label>
+              <ng-select  [items]="rentacarsPermanent"
+                bindLabel="name"
+                autofocus
+                bindValue="name"
+                formControlName="rentacarName"
+                [required]="!rentacarSearchForm.controls.rentacarLocation.value">
+              </ng-select>
           </div>
-        </div>
-        <div class="col align-self-end">
-          <div class="form-group">
-            <button type="submit" [disabled]="!rentacarSearchForm.valid" class="btn btn-primary">Search</button>
+          <div class="col">
+              <label>Location</label>
+              <ng-select  [items]="locations"
+                formControlName="rentacarLocation"
+                [required]="!rentacarSearchForm.controls.rentacarName.value">
+              </ng-select>
           </div>
-        </div>
+          <div class="col">
+            <div class="form-group">
+                <label>Select Date Period</label>
+                <input class="form-control" placeholder="Choose Dates"
+                        [style.width]="'350px'"
+                        [selectMode]="'range'"
+                        [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="datePeriod">
+                <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
+            </div>
+          </div>
+          <div class="col align-self-end">
+            <div class="form-group">
+              <button type="submit" [disabled]="!rentacarSearchForm.valid" class="btn btn-primary">Search</button>
+            </div>
+          </div>
+    </div>
+    </form>
+  
   </div>
-  </form>
-
+</div>
+<div class="row mt-4 mb-4">
+    <div *ngFor="let rentacar of rentacars" class="col-sm-4 rentacar">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{rentacar.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{rentacar.address}}</h6>
+            <a href="#" class="card-link text-center">Select</a>
+          </div>
+        </div>
+    </div>
 </div>

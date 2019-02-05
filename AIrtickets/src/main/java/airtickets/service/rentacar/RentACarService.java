@@ -1,5 +1,6 @@
 package airtickets.service.rentacar;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,9 +65,19 @@ public class RentACarService {
 	}
 	
 	public List<RentACarDTO> searchRentACars(String name, String location, String timeBegin, String timeEnd) {
+		
+		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
+		LocalDateTime ldtTo = LocalDateTime.parse(timeEnd);
+		
+		if(name.equals(" ") || name == null)
+			name = "%%";
+		if(location.equals(" ") || location == null)
+			location = "%%";
+			
+		
 		List<RentACarDTO> rentACars = new ArrayList<RentACarDTO>();
 		
-		for (RentACar r  : rentACarRepository.searchRentACars(name, location, timeBegin, timeEnd)) {
+		for (RentACar r  : rentACarRepository.searchRentACars(name, location, ldtFrom, ldtTo)) {
 			RentACarDTO rentACar = new RentACarDTO(r);
 			rentACars.add(rentACar);
  		}

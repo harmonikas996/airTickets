@@ -17,6 +17,7 @@ export class RentacarsListComponent implements OnInit {
 
   rentacarSearchForm: FormGroup;
   rentacars: RentACar[];
+  rentacarsPermanent: RentACar[];
   locations: String[];
   name: String;
   location: String;
@@ -35,12 +36,17 @@ export class RentacarsListComponent implements OnInit {
       datePeriod: [null, Validators.required]
     });
 
+    this.getRentacarsPermanent();
     this.getRentacars();
     this.getLocations();
   }
 
   getRentacars(): void {
     this.rentacarService.getRentacars().subscribe(rentacars => this.rentacars = rentacars);
+  }
+
+  getRentacarsPermanent(): void {
+    this.rentacarService.getRentacars().subscribe(rentacars => this.rentacarsPermanent = rentacars);
   }
 
   getLocations(): void {
