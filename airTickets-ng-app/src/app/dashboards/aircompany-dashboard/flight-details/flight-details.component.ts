@@ -1,3 +1,5 @@
+import { Airport } from './../../../shared/model/aircompany/airport.model';
+import { AirportService } from './../../../shared/services/aircompany/airport.service';
 import { Flight } from './../../../shared/model/aircompany/flight.model';
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
@@ -6,6 +8,7 @@ import { FlightsService } from './../../../shared/services/aircompany/flights.se
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { IMyDpOptions } from 'mydatepicker';
 
 @Component({
   selector: 'app-flight-details',
@@ -14,15 +17,24 @@ import { Location } from '@angular/common';
 })
 export class FlightDetailsComponent implements OnInit {
 
+  public myDatePickerOptions: IMyDpOptions = {
+
+    dateFormat: 'yyyy-mm-dd'
+  };
+
   flight: Observable<Flight>;
   flightModel: Flight;
   flightDetailsForm: FormGroup;
+  airportsFrom: Airport[];
+  airportsTo: Airport[];
+  types = [];
 
   constructor(
     private flightService: FlightsService,
     private route: ActivatedRoute,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private airportService: AirportService
   ) { }
 
   ngOnInit() {
@@ -40,8 +52,21 @@ export class FlightDetailsComponent implements OnInit {
       aircompanyId: ['', Validators.required]
     });
 
+    this.types = [ 'AirbusA320', 'Boeing747', 'Boeing777'];
     const id = +this.route.snapshot.paramMap.get('id');
     this.getFlightById(id);
+    this.getAirPortsFrom();
+    this.getAirPortsTO();
+
+  }
+
+  getAirPortsFrom(): void {
+    this.airportService.getAirports().subscribe(airport => this.airportsFrom = airport);
+
+  }
+
+  getAirPortsTO(): void {
+    this.airportService.getAirports().subscribe(airport => this.airportsTo = airport);
 
   }
 

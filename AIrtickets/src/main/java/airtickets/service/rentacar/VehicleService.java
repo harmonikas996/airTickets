@@ -54,4 +54,15 @@ public class VehicleService {
 		
 		vehicleRepository.deleteById(id);
 	}
+	
+	public List<VehicleDTO> getVehiclesByRentACarId(long id, String name) {
+	
+		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>();
+		
+		for (Vehicle v  : vehicleRepository.findByRentACarId(id, name)) {
+			VehicleDTO vehicle = new VehicleDTO(v);
+			vehicles.add(vehicle);
+ 		}
+		return vehicles;
+	}
 }

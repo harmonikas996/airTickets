@@ -20,6 +20,8 @@ import { AuthInterceptor, httpInterceptorProviders } from './user-authentication
 import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboard.component';
 import { FlightsModule } from './flights/flights.module';
 import { MyDatePickerModule } from 'mydatepicker';
+import { VehiclesComponent } from './vehicles/vehicles.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     ProfileComponent,
     AircompanyDashboardComponent,
     UserDashboardComponent,
+    VehiclesComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +42,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     MyDatePickerModule,
     VehiclesModule,
     FlightsModule,

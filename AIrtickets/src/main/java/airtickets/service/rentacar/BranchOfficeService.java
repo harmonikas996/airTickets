@@ -28,6 +28,15 @@ public class BranchOfficeService {
 		BranchOfficeDTO brancOffice = new BranchOfficeDTO(b);
 		return brancOffice;
 	}
+	
+	public List<String> getLocations() {
+		List<String> locations = new ArrayList<String>();
+		
+		for (String b  : branchOfficeRepository.findAllCities()) {
+			locations.add(b);
+ 		}
+		return locations;
+	}
 
 	public BranchOfficeDTO addBranchOffice(BranchOfficeDTO brancOfficeDTO) {
 		BranchOffice brancOffice = new BranchOffice(brancOfficeDTO);

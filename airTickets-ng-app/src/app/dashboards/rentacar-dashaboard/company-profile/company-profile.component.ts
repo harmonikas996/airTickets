@@ -16,7 +16,6 @@ export class CompanyProfileComponent implements OnInit {
   rentacar: Observable<RentACar>;
   //rentacarModel: RentACar;
   companyProfileForm: FormGroup;
-  
 
   constructor(
     private rentacarService: RentacarService,
@@ -33,7 +32,6 @@ export class CompanyProfileComponent implements OnInit {
     });
     // srediti preuzimanje ID-a kompanije tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
     this.getRentacarById();
-    
   }
 
   getRentacarById(): void {
@@ -53,7 +51,7 @@ export class CompanyProfileComponent implements OnInit {
         //catch the error
         console.error("An error occurred, ", error);
      });
-     };
+     }
     }
 
   onCancel() {

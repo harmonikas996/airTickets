@@ -33,6 +33,11 @@ public class BranchOfficeController {
 	public BranchOfficeDTO getById(@PathVariable Long id) {
 		return branchOfficeService.getBranchOffice(id);
 	}
+	
+	@GetMapping("/locations")
+	public List<String> getLocations() {
+		return branchOfficeService.getLocations();
+	}
 
 	@PostMapping("/new")
     public BranchOfficeDTO addBranchOffice(@RequestBody BranchOfficeDTO branchOfficeDTO) {

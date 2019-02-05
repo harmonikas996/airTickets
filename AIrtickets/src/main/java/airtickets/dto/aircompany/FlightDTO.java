@@ -21,8 +21,16 @@ public class FlightDTO {
 	
 	public FlightDTO(Flight f) {
 		id = f.getId();
+		
+//		LocalDateTime t1 = f.getTimeBegin();
+//		timeBegin = t1.toString();
+//		
+//		LocalDateTime t2 = f.getTimeEnd();
+//		timeEnd = t2.toString();
+		
 		timeBegin = f.getTimeBegin();
 		timeEnd = f.getTimeEnd();
+		
 		distance = f.getDistance();
 		price = f.getPrice();
 		airplaneType = f.getTypeString();
@@ -110,5 +118,12 @@ public class FlightDTO {
 
 	public void setAircompanyId(long aircompanyId) {
 		this.aircompanyId = aircompanyId;
+	}
+
+	@Override
+	public String toString() {
+		return "FlightDTO [id=" + id + ", timeBegin=" + timeBegin + ", timeEnd=" + timeEnd + ", distance=" + distance
+				+ ", price=" + price + ", airplaneType=" + airplaneType + ", loweredPrice=" + loweredPrice
+				+ ", placeFromId=" + placeFromId + ", placeToId=" + placeToId + ", aircompanyId=" + aircompanyId + "]";
 	}
 }

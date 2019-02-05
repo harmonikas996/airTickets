@@ -1,7 +1,11 @@
 package airtickets.model.aircompany;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -66,8 +70,19 @@ public class Flight implements Serializable {
 	
 	public Flight(FlightDTO f) {
 		this.id = f.getId();
+		
+		
 		this.timeBegin = f.getTimeBegin();
 		this.timeEnd = f.getTimeEnd();
+		
+//		String time = f.getTimeBegin();		
+//		DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");		
+//		this.timeBegin = LocalDateTime.parse(time, df);
+//		
+//		String time2 = f.getTimeEnd();		
+//		DateTimeFormatter df2 = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");		
+//		this.timeEnd = LocalDateTime.parse(time2, df2);
+//		
 		this.distance = f.getDistance();
 		this.price = f.getPrice();
 			
