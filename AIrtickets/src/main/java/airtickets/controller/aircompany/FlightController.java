@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.aircompany.FlightDTO;
+import airtickets.dto.rentacar.RentACarDTO;
 import airtickets.service.aircompany.FlightService;
 
 @RestController
@@ -54,4 +56,15 @@ public class FlightController {
 	public void deleteFlight(@PathVariable Long id) {
 		flightService.deleteFlight(id);
 	}
+	
+	@GetMapping("/search")
+	public List<FlightDTO> searchFlights(
+			@RequestParam(value="placeFromId") String placeFromId,
+			@RequestParam(value="placeToId") String placeToId,
+			@RequestParam(value="timeBegin") String date
+			) {
+		
+		return flightService.searchFlights(placeFromId, placeToId, date);
+	}
+	
 }

@@ -8,8 +8,8 @@ import { Flight } from './../../../shared/model/aircompany/flight.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
-import { IMyDpOptions } from 'mydatepicker';
 import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-flight-new',
@@ -30,33 +30,45 @@ export class FlightNewComponent implements OnInit {
   types = [];
   airportsFrom: Airport[];
   airportsTo: Airport[];
-  flightObj: Flight;
+  flightObj: Flight = new Flight();
   timePr: String;
   nastavak: String;
   aircompany: Aircompany;
+
+  id: number;
+  timeBegin: any;
+  timeEnd: any;
+  distance: number;
+  price: number;
+  airplaneType: string;
+  loweredPrice: number;
+  placeFromId: any;
+  placeToId: any;
+  aircompanyId: any;
+
 
   constructor(
     private flightsService: FlightsService,
     private formBuilder: FormBuilder,
     private location: Location,
     private airportService: AirportService,
-    // private aircompanyService: AircompanyService,
-    // private token: TokenStorageService
+    private aircompanyService: AircompanyService,
+    private token: TokenStorageService
+
   ) { }
 
   ngOnInit() {
 
 
     this.newFlightForm = this.formBuilder.group({
-      aircompanyId: [''],
-      timeBegin: ['', Validators.required],
-      timeEnd: [''],
+      id: [''],
+      datePeriod: ['', Validators.required],
       distance: ['', Validators.required],
       price: ['', Validators.required],
       airplaneType: ['', Validators.required],
       loweredPrice: ['', Validators.required],
       placeFromId: ['', Validators.required],
-      placeToId: ['', Validators.required]
+      placeToId: ['', Validators.required],
     });
 
     this.types = [ 'AirbusA320', 'Boeing747', 'Boeing777'];
@@ -75,47 +87,48 @@ export class FlightNewComponent implements OnInit {
 
   }
 
-  // getAircompanyById(): void {
-  //   this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).subscribe(
-  //     company => this.flightObj.aircompanyId = company.id,
-  //     error => console.log('Error: ', error),
-  //     () => this.submitFlight()
-  //   );
-  // }
 
   onSubmit() {
     if (this.newFlightForm.valid) {
+      console.log(this.newFlightForm.value);
+      this.getAircompanyById();
 
-      this.flightObj = this.newFlightForm.value;
 
-      console.log('Ovdeeeeeeee' + this.newFlightForm.controls['timeBegin'].value);
+     }
 
-      this.flightsService.addFlight(this.newFlightForm.value).subscribe((response) => {
-        console.log('Response is: ', response);
-        this.location.back();
-      });
-      // console.log(this.dateTimeRange.values);
-      // this.flightObj = this.newFlightForm.value;
-      // this.nastavak = 'T00:00:00.000';
-      // this.flightObj.timeBegin = this.newFlightForm.controls['timeBegin'].value.formatted + this.nastavak;
-      // console.log(this.flightObj);
-      // this.flightObj.timeEnd = this.newFlightForm.controls['timeEnd'].value.formatted + this.nastavak;
-      // this.getAircompanyById();
-    }
   }
 
-  // submitFlight() {
-  //   console.log(this.flightObj);
-  //   this.flightsService.addFlight(this.flightObj).subscribe(
-  //     (response) => {
-  //       console.log('Response is: ', response);
-  //       this.location.back();
-  //     },
-  //     (error) => {
-  //         // catch the error
-  //         console.error('An error occurred, ', error);
-  //     });
-  // }
+
+  prepareData() {
+
+    this.flightObj.aircompanyId = this.aircompany.id;
+    this.flightObj.distance = this.newFlightForm.controls['distance'].value;
+    this.flightObj.timeBegin = moment(this.newFlightForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    this.flightObj.timeEnd = moment(this.newFlightForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    this.flightObj.price = this.newFlightForm.controls['price'].value;
+    this.flightObj.airplaneType =  this.newFlightForm.controls['airplaneType'].value;
+    this.flightObj.loweredPrice = this.newFlightForm.controls['loweredPrice'].value;
+    this.flightObj.placeFromId =  this.newFlightForm.controls['placeFromId'].value;
+    this.flightObj.placeToId =  this.newFlightForm.controls['placeToId'].value;
+
+    this.flightsService.addFlight(this.flightObj).subscribe((response) => {
+      console.log("Response is: ", response);
+      this.location.back();
+   },
+   (error) => console.error("An error occurred, ", error)
+   );
+  }
+
+  getAircompanyById(): void {
+
+    this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).subscribe(
+
+    (response) => this.aircompany = response,
+    (error) => console.error("An error occurred, ", error),
+    () => this.prepareData()
+    );
+
+  }
 
 
 

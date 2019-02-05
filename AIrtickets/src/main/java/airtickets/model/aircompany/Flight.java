@@ -1,11 +1,7 @@
 package airtickets.model.aircompany;
 
 import java.io.Serializable;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,10 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import airtickets.dto.aircompany.FlightDTO;
 
+//@NamedQuery(name="Flight.searchFlights", query="select fl from Flight fl where fl.placeFrom.id regexp ?1")
 @Entity
 public class Flight implements Serializable {
 

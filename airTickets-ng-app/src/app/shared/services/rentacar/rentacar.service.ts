@@ -28,7 +28,7 @@ export class RentacarService {
   getRentacars(): Observable<RentACar[]> {
     return this.http.get<RentACar[]>(this.rentacarsUrl + '/all');
   }
-  
+
   getLocations(): Observable<String[]> {
     return this.http.get<String[]>("http://localhost:8080/branchoffices/locations");
   }
