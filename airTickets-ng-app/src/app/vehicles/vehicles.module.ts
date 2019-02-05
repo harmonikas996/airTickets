@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
 
 // export const MY_MOMENT_FORMATS = {
 //   parseInput: 'dd.DD.YYYY LT',
@@ -38,7 +39,7 @@ export const DATE_NATIVE_FORMATS = {
     NgSelectModule,
     VehiclesRoutingModule,
   ],
-  declarations: [VehiclesListComponent, RentacarsListComponent],
+  declarations: [VehiclesListComponent, RentacarsListComponent, RentacarDetailsComponent],
   providers: [
     // { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }
     { provide: OWL_DATE_TIME_FORMATS, useValue: DATE_NATIVE_FORMATS  }

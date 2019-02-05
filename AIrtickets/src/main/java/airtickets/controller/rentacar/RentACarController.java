@@ -6,9 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.dto.rentacar.RentACarDTO;
-import airtickets.dto.rentacar.VehicleDTO;
-import airtickets.dto.user.UserDTO;
 import airtickets.service.rentacar.RentACarService;
 import airtickets.service.user.UserService;
 
@@ -72,7 +68,7 @@ public class RentACarController {
 	}
 	
 	@GetMapping("/search")
-	public List<RentACarDTO> searchRentACars(
+	public List<RentacarWithBrachesDTO> searchRentACars(
 			@RequestParam(value="name") String name,
 			@RequestParam(value="location") String location,
 			@RequestParam(value="timeBegin") String timeBegin,

@@ -5,12 +5,16 @@ import { VehiclesComponent } from './vehicles.component';
 import { VehiclesListComponent } from './vehicles-list/vehicles-list.component';
 import { RoleGuard } from '../shared/services/guards/role-guard.service';
 import { RentacarsListComponent } from './rentacars-list/rentacars-list.component';
+import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
 
 const vehiclesRoutes: Routes = [
   { path: 'rentacars',
-    component: RentacarsListComponent,
+    component: RentacarsListComponent
+  },
+  { path: 'rentacars/:id',
+    component: RentacarDetailsComponent,
     children: [
-      // { path: 'company-profile', component: CompanyProfileComponent },
+      // { path: ':id', component: RentacarDetailsComponent },
       // { path: 'list', component: VehiclesListComponent },
       // { path: 'vehicles/new', component: VehicleNewComponent },
       // { path: 'vehicle-details/:id', component: VehicleDetailsComponent },

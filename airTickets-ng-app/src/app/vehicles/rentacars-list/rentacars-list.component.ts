@@ -4,6 +4,8 @@ import { IMyDpOptions } from 'mydatepicker';
 import { RentACar } from 'src/app/shared/model/rentacar/rentacar.model';
 import { RentacarService } from 'src/app/shared/services/rentacar/rentacar.service';
 import * as moment from 'moment';
+import { BranchOffice } from 'src/app/shared/model/rentacar/branchOffice.model';
+import { RentacarsWithBranches } from 'src/app/shared/model/rentacar/rentacarsWithBranches.model';
 @Component({
   selector: 'app-rentacars-list',
   templateUrl: './rentacars-list.component.html',
@@ -17,7 +19,9 @@ export class RentacarsListComponent implements OnInit {
 
   rentacarSearchForm: FormGroup;
   rentacars: RentACar[];
+  branchOffices: BranchOffice[];
   rentacarsPermanent: RentACar[];
+  rentacarsWithBranches: RentacarsWithBranches[];
   locations: String[];
   name: String;
   location: String;
@@ -35,7 +39,8 @@ export class RentacarsListComponent implements OnInit {
       rentacarLocation: [null],
       datePeriod: [null, Validators.required]
     });
-
+    this.rentacarsWithBranches = [];
+    this.rentacars = [];
     this.getRentacarsPermanent();
     this.getRentacars();
     this.getLocations();
@@ -54,7 +59,11 @@ export class RentacarsListComponent implements OnInit {
   }
 
   searchRentacars(name: String, location: String, timeBegin: String, timeEnd: String): void {
-    this.rentacarService.searchRentacars(name, location, timeBegin, timeEnd).subscribe(rentacars => this.rentacars = rentacars);
+    this.rentacarService.searchRentacars(name, location, timeBegin, timeEnd).subscribe(
+      rentacars => this.rentacarsWithBranches = rentacars,
+      (error) => console.error("An error occurred, ", error),
+      () => this.rentacars = []
+      );
   }
 
   onSubmit() {
@@ -62,7 +71,6 @@ export class RentacarsListComponent implements OnInit {
       this.prepareData();
       this.searchRentacars(this.name, this.location, this.timeBegin, this.timeEnd);
     }
-
   }
 
   prepareData() {

@@ -46,13 +46,30 @@
   
   </div>
 </div>
-<div class="row mt-4 mb-4">
+<div *ngIf="rentacars.length > 0" class="row mt-4 mb-4">
     <div *ngFor="let rentacar of rentacars" class="col-sm-4 rentacar">
-        <div class="card">
+        <div class="card text-center">
           <div class="card-body">
             <h5 class="card-title">{{rentacar.name}}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{rentacar.address}}</h6>
-            <a href="#" class="card-link text-center">Select</a>
+            <a class="card-link" routerLink="{{rentacar.id}}">Select</a>
+          </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="rentacarsWithBranches.length > 0" class="row mt-4 mb-4">
+    <div *ngFor="let rentacarWithBranches of rentacarsWithBranches" class="col-sm-4 rentacar">
+        <div class="card text-center">
+          <div class="card-body">
+            <h5 class="card-title">{{rentacarWithBranches.rentacar.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{rentacarWithBranches.rentacar.address}}</h6>
+            <ul class="list-group list-group-flush mt-3 mb-3 text-left">
+              <div *ngFor="let branchOffice of rentacarWithBranches.branches">
+                  <li class="list-group-item"><strong>{{branchOffice.city}}</strong>, {{branchOffice.address}}</li> 
+              </div>
+            </ul>
+            <a class="card-link" routerLink="{{rentacarWithBranches.rentacar.id}}">Select</a>
           </div>
         </div>
     </div>

@@ -13,6 +13,20 @@ import airtickets.model.Company;
 //String name, String location, String timeBegin, String timeEnd
 //@NamedQuery(name="RentACar.searchRentACars", query="select rc from RentACar rc where rc.name = ?1")
 
+@NamedQuery(name="RentACar.searchBranches", query="select bo\r\n" + 
+		"from BranchOffice bo\r\n" + 
+		"where bo.id in\r\n" + 
+		"(SELECT bo.id\r\n" + 
+		"FROM RentACar rcOld, BranchOffice bo, Vehicle v \r\n" + 
+		"where rcOld.id=bo.rentACar.id and rcOld.id=v.rentACar.id\r\n" + 
+		"	 and (rcOld.name like ?1 and bo.city like ?2)\r\n" + 
+		"     and v.id not in (\r\n" + 
+		"     \r\n" + 
+		"		select cr.vehicle.id from CarReservation cr\r\n" + 
+		"        where cr.dateFrom <= ?4\r\n" +
+		"     and cr.dateTo >= ?3\r\n" + 
+		"     )\r\n" + 
+		")")
 @NamedQuery(name="RentACar.searchRentACars", query="select rc\r\n" + 
 		"from RentACar rc\r\n" + 
 		"where rc.id in\r\n" + 

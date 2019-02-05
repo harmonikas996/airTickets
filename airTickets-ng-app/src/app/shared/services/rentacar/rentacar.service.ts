@@ -6,6 +6,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { RentACar } from '../../model/rentacar/rentacar.model';
 import { UserService } from '../user/user.service';
 import { User } from '../../model/user/user.model';
+import { BranchOffice } from '../../model/rentacar/branchOffice.model';
+import { RentacarsWithBranches } from '../../model/rentacar/rentacarsWithBranches.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -68,7 +70,7 @@ export class RentacarService {
     );
   }
 
-  searchRentacars(name: String, location: String, timeBegin: String, timeEnd: String): Observable<RentACar[]> {
-    return this.http.get<RentACar[]>(this.rentacarsUrl + '/search?name=' + name + '&location=' + location + '&timeBegin=' + timeBegin + '&timeEnd=' + timeEnd);
+  searchRentacars(name: String, location: String, timeBegin: String, timeEnd: String): Observable<RentacarsWithBranches[]> {
+    return this.http.get<RentacarsWithBranches[]>(this.rentacarsUrl + '/search?name=' + name + '&location=' + location + '&timeBegin=' + timeBegin + '&timeEnd=' + timeEnd);
   }
 }

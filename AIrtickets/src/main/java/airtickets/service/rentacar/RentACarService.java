@@ -10,8 +10,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import airtickets.controller.rentacar.RentacarWithBrachesDTO;
+import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.dto.rentacar.RentACarDTO;
-import airtickets.dto.user.UserDTO;
+import airtickets.model.rentacar.BranchOffice;
 import airtickets.model.rentacar.RentACar;
 import airtickets.model.user.User;
 import airtickets.repo.rentacar.RentACarRepository;
@@ -64,7 +66,7 @@ public class RentACarService {
 		return rentACar;
 	}
 	
-	public List<RentACarDTO> searchRentACars(String name, String location, String timeBegin, String timeEnd) {
+	public List<RentacarWithBrachesDTO> searchRentACars(String name, String location, String timeBegin, String timeEnd) {
 		
 		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
 		LocalDateTime ldtTo = LocalDateTime.parse(timeEnd);
@@ -73,14 +75,26 @@ public class RentACarService {
 			name = "%%";
 		if(location.equals(" ") || location == null)
 			location = "%%";
-			
 		
-		List<RentACarDTO> rentACars = new ArrayList<RentACarDTO>();
+		List<RentacarWithBrachesDTO> rentACars = new ArrayList<>();
 		
 		for (RentACar r  : rentACarRepository.searchRentACars(name, location, ldtFrom, ldtTo)) {
 			RentACarDTO rentACar = new RentACarDTO(r);
-			rentACars.add(rentACar);
+			RentacarWithBrachesDTO rwb = new RentacarWithBrachesDTO();
+			rwb.setRentacar(rentACar);
+			rentACars.add(rwb);
  		}
+		
+		for (BranchOffice r  : rentACarRepository.searchBranches(name, location, ldtFrom, ldtTo)) {
+			BranchOfficeDTO bo = new BranchOfficeDTO(r);
+			for (RentacarWithBrachesDTO rc : rentACars) {
+				if (rc.getRentacar().getId() == bo.getRentACarId()) {
+					rc.getBranches().add(bo);
+					break;
+				}
+			}
+ 		}
+		
 		return rentACars;
 	}
 }
