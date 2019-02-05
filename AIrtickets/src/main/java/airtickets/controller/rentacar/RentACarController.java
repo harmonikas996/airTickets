@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.rentacar.RentACarDTO;
+import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.dto.user.UserDTO;
 import airtickets.service.rentacar.RentACarService;
 import airtickets.service.user.UserService;
@@ -67,5 +69,21 @@ public class RentACarController {
 	@PreAuthorize("hasAuthority('rentacar')")
 	public RentACarDTO getByAdminUsername(@PathVariable String username) {
 		return rentACarService.getRentACarByAdmin(username);
+	}
+	
+	@GetMapping("/search")
+	public List<RentACarDTO> searchRentACars(
+			@RequestParam(value="name") String name,
+			@RequestParam(value="location") String location,
+			@RequestParam(value="timeBegin") String timeBegin,
+			@RequestParam(value="timeEnd") String timeEnd
+			) {
+		
+		log.info(name);
+		log.info(location);
+		log.info(timeBegin);
+		log.info(timeEnd);
+		
+		return rentACarService.searchRentACars(name, location, timeBegin, timeEnd);
 	}
 }

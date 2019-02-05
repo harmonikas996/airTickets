@@ -62,4 +62,14 @@ public class RentACarService {
 		
 		return rentACar;
 	}
+	
+	public List<RentACarDTO> searchRentACars(String name, String location, String timeBegin, String timeEnd) {
+		List<RentACarDTO> rentACars = new ArrayList<RentACarDTO>();
+		
+		for (RentACar r  : rentACarRepository.searchRentACars(name, location, timeBegin, timeEnd)) {
+			RentACarDTO rentACar = new RentACarDTO(r);
+			rentACars.add(rentACar);
+ 		}
+		return rentACars;
+	}
 }

@@ -67,4 +67,8 @@ export class RentacarService {
       }
     );
   }
+
+  searchRentacars(name: String, location: String, timeBegin: String, timeEnd: String): Observable<RentACar[]> {
+    return this.http.get<RentACar[]>(this.rentacarsUrl + '/search?name=' + name + '&location=' + location + '&timeBegin=' + timeBegin + '&timeEnd=' + timeEnd);
+  }
 }

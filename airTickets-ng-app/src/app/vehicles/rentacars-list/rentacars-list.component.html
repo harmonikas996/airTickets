@@ -4,35 +4,40 @@
   </div>
 </div>
 <div  class="col-sm-10">
-  <form [formGroup]="rentacarSearchForm">
+  <form [formGroup]="rentacarSearchForm" (ngSubmit)="onSubmit()">
 
     <div class="row">
         <div class="col">
             <label>Rentacar Name</label>
-            <ng-select [items]="rentacars"
+            <ng-select  [items]="rentacars"
               bindLabel="name"
               autofocus
-              bindValue="id"
-              formControlName="rentacarName">
+              bindValue="name"
+              formControlName="rentacarName"
+              [required]="!rentacarSearchForm.controls.rentacarLocation.value">
             </ng-select>
         </div>
         <div class="col">
             <label>Location</label>
-            <ng-select [items]="locations"
-              formControlName="rentacarLocation">
+            <ng-select  [items]="locations"
+              formControlName="rentacarLocation"
+              [required]="!rentacarSearchForm.controls.rentacarName.value">
             </ng-select>
         </div>
         <div class="col">
-          <label>From date</label>
-          <my-date-picker [options]="myDatePickerOptions" formControlName="dateFrom"></my-date-picker>
+          <div class="form-group">
+              <label>Select Date Period</label>
+              <input class="form-control" placeholder="Choose Dates"
+                      [style.width]="'350px'"
+                      [selectMode]="'range'"
+                      [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="datePeriod">
+              <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
+          </div>
         </div>
-        <div class="col">
-            <label>To date</label>
-            <my-date-picker [options]="myDatePickerOptions" formControlName="dateTo"></my-date-picker>
-        </div>
-
         <div class="col align-self-end">
-            <button type="submit" class="btn btn-primary">Search</button>
+          <div class="form-group">
+            <button type="submit" [disabled]="!rentacarSearchForm.valid" class="btn btn-primary">Search</button>
+          </div>
         </div>
   </div>
   </form>

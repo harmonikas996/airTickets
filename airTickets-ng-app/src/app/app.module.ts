@@ -21,7 +21,19 @@ import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboa
 import { FlightsModule } from './flights/flights.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { VehiclesComponent } from './vehicles/vehicles.component';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
+
+// export const MY_MOMENT_FORMATS = {
+//   // parseInput: 'l LT',
+//   parseInput: 'dd.MM.YYYY LT',
+//   fullPickerInput: 'dd.MM.YYYY LT',
+//   datePickerInput: 'dd.MM.YYYY',
+//   timePickerInput: 'LT',
+//   monthYearLabel: 'MMM YYYY',
+//   dateA11yLabel: 'LL',
+//   monthYearA11yLabel: 'MMMM YYYY',
+// };
 
 @NgModule({
   declarations: [
@@ -43,7 +55,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ReactiveFormsModule,
     NgSelectModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule,
+    // OwlMomentDateTimeModule,
     MyDatePickerModule,
     VehiclesModule,
     FlightsModule,
@@ -55,7 +67,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
   //   HttpClientModule
   // ],
   providers: [
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    // { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }
   ],
   bootstrap: [AppComponent],
 })
