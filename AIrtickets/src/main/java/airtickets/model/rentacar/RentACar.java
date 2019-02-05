@@ -5,11 +5,13 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 import airtickets.dto.rentacar.RentACarDTO;
 import airtickets.model.Company;
-
+//String name, String location, String timeBegin, String timeEnd
+@NamedQuery(name="RentACar.searchRentACars", query="select rc from RentACar rc where rc.name = ?1")
 @Entity
 public class RentACar extends Company implements Serializable {
 	
