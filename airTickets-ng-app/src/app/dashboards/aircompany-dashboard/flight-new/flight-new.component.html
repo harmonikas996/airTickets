@@ -14,13 +14,15 @@
                     <input class="form-control" placeholder="Date Time Range:"
                             [style.width]="'350px'"
                             [selectMode]="'range'"
-                            [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="timeBegin">
+                            [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
+                            formControlName="datePeriod">
+
                     <owl-date-time #dtRange1></owl-date-time>
                 </div>
 
                 <div class="form-group">
                     <label for="placeFromId">Place from<span class="text-danger">*</span></label>
-                    <ng-select [items]="airportsFrom" formControlName="placeFromId" bindLabel="id" bindValue="id"></ng-select>
+                    <ng-select [items]="airportsFrom" formControlName="placeFromId" bindLabel="city" bindValue="id"></ng-select>
                     <small *ngIf="newFlightForm.controls.placeFromId.errors?.required && newFlightForm.controls.placeFromId.touched" class="form-text text-danger">*Required</small>
                 </div>
                 <div class="form-group">
@@ -37,7 +39,7 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="placeToId">Place to<span class="text-danger">*</span></label>
-                    <ng-select [items]="airportsTo" bindLabel="id" bindValue="id" formControlName="placeToId"></ng-select>
+                    <ng-select [items]="airportsTo" bindLabel="city" bindValue="id" formControlName="placeToId"></ng-select>
                     <small *ngIf="newFlightForm.controls.placeToId.errors?.required && newFlightForm.controls.placeToId.touched" class="form-text text-danger">*Required</small>
                 </div>
                 <div class="form-group">

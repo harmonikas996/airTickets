@@ -1,3 +1,4 @@
+import { Flight } from './../../model/aircompany/flight.model';
 import { FlightReservation } from './../../model/aircompany/flight-reservation.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -41,6 +42,8 @@ export class FlightReservationService {
       tap(_ => console.log(`deleted vehicle id=${id}`))
     );
   }
+
+
 
 
 }
