@@ -47,4 +47,8 @@ removeFlight(flight: Flight | number): Observable<Flight> {
   );
 }
 
+searchFlights(placeFromId: Number, placeToId: Number, timeBegin: String): Observable<Flight[]> {
+  return this.http.get<Flight[]>(this.flightUrl + '/search?placeFromId=' + placeFromId + '&placeToId=' + placeToId + '&timeBegin=' + timeBegin);
+}
+
 }

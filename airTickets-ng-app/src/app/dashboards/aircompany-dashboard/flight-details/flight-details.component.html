@@ -10,13 +10,18 @@
           <div class="row mt-4">
               <div class="col-md-4">
                   <div class="form-group">
-                      <label for="timeBegin">Time begin<span class="text-danger">*</span></label>
-                      <my-date-picker [options]="myDatePickerOptions" formControlName="timeBegin"></my-date-picker>
-                      <small *ngIf="flightDetailsForm.controls.timeBegin.errors?.required && flightDetailsForm.controls.timeBegin.touched" class="form-text text-danger">*Required</small>
+                      <label for="placeFromId">Date<span class="text-danger">*</span></label>
+                      <input class="form-control" placeholder="Date Time Range:"
+                              [style.width]="'350px'"
+                              [selectMode]="'range'"
+                              [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
+                              formControlName="datePeriod">
+
+                      <owl-date-time #dtRange1></owl-date-time>
                   </div>
                   <div class="form-group">
                       <label for="placeFromId">Place from<span class="text-danger">*</span></label>
-                      <ng-select [items]="airportsFrom" bindLabel="city" bindValue="city" formControlName="placeFromId"></ng-select>
+                      <ng-select [items]="airportsFrom" bindLabel="city" bindValue="id" formControlName="placeFromId"></ng-select>
                       <small *ngIf="flightDetailsForm.controls.placeFromId.errors?.required && flightDetailsForm.controls.placeFromId.touched" class="form-text text-danger">*Required</small>
                   </div>
                   <div class="form-group">
@@ -32,13 +37,8 @@
               </div>
               <div class="col-md-4">
                   <div class="form-group">
-                      <label for="timeEnd">Time end<span class="text-danger">*</span></label>
-                      <my-date-picker [options]="myDatePickerOptions" formControlName="timeEnd"></my-date-picker>
-                      <small *ngIf="flightDetailsForm.controls.timeEnd.errors?.required && flightDetailsForm.controls.timeEnd.touched" class="form-text text-danger">*Required</small>
-                  </div>
-                  <div class="form-group">
                       <label for="placeToId">Place to<span class="text-danger">*</span></label>
-                      <ng-select [items]="airportsTo" bindLabel="city" bindValue="city" formControlName="placeToId"></ng-select>
+                      <ng-select [items]="airportsTo" bindLabel="city" bindValue="id" formControlName="placeToId"></ng-select>
                       <small *ngIf="flightDetailsForm.controls.placeToId.errors?.required && flightDetailsForm.controls.placeToId.touched" class="form-text text-danger">*Required</small>
                   </div>
                   <div class="form-group">
