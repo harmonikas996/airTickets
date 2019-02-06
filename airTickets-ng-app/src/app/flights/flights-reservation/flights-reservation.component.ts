@@ -1,3 +1,5 @@
+import { Aircompany } from './../../shared/model/aircompany/aircompany.model';
+import { AircompanyService } from './../../shared/services/aircompany/aircompany.service';
 import { FlightsService } from './../../shared/services/aircompany/flights.service';
 import { Flight } from './../../shared/model/aircompany/flight.model';
 import { AirportService } from './../../shared/services/aircompany/airport.service';
@@ -21,16 +23,21 @@ export class FlightsReservationComponent implements OnInit {
   flights: Flight[];
   returnFlights: Flight[];
 
-  placeFromId: Number;
-  placeToId: Number;
+  placeFromId: any;
+  placeToId: number;
   timeBegin: String;
   timeReturn: String;
+  nameFlightFrom: String;
+  nameFlightTo: String;
+  cdateFrom: String;
+  cdateTo: String;
 
   constructor(
-    private flightResService: FlightReservationService,
     private flightService: FlightsService,
     private formBuilder: FormBuilder,
-    private airportService: AirportService
+    private airportService: AirportService,
+    private aircompanyService: AircompanyService
+
   ) { }
 
   searchFlights(placeFromId: Number, placeToId: Number, timeBegin: String) {
@@ -61,15 +68,34 @@ export class FlightsReservationComponent implements OnInit {
     });
 
     this.getAirPorts();
+
   }
 
   getAirPorts(): void {
       this.airportService.getAirports().subscribe(airport => this.airports = airport);
   }
 
+  getAirportsById(): void {
+    let a: Airport;
+
+    this.airportService.getAirportById(this.placeFromId).subscribe(
+      airport => a = airport,
+      error => console.log('Error: ', error),
+      () => this.nameFlightFrom = a.city
+    );
+
+    this.airportService.getAirportById(this.placeToId).subscribe(
+      airport => a = airport,
+      error => console.log('Error: ', error),
+      () => this.nameFlightTo = a.city
+    );
+  }
+
   onSubmit() {
     if (this.flightResForm.valid) {
       this.prepareData();
+      this.getAirportsById();
+
       this.searchFlights(this.placeFromId, this.placeToId, this.timeBegin);
     }
   }

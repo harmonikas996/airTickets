@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { FlightsResListComponent } from './flights-res-list/flights-res-list.component';
 
 @NgModule({
   imports: [
@@ -17,6 +18,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     MyDatePickerModule,
     NgSelectModule
   ],
-  declarations: [FlightsReservationComponent]
+  declarations: [
+    FlightsReservationComponent,
+    FlightsResListComponent,
+  ]
 })
 export class FlightsModule { }

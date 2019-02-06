@@ -1,6 +1,6 @@
 <div class="row mt-4 mb-4">
   <div class="col-12">
-      <h3>Flight reservations</h3>
+      <h3>Search flights</h3>
   </div>
 </div>
 <div class="row mt-4 mb-4">
@@ -91,35 +91,64 @@
 
 </div>
 
-<div class="row mt-4 mb-4">
-  <div class="col-12">
-    <h3>FLIGHTS: {{flightResForm.controls['placeFromId'].value}} -> {{flightResForm.controls['placeToId'].value}}</h3>
-</div>
-</div>
-<div class="row mt-4 mb-4">
-  <div *ngFor="let flight of flights" class="col-sm-4 flight">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{flight.placeFromId}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{flight.timeBegin}}</h6>
-          <a href="#" class="card-link text-center">Select</a>
-        </div>
+<div *ngFor="let flight of flights">
+    <div class="card" style="width: 90%;">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-sm-4">
+                <h4 class="card-title">From: {{this.nameFlightFrom}}</h4>
+                <h4 class="card-title">To: {{this.nameFlightTo}}</h4>
+            </div>
+            <div class="col-sm-4">
+                <h6 class="card-title">Time begin: {{flight.timeBegin}}</h6>
+                <h6 class="card-title">Time end: {{flight.timeEnd}}</h6>
+                <h6 class="card-title">Airplane type: {{flight.airplaneType}}</h6>
+            </div>
+            <div class="col-sm-4">
+                <h6 class="card-title">Price: {{flight.price}}</h6>
+                <h6 class="card-title">Aircompany: {{flight.aircompanyId}}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+                <a href="#" class="card-link text-center">Select</a>
+            </div>
+          </div>
+
       </div>
-  </div>
+    </div>
 </div>
-<div class="row mt-4 mb-4">
-  <div class="col-12">
-    <h3>FLIGHTS: {{flightResForm.controls['placeToId'].value}} -> {{flightResForm.controls['placeFromId'].value}}</h3>
-</div>
-</div>
-<div class="row mt-4 mb-4">
-  <div *ngFor="let returnFlight of returnFlights" class="col-sm-4 flight">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{returnFlight.placeFromId}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{returnFlight.timeBegin}}</h6>
-          <a href="#" class="card-link text-center">Select</a>
-        </div>
+
+<div *ngFor="let returnFlight of returnFlights">
+    <div class="card" style="width: 90%;">
+      <div class="card-body">
+
+          <div class="row">
+            <div class="col-sm-4">
+                <h4 class="card-title">From: {{this.nameFlightFrom}}</h4>
+                <h4 class="card-title">To: {{this.nameFlightTo}}</h4>
+            </div>
+            <div class="col-sm-4">
+                <h6 class="card-title">Time begin: {{returnFlight.timeBegin}}</h6>
+                <h6 class="card-title">Time end: {{returnFlight.timeEnd}}</h6>
+                <h6 class="card-title">Airplane type: {{returnFlight.airplaneType}}</h6>
+            </div>
+            <div class="col-sm-4">
+                <h6 class="card-title">Price: {{returnFlight.price}}</h6>
+                <h6 class="card-title">Aircompany: {{returnFlight.aircompanyId}}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+                <a href="#" class="card-link text-center">Select</a>
+            </div>
+          </div>
+
       </div>
-  </div>
+    </div>
 </div>
+
+
+
+
