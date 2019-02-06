@@ -6,44 +6,86 @@
   </div>
   <div class="row mt-4 mb-4">
   
-    <div  class="col-sm-10">
+    <div  class="col-sm-12">
       <form [formGroup]="vehicleSearchForm" (ngSubmit)="onSubmit()">
     
         <div class="row">
-            <div class="col">
-                <label>Rentacar Name</label>
-                <ng-select  [items]="rentacarsPermanent"
-                  bindLabel="name"
-                  autofocus
-                  bindValue="name"
-                  formControlName="rentacarName"
-                  [required]="!rentacarSearchForm.controls.rentacarLocation.value">
-                </ng-select>
+            <div class="col-3">
+              <div class="form-group">
+                  <label for="pickupDateTime">Pickup Date & Time</label>
+                  <input class="form-control" placeholder="Pick Date & Time"
+                        [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
+                        formControlName="pickupDateTime">
+                  <owl-date-time #dtRange1></owl-date-time>
+                </div>
             </div>
-            <div class="col">
-                <label>Location</label>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="dropoffDateTime">Dropoff Date & Time</label>
+                    <input class="form-control" placeholder="Pick Date & Time"
+                          [owlDateTimeTrigger]="dtRange2" [owlDateTime]="dtRange2"
+                          formControlName="dropoffDateTime">
+                    <owl-date-time #dtRange2></owl-date-time>
+                  </div>
+            </div>
+            <div class="col-3">
+                <label>Pickup Location</label>
                 <ng-select  [items]="locations"
-                  formControlName="rentacarLocation"
-                  [required]="!rentacarSearchForm.controls.rentacarName.value">
+                  formControlName="pickupLocation">
                 </ng-select>
             </div>
-            <div class="col">
-              <div class="form-group">
-                  <label>Select Date Period</label>
-                  <input class="form-control" placeholder="Choose Dates"
-                          [style.width]="'350px'"
-                          [selectMode]="'range'"
-                          [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1" formControlName="datePeriod">
-                  <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
-              </div>
+            <div class="col-3">
+                <label>Dropoff Location</label>
+                <ng-select  [items]="locations"
+                  formControlName="dropoffLocation">
+                </ng-select>
             </div>
-            <div class="col align-self-end">
-              <div class="form-group">
-                <button type="submit" [disabled]="!rentacarSearchForm.valid" class="btn btn-primary">Search</button>
-              </div>
-            </div>
+      </div>
+      <div class="row">
+          <div class="col-3">
+              <label>Vehicle Type</label>
+              <ng-select  [items]="types"
+                formControlName="vehicleType">
+              </ng-select>
+          </div>
+          <div class="col-3">
+              <label>Passengers</label>
+              <ng-select  [items]="passengers"
+                formControlName="passengers">
+              </ng-select>
+          </div>
+          <div class="col-3">
+              <label>Price From</label>
+              <ng-select  [items]="prices"
+                formControlName="priceFrom">
+              </ng-select>
+          </div>
+          <div class="col-3">
+              <label>Price To</label>
+              <ng-select  [items]="prices"
+                formControlName="priceTo">
+              </ng-select>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col">
+              <button [disabled]="!vehicleSearchForm.valid" type="submit" class="btn btn-primary mt-4">Find Vehicles</button>
+          </div>
       </div>
       </form>
     
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let vehicle of vehicles" class="col-sm-4 mt-4">
+      <div class="card">
+          <img src="../../../assets/img/vehicle/{{vehicle.image}}" class="card-img-top" alt="Picture of {{vehicle.brand}}">
+        <div class="card-body">
+          <h5 class="card-title">{{vehicle.brand}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{vehicle.model}}</h6>
+          <p class="card-text"><i class="fas fa-chair"></i>{{vehicle.numberOfSeats}}</p>
+          <a href="#" class="card-link">Reserve</a>
+        </div>
+      </div>
     </div>
   </div>

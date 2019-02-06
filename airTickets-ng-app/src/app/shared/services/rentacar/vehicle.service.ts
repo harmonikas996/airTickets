@@ -46,4 +46,28 @@ export class VehicleService {
       tap(_ => console.log(`deleted vehicle id=${id}`))
     );
   }
+
+  searchVehicles(
+    priceFrom: number,
+    priceTo: number,
+    pickupDateTime: string,
+    dropoffDateTime: string,
+    pickupLocation: string,
+    dropoffLocation: string,
+    passengersSalji: number,
+    rentacarId: number,
+    vehicleType: number
+    ): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.vehiclesUrl + 
+      '/search?rentacarId=' + rentacarId + 
+      '&priceFrom=' + priceFrom +
+      '&priceTo=' + priceTo +
+      '&pickupDateTime=' + pickupDateTime + 
+      '&dropoffDateTime=' + dropoffDateTime + 
+      '&pickupLocation=' + pickupLocation +
+      '&dropoffLocation=' + dropoffLocation + 
+      '&passengersSalji=' + passengersSalji +
+      '&vehicleType=' + vehicleType
+      );
+  }
 }

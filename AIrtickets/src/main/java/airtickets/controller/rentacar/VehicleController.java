@@ -1,5 +1,6 @@
 package airtickets.controller.rentacar;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.rentacar.VehicleDTO;
+import airtickets.model.rentacar.CarType;
 import airtickets.service.rentacar.VehicleService;
 
 @RestController
@@ -60,5 +62,29 @@ public class VehicleController {
 	@DeleteMapping("{id}/delete")
 	public void deleteVehicle(@PathVariable Long id) {
 		vehicleService.deleteVehicle(id);
+	}
+	
+	@GetMapping("/search")
+	public List<VehicleDTO> searchRentACars(
+			@RequestParam(value="rentacarId") long rentacarId,
+			@RequestParam(value="vehicleType") String type,
+			@RequestParam(value="passengersSalji") int passangers,
+			@RequestParam(value="priceFrom") double lowerPrice,
+			@RequestParam(value="priceTo") double upperPrice,
+			@RequestParam(value="pickupDateTime") String from,
+			@RequestParam(value="dropoffDateTime") String to,
+			@RequestParam(value="pickupLocation") String pickupLocation,
+			@RequestParam(value="dropoffLocation") String dropoffLocation
+			) {
+		
+		log.info(rentacarId + "");
+		log.info(type);
+		log.info(passangers + "");
+		log.info(lowerPrice + "");
+		log.info(upperPrice + "");
+		log.info(from);
+		log.info(to);
+		
+		return vehicleService.searchVehicles(rentacarId, type, passangers, lowerPrice, upperPrice, from, to);
 	}
 }
