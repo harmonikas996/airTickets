@@ -5,6 +5,7 @@ import { Airport } from '../../../shared/model/aircompany/airport.model';
 import { FlightsService } from './../../../shared/services/aircompany/flights.service';
 import { Flight } from './../../../shared/model/aircompany/flight.model';
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 
 @Component({
   selector: 'app-flights',
@@ -19,7 +20,8 @@ export class FlightsComponent implements OnInit {
   constructor(
     private flightService: FlightsService,
     private airportService: AirportService,
-    private aircompanyService: AircompanyService
+    private aircompanyService: AircompanyService,
+    private token: TokenStorageService
   ) { }
 
   ngOnInit() {

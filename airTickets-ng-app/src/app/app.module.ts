@@ -21,10 +21,13 @@ import { UserDashboardComponent } from './dashboards/user-dashboard/user-dashboa
 import { FlightsModule } from './flights/flights.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { VehiclesComponent } from './vehicles/vehicles.component';
+import { HotelsModule } from './hotels/hotels.module';
 import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { ChartsModule } from 'ng2-charts';
 import { ReportsComponent } from './shared/reports/reports.component';
 import { ReservationsReportComponent } from './shared/reports/reservations-report/reservations-report.component';
+import { HotelsComponent } from './hotels/hotels.component';
+import { FlightsComponent } from './flights/flights.component';
 
 // export const MY_MOMENT_FORMATS = {
 //   // parseInput: 'l LT',
@@ -51,6 +54,8 @@ import { ReservationsReportComponent } from './shared/reports/reservations-repor
     VehiclesComponent,
     ReportsComponent,
     ReservationsReportComponent,
+    HotelsComponent,
+    FlightsComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,6 +69,7 @@ import { ReservationsReportComponent } from './shared/reports/reservations-repor
     ChartsModule,
     MyDatePickerModule,
     VehiclesModule,
+    HotelsModule,
     FlightsModule,
     UserAuthenticationModule,
     DashboardsModule,

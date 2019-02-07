@@ -32,6 +32,10 @@ getFlightsByAircompanyId(id: number): Observable<Flight>{
   return null;
 }
 
+getAircompanyByAdminUsername(adminUsername: String): Observable<Flight> {
+  return this.http.get<Flight>(this.flightUrl + '/admin/' + adminUsername);
+}
+
 addFlight(flight: Flight): Observable<Object> {
   return this.http.post<Flight>(this.flightUrl + '/new', flight, httpOptions);
 }
