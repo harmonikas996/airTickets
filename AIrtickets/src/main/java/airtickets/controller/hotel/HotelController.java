@@ -141,4 +141,14 @@ public class HotelController {
 			) {
 		return hotelService.searchHotels(name, location, timeBegin, timeEnd);
 	}
+
+	@GetMapping("/searchRooms")
+	public List<RoomDTO> searchRooms(
+			@RequestParam(value="id") long id,
+			@RequestParam(value="type") String type,
+			@RequestParam(value="timeBegin") String timeBegin,
+			@RequestParam(value="timeEnd") String timeEnd
+			) {
+		return hotelService.searchRooms(id, type, timeBegin, timeEnd);
+	}
 }

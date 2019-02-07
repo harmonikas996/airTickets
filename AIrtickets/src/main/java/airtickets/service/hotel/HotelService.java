@@ -186,7 +186,7 @@ public class HotelService {
 		return false;
 	}
 
-public List<HotelDTO> searchHotels(String name, String location, String timeBegin, String timeEnd) {
+	public List<HotelDTO> searchHotels(String name, String location, String timeBegin, String timeEnd) {
 		
 		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
 		LocalDateTime ldtTo = LocalDateTime.parse(timeEnd);
@@ -204,5 +204,20 @@ public List<HotelDTO> searchHotels(String name, String location, String timeBegi
  		}
 		
 		return hotels;
+	}
+
+	public List<RoomDTO> searchRooms(long hotelId, String type, String timeBegin, String timeEnd) {
+		
+		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
+		LocalDateTime ldtTo = LocalDateTime.parse(timeEnd);
+		
+		List<RoomDTO> rooms = new ArrayList<>();
+		
+		for (Room r  : roomRepository.searchRooms(hotelId, type, ldtFrom, ldtTo)) {
+			RoomDTO room = new RoomDTO(r);
+			rooms.add(room);
+ 		}
+		
+		return null;
 	}
 }

@@ -24,4 +24,10 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 			"and airtickets.hotel_reservation.date_from <= ?3 and airtickets.hotel_reservation.date_to >= ?2)\r\n" + 
 			"", nativeQuery=true)
 	public List<Room> reservedRoomsForPeriod(long id, LocalDateTime df, LocalDateTime dt);
+	@Query(value="select * from airtickets.room where id in (SELECT airtickets.room.id FROM airtickets.room, airtickets.hotel\r\n" + 
+			" where airtickets.room.hotel_id = airtickets.hotel.id and airtickets.hotel.id = ?1 and airtickets.room.type = ?2\r\n" + 
+			" and airtickets.room.id not in (select rr.room_id from airtickets.room_reservation rr, airtickets.hotel_reservation hr\r\n" + 
+			" where hr.id = rr.hotel_reservation_id and hr.hotel_id = ?1 and hr.date_from <= ?4 \r\n" + 
+			" and hr.date_to >= ?3))", nativeQuery=true)
+	public List<Room> searchRooms(long id, String type, LocalDateTime df, LocalDateTime dt);
 }
