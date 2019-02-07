@@ -9,6 +9,7 @@ public class AircompanyDTO {
 	private String name;
 	private String address;
 	private String description;
+	private String image;
 	
 	public AircompanyDTO() {}
 	
@@ -17,6 +18,7 @@ public class AircompanyDTO {
 		name = aircompany.getName();
 		address = aircompany.getAddress();
 		description = aircompany.getDescription();
+		image = aircompany.getImage();
 	}
 
 	public long getId() {
@@ -49,6 +51,14 @@ public class AircompanyDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

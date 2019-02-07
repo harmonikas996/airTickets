@@ -65,7 +65,7 @@ public class RentACar extends Company implements Serializable {
 	public RentACar() {}
 
 	public RentACar(RentACarDTO r) {
-		super(r.getId(), r.getName(), r.getAddress(), r.getDescription());
+		super(r.getId(), r.getName(), r.getAddress(), r.getDescription(), r.getImage());
 //		this.averageRate = r.getAverageRate();
 //		this.numberOfRates = r.getNumberOfRates();
 	}
