@@ -46,4 +46,19 @@ public class SeatService {
 		seatRepository.deleteById(id);
 	}
 	
+	public void generateSeats(long id, int n) {
+		int j = 1;
+		char c = 'A';
+		for (int i = 1; i <= n; i++) {
+			SeatDTO s = new SeatDTO();
+			s.setFlightId(id);
+			if (j == 7) {
+				j = 1;
+				c = 'A';
+			}
+			s.setMark("" + j + c);
+			Seat seat = new Seat(s);
+			seatRepository.save(seat);
+		}
+	}
 }
