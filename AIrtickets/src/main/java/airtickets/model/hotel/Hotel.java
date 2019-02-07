@@ -30,7 +30,7 @@ public class Hotel extends Company implements Serializable{
 	public Hotel() {}
 
 	public Hotel(HotelDTO hotel) {
-		super(hotel.getId(), hotel.getName(), hotel.getAddress(), hotel.getDescription());
+		super(hotel.getId(), hotel.getName(), hotel.getAddress(), hotel.getDescription(), hotel.getImage());
 	}
 
 	public List<Room> getRooms() {

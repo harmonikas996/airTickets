@@ -3,4 +3,5 @@ export interface RentACar {
     name: string;
     address: string;
     description: string;
+    image: string;
 }

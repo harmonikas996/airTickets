@@ -9,6 +9,7 @@ public class RoomDTO {
 	private int noOfBeds;
 	private String type;
 	private long hotel;
+	private String image;
 	
 	public RoomDTO() {}
 	
@@ -19,6 +20,7 @@ public class RoomDTO {
 		noOfBeds = room.getNoOfBeds();
 		type = room.getType();
 		hotel = room.getHotel().getId();
+		image = room.getImage();
 	}
 
 	public long getId() {
@@ -67,5 +69,13 @@ public class RoomDTO {
 
 	public void setHotel(long hotelId) {
 		this.hotel = hotelId;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

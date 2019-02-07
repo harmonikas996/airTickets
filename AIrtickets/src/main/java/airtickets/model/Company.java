@@ -26,17 +26,20 @@ public class Company {
 	private String address;
 	@Column
 	private String description;
+	@Column
+	private String image;
 
 	@OneToMany(mappedBy = "company", cascade=CascadeType.ALL)
 	private List<User> admins;
 
 	public Company() {}
 
-	public Company(long id, String name, String address, String description) {
+	public Company(long id, String name, String address, String description, String image) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.description = description;
+		this.image = image;
 	}
 
 	public long getId() {
@@ -73,6 +76,14 @@ public class Company {
 
 	public List<User> getAdmins() {
 		return admins;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

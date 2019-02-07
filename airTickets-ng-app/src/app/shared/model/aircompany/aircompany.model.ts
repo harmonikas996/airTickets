@@ -3,5 +3,6 @@ export class Aircompany {
   name: string;
   address: string;
   description: string;
+  image: string;
 }
 

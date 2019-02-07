@@ -32,6 +32,8 @@ public class Room implements Serializable{
 	@Column
 	private int noOfBeds;
 	@Column
+	private String image;
+	@Column
 	private String type;
 	@JoinColumn(name = "hotel_id")
 	@ManyToOne
@@ -53,6 +55,7 @@ public class Room implements Serializable{
 		this.type = room.getType();
 		this.hotel = new Hotel();
 		this.hotel.setId(room.getHotel());
+		this.image = room.getImage();
 	}
 
 	public long getId() {
@@ -113,6 +116,14 @@ public class Room implements Serializable{
 
 	public List<RoomReservation> getReservations() {
 		return reservations;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }

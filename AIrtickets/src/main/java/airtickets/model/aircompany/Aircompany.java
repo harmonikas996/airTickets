@@ -27,7 +27,7 @@ public class Aircompany extends Company implements Serializable {
 	public Aircompany() {}
 	
 	public Aircompany(AircompanyDTO a) {
-		super(a.getId(), a.getName(), a.getAddress(), a.getDescription());
+		super(a.getId(), a.getName(), a.getAddress(), a.getDescription(), a.getImage());
 	}
 
 	public List<Flight> getFlights() {
