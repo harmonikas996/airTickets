@@ -208,7 +208,7 @@ public class RentACarService {
 
 	public List<VehicleDTO> getCarsFromRentacar(long id) {
 		List<VehicleDTO> veh = new ArrayList<>();
-		for (Vehicle v  : vehicleRepository.findByRentacarId(id)) {
+		for (Vehicle v  : vehicleRepository.findByRentACarId(id)) {
 			veh.add(new VehicleDTO(v));
  		}
 		return veh;
