@@ -25,14 +25,15 @@ export class ReportsComponent implements OnInit {
   };
   public lineChartColors:Array<any> = [
     { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
+      backgroundColor: 'rgba(0,123,255, 0.2)',
+      borderColor: '#007BFF',
+      pointBackgroundColor: '#007BFF',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
+
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
 
@@ -58,6 +59,7 @@ export class ReportsComponent implements OnInit {
     this.reportForm = this.formBuilder.group({
       reportType: [null, Validators.required],
       reportYear: ['', Validators.required],
+      reportGraphType: [null]
     });
 
     this.types = ['Monthly', 'Weekly'];
@@ -136,6 +138,10 @@ export class ReportsComponent implements OnInit {
         data => this.yearlyIncome = data
       );
     }
+  }
+
+  switch() {
+    this.lineChartType = !(this.reportForm.controls['reportGraphType'].value) ? 'line' : 'bar'
   }
 
   // events

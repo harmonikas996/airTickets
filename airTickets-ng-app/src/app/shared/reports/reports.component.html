@@ -5,17 +5,34 @@
 </div>
 <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
   <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-4">
           <label>Select Year</label>
           <ng-select [searchable]="false" [clearable]="false"  [items]="years"
             formControlName="reportYear" (change)="fetchData(0)">
           </ng-select>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-4">
           <label>Report Type</label>
           <ng-select [searchable]="false" [clearable]="false"  [items]="types"
             formControlName="reportType" (change)="fetchData(1)">
           </ng-select>
+      </div>
+      <div class="col-md-2">
+          <label>Chart Type</label>
+          <div class="row">
+            <div class="col-4">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="col-4">
+              <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" formControlName="reportGraphType" id="customSwitch1" (change)="switch()">
+                  <label class="custom-control-label" for="customSwitch1"></label>
+              </div>
+            </div>
+            <div class="col-4">
+              <i class="far fa-chart-bar"></i>
+            </div>
+          </div>
       </div>
   </div>
 </form>
@@ -38,6 +55,7 @@
                   [chartType]="lineChartType"
                   (chartHover)="chartHovered($event)"
                   (chartClick)="chartClicked($event)"></canvas>
+                  <!-- "(reportGraphType) ? 'lineChartType' : 'barChartType'" -->
       </div>
     </div>
 </div>
