@@ -1,3 +1,4 @@
+import { SeatService } from './../../../shared/services/aircompany/seat.service';
 import { AircompanyService } from './../../../shared/services/aircompany/aircompany.service';
 import { Aircompany } from './../../../shared/model/aircompany/aircompany.model';
 import { AirportService } from './../../../shared/services/aircompany/airport.service';
@@ -53,7 +54,8 @@ export class FlightNewComponent implements OnInit {
     private location: Location,
     private airportService: AirportService,
     private aircompanyService: AircompanyService,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+    private seatsService: SeatService
 
   ) { }
 
@@ -69,6 +71,7 @@ export class FlightNewComponent implements OnInit {
       loweredPrice: ['', Validators.required],
       placeFromId: ['', Validators.required],
       placeToId: ['', Validators.required],
+      numberSeats: ['', Validators.required]
     });
 
     this.types = [ 'AirbusA320', 'Boeing747', 'Boeing777'];
@@ -115,7 +118,10 @@ export class FlightNewComponent implements OnInit {
       console.log("Response is: ", response);
       this.location.back();
    },
-   (error) => console.error("An error occurred, ", error)
+   (error) => console.error("An error occurred, ", error),
+   () => {
+    //  this.seatsService.
+   }
    );
   }
 

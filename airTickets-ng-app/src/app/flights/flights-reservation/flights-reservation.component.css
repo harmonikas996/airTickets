@@ -7,4 +7,16 @@
   margin-top: 25px;
 }
 
+.selectedFlight {
+  border-left: 3px solid #007bff;
+}
+
+.card::hover {
+  cursor: pointer;
+  background: #f7f7f7;
+}
+
+#checkboxes input[type=checkbox]{
+  display: none;
+}
 

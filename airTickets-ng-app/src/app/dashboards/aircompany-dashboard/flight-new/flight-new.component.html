@@ -35,6 +35,7 @@
                   </div>
                   <small *ngIf="newFlightForm.controls.price.errors?.required && newFlightForm.controls.price.touched" class="form-text text-danger">*Required</small>
                 </div>
+
             </div>
             <div class="col-md-4">
                 <div class="form-group">
@@ -52,6 +53,11 @@
                     </div>
                     <small *ngIf="newFlightForm.controls.loweredPrice.errors?.required && newFlightForm.controls.loweredPrice.touched" class="form-text text-danger">*Required</small>
                 </div>
+                <div class="form-group">
+                    <label for="numberSeats">Number of seats<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="numberSeats" class="form-control" placeholder="Enter Number" required>
+                    <small *ngIf="newFlightForm.controls.numberSeats.errors?.required && newFlightForm.controls.numberSeats.touched" class="form-text text-danger">*Required</small>
+                </div>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
@@ -64,6 +70,7 @@
                     <ng-select [items]="types" formControlName="airplaneType"></ng-select>
                     <small *ngIf="newFlightForm.controls.airplaneType.errors?.required && newFlightForm.controls.airplaneType.touched" class="form-text text-danger">*Required</small>
                 </div>
+
 
             </div>
         </div>

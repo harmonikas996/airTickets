@@ -10,8 +10,8 @@ import { FlightsResListComponent } from './flights/flights-res-list/flights-res-
 import { HotelsListComponent } from './hotels/hotels-list/hotels-list.component';
 
 const routes: Routes = [
-  { path: 'flightreservations', component: FlightsReservationComponent },
-  { path: 'flightreslist', component: FlightsResListComponent },
+  { path: 'flight-reservations', component: FlightsReservationComponent },
+  { path: 'flight-res-list', component: FlightsResListComponent },
   { path: 'hotels', component: HotelsListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
