@@ -55,7 +55,7 @@ import { FlightsComponent } from './flights/flights.component';
     ReportsComponent,
     ReservationsReportComponent,
     HotelsComponent,
-    FlightsComponent,
+    FlightsComponent
   ],
   imports: [
     BrowserModule,

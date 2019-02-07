@@ -41,6 +41,12 @@ import { AmenityNewComponent } from './hotel-dashboard/amenity-new/amenity-new.c
 import { AmenityListComponent } from './hotel-dashboard/amenity-list/amenity-list.component';
 import { AmenityDetailsComponent } from './hotel-dashboard/amenity-details/amenity-details.component';
 import { HotelProfileComponent } from './hotel-dashboard/hotel-profile/hotel-profile.component';
+import { RoomPriceListComponent } from './hotel-dashboard/room-price-list/room-price-list.component';
+import { RoomPriceNewComponent } from './hotel-dashboard/room-price-new/room-price-new.component';
+import { RoomPriceDetailsComponent } from './hotel-dashboard/room-price-details/room-price-details.component';
+import { SpecialofferDetailsComponent } from './hotel-dashboard/specialoffer-details/specialoffer-details.component';
+import { SpecialofferNewComponent } from './hotel-dashboard/specialoffer-new/specialoffer-new.component';
+import { SpecialOfferUpdateComponent } from './hotel-dashboard/special-offer-update/special-offer-update.component';
 
 
 
@@ -88,6 +94,12 @@ import { HotelProfileComponent } from './hotel-dashboard/hotel-profile/hotel-pro
     AmenityListComponent,
     AmenityDetailsComponent,
     HotelProfileComponent,
+    RoomPriceListComponent,
+    RoomPriceNewComponent,
+    RoomPriceDetailsComponent,
+    SpecialofferDetailsComponent,
+    SpecialofferNewComponent,
+    SpecialOfferUpdateComponent,
   ],
   providers: [
     AuthGuard,

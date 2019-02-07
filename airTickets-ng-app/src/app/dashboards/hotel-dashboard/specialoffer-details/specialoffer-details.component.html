@@ -1,0 +1,29 @@
+<div class="row mt-4 mb-4">
+    <div class="col-6">
+        <h3>Special Offers List</h3>
+    </div>
+    <div class="col-6 text-right">
+        <a type="button" class="btn btn-primary" routerLink="../specialOffers/new"><i class="far fa-plus-square mr-2"></i>Add Special Offer</a>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-12">
+    <table *ngIf="specialOffers" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Percentage</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let specialOffer of specialOffers">
+          <td class="align-middle">{{specialOffer.title}}</td>
+          <td class="align-middle">{{specialOffer.percentage}}</td>
+          <td class="align-middle"><a type="button" class="btn btn-primary" routerLink="../specialOffers-update/{{specialOffer.id}}"><i class="fas fa-edit"></i></a></td>
+          <td class="align-middle"><a type="button" class="btn btn-danger" (click)="onRemove(specialOffer)"><i class="fas fa-trash text-white"></i></a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>

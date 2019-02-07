@@ -36,8 +36,14 @@ import { SystemDashboardComponent } from './system-dashboard/system-dashboard.co
 import { RentacarNewComponent } from './system-dashboard/rentacar-new/rentacar-new.component';
 import { RentacarDetailsComponent } from './system-dashboard/rentacar-details/rentacar-details.component';
 import { HotelProfileComponent } from './hotel-dashboard/hotel-profile/hotel-profile.component';
+import { RoomPriceListComponent } from './hotel-dashboard/room-price-list/room-price-list.component';
+import { RoomPriceNewComponent } from './hotel-dashboard/room-price-new/room-price-new.component';
+import { SpecialofferDetailsComponent } from './hotel-dashboard/specialoffer-details/specialoffer-details.component';
+import { SpecialofferNewComponent } from './hotel-dashboard/specialoffer-new/specialoffer-new.component';
+import { SpecialOfferUpdateComponent } from './hotel-dashboard/special-offer-update/special-offer-update.component';
 import { ReportsComponent } from '../shared/reports/reports.component';
 import { ReservationsReportComponent } from '../shared/reports/reservations-report/reservations-report.component';
+
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -87,7 +93,13 @@ const dashboardsRoutes: Routes = [
       { path: 'rooms/new', component: RoomNewComponent },
       { path: 'amenities/new', component: AmenityNewComponent },
       { path: 'room-details/:id', component: RoomDetailsComponent },
+      { path: 'rooms-prices/new', component: RoomPriceNewComponent },
       { path: 'amenity-details/:id', component: AmenityDetailsComponent },
+      { path: 'rooms-prices', component: RoomPriceListComponent },
+      { path: 'specialOffers-details', component: SpecialofferDetailsComponent },
+      { path: 'specialOffers/new', component: SpecialofferNewComponent },
+      { path: 'specialOffers-update/:id', component: SpecialOfferUpdateComponent }
+
       // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },
       // { path: '**', redirectTo: 'hotel-profile', pathMatch: 'full' }
     ]
