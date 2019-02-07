@@ -1,0 +1,45 @@
+import { Seat } from './../../model/aircompany/seat.model';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SeatService {
+
+  private seatsUrl = 'http://localhost:8080/seats';
+
+  constructor(
+    private http: HttpClient
+  ) { }
+
+  getSeats(): Observable<Seat[]> {
+    return this.http.get<Seat[]>(this.seatsUrl + '/all');
+  }
+
+  getSeatById(id: number): Observable<Seat> {
+    return this.http.get<Seat>(this.seatsUrl + '/' + id);
+  }
+
+  addSeat(seat: Seat): Observable<Object> {
+    return this.http.post<Seat>(this.seatsUrl + '/new', seat, httpOptions);
+  }
+
+  updateSeat(seat: Seat): Observable<Object> {
+    return this.http.put<Seat>(this.seatsUrl + '/' + seat.id + '/update', seat, httpOptions);
+  }
+
+  removeSeat(seat: Seat | number): Observable<Seat> {
+    const id = typeof seat === 'number' ? seat : seat.id;
+    return this.http.delete<Seat>(this.seatsUrl + '/' + id + '/delete', httpOptions).pipe(
+      tap(_ => console.log(`deleted seat id=${id}`))
+    );
+  }
+
+}

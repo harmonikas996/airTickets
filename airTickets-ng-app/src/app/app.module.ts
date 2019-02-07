@@ -49,7 +49,7 @@ import { FlightsComponent } from './flights/flights.component';
     UserDashboardComponent,
     VehiclesComponent,
     HotelsComponent,
-    FlightsComponent,
+    FlightsComponent
   ],
   imports: [
     BrowserModule,
