@@ -69,7 +69,7 @@
 
           <div class="col">
             <label>Passengers</label>
-            <select class="form-control form-control-sm">
+            <select class="form-control form-control-sm" formControlName="passengers">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -95,32 +95,43 @@
   <div class="col-6">
     <h4>{{this.nameFlightFrom}} -> {{this.nameFlightTo}}</h4>
     <div *ngFor="let flight of flights">
-        <div class="card" style="width: 90%;">
-          <div class="card-body">
+        <!-- : selectedIndex == {{flight.}} -->
+        <!-- (click)="setSelected(1)" -->
+        <!-- [{{flight.aircompanyId}}, {{flight.id}}]) -->
+      <div>
+        <div class="card" id="checkboxes" [ngClass]="isSelected(flight.aircompanyId, flight.id) ? 'selectedFlight' : ''" for="blankCheckbox" style="width: 90%;">
+          <label >
+            <div class="card-body">
 
-              <div class="row">
-                <!-- <div class="col-sm-4">
-                    <h4 class="card-title">From: {{this.nameFlightFrom}}</h4>
-                    <h4 class="card-title">To: {{this.nameFlightTo}}</h4>
-                </div> -->
-                <div class="col-sm-4">
-                    <h6 class="card-title">Time begin: {{flight.timeBegin}}</h6>
-                    <h6 class="card-title">Time end: {{flight.timeEnd}}</h6>
-                    <h6 class="card-title"><i class="fas fa-plane icon"></i> {{flight.airplaneType}}</h6>
+                <div class="row">
+                  <!-- <div class="col-sm-4">
+                      <h4 class="card-title">From: {{this.nameFlightFrom}}</h4>
+                      <h4 class="card-title">To: {{this.nameFlightTo}}</h4>
+                  </div> -->
+                  <div class="col-sm-4">
+                      <h6 class="card-title">Time begin: {{flight.timeBegin  | date: 'medium'}}</h6>
+                      <h6 class="card-title">Time end: {{flight.timeEnd  | date: 'medium'}}</h6>
+                      <h6 class="card-title"><i class="fas fa-plane icon"></i> {{flight.airplaneType}}</h6>
+                  </div>
+                  <div class="col-sm-4">
+                      <h6 class="card-title">Price: {{flight.price}}</h6>
+                      <h6 class="card-title">Aircompany: {{flight.aircompanyId}}</h6>
+                  </div>
                 </div>
-                <div class="col-sm-4">
-                    <h6 class="card-title">Price: {{flight.price}}</h6>
-                    <h6 class="card-title">Aircompany: {{flight.aircompanyId}}</h6>
+                <div class="row">
+                  <div class="col-sm-4">
+                      <a href="#" class="card-link text-center">Select</a>
+                      <!-- <div class="form-check"> -->
+                          <!-- flight.aircompanyId|flight.id -->
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{flight.aircompanyId}}|{{flight.id}}" (click)="selectSeatDep(flight.aircompanyId, flight.id, $event)">
+                      <!-- </div> -->
+                  </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-4">
-                    <a href="#" class="card-link text-center">Select</a>
-                </div>
-              </div>
 
-          </div>
+            </div>
+          </label>
         </div>
+      </div>
     </div>
   </div>
   <div class="col-6">

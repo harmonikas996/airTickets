@@ -35,6 +35,11 @@ export class SeatService {
     return this.http.put<Seat>(this.seatsUrl + '/' + seat.id + '/update', seat, httpOptions);
   }
 
+  generateSets(number: number, flightid: number): Observable<Object> {
+    //return this.http.post<Seat>(this.seatsUrl + '/generate', number, httpOptions);
+    return this.http.get<Seat>(this.seatsUrl + '/generate?id=' + flightid + 'number=' + number);
+  }
+
   removeSeat(seat: Seat | number): Observable<Seat> {
     const id = typeof seat === 'number' ? seat : seat.id;
     return this.http.delete<Seat>(this.seatsUrl + '/' + id + '/delete', httpOptions).pipe(
