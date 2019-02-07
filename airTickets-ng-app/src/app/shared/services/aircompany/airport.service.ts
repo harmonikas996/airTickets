@@ -29,6 +29,10 @@ export class AirportService {
     return this.http.put(this.airporturl + '/' + airport.id + '/update', airport, httpOptions);
   }
 
+  addAirport(airport: Airport): Observable<Object> {
+    return this.http.post<Airport>(this.airporturl + '/new', airport, httpOptions);
+  }
+
   removeAirport(airport: Airport | number): Observable<Airport> {
     const id = typeof airport === 'number' ? airport : airport.id;
     return this.http.delete<Airport>(this.airporturl + '/' + id + '/delete', httpOptions).pipe(
