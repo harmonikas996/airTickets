@@ -22,6 +22,9 @@ import { FlightsModule } from './flights/flights.module';
 import { MyDatePickerModule } from 'mydatepicker';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { ChartsModule } from 'ng2-charts';
+import { ReportsComponent } from './shared/reports/reports.component';
+import { ReservationsReportComponent } from './shared/reports/reservations-report/reservations-report.component';
 
 // export const MY_MOMENT_FORMATS = {
 //   // parseInput: 'l LT',
@@ -38,6 +41,7 @@ import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
   declarations: [
     AppComponent,
     NavigationComponent,
+    ReportsComponent,
     LoginWidgetComponent,
     LoginComponent,
     RegisterComponent,
@@ -45,6 +49,8 @@ import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
     AircompanyDashboardComponent,
     UserDashboardComponent,
     VehiclesComponent,
+    ReportsComponent,
+    ReservationsReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +61,7 @@ import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
     NgSelectModule,
     OwlDateTimeModule,
     // OwlMomentDateTimeModule,
+    ChartsModule,
     MyDatePickerModule,
     VehiclesModule,
     FlightsModule,

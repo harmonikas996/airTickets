@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.dto.rentacar.RentACarDTO;
+import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.service.rentacar.RentACarService;
 import airtickets.service.user.UserService;
 
@@ -81,5 +82,57 @@ public class RentACarController {
 		log.info(timeEnd);
 		
 		return rentACarService.searchRentACars(name, location, timeBegin, timeEnd);
+	}
+
+	@GetMapping("/monthlyIncome")
+	@PreAuthorize("hasAuthority('rentacar')")
+	public List<Double> monthyIncome(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return rentACarService.monthyIncome(rcrId, year);
+	}
+
+	@GetMapping("/weeklyIncome")
+	@PreAuthorize("hasAuthority('rentacar')")
+	public List<Double> weeklyIncome(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return rentACarService.weeklyIncome(rcrId, year);
+	}
+
+	@GetMapping("/yearlyIncome")
+	@PreAuthorize("hasAuthority('rentacar')")
+	public double yearlyIncome(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return rentACarService.yearlyIncome(rcrId, year);
+	}
+
+	@GetMapping("/freeVehicles")
+//	@PreAuthorize("hasAuthority(rentacar)")
+	public List<VehicleDTO> freeVehicles(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="dateBegin") String timeBegin,
+			@RequestParam(value="dateEnd") String timeEnd
+			) {
+		
+		return rentACarService.freeVehiclesForPeriod(rcrId, timeBegin, timeEnd);
+	}
+
+	@GetMapping("/reservedVehicles")
+//	@PreAuthorize("hasAuthority(rentacar)")
+	public List<VehicleDTO> reservedVehicles(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="dateBegin") String timeBegin,
+			@RequestParam(value="dateEnd") String timeEnd
+			) {
+		
+		return rentACarService.reservedVehiclesForPeriod(rcrId, timeBegin, timeEnd);
 	}
 }

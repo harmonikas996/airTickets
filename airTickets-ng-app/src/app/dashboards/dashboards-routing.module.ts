@@ -36,6 +36,8 @@ import { SystemDashboardComponent } from './system-dashboard/system-dashboard.co
 import { RentacarNewComponent } from './system-dashboard/rentacar-new/rentacar-new.component';
 import { RentacarDetailsComponent } from './system-dashboard/rentacar-details/rentacar-details.component';
 import { HotelProfileComponent } from './hotel-dashboard/hotel-profile/hotel-profile.component';
+import { ReportsComponent } from '../shared/reports/reports.component';
+import { ReservationsReportComponent } from '../shared/reports/reservations-report/reservations-report.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -51,6 +53,8 @@ const dashboardsRoutes: Routes = [
       { path: 'branches/new', component: BranchNewComponent },
       { path: 'branch-details/:id', component: BranchDetailsComponent },
       { path: 'user-profile', component: UserProfileComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'vehicleReports', component: ReservationsReportComponent },
       { path: '', redirectTo: 'company-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'company-profile', pathMatch: 'full' }
     ]

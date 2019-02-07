@@ -8,6 +8,7 @@ import { UserService } from '../user/user.service';
 import { User } from '../../model/user/user.model';
 import { BranchOffice } from '../../model/rentacar/branchOffice.model';
 import { RentacarsWithBranches } from '../../model/rentacar/rentacarsWithBranches.model';
+import { Vehicle } from '../../model/rentacar/vehicle.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -72,5 +73,25 @@ export class RentacarService {
 
   searchRentacars(name: String, location: String, timeBegin: String, timeEnd: String): Observable<RentacarsWithBranches[]> {
     return this.http.get<RentacarsWithBranches[]>(this.rentacarsUrl + '/search?name=' + name + '&location=' + location + '&timeBegin=' + timeBegin + '&timeEnd=' + timeEnd);
+  }
+
+  getMonthlyReport(rentacarId: number, year: String): Observable<Number[]> {
+    return this.http.get<Number[]>(this.rentacarsUrl + '/monthlyIncome?id=' + rentacarId + '&year=' + year);
+  }
+
+  getWeeklyReport(rentacarId: number, year: String): Observable<Number[]> {
+    return this.http.get<Number[]>(this.rentacarsUrl + '/weeklyIncome?id=' + rentacarId + '&year=' + year);
+  }
+
+  getYearlyReport(rentacarId: number, year: String): Observable<number> {
+    return this.http.get<number>(this.rentacarsUrl + '/yearlyIncome?id=' + rentacarId + '&year=' + year);
+  }
+
+  getFreeVehicles(rentacarId: number, dateBegin: String, dateEnd: String): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.rentacarsUrl + '/freeVehicles?id=' + rentacarId + '&dateBegin=' + dateBegin + '&dateEnd=' + dateEnd);
+  }
+
+  getReservedVehicles(rentacarId: number, dateBegin: String, dateEnd: String): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.rentacarsUrl + '/reservedVehicles?id=' + rentacarId + '&dateBegin=' + dateBegin + '&dateEnd=' + dateEnd);
   }
 }
