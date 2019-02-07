@@ -49,7 +49,7 @@ export class HotelService {
     return this.http.post<Hotel>(this.hotelsUrl + '/new', hotel, httpOptions);
   }
 
-  addAdmin(companyId: any, adminEmail: String): void {
+  addAdmin(companyId: any, adminEmail: String): Observable<User> {
     let user: User;
 
     this.userService.getUserByEmail(adminEmail).subscribe(
@@ -58,8 +58,16 @@ export class HotelService {
       () => {
         user.type = 'hotel';
         user.company = companyId;
-        this.userService.updateNotLoggedUser(user).subscribe();
+        this.userService.updateNotLoggedUser(user).subscribe(
+          userToBeAdmin => user = userToBeAdmin,
+          error => console.log('Error: ', error),
+          () => {
+            return user;
+          }
+        );
       }
     );
+
+    return null;
   }
 }
