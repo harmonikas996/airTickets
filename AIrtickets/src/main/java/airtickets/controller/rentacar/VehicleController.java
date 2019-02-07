@@ -40,14 +40,14 @@ public class VehicleController {
 	public VehicleDTO getById(@PathVariable Long id) {
 		return vehicleService.getVehicle(id);
 	}
-	
+	/*
 	@GetMapping("/")
 	public List<VehicleDTO> getByRentACarId(@RequestParam(value="rentACarId") Long rentACarId, @RequestParam(value="name") String name) {
 //		Long l = (rentACarId == null) ? null : rentACarId;
 //		log.info("Dali je null: " +  l);
 		return vehicleService.getVehiclesByRentACarId(rentACarId, name);
 	}
-
+*/
 	@PostMapping("/new")
     public VehicleDTO addVehicle(@RequestBody VehicleDTO vehicle) {
 			return vehicleService.addVehicle(vehicle);

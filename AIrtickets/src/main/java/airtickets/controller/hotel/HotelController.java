@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.hotel.HotelDTO;
-import airtickets.dto.rentacar.RentACarDTO;
+import airtickets.dto.hotel.RoomDTO;
+import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.service.hotel.HotelService;
 
 @RestController
@@ -56,5 +58,76 @@ public class HotelController {
 	@PreAuthorize("hasAuthority('hotel')")
 	public HotelDTO getByAdminUsername(@PathVariable String username) {
 		return hotelService.getHotelByAdmin(username);
+	}
+
+	@GetMapping("/monthlyIncome")
+	@PreAuthorize("hasAuthority('hotel')")
+	public List<Double> monthyIncome(
+			@RequestParam(value="id") long hotId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return hotelService.monthyIncome(hotId, year);
+	}
+
+	@GetMapping("/weeklyIncome")
+	@PreAuthorize("hasAuthority('hotel')")
+	public List<Double> weeklyIncome(
+			@RequestParam(value="id") long hotId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return hotelService.weeklyIncome(hotId, year);
+	}
+
+	@GetMapping("/yearlyIncome")
+	@PreAuthorize("hasAuthority('hotel')")
+	public double yearlyIncome(
+			@RequestParam(value="id") long hotId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return hotelService.yearlyIncome(hotId, year);
+	}
+
+	@GetMapping("/freeRooms")
+//	@PreAuthorize("hasAuthority(rentacar)")
+	public List<RoomDTO> freeVehicles(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="dateBegin") String timeBegin,
+			@RequestParam(value="dateEnd") String timeEnd
+			) {
+		
+		return hotelService.freeRoomsForPeriod(rcrId, timeBegin, timeEnd);
+	}
+
+	@GetMapping("/reservedRooms")
+//	@PreAuthorize("hasAuthority(rentacar)")
+	public List<RoomDTO> reservedVehicles(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="dateBegin") String timeBegin,
+			@RequestParam(value="dateEnd") String timeEnd
+			) {
+		
+		return hotelService.reservedRoomsForPeriod(rcrId, timeBegin, timeEnd);
+	}
+
+	@GetMapping("/roomsFromHotel")
+//	@PreAuthorize("hasAuthority(hotel)")
+	public List<RoomDTO> getCarsFromRentacar(
+			@RequestParam(value="id") long hotId
+			) {
+		
+		return hotelService.getRoomsFromHotel(hotId);
+	}
+
+	@GetMapping("/isCurrentlyReserved")
+//	@PreAuthorize("hasAuthority(hotel)")
+	public boolean isCurrentlyReserved(
+			@RequestParam(value="id") long id,
+			@RequestParam(value="hotelId") long hotId
+			) {
+		
+		return hotelService.isCurrentlyReserved(id);
 	}
 }
