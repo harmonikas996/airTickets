@@ -23,7 +23,8 @@ export class HotelNewComponent implements OnInit {
       id: [''],
       name: ['', Validators.required],
       address: ['', Validators.required],
-      description: ['']
+      description: [''],
+      image: ['']
     });
   }
 

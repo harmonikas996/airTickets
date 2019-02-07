@@ -35,7 +35,8 @@ export class HotelDetailsComponent implements OnInit {
       id: [''],
       name: ['', Validators.required],
       address: ['', Validators.required],
-      description: ['']
+      description: [''],
+      image: ['']
     });
 
     this.addAdminForm = this.formBuilder.group({

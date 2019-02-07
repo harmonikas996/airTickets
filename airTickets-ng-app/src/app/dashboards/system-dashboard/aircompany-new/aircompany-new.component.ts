@@ -23,7 +23,8 @@ export class AircompanyNewComponent implements OnInit {
       id: [''],
       name: ['', Validators.required],
       address: ['', Validators.required],
-      description: ['']
+      description: [''],
+      image: ['']
     });
   }
 

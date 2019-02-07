@@ -8,6 +8,7 @@ public class RentACarDTO {
 	private String name;
 	private String address;
 	private String description;
+	private String image;
 //	private double averageRate;
 //	private int numberOfRates;
 
@@ -18,6 +19,7 @@ public class RentACarDTO {
 		this.name = r.getName();
 		this.address = r.getAddress();
 		this.description = r.getDescription();
+		this.image = r.getImage();
 //		this.averageRate = r.getAverageRate();
 //		this.numberOfRates = r.getNumberOfRates();
 	}
@@ -52,6 +54,14 @@ public class RentACarDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 //	public double getAverageRate() {
