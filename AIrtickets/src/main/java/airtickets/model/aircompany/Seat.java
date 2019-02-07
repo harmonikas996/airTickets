@@ -36,6 +36,9 @@ public class Seat implements Serializable {
 	private double price;
 	
 	@Column
+	private String mark;
+	
+	@Column
 	private String passport;
 	@JoinColumn(name = "flight_id")
 	@ManyToOne
@@ -58,6 +61,7 @@ public class Seat implements Serializable {
 		reservation =new FlightReservation();
 		reservation.setId(s.getFlightResId());
 		price = s.getPrice();
+		mark = s.getMark();
 	}
 
 	public long getId() {
@@ -110,6 +114,14 @@ public class Seat implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
 	}
 
 }

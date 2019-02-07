@@ -10,6 +10,7 @@ public class SeatDTO {
 	private long flightId;
 	private long flightResId;
 	private double price;
+	private String mark;
 	
 	public SeatDTO() {}
 	
@@ -20,6 +21,7 @@ public class SeatDTO {
 		flightId = s.getFlight().getId();
 		flightResId = s.getReservation().getId();
 		price = s.getPrice();
+		mark = s.getMark();
 	}
 
 	public long getId() {
@@ -68,6 +70,14 @@ public class SeatDTO {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
 	}
 	
 }
