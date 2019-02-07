@@ -219,5 +219,43 @@
   </div>
 </div>
 
+<div class="row">
+    <div  class="col">
+        <h3>Passengers</h3>
+        <!-- <form  [formGroup]="userProfileForm" (ngSubmit)="onSubmit()"> -->
+        <h6>Passenger 1</h6>
+        <div class="row">
+            <div  class="col">
+                <div class="form-group">
+                  <label for="firstName">First Name</label>
+                  <input type="text" formControlName="firstName" class="form-control" placeholder="Enter first name">
+                </div>
+            </div>
+            <div  class="col">
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" formControlName="lastName" class="form-control" placeholder="Enter last name">
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div  class="col">
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" formControlName="city" class="form-control" placeholder="Enter city">
+                </div>
+            </div>
+            <div  class="col">
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" formControlName="phone" class="form-control" placeholder="Enter phone">
+                </div>
+            </div>
+        </div>
+          <button type="submit" [disabled]="!userProfileForm.valid" class="btn btn-primary">Next</button>
+        <!-- </form> -->
+    </div>
+  </div>
+
 
 

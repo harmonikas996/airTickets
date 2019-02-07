@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MyDatePickerModule } from 'mydatepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
 
 export const DATE_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false},
@@ -25,7 +26,7 @@ export const DATE_NATIVE_FORMATS = {
     MyDatePickerModule,
     NgSelectModule,
   ],
-  declarations: [HotelsListComponent],
+  declarations: [HotelsListComponent, HotelDetailsComponent],
   providers: [
     // { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }
     { provide: OWL_DATE_TIME_FORMATS, useValue: DATE_NATIVE_FORMATS  }
