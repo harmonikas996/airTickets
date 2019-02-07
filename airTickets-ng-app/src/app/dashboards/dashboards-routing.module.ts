@@ -41,6 +41,9 @@ import { RoomPriceNewComponent } from './hotel-dashboard/room-price-new/room-pri
 import { SpecialofferDetailsComponent } from './hotel-dashboard/specialoffer-details/specialoffer-details.component';
 import { SpecialofferNewComponent } from './hotel-dashboard/specialoffer-new/specialoffer-new.component';
 import { SpecialOfferUpdateComponent } from './hotel-dashboard/special-offer-update/special-offer-update.component';
+import { ReportsComponent } from '../shared/reports/reports.component';
+import { ReservationsReportComponent } from '../shared/reports/reservations-report/reservations-report.component';
+
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -56,6 +59,8 @@ const dashboardsRoutes: Routes = [
       { path: 'branches/new', component: BranchNewComponent },
       { path: 'branch-details/:id', component: BranchDetailsComponent },
       { path: 'user-profile', component: UserProfileComponent },
+      { path: 'reports', component: ReportsComponent },
+      { path: 'vehicleReports', component: ReservationsReportComponent },
       { path: '', redirectTo: 'company-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'company-profile', pathMatch: 'full' }
     ]

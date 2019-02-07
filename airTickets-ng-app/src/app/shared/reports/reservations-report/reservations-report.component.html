@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col">
+      <h3 class="mb-4">Vehicles Report</h3>
+    </div>
+</div>
+<form [formGroup]="vehicleReportForm" (ngSubmit)="onSubmit()">
+  <div class="row">
+      <div class="col-md-3">
+          <div class="form-group">
+              <label>Select Date Period</label>
+              <input class="form-control" placeholder="Choose Dates"
+                      [selectMode]="'range'"
+                      [owlDateTimeTrigger]="dtRange2" [owlDateTime]="dtRange2" formControlName="datePeriod">
+              <owl-date-time [pickerType]="'calendar'" #dtRange2></owl-date-time>
+          </div>
+      </div>
+      <div class="col-md-3">
+        <button [disabled]="!vehicleReportForm.valid" type="submit" class="btn btn-primary mt-4 align-self-end">Get Report</button>
+      </div>
+  </div>
+</form>
+<div  class="row mt-4">
+  <div *ngIf="freeVehiclesObservable | async; else loading" class="col-6">
+      <h5 class="text-center pb-3">Available Vehicles</h5>
+      <ul class="list-group list-group-flush">
+          <li *ngFor="let freeVehicle of freeVehicles" class="list-group-item">
+            <div class="row">
+                <div class="col-3">
+                    <img src="../../../assets/img/vehicle/{{freeVehicle.image}}" class="card-img-top" alt="Picture of {{freeVehicle.brand}}">
+                </div>
+                <div class="col-9 align-self-center">
+                  <strong>{{freeVehicle.name}}</strong> ({{freeVehicle.brand}}, {{freeVehicle.model}}) - <span class="badge">{{freeVehicle.pricePerDay}}€</span>
+                </div>
+              </div>
+          </li>
+      </ul>
+      <ng-template #loading><h6>Loading data...</h6></ng-template>
+      <div *ngIf="(freeVehiclesObservable | async)?.length==0"><h6 class="text-muted">No records found.</h6></div>
+  </div>
+  <div *ngIf="reservedVehiclesObservable | async; else loading" class="col-6">
+      <h5 class="text-center pb-3">Reserved Vehicles</h5>
+      <ul class="list-group list-group-flush">
+          <li *ngFor="let reservedVehicle of reservedVehicles" class="list-group-item">
+            <div class="row">
+              <div class="col-3">
+                  <img src="../../../assets/img/vehicle/{{reservedVehicle.image}}" class="card-img-top" alt="Picture of {{reservedVehicle.brand}}">
+              </div>
+              <div class="col-9 align-self-center">
+                <strong>{{reservedVehicle.name}}</strong> ({{reservedVehicle.brand}}, {{reservedVehicle.model}}) - <span class="badge">{{reservedVehicle.pricePerDay}}€</span>
+              </div>
+            </div>
+          </li>
+      </ul>
+      <ng-template #loading><h6>Loading data...</h6></ng-template>
+      <div *ngIf="(reservedVehiclesObservable | async)?.length==0"><h6 class="text-muted text-center">No records found.</h6></div>
+  </div>
+</div>

@@ -23,6 +23,9 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { HotelsModule } from './hotels/hotels.module';
 import { OwlDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
+import { ChartsModule } from 'ng2-charts';
+import { ReportsComponent } from './shared/reports/reports.component';
+import { ReservationsReportComponent } from './shared/reports/reservations-report/reservations-report.component';
 import { HotelsComponent } from './hotels/hotels.component';
 import { FlightsComponent } from './flights/flights.component';
 
@@ -41,6 +44,7 @@ import { FlightsComponent } from './flights/flights.component';
   declarations: [
     AppComponent,
     NavigationComponent,
+    ReportsComponent,
     LoginWidgetComponent,
     LoginComponent,
     RegisterComponent,
@@ -48,6 +52,8 @@ import { FlightsComponent } from './flights/flights.component';
     AircompanyDashboardComponent,
     UserDashboardComponent,
     VehiclesComponent,
+    ReportsComponent,
+    ReservationsReportComponent,
     HotelsComponent,
     FlightsComponent
   ],
@@ -60,6 +66,7 @@ import { FlightsComponent } from './flights/flights.component';
     NgSelectModule,
     OwlDateTimeModule,
     // OwlMomentDateTimeModule,
+    ChartsModule,
     MyDatePickerModule,
     VehiclesModule,
     HotelsModule,
