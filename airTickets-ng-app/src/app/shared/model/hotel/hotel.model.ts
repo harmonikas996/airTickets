@@ -3,4 +3,5 @@ export interface Hotel {
   name: string;
   address: string;
   description: string;
+  image: string;
 }
