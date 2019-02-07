@@ -31,15 +31,18 @@ public class Seat implements Serializable {
 	@JoinColumn(name = "client_id")
 	@ManyToOne
 	private User client;
-	
 	@Column
 	private double price;
-	
 	@Column
 	private String mark;
-	
 	@Column
 	private String passport;
+	@Column
+	private String firstName;
+	@Column
+	private String lastName;
+	@Column
+	private String contact;
 	@JoinColumn(name = "flight_id")
 	@ManyToOne
 	private Flight flight;
@@ -62,6 +65,9 @@ public class Seat implements Serializable {
 		reservation.setId(s.getFlightResId());
 		price = s.getPrice();
 		mark = s.getMark();
+		firstName = s.getFirstName();
+		lastName = s.getLastName();
+		contact = s.getContact();
 	}
 
 	public long getId() {
@@ -122,6 +128,30 @@ public class Seat implements Serializable {
 
 	public void setMark(String mark) {
 		this.mark = mark;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 }

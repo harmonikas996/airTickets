@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.hotel.HotelDTO;
 import airtickets.dto.hotel.RoomDTO;
+import airtickets.dto.rentacar.RentacarWithBrachesDTO;
 import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.service.hotel.HotelService;
 
@@ -129,5 +130,15 @@ public class HotelController {
 			) {
 		
 		return hotelService.isCurrentlyReserved(id);
+	}
+
+	@GetMapping("/search")
+	public List<HotelDTO> searchHotels(
+			@RequestParam(value="name") String name,
+			@RequestParam(value="location") String location,
+			@RequestParam(value="timeBegin") String timeBegin,
+			@RequestParam(value="timeEnd") String timeEnd
+			) {
+		return hotelService.searchHotels(name, location, timeBegin, timeEnd);
 	}
 }

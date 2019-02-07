@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -16,6 +17,9 @@ public class Hotel extends Company implements Serializable{
 	/**
 	 * 
 	 */
+	@Column
+	private String city;
+	
 	private static final long serialVersionUID = 3430126233932196984L;
 	
 	@OneToMany(mappedBy = "hotel", cascade=CascadeType.ALL)
@@ -31,6 +35,7 @@ public class Hotel extends Company implements Serializable{
 
 	public Hotel(HotelDTO hotel) {
 		super(hotel.getId(), hotel.getName(), hotel.getAddress(), hotel.getDescription(), hotel.getImage());
+		city = hotel.getCity();
 	}
 
 	public List<Room> getRooms() {
@@ -47,6 +52,14 @@ public class Hotel extends Company implements Serializable{
 
 	public List<HotelReservation> getReservations() {
 		return reservations;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 }

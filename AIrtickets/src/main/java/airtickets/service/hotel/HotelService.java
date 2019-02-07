@@ -12,8 +12,13 @@ import org.springframework.stereotype.Service;
 
 import airtickets.dto.hotel.HotelDTO;
 import airtickets.dto.hotel.RoomDTO;
+import airtickets.dto.rentacar.BranchOfficeDTO;
+import airtickets.dto.rentacar.RentACarDTO;
+import airtickets.dto.rentacar.RentacarWithBrachesDTO;
 import airtickets.model.hotel.Hotel;
 import airtickets.model.hotel.Room;
+import airtickets.model.rentacar.BranchOffice;
+import airtickets.model.rentacar.RentACar;
 import airtickets.model.user.User;
 import airtickets.repo.hotel.HotelRepository;
 import airtickets.repo.hotel.RoomRepository;
@@ -179,5 +184,25 @@ public class HotelService {
 	public boolean isCurrentlyReserved(long id) {
 		// logika i upit da li sme da se brise soba, tj da li je rezervisana od ranije u odnosu na sad
 		return false;
+	}
+
+public List<HotelDTO> searchHotels(String name, String location, String timeBegin, String timeEnd) {
+		
+		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
+		LocalDateTime ldtTo = LocalDateTime.parse(timeEnd);
+		
+		if(name.equals(" ") || name == null)
+			name = "%%";
+		if(location.equals(" ") || location == null)
+			location = "%%";
+		
+		List<HotelDTO> hotels = new ArrayList<>();
+		
+		for (Hotel h  : hotelRepository.searchHotels(name, location, ldtFrom, ldtTo)) {
+			HotelDTO hot = new HotelDTO(h);
+			hotels.add(hot);
+ 		}
+		
+		return hotels;
 	}
 }

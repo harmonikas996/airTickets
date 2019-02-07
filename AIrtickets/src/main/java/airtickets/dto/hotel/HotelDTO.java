@@ -9,6 +9,7 @@ public class HotelDTO {
 	private String address;
 	private String description;
 	private String image;
+	private String city;
 	
 	public HotelDTO() {}
 	
@@ -18,6 +19,7 @@ public class HotelDTO {
 		address = hotel.getAddress();
 		description = hotel.getDescription();
 		image = hotel.getImage();
+		city = hotel.getCity();
 	}
 
 	public long getId() {
@@ -59,4 +61,13 @@ public class HotelDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 }
