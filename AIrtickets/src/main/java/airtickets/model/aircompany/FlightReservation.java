@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,7 +55,7 @@ public class FlightReservation implements Serializable {
 		carReservation = new CarReservation();
 		carReservation.setId(f.getCarResId());
 	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -90,5 +91,4 @@ public class FlightReservation implements Serializable {
 	public List<Seat> getSeats() {
 		return seats;
 	}
-
 }

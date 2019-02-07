@@ -33,7 +33,8 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="numberOfSeats">Number Of Seats<span class="text-danger">*</span></label>
-                        <input type="text" formControlName="numberOfSeats" class="form-control" placeholder="Enter Number Of Seats" required>
+                        <ng-select [items]="numberOfSeats" formControlName="numberOfSeats">
+                        </ng-select>
                         <small *ngIf="newVehicleForm.controls.numberOfSeats.errors?.required && newVehicleForm.controls.numberOfSeats.touched" class="form-text text-danger">*Required</small>
                     </div>
                     <div class="form-group">
@@ -52,13 +53,6 @@
 
                         </div>
                         <small *ngIf="newVehicleForm.controls.pricePerDay.errors?.required && newVehicleForm.controls.pricePerDay.touched" class="form-text text-danger">*Required</small>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="rentACarId">Rent A Car Id<span class="text-danger">*</span></label>
-                        <input type="text" formControlName="rentACarId" class="form-control" placeholder="Enter Rent A Car Id" required>
-                        <small *ngIf="newVehicleForm.controls.rentACarId.errors?.required && newVehicleForm.controls.rentACarId.touched" class="form-text text-danger">*Required</small>
                     </div>
                     <div class="form-group">
                         <label for="image">Image</label>

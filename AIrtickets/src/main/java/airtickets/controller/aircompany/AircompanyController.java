@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.aircompany.AircompanyDTO;
@@ -75,6 +76,33 @@ public class AircompanyController {
 		return aircompanyService.getAircompany(userDTO.getCompany());
 	}
 
-	
-	
+	@GetMapping("/monthlyIncome")
+	@PreAuthorize("hasAuthority('aircompany')")
+	public List<Double> monthyIncome(
+			@RequestParam(value="id") long aircId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return aircompanyService.monthyIncome(aircId, year);
+	}
+
+	@GetMapping("/weeklyIncome")
+	@PreAuthorize("hasAuthority('aircompany')")
+	public List<Double> weeklyIncome(
+			@RequestParam(value="id") long aircId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return aircompanyService.weeklyIncome(aircId, year);
+	}
+
+	@GetMapping("/yearlyIncome")
+	@PreAuthorize("hasAuthority('aircompany')")
+	public double yearlyIncome(
+			@RequestParam(value="id") long aircId,
+			@RequestParam(value="year") int year
+			) {
+		
+		return aircompanyService.yearlyIncome(aircId, year);
+	}
 }

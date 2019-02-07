@@ -60,7 +60,7 @@ public class VehicleService {
 		
 		vehicleRepository.deleteById(id);
 	}
-	
+	/*
 	public List<VehicleDTO> getVehiclesByRentACarId(long id, String name) {
 	
 		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>();
@@ -71,7 +71,7 @@ public class VehicleService {
  		}
 		return vehicles;
 	}
-	
+	*/
 	public List<VehicleDTO> searchVehicles(long rentacarId, String type, int passangers, 
 			double lowerPrice, double upperPrice, String from, String to) {
 		
