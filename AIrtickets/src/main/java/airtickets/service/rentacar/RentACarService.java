@@ -16,9 +16,11 @@ import airtickets.dto.rentacar.RentACarDTO;
 import airtickets.dto.rentacar.RentacarWithBrachesDTO;
 import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.model.rentacar.BranchOffice;
+import airtickets.model.rentacar.CarReservation;
 import airtickets.model.rentacar.RentACar;
 import airtickets.model.rentacar.Vehicle;
 import airtickets.model.user.User;
+import airtickets.repo.rentacar.CarReservationRepository;
 import airtickets.repo.rentacar.RentACarRepository;
 import airtickets.repo.rentacar.VehiclesRepository;
 import airtickets.repo.user.UserRepository;
@@ -34,6 +36,9 @@ public class RentACarService {
 	
 	@Autowired
 	VehiclesRepository vehicleRepository;
+	
+	@Autowired
+	CarReservationRepository carReservationRepository;
 
 	public List<RentACarDTO> getRentACars() {
 		List<RentACarDTO> rentACars = new ArrayList<RentACarDTO>();
@@ -131,7 +136,7 @@ public class RentACarService {
 				to = LocalDateTime.parse((year+1) + "-01-01T00:00:00");
 			}
 			
-			Double d = rentACarRepository.incomeForMonth(rcrId, from, to);
+			Double d = rentACarRepository.incomeForPeriod(rcrId, from, to);
 			
 			incomes.add(d!=null ? d : 0);
 		}
@@ -175,14 +180,14 @@ public class RentACarService {
 		LocalDateTime to = LocalDateTime.parse(year + "-01-08T00:00:00");
 		
 		for (int i = 1; i <= 52; i++) {
-			Double d = rentACarRepository.incomeForMonth(rcrId, from, to);
+			Double d = rentACarRepository.incomeForPeriod(rcrId, from, to);
 			incomes.add(d!=null ? d : 0);
 			
 			from = from.plusDays(7);
 			to = to.plusDays(7);
 		}
 		to = LocalDateTime.parse((year+1) + "-01-01T00:00:00");
-		Double d = rentACarRepository.incomeForMonth(rcrId, from, to);
+		Double d = rentACarRepository.incomeForPeriod(rcrId, from, to);
 		incomes.add(d!=null ? d : 0);
 		
 		return incomes;
@@ -193,11 +198,28 @@ public class RentACarService {
 		LocalDateTime from = LocalDateTime.parse(year + "-01-01T00:00:00");
 		LocalDateTime to = LocalDateTime.parse((year+1) + "-01-01T00:00:00");
 		
-		Double income = rentACarRepository.incomeForMonth(rcrId, from, to);
+		Double income = rentACarRepository.incomeForPeriod(rcrId, from, to);
 		
 		if (income == null)
 			income = 0.0;
 		
 		return income;
+	}
+
+	public List<VehicleDTO> getCarsFromRentacar(long id) {
+		List<VehicleDTO> veh = new ArrayList<>();
+		for (Vehicle v  : vehicleRepository.findByRentacarId(id)) {
+			veh.add(new VehicleDTO(v));
+ 		}
+		return veh;
+	}
+
+	public boolean isCurrentlyReserved(long id) {
+		List<CarReservation> reservations = carReservationRepository.findByVehicleId(id);
+		for (CarReservation cr : reservations) {
+			if (cr.getDateFrom().isBefore(LocalDateTime.now()))
+				return true;
+		}
+		return false;
 	}
 }

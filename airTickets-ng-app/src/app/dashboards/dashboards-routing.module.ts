@@ -98,8 +98,9 @@ const dashboardsRoutes: Routes = [
       { path: 'rooms-prices', component: RoomPriceListComponent },
       { path: 'specialOffers-details', component: SpecialofferDetailsComponent },
       { path: 'specialOffers/new', component: SpecialofferNewComponent },
-      { path: 'specialOffers-update/:id', component: SpecialOfferUpdateComponent }
-
+      { path: 'specialOffers-update/:id', component: SpecialOfferUpdateComponent },
+      { path: 'incomeReports', component: ReportsComponent },
+      { path: 'roomReports', component: ReservationsReportComponent },
       // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },
       // { path: '**', redirectTo: 'hotel-profile', pathMatch: 'full' }
     ]

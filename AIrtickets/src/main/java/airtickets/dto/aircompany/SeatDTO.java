@@ -9,6 +9,7 @@ public class SeatDTO {
 	private String passport;
 	private long flightId;
 	private long flightResId;
+	private double price;
 	
 	public SeatDTO() {}
 	
@@ -18,6 +19,7 @@ public class SeatDTO {
 		clientId = s.getClient().getId();
 		flightId = s.getFlight().getId();
 		flightResId = s.getReservation().getId();
+		price = s.getPrice();
 	}
 
 	public long getId() {
@@ -58,6 +60,14 @@ public class SeatDTO {
 
 	public void setFlightResId(long flightResId) {
 		this.flightResId = flightResId;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	
 }

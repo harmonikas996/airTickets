@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.dto.rentacar.RentACarDTO;
 import airtickets.dto.rentacar.RentacarWithBrachesDTO;
 import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.service.rentacar.RentACarService;
-import airtickets.service.user.UserService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -34,9 +32,6 @@ public class RentACarController {
 	@Autowired
 	private RentACarService rentACarService;
 	
-	@Autowired
-	private UserService userService;
-
 	@GetMapping("/all")
 	public List<RentACarDTO> getAllRentACars() {
 		return rentACarService.getRentACars();
@@ -135,5 +130,24 @@ public class RentACarController {
 			) {
 		
 		return rentACarService.reservedVehiclesForPeriod(rcrId, timeBegin, timeEnd);
+	}
+
+	@GetMapping("/carsFromRentacar")
+//	@PreAuthorize("hasAuthority(rentacar)")
+	public List<VehicleDTO> getCarsFromRentacar(
+			@RequestParam(value="id") long rcrId
+			) {
+		
+		return rentACarService.getCarsFromRentacar(rcrId);
+	}
+
+	@GetMapping("/isCurrentlyReserved")
+//	@PreAuthorize("hasAuthority(rentacar)")
+	public boolean isCurrentlyReserved(
+			@RequestParam(value="id") long id,
+			@RequestParam(value="rentacarId") long rcrId
+			) {
+		
+		return rentACarService.isCurrentlyReserved(id);
 	}
 }

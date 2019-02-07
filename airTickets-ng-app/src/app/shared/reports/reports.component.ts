@@ -4,6 +4,8 @@ import { Location } from '@angular/common';
 import { RentacarService } from '../services/rentacar/rentacar.service';
 import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 import { isFormattedError } from '@angular/compiler';
+import { HotelService } from '../services/hotel/hotel.service';
+import { AircompanyService } from '../services/aircompany/aircompany.service';
 
 @Component({
   selector: 'app-reports',
@@ -16,7 +18,7 @@ export class ReportsComponent implements OnInit {
   public lineChartData:Array<any> = [
     {data: [], label: 'Income in EUR(€)'}
   ];
-  public lineChartLabels:Array<any> = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'SEP', 'OCT', 'NOV', 'DEC'];
+  public lineChartLabels:Array<any> = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   public lineChartLabelsWeeks:Array<any> = [];
   public lineChartOptions:any = {
     responsive: true
@@ -40,9 +42,12 @@ export class ReportsComponent implements OnInit {
   id: number;
   yearlyIncome: number;
   dataSet: Number[];
+  adminType: String;
 
   constructor(
     private rentacarService: RentacarService,
+    private hotelService: HotelService,
+    private aircompanyService: AircompanyService,
     private location: Location,
     private formBuilder: FormBuilder,
     private token: TokenStorageService
@@ -62,17 +67,29 @@ export class ReportsComponent implements OnInit {
       this.lineChartLabelsWeeks.push(i);
     }
 
-    this.getRentacarByAdminUsername();
+    this.getCompanyByAdminUsername();
   }
 
-  getRentacarByAdminUsername() {
-    this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).subscribe(rentacar => this.id = rentacar.id);
+  getCompanyByAdminUsername() {
+    if(this.token.getAuthorities().includes('rentacar')) {
+
+      this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).subscribe(data => this.id = data.id);
+      this.adminType = 'rentacar';
+    } else if(this.token.getAuthorities().includes('hotel')) {
+
+      this.hotelService.getHotelByAdminUsername(this.token.getUsername()).subscribe(data => this.id = data.id);
+      this.adminType = 'hotel';
+    } else if(this.token.getAuthorities().includes('aircompany')) {
+
+      this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).subscribe(data => this.id = data.id);
+      this.adminType = 'aircompany';
+    }
   }
 
   onSubmit() {
 
         if(this.reportForm.controls['reportType'].value == 'Monthly') {
-          this.rentacarService.getMonthlyReport(this.id, this.reportForm.controls['reportYear'].value).subscribe(
+          this.rentacarService.getMonthlyReport(this.id, this.reportForm.controls['reportYear'].value, this.adminType).subscribe(
             data => this.dataSet = data,
             (error) => console.error('An error occurred, ', error),
             () => {
@@ -83,10 +100,10 @@ export class ReportsComponent implements OnInit {
                 }
               this.lineChartData = _lineChartData;
             }
-  
+
           );
         } else if(this.reportForm.controls['reportType'].value == 'Weekly') {
-          this.rentacarService.getWeeklyReport(this.id, this.reportForm.controls['reportYear'].value).subscribe(
+          this.rentacarService.getWeeklyReport(this.id, this.reportForm.controls['reportYear'].value, this.adminType).subscribe(
             data => this.dataSet = data,
             (error) => console.error('An error occurred, ', error),
             () => {
@@ -97,11 +114,11 @@ export class ReportsComponent implements OnInit {
                 }
               this.lineChartData = _lineChartData;
             }
-  
+
           );
         }
   }
- 
+
   fetchData(way: number): void {
     if (way == 1) {
       console.log("Daj mi Monthly");
@@ -115,17 +132,17 @@ export class ReportsComponent implements OnInit {
         this.onSubmit();
       }
       console.log("Daj mi Yearly");
-      this.rentacarService.getYearlyReport(this.id, this.reportForm.controls['reportYear'].value).subscribe(
+      this.rentacarService.getYearlyReport(this.id, this.reportForm.controls['reportYear'].value, this.adminType).subscribe(
         data => this.yearlyIncome = data
       );
     }
   }
- 
+
   // events
   public chartClicked(e:any):void {
     console.log(e);
   }
- 
+
   public chartHovered(e:any):void {
     console.log(e);
   }

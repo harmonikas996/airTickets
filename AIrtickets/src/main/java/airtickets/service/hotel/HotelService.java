@@ -1,5 +1,6 @@
 package airtickets.service.hotel;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +11,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import airtickets.dto.hotel.HotelDTO;
-import airtickets.dto.rentacar.RentACarDTO;
+import airtickets.dto.hotel.RoomDTO;
 import airtickets.model.hotel.Hotel;
-import airtickets.model.rentacar.RentACar;
+import airtickets.model.hotel.Room;
 import airtickets.model.user.User;
 import airtickets.repo.hotel.HotelRepository;
+import airtickets.repo.hotel.RoomRepository;
 import airtickets.repo.user.UserRepository;
 
 @Service
@@ -25,6 +27,9 @@ public class HotelService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	RoomRepository roomRepository;
 	
 	public List<HotelDTO> getHotels(){
 		List<HotelDTO> hotelsDTO = new ArrayList<HotelDTO>();
@@ -65,5 +70,114 @@ public class HotelService {
 		HotelDTO hotel = new HotelDTO(h);
 		
 		return hotel;
+	}
+
+	public List<Double> monthyIncome(long hotId, int year) {
+		
+		List<Double> incomes = new ArrayList<>();
+		
+		for (int i = 1; i <= 12; i++) {
+			
+			LocalDateTime from;
+			LocalDateTime to;
+			
+			if (i < 9) {				
+				from = LocalDateTime.parse(year + "-0" + i + "-01T00:00:00");
+				to = LocalDateTime.parse(year + "-0" + (i+1) + "-01T00:00:00");
+			}
+			else if (i == 9) {
+				from = LocalDateTime.parse(year + "-09-01T00:00:00");
+				to = LocalDateTime.parse(year + "-10-01T00:00:00");
+			}
+			else if (i < 12) {
+				from = LocalDateTime.parse(year + "-" + i + "-01T00:00:00");
+				to = LocalDateTime.parse(year + "-" + (i+1) + "-01T00:00:00");
+			}
+			else {
+				from = LocalDateTime.parse(year + "-12-01T00:00:00");
+				to = LocalDateTime.parse((year+1) + "-01-01T00:00:00");
+			}
+			
+			Double d = hotelRepository.incomeForPeriod(hotId, from, to);
+			
+			incomes.add(d!=null ? d : 0);
+		}
+		
+		return incomes;
+	}
+
+	public List<Double> weeklyIncome(long hotId, int year) {
+		
+		List<Double> incomes = new ArrayList<>();
+		
+		LocalDateTime from = LocalDateTime.parse(year + "-01-01T00:00:00");
+		LocalDateTime to = LocalDateTime.parse(year + "-01-08T00:00:00");
+		
+		for (int i = 1; i <= 52; i++) {
+			Double d = hotelRepository.incomeForPeriod(hotId, from, to);
+			incomes.add(d!=null ? d : 0);
+			
+			from = from.plusDays(7);
+			to = to.plusDays(7);
+		}
+		to = LocalDateTime.parse((year+1) + "-01-01T00:00:00");
+		Double d = hotelRepository.incomeForPeriod(hotId, from, to);
+		incomes.add(d!=null ? d : 0);
+		
+		return incomes;
+	}
+
+	public double yearlyIncome(long hotId, int year) {
+		
+		LocalDateTime from = LocalDateTime.parse(year + "-01-01T00:00:00");
+		LocalDateTime to = LocalDateTime.parse((year+1) + "-01-01T00:00:00");
+		
+		Double income = hotelRepository.incomeForPeriod(hotId, from, to);
+		
+		if (income == null)
+			income = 0.0;
+		
+		return income;
+	}
+
+	public List<RoomDTO> freeRoomsForPeriod(long id, String from, String to) {
+		
+		LocalDateTime df = LocalDateTime.parse(from);
+		LocalDateTime dt = LocalDateTime.parse(to);
+		
+		List<RoomDTO> rooms = new ArrayList<>();
+		
+		for (Room r : roomRepository.freeRoomsForPeriod(id, df, dt)) {
+			rooms.add(new RoomDTO(r));
+		}
+		
+		return rooms;
+	}
+
+	public List<RoomDTO> reservedRoomsForPeriod(long id, String from, String to) {
+		
+		LocalDateTime df = LocalDateTime.parse(from);
+		LocalDateTime dt = LocalDateTime.parse(to);
+		
+		List<RoomDTO> rooms = new ArrayList<>();
+		
+		for (Room r : roomRepository.reservedRoomsForPeriod(id, df, dt)) {
+			rooms.add(new RoomDTO(r));
+		}
+		
+		return rooms;
+	}
+
+	public List<RoomDTO> getRoomsFromHotel(long id) {
+		List<RoomDTO> veh = new ArrayList<>();
+		for (Room v  : roomRepository.findByHotelId(id)) {
+			veh.add(new RoomDTO(v));
+ 		}
+		return veh;
+	}
+
+	public boolean isCurrentlyReserved(long id) {
+		// logika i upit da li sme da se brise soba, tj da li je rezervisana od ranije u odnosu na sad
+		return false;
 	}
 }

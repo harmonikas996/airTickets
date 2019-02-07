@@ -21,5 +21,5 @@ public interface RentACarRepository extends JpaRepository<RentACar, Long> {
 			"and date_from >= ?2 and  date_from < ?3\r\n" + 
 			"group by airtickets.rentacar.id\r\n" + 
 			"", nativeQuery=true)
-	public Double incomeForMonth(long rcrId, LocalDateTime from, LocalDateTime to);
+	public Double incomeForPeriod(long rcrId, LocalDateTime from, LocalDateTime to);
 }
