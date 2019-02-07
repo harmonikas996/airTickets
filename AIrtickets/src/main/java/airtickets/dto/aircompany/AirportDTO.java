@@ -5,6 +5,7 @@ import airtickets.model.aircompany.Airport;
 public class AirportDTO {
 	
 	private long id;
+	private String name;
 	private String city;
 	private String address;
 	
@@ -12,8 +13,17 @@ public class AirportDTO {
 	
 	public AirportDTO(Airport a) {
 		id = a.getId();
+		name = a.getName();
 		city = a.getCity();
 		address = a.getAddress();
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public long getId() {

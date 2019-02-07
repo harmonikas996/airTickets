@@ -74,7 +74,5 @@ public class AircompanyController {
 		
 		return aircompanyService.getAircompany(userDTO.getCompany());
 	}
-
-	
 	
 }

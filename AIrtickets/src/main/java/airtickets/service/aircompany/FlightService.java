@@ -9,8 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import airtickets.dto.aircompany.AircompanyDTO;
 import airtickets.dto.aircompany.FlightDTO;
 import airtickets.dto.rentacar.RentACarDTO;
+import airtickets.model.aircompany.Aircompany;
 import airtickets.model.aircompany.Flight;
 import airtickets.model.rentacar.RentACar;
 import airtickets.repo.aircompany.FlightRepository;
@@ -22,6 +24,13 @@ public class FlightService {
 	
 	@Autowired
 	FlightRepository flightRepository;
+	
+	public FlightDTO getFlightAdmin(long id) {
+		Flight f = flightRepository.findById(id);
+		FlightDTO flightDTO = new FlightDTO(f);
+		
+		return flightDTO;
+	}
 	
 	public List<FlightDTO> getFlights(){
 		List<FlightDTO> flights = new ArrayList<FlightDTO>();
@@ -77,5 +86,7 @@ public class FlightService {
  		}
 		return flights;
 	}
+	
+	
 	
 }

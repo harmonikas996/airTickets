@@ -5,6 +5,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.aircompany.AircompanyDTO;
 import airtickets.dto.aircompany.FlightDTO;
 import airtickets.dto.rentacar.RentACarDTO;
+import airtickets.dto.user.UserDTO;
 import airtickets.service.aircompany.FlightService;
+import airtickets.service.user.UserService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
@@ -29,6 +36,9 @@ public class FlightController {
 	
 	@Autowired
 	private FlightService flightService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/all")
 	public List<FlightDTO> getAllFlights(){
@@ -65,6 +75,17 @@ public class FlightController {
 			) {
 		
 		return flightService.searchFlights(placeFromId, placeToId, date);
+	}
+	
+	@GetMapping("/admin/{username}")
+	@PreAuthorize("hasAuthority('aircompany')")
+	public FlightDTO getByAdminUsername(@PathVariable String username) {
+		//log.info("u metodi GETBYADMINUSERNAME");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+		UserDTO userDTO = userService.findByUsername(userDetails.getUsername());
+		
+		return flightService.getFlightAdmin(userDTO.getCompany());
 	}
 	
 }
