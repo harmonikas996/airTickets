@@ -29,6 +29,10 @@
                       <input type="text" formControlName="type" class="form-control" placeholder="Enter Type" required>
                       <small *ngIf="roomDetailsForm.controls.type.errors?.required && roomDetailsForm.controls.type.touched" class="form-text text-danger">*Required</small>
                   </div>
+                  <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="text" formControlName="image" class="form-control" placeholder="Image File Name">
+                  </div>
               </div>
               <!--<div class="col-md-4">
                   <div class="form-group">

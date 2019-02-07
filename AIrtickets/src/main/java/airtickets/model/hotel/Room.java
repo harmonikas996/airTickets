@@ -55,6 +55,7 @@ public class Room implements Serializable{
 		this.type = room.getType();
 		this.hotel = new Hotel();
 		this.hotel.setId(room.getHotel());
+		this.image = room.getImage();
 	}
 
 	public long getId() {
