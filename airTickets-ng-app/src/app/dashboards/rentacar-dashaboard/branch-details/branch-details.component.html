@@ -8,25 +8,18 @@
               </div>
           </div>
           <div class="row mt-4">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="city">City<span class="text-danger">*</span></label>
                     <input type="text" formControlName="city" class="form-control" placeholder="Enter City" required>
                     <small *ngIf="branchDetailsForm.controls.city.errors?.required && branchDetailsForm.controls.city.touched" class="form-text text-danger">*Required</small>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="address">Address<span class="text-danger">*</span></label>
                     <input type="text" formControlName="address" class="form-control" placeholder="Enter Address" required>
                     <small *ngIf="branchDetailsForm.controls.address.errors?.required && branchDetailsForm.controls.address.touched" class="form-text text-danger">*Required</small>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="rentACarId">Rent A Car Id<span class="text-danger">*</span></label>
-                    <input type="text" formControlName="rentACarId" class="form-control" placeholder="Enter Rent A Car Id" required>
-                    <small *ngIf="branchDetailsForm.controls.rentACarId.errors?.required && branchDetailsForm.controls.rentACarId.touched" class="form-text text-danger">*Required</small>
                 </div>
             </div>
         </div>
