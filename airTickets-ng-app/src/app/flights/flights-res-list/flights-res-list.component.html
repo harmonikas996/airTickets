@@ -1,490 +1,223 @@
-<div class="container">
-    <div class="row">
-      <div class="col-sm">
+<div class="plane">
+  <div class="cockpit">
+    <h1>Please select a seat proba</h1>
+    <!-- <span class="badge">SELECTED SEAT: {{seatSelForm.controls['selectedSeat'].value}}</span> -->
+  </div>
+  <div class="exit exit--front fuselage">
 
-      <div class="plane">
-        <div class="cockpit">
-          <h1>DEPARTURE FLIGHT</h1>
-          <span class="badge">SELECTED SEAT: {{selectedSeatsDep}}</span>
-        </div>
-        <div class="exit exit--front fuselage">
+  </div>
+  <form [formGroup]="seatSelForm" (ngSubmit)="onSubmit()">
+    <ol class="cabin fuselage">
+      <li class="red red--1">
+        <ol class="seats" type="A">
+          <li class="seat">
+            <input #checkBoxSeat1 type="checkbox" id="1A" formControlName="selectedSeat" value="1A" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat1.value)"/>
+            <label for="1A">1A</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat2 type="checkbox" id="1B" formControlName="selectedSeat" value="1B" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat2.value)"/>
+            <label for="1B">1B</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat3 type="checkbox" id="1C" formControlName="selectedSeat" value="1C" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat3.value)"/>
+            <label for="1C">1C</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat4 type="checkbox" id="1D" formControlName="selectedSeat" value="1D" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat4.value)"/>
+            <label for="1D">1D</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat5 type="checkbox" id="1E" formControlName="selectedSeat" value="1E" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat5.value)"/>
+            <label for="1E">1E</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat6 type="checkbox" id="1F" formControlName="selectedSeat" value="1F" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat6.value)"/>
+            <label for="1F">1F</label>
+          </li>
+        </ol>
+      </li>
+      <li class="red red--2">
+        <ol class="seats" type="A">
+          <li class="seat">
+            <input #checkBoxSeat7 type="checkbox" id="2A" formControlName="selectedSeat" value="2A" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat7.value)"/>
+            <label for="2A">2A</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat8 type="checkbox" id="2B" formControlName="selectedSeat" value="2B" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat8.value)"/>
+            <label for="2B">2B</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat9 type="checkbox" id="2C" formControlName="selectedSeat" value="2C" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat9.value)"/>
+            <label for="2C">2C</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat10 type="checkbox" id="2D" formControlName="selectedSeat" value="2D" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat10.value)"/>
+            <label for="2D">2D</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat11 type="checkbox" id="2E" formControlName="selectedSeat" value="2E" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat11.value)"/>
+            <label for="2E">2E</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat12 type="checkbox" id="2F" formControlName="selectedSeat" value="2F" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat12.value)"/>
+            <label for="2F">2F</label>
+          </li>
+        </ol>
+      </li>
+      <li class="red red--3">
+        <ol class="seats" type="A">
+          <li class="seat">
+            <input #checkBoxSeat13 type="checkbox" id="3A" formControlName="selectedSeat" value="3A" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat13.value)"/>
+            <label for="3A">3A</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat14 type="checkbox" id="3B" formControlName="selectedSeat" value="3B" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat14.value)"/>
+            <label for="3B">3B</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat15 type="checkbox" id="3C" formControlName="selectedSeat" value="3C" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat15.value)"/>
+            <label for="3C">3C</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat16 type="checkbox" id="3D" formControlName="selectedSeat" value="3D" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat16.value)"/>
+            <label for="3D">3D</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat17 type="checkbox" id="3E" formControlName="selectedSeat" value="3E" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat17.value)"/>
+            <label for="3E">3E</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat18 type="checkbox" id="3F" formControlName="selectedSeat" value="3F" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat18.value)"/>
+            <label for="3F">3F</label>
+          </li>
+        </ol>
+      </li>
+      <li class="red red--4">
+        <ol class="seats" type="A">
+          <li class="seat">
+            <input #checkBoxSeat18 type="checkbox" id="4A" formControlName="selectedSeat" value="4A" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat18.value)"/>
+            <label for="4A">4A</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat18 type="checkbox" id="4B" formControlName="selectedSeat" value="4B" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat18.value)"/>
+            <label for="4B">4B</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat18 type="checkbox" id="4C" formControlName="selectedSeat" value="4C" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat18.value)"/>
+            <label for="4C">4C</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat18 type="checkbox" id="4D" formControlName="selectedSeat" value="4D" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat18.value)"/>
+            <label for="4D">4D</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat18 type="checkbox" id="4E" formControlName="selectedSeat" value="4E" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat18.value)"/>
+            <label for="4E">4E</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat18 type="checkbox" id="4F" formControlName="selectedSeat" value="4F" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat18.value)"/>
+            <label for="4F">4F</label>
+          </li>
+        </ol>
+      </li>
+      <li class="red red--5">
+        <ol class="seats" type="A">
+          <li class="seat">
+            <input #checkBoxSeat19 type="checkbox" id="5A" formControlName="selectedSeat" value="5A" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat19.value)"/>
+            <label for="5A">5A</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat20 type="checkbox" id="5B" formControlName="selectedSeat" value="5B" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat20.value)"/>
+            <label for="5B">5B</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat21 type="checkbox" id="5C" formControlName="selectedSeat" value="5C" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat21.value)"/>
+            <label for="5C">5C</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat22 type="checkbox" id="5D" formControlName="selectedSeat" value="5D" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat22.value)"/>
+            <label for="5D">5D</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat23 type="checkbox" id="5E" formControlName="selectedSeat" value="5E" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat23.value)"/>
+            <label for="5E">5E</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat24 type="checkbox" id="5F" formControlName="selectedSeat" value="5F" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat24.value)"/>
+            <label for="5F">5F</label>
+          </li>
+        </ol>
+      </li>
+      <li class="red red--6">
+        <ol class="seats" type="A">
+          <li class="seat">
+            <input #checkBoxSeat25 type="checkbox" id="6A" formControlName="selectedSeat" value="6A" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat25.value)"/>
+            <label for="6A">6A</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat26 type="checkbox" id="6B" formControlName="selectedSeat" value="6B" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat26.value)"/>
+            <label for="6B">6B</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat27 type="checkbox" id="6C" formControlName="selectedSeat" value="6C" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat27.value)"/>
+            <label for="6C">6C</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat28 type="checkbox" id="6D" formControlName="selectedSeat" value="6D" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat28.value)"/>
+            <label for="6D">6D</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat29 type="checkbox" id="6E" formControlName="selectedSeat" value="6E" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat29.value)"/>
+            <label for="6E">6E</label>
+          </li>
+          <li class="seat">
+            <input #checkBoxSeat30 type="checkbox" id="6F" formControlName="selectedSeat" value="6F" [checked]="alreadySelected"
+            (change)="selectSeat(checkBoxSeat30.value)"/>
+            <label for="6F">6F</label>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </form>
+  <div class="exit exit--back fuselage">
 
-        </div>
-        <form [formGroup]="seatSelFormDep" (ngSubmit)="onSubmitDep()">
-          <ol class="cabin fuselage">
-            <li class="red red--1">
-              <ol class="seats" type="A">
-                <li class="seat">
-                  <input #checkBoxSeat1f type="checkbox" id="1A" formControlName="selectedSeat1" value="1A" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat1f.value)"/>
-                  <label for="1A">1A</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat2f type="checkbox" id="1B" formControlName="selectedSeat1" value="1B" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat2f.value)"/>
-                  <label for="1B">1B</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat3f type="checkbox" id="1C" formControlName="selectedSeat1" value="1C" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat3f.value)"/>
-                  <label for="1C">1C</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat4f type="checkbox" id="1D" formControlName="selectedSeat1" value="1D" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat4f.value)"/>
-                  <label for="1D">1D</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat5f type="checkbox" id="1E" formControlName="selectedSeat1" value="1E" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat5f.value)"/>
-                  <label for="1E">1E</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat6f type="checkbox" id="1F" formControlName="selectedSeat1" value="1F" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat6f.value)"/>
-                  <label for="1F">1F</label>
-                </li>
-              </ol>
-            </li>
-            <li class="red red--2">
-              <ol class="seats" type="A">
-                <li class="seat">
-                  <input #checkBoxSeat7f type="checkbox" id="2A" formControlName="selectedSeat1" value="2A" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat7f.value)"/>
-                  <label for="2A">2A</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat8f type="checkbox" id="2B" formControlName="selectedSeat1" value="2B" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat8f.value)"/>
-                  <label for="2B">2B</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat9f type="checkbox" id="2C" formControlName="selectedSeat1" value="2C" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat9f.value)"/>
-                  <label for="2C">2C</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat10f type="checkbox" id="2D" formControlName="selectedSeat1" value="2D" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat10f.value)"/>
-                  <label for="2D">2D</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat11f type="checkbox" id="2E" formControlName="selectedSeat1" value="2E" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat11f.value)"/>
-                  <label for="2E">2E</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat12f type="checkbox" id="2F" formControlName="selectedSeat1" value="2F" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat12f.value)"/>
-                  <label for="2F">2F</label>
-                </li>
-              </ol>
-            </li>
-            <li class="red red--3">
-              <ol class="seats" type="A">
-                <li class="seat">
-                  <input #checkBoxSeat13f type="checkbox" id="3A" formControlName="selectedSeat1" value="3A" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat13f.value)"/>
-                  <label for="3A">3A</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat14f type="checkbox" id="3B" formControlName="selectedSeat1" value="3B" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat14f.value)"/>
-                  <label for="3B">3B</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat15f type="checkbox" id="3C" formControlName="selectedSeat1" value="3C" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat15f.value)"/>
-                  <label for="3C">3C</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat16f type="checkbox" id="3D" formControlName="selectedSeat1" value="3D" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat16f.value)"/>
-                  <label for="3D">3D</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat17f type="checkbox" id="3E" formControlName="selectedSeat1" value="3E" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat17f.value)"/>
-                  <label for="3E">3E</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat18f type="checkbox" id="3F" formControlName="selectedSeat1" value="3F" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat18f.value)"/>
-                  <label for="3F">3F</label>
-                </li>
-              </ol>
-            </li>
-            <li class="red red--4">
-              <ol class="seats" type="A">
-                <li class="seat">
-                  <input #checkBoxSeat19f type="checkbox" id="4A" formControlName="selectedSeat1" value="4A" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat19f.value)"/>
-                  <label for="4A">4A</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat20f type="checkbox" id="4B" formControlName="selectedSeat1" value="4B" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat20f.value)"/>
-                  <label for="4B">4B</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat21f type="checkbox" id="4C" formControlName="selectedSeat1" value="4C" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat21f.value)"/>
-                  <label for="4C">4C</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat22f type="checkbox" id="4D" formControlName="selectedSeat1" value="4D" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat22f.value)"/>
-                  <label for="4D">4D</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat23f type="checkbox" id="4E" formControlName="selectedSeat1" value="4E" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat23f.value)"/>
-                  <label for="4E">4E</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat24f type="checkbox" id="4F" formControlName="selectedSeat1" value="4F" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat24f.value)"/>
-                  <label for="4F">4F</label>
-                </li>
-              </ol>
-            </li>
-            <li class="red red--5">
-              <ol class="seats" type="A">
-                <li class="seat">
-                  <input #checkBoxSeat25f type="checkbox" id="5A" formControlName="selectedSeat1" value="5A" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat25f.value)"/>
-                  <label for="5A">5A</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat26f type="checkbox" id="5B" formControlName="selectedSeat1" value="5B" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat26f.value)"/>
-                  <label for="5B">5B</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat27f type="checkbox" id="5C" formControlName="selectedSeat1" value="5C" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat27f.value)"/>
-                  <label for="5C">5C</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat28f type="checkbox" id="5D" formControlName="selectedSeat1" value="5D" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat28f.value)"/>
-                  <label for="5D">5D</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat29f type="checkbox" id="5E" formControlName="selectedSeat1" value="5E" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat29f.value)"/>
-                  <label for="5E">5E</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat30f type="checkbox" id="5F" formControlName="selectedSeat1" value="5F" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat30f.value)"/>
-                  <label for="5F">5F</label>
-                </li>
-              </ol>
-            </li>
-            <li class="red red--6">
-              <ol class="seats" type="A">
-                <li class="seat">
-                  <input #checkBoxSeat31f type="checkbox" id="6A" formControlName="selectedSeat1" value="6A" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat31f.value)"/>
-                  <label for="6A">6A</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat32f type="checkbox" id="6B" formControlName="selectedSeat1" value="6B" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat32f.value)"/>
-                  <label for="6B">6B</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat33f type="checkbox" id="6C" formControlName="selectedSeat1" value="6C" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat33f.value)"/>
-                  <label for="6C">6C</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat34f type="checkbox" id="6D" formControlName="selectedSeat1" value="6D" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat34f.value)"/>
-                  <label for="6D">6D</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat35f type="checkbox" id="6E" formControlName="selectedSeat1" value="6E" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat35f .value)"/>
-                  <label for="6E">6E</label>
-                </li>
-                <li class="seat">
-                  <input #checkBoxSeat36f  type="checkbox" id="6F" formControlName="selectedSeat1" value="6F" [checked]="alreadySelected"
-                  (change)="selectSeatDep(checkBoxSeat36f .value)"/>
-                  <label for="6F">6F</label>
-                </li>
-              </ol>
-            </li>
-          </ol>
-        </form>
-        <div class="exit exit--back fuselage">
-        </div>
-      </div>
-    </div>
-
-    <!-- <div class="col-sm">
-
-        <div class="plane">
-          <div class="cockpit">
-              <h1>DEPARTURE FLIGHT</h1>
-            <span class="badge">SELECTED SEAT: {{selectedSeatsRet}}</span>
-          </div>
-          <div class="exit exit--front fuselage">
-
-          </div>
-          <form [formGroup]="seatSelFormRet" (ngSubmit)="onSubmitRet()">
-            <ol class="cabin fuselage">
-              <li class="red red--1">
-                <ol class="seats" type="A">
-                  <li class="seat">
-                    <input #checkBoxSeat1 type="checkbox" id="1A" formControlName="selectedSeat" value="1A" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat1.value)"/>
-                    <label for="1A">1A</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat2 type="checkbox" id="1B" formControlName="selectedSeat" value="1B" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat2.value)"/>
-                    <label for="1B">1B</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat3 type="checkbox" id="1C" formControlName="selectedSeat" value="1C" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat3.value)"/>
-                    <label for="1C">1C</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat4 type="checkbox" id="1D" formControlName="selectedSeat" value="1D" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat4.value)"/>
-                    <label for="1D">1D</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat5 type="checkbox" id="1E" formControlName="selectedSeat" value="1E" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat5.value)"/>
-                    <label for="1E">1E</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat6 type="checkbox" id="1F" formControlName="selectedSeat" value="1F" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat6.value)"/>
-                    <label for="1F">1F</label>
-                  </li>
-                </ol>
-              </li>
-              <li class="red red--2">
-                <ol class="seats" type="A">
-                  <li class="seat">
-                    <input #checkBoxSeat7 type="checkbox" id="2A" formControlName="selectedSeat" value="2A" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat7.value)"/>
-                    <label for="2A">2A</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat8 type="checkbox" id="2B" formControlName="selectedSeat" value="2B" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat8.value)"/>
-                    <label for="2B">2B</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat9 type="checkbox" id="2C" formControlName="selectedSeat" value="2C" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat9.value)"/>
-                    <label for="2C">2C</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat10 type="checkbox" id="2D" formControlName="selectedSeat" value="2D" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat10.value)"/>
-                    <label for="2D">2D</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat11 type="checkbox" id="2E" formControlName="selectedSeat" value="2E" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat11.value)"/>
-                    <label for="2E">2E</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat12 type="checkbox" id="2F" formControlName="selectedSeat" value="2F" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat12.value)"/>
-                    <label for="2F">2F</label>
-                  </li>
-                </ol>
-              </li>
-              <li class="red red--3">
-                <ol class="seats" type="A">
-                  <li class="seat">
-                    <input #checkBoxSeat13 type="checkbox" id="3A" formControlName="selectedSeat" value="3A" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat13.value)"/>
-                    <label for="3A">3A</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat14 type="checkbox" id="3B" formControlName="selectedSeat" value="3B" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat14.value)"/>
-                    <label for="3B">3B</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat15 type="checkbox" id="3C" formControlName="selectedSeat" value="3C" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat15.value)"/>
-                    <label for="3C">3C</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat16 type="checkbox" id="3D" formControlName="selectedSeat" value="3D" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat16.value)"/>
-                    <label for="3D">3D</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat17 type="checkbox" id="3E" formControlName="selectedSeat" value="3E" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat17.value)"/>
-                    <label for="3E">3E</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat18 type="checkbox" id="3F" formControlName="selectedSeat" value="3F" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat18.value)"/>
-                    <label for="3F">3F</label>
-                  </li>
-                </ol>
-              </li>
-              <li class="red red--4">
-                <ol class="seats" type="A">
-                  <li class="seat">
-                    <input #checkBoxSeat18 type="checkbox" id="4A" formControlName="selectedSeat" value="4A" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat18.value)"/>
-                    <label for="4A">4A</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat18 type="checkbox" id="4B" formControlName="selectedSeat" value="4B" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat18.value)"/>
-                    <label for="4B">4B</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat18 type="checkbox" id="4C" formControlName="selectedSeat" value="4C" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat18.value)"/>
-                    <label for="4C">4C</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat18 type="checkbox" id="4D" formControlName="selectedSeat" value="4D" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat18.value)"/>
-                    <label for="4D">4D</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat18 type="checkbox" id="4E" formControlName="selectedSeat" value="4E" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat18.value)"/>
-                    <label for="4E">4E</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat18 type="checkbox" id="4F" formControlName="selectedSeat" value="4F" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat18.value)"/>
-                    <label for="4F">4F</label>
-                  </li>
-                </ol>
-              </li>
-              <li class="red red--5">
-                <ol class="seats" type="A">
-                  <li class="seat">
-                    <input #checkBoxSeat19 type="checkbox" id="5A" formControlName="selectedSeat" value="5A" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat19.value)"/>
-                    <label for="5A">5A</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat20 type="checkbox" id="5B" formControlName="selectedSeat" value="5B" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat20.value)"/>
-                    <label for="5B">5B</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat21 type="checkbox" id="5C" formControlName="selectedSeat" value="5C" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat21.value)"/>
-                    <label for="5C">5C</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat22 type="checkbox" id="5D" formControlName="selectedSeat" value="5D" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat22.value)"/>
-                    <label for="5D">5D</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat23 type="checkbox" id="5E" formControlName="selectedSeat" value="5E" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat23.value)"/>
-                    <label for="5E">5E</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat24 type="checkbox" id="5F" formControlName="selectedSeat" value="5F" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat24.value)"/>
-                    <label for="5F">5F</label>
-                  </li>
-                </ol>
-              </li>
-              <li class="red red--6">
-                <ol class="seats" type="A">
-                  <li class="seat">
-                    <input #checkBoxSeat25 type="checkbox" id="6A" formControlName="selectedSeat" value="6A" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat25.value)"/>
-                    <label for="6A">6A</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat26 type="checkbox" id="6B" formControlName="selectedSeat" value="6B" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat26.value)"/>
-                    <label for="6B">6B</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat27 type="checkbox" id="6C" formControlName="selectedSeat" value="6C" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat27.value)"/>
-                    <label for="6C">6C</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat28 type="checkbox" id="6D" formControlName="selectedSeat" value="6D" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat28.value)"/>
-                    <label for="6D">6D</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat29 type="checkbox" id="6E" formControlName="selectedSeat" value="6E" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat29.value)"/>
-                    <label for="6E">6E</label>
-                  </li>
-                  <li class="seat">
-                    <input #checkBoxSeat30 type="checkbox" id="6F" formControlName="selectedSeat" value="6F" [checked]="alreadySelected"
-                    (change)="selectSeatRet(checkBoxSeat30.value)"/>
-                    <label for="6F">6F</label>
-                  </li>
-                </ol>
-              </li>
-            </ol>
-          </form>
-          <div class="exit exit--back fuselage">
-          </div>
-        </div>
-      </div> -->
-    </div>
-
-    <div class="row">
-      <div  class="col">
-          <h3>Passengers</h3>
-          <!-- <form  [formGroup]="userProfileForm" (ngSubmit)="onSubmit()"> -->
-          <h6>Passenger 1</h6>
-          <div class="row">
-              <div  class="col">
-                  <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" formControlName="firstName" class="form-control" placeholder="Enter first name">
-                  </div>
-              </div>
-              <div  class="col">
-                <div class="form-group">
-                  <label for="lastName">Last Name</label>
-                  <input type="text" formControlName="lastName" class="form-control" placeholder="Enter last name">
-                </div>
-              </div>
-          </div>
-          <div class="row">
-              <div  class="col">
-                  <div class="form-group">
-                    <label for="city">City</label>
-                    <input type="text" formControlName="city" class="form-control" placeholder="Enter city">
-                  </div>
-              </div>
-              <div  class="col">
-                  <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="text" formControlName="phone" class="form-control" placeholder="Enter phone">
-                  </div>
-              </div>
-          </div>
-            <button type="submit" [disabled]="!userProfileForm.valid" class="btn btn-primary">Next</button>
-          <!-- </form> -->
-      </div>
-    </div>
-
-
+  </div>
 </div>
+
+
 

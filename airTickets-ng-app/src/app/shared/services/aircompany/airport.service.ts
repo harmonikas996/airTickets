@@ -25,10 +25,6 @@ export class AirportService {
     return this.http.get<Airport>(this.airporturl + '/' + id);
   }
 
-  addAirport(airport: Airport): Observable<Object> {
-    return this.http.post<Airport>(this.airporturl + '/new', airport, httpOptions);
-  }
-
   updateAirport(airport: Airport): Observable<Object> {
     return this.http.put(this.airporturl + '/' + airport.id + '/update', airport, httpOptions);
   }

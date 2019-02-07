@@ -10,6 +10,10 @@ public class SeatDTO {
 	private long flightId;
 	private long flightResId;
 	private double price;
+	private String mark;
+	private String firstName;
+	private String lastName;
+	private String contact;
 	
 	public SeatDTO() {}
 	
@@ -20,6 +24,10 @@ public class SeatDTO {
 		flightId = s.getFlight().getId();
 		flightResId = s.getReservation().getId();
 		price = s.getPrice();
+		mark = s.getMark();
+		firstName = s.getFirstName();
+		lastName = s.getLastName();
+		contact = s.getContact();
 	}
 
 	public long getId() {
@@ -68,6 +76,38 @@ public class SeatDTO {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 	
 }

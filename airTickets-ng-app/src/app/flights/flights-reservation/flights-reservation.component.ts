@@ -126,20 +126,6 @@ export class FlightsReservationComponent implements OnInit {
     return false;
   }
 
-  // getCompanyName(): void {
-  //   for (let f of this.flights) {
-
-  //     let c: Aircompany;
-
-  //     this.aircompanyService.getAircompanyById(f.aircompanyId).subscribe(
-  //       aircompany => c = aircompany,
-  //       error => console.log('Error: ', error),
-  //     () => f.aircompanyId = c.name
-  //     );
-  //   }
-  // }
-
-
   getAirPorts(): void {
       this.airportService.getAirports().subscribe(airport => this.airports = airport);
   }

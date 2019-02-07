@@ -24,6 +24,8 @@ public class Airport implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	@Column
+	private String name;
+	@Column
 	private String city;
 	@Column
 	private String address;
@@ -40,9 +42,19 @@ public class Airport implements Serializable {
 	public Airport() {}
 	
 	public Airport(AirportDTO a) {
+		
 		id = a.getId();
+		name = a.getName();
 		city = a.getCity();
 		address = a.getAddress();
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public long getId() {

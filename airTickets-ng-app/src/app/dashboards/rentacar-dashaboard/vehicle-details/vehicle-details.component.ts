@@ -17,8 +17,6 @@ export class VehicleDetailsComponent implements OnInit {
   vehicle: Observable<Vehicle>;
   vehicleModel: Vehicle;
   vehicleDetailsForm: FormGroup;
-  types = [];
-  numberOfSeats: number[];
 
   constructor(
     private vehicleService: VehicleService,
@@ -43,8 +41,6 @@ export class VehicleDetailsComponent implements OnInit {
 
     const id = +this.route.snapshot.paramMap.get('id');
     this.getVehicleById(id);
-    this.types = [ 'Sedan', 'Station Wagon', 'Van', 'SUV' ];
-    this.numberOfSeats = [1,2,3,4,5,6,7,8,9];
   }
 
   getVehicleById(id: number): void {

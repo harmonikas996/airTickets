@@ -9,12 +9,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class FlightsResListComponent implements OnInit {
 
-  seatSelFormDep: FormGroup;
-  seatSelFormRet: FormGroup;
+  seatSelForm: FormGroup;
   alreadySelected: boolean;
   passengers: number;
-  selectedSeatsDep: string[] = [];
-  selectedSeatsRet: string[] = [];
+  selectedSeats: string[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,43 +20,25 @@ export class FlightsResListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.seatSelFormDep = this.formBuilder.group({
-      selectedSeat1: ['', Validators.required]
-    });
-
-    this.seatSelFormRet = this.formBuilder.group({
-      selectedSeat: ['', Validators.required]
+    this.seatSelForm = this.formBuilder.group({
+      selectedSeat: [null, Validators.required]
     });
 
     this.alreadySelected = false;
     this.passengers = 2;
   }
 
-  onSubmitDep() {
-    this.seatSelFormDep.controls['selectedSeat1'].disable();
+  onSubmit() {
+    this.seatSelForm.controls['selectedSeat'].enable();
   }
 
-  onSubmitRet() {
-    this.seatSelFormRet.controls['selectedSeat'].disable();
-  }
-
-  public selectSeatDep(value: string){
-    if(this.selectedSeatsDep.length < this.passengers) {
-      this.selectedSeatsDep.push(value);
+  public selectSeat(value: string){
+    if(this.selectedSeats.length < this.passengers) {
+      this.selectedSeats.push(value);
     }
-    if(this.selectedSeatsDep.length == this.passengers) {
-      this.seatSelFormDep.controls['selectedSeat1'].disable();
-      console.log(this.seatSelFormDep);
-    }
-  }
-
-  public selectSeatRet(value: string){
-    if(this.selectedSeatsRet.length < this.passengers) {
-      this.selectedSeatsRet.push(value);
-    }
-    if(this.selectedSeatsRet.length == this.passengers) {
-      this.seatSelFormRet.controls['selectedSeat'].disable();
-      console.log(this.seatSelFormRet);
+    if(this.selectedSeats.length == this.passengers) {
+      this.seatSelForm.controls['selectedSeat'].disable();
+      console.log(this.selectedSeats);
     }
   }
 }

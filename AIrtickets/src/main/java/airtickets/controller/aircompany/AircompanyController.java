@@ -75,7 +75,7 @@ public class AircompanyController {
 		
 		return aircompanyService.getAircompany(userDTO.getCompany());
 	}
-
+	
 	@GetMapping("/monthlyIncome")
 	@PreAuthorize("hasAuthority('aircompany')")
 	public List<Double> monthyIncome(

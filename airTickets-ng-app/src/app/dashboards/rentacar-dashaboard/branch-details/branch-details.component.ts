@@ -28,7 +28,7 @@ export class BranchDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.branchDetailsForm = this.formBuilder.group({
       id: [''],
-      rentACarId: [''],
+      rentACarId: ['', Validators.required],
       address: ['', Validators.required],
       city: ['', Validators.required]
     });
