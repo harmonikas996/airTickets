@@ -1,10 +1,7 @@
-package airtickets.controller.rentacar;
+package airtickets.dto.rentacar;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import airtickets.dto.rentacar.BranchOfficeDTO;
-import airtickets.dto.rentacar.RentACarDTO;
 
 public class RentacarWithBrachesDTO {
 

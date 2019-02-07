@@ -89,6 +89,9 @@ export class HotelDetailsComponent implements OnInit {
     if (this.addAdminForm.valid) {
       this.hotelService.addAdmin(
         this.addAdminForm.controls['companyId'].value, this.addAdminForm.controls['selectedUser'].value
+        ).subscribe(
+          error => console.log('Error: ', error),
+          () => window.location.reload()
         );
      }
   }
