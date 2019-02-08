@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import airtickets.model.hotel.Hotel;
+import airtickets.model.rentacar.BranchOffice;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 	public Hotel findById(long id);
@@ -25,4 +26,6 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
 			" where hr.id = rr.hotel_reservation_id and hr.date_from <= ?4 \r\n" + 
 			" and hr.date_to >= ?3))", nativeQuery=true)
 	public List<Hotel> searchHotels(String name, String location, LocalDateTime timeBegin, LocalDateTime timeEnd);
+	@Query(value="select distinct(city) from airtickets.hotel", nativeQuery=true)
+	public List<String> findAllCities();
 }

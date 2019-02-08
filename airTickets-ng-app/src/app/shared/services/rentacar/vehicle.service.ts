@@ -48,6 +48,14 @@ export class VehicleService {
     );
   }
 
+  searchVehicleByDate( datebegin: String, dateEnd: String, user: String): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.rentacarsUrl +
+      '/free?datebegin=' + datebegin +
+      '&dateEnd=' + dateEnd +
+      '&user=' + user
+      );
+  }
+
   searchVehicles(
     priceFrom: number,
     priceTo: number,
@@ -59,14 +67,14 @@ export class VehicleService {
     rentacarId: number,
     vehicleType: number
     ): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.vehiclesUrl + 
-      '/search?rentacarId=' + rentacarId + 
+    return this.http.get<Vehicle[]>(this.vehiclesUrl +
+      '/search?rentacarId=' + rentacarId +
       '&priceFrom=' + priceFrom +
       '&priceTo=' + priceTo +
-      '&pickupDateTime=' + pickupDateTime + 
-      '&dropoffDateTime=' + dropoffDateTime + 
+      '&pickupDateTime=' + pickupDateTime +
+      '&dropoffDateTime=' + dropoffDateTime +
       '&pickupLocation=' + pickupLocation +
-      '&dropoffLocation=' + dropoffLocation + 
+      '&dropoffLocation=' + dropoffLocation +
       '&passengersSalji=' + passengersSalji +
       '&vehicleType=' + vehicleType
       );

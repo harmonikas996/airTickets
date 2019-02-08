@@ -222,4 +222,10 @@ public class RentACarService {
 		}
 		return false;
 	}
+
+	public List<VehicleDTO> getFreeVehicles(String email, String from, String to) {
+		User user = userRepository.findByEmail(email);
+		
+		return freeVehiclesForPeriod(user.getCompany().getId(), from, to);
+	}
 }

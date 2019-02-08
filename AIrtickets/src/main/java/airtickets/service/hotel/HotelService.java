@@ -220,4 +220,13 @@ public class HotelService {
 		
 		return null;
 	}
+	
+	public List<String> getLocations() {
+		List<String> locations = new ArrayList<String>();
+		
+		for (String b  : hotelRepository.findAllCities()) {
+			locations.add(b);
+ 		}
+		return locations;
+	}
 }

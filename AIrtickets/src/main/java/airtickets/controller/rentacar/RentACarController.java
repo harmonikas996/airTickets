@@ -150,4 +150,15 @@ public class RentACarController {
 		
 		return rentACarService.isCurrentlyReserved(id);
 	}
+
+	@GetMapping("/free")
+//	@PreAuthorize("hasAuthority('rentacar')")
+	public List<VehicleDTO> isCurrentlyReserved(
+			@RequestParam(value="user") String email,
+			@RequestParam(value="datebegin") String from,
+			@RequestParam(value="dateEnd") String to
+			) {
+		
+		return rentACarService.getFreeVehicles(email, from, to);
+	}
 }

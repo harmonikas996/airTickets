@@ -1,3 +1,7 @@
+import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
+import { VehicleService } from './../../shared/services/rentacar/vehicle.service';
+import { CarReservation } from './../../shared/model/rentacar/car-reservation';
+import { CarReservationService } from './../../shared/services/rentacar/car-reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IMyDpOptions } from 'mydatepicker';
@@ -27,10 +31,15 @@ export class RentacarsListComponent implements OnInit {
   location: String;
   timeBegin: String;
   timeEnd: String;
+  carReservations: CarReservation[];
+  carReservation: CarReservation;
 
   constructor(
     private rentacarService: RentacarService,
     private formBuilder: FormBuilder,
+    private carReservationService: CarReservationService,
+    private vehicleService: VehicleService
+
   ) { }
 
   ngOnInit() {
@@ -44,6 +53,11 @@ export class RentacarsListComponent implements OnInit {
     this.getRentacarsPermanent();
     this.getRentacars();
     this.getLocations();
+    this.getQuickReservation();
+  }
+
+  getQuickReservation(): void {
+    this.carReservationService.getCarReservations().subscribe(carReservations => this.carReservations = carReservations);
   }
 
   getRentacars(): void {

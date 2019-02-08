@@ -7,7 +7,7 @@
 
   <div  class="col-sm-10">
     <form [formGroup]="rentacarSearchForm" (ngSubmit)="onSubmit()">
-  
+
       <div class="row">
           <div class="col">
               <label>Rentacar Name</label>
@@ -43,9 +43,10 @@
           </div>
     </div>
     </form>
-  
+
   </div>
 </div>
+
 <div *ngIf="rentacars.length > 0" class="row mt-4 mb-4">
     <div *ngFor="let rentacar of rentacars" class="col-sm-4 rentacar">
         <div class="card text-center">
@@ -66,10 +67,27 @@
             <h6 class="card-subtitle mb-2 text-muted">{{rentacarWithBranches.rentacar.address}}</h6>
             <ul class="list-group list-group-flush mt-3 mb-3 text-left">
               <div *ngFor="let branchOffice of rentacarWithBranches.branches">
-                  <li class="list-group-item"><strong>{{branchOffice.city}}</strong>, {{branchOffice.address}}</li> 
+                  <li class="list-group-item"><strong>{{branchOffice.city}}</strong>, {{branchOffice.address}}</li>
               </div>
             </ul>
             <a class="card-link" routerLink="{{rentacarWithBranches.rentacar.id}}">Select</a>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+<h4> Quick Reservations: </h4>
+<div class="row mt-4 mb-4">
+    <div *ngFor="let carReservation of carReservations" class="col-sm-4 rentacar">
+        <div class="card text-center">
+
+          <div class="card-body">
+            <h5 class="card-title">{{carReservation.dateFrom | date: 'medium'}}</h5>
+            <h5 class="card-title">{{carReservation.dateTo | date: 'medium'}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Price: {{carReservation.price}}</h6>
+            <a class="card-link">Select</a>
+            <!-- routerLink="{{rentacar.id}} -->
           </div>
         </div>
     </div>

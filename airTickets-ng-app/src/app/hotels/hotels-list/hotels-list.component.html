@@ -15,16 +15,15 @@
                 bindLabel="name"
                 autofocus
                 bindValue="name"
-                formControlName="hotelName"
-                [required]="!hotelSearchForm.controls.hotelLocation.value">
+                formControlName="hotelName">
               </ng-select>
           </div>
           <div class="col">
-              <label>Location</label>
-              <ng-select  [items]="locations"
-                formControlName="hotelLocation"
-                [required]="!hotelSearchForm.controls.hotelName.value">
-              </ng-select>
+            <div class="form-group">
+                <label for="locations">Locations</label>
+                <ng-select [items]="locations" formControlName="hotelLocation">
+                </ng-select>
+            </div>
           </div>
           <div class="col">
             <div class="form-group">
@@ -46,3 +45,28 @@
 
   </div>
 </div>
+
+<div *ngIf="hotels.length > 0" class="row mt-4 mb-4">
+  <div *ngFor="let hotel of hotels" class="col-sm-4 hotel">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">{{hotel.name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{hotel.address}}</h6>
+          <!-- <a class="card-link" routerLink="hotels-details/{{hotel.id}}">Select</a> -->
+        </div>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="hotelsRes.length > 0" class="row mt-4 mb-4">
+  <div *ngFor="let hotel of hotelsRes" class="col-sm-4 hotel">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">{{hotel.name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{hotel.address}}</h6>
+          <a class="card-link" routerLink="hotels/hotel-details/1">Select</a>
+        </div>
+      </div>
+  </div>
+</div>
+
