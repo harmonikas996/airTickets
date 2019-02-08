@@ -5,11 +5,11 @@ import airtickets.model.aircompany.Seat;
 public class SeatDTO {
 	
 	private long id;
-	private long clientId;
+	private Long clientId;
 	private String passport;
 	private long flightId;
-	private long flightResId;
-	private double price;
+	private Long flightResId;
+	private Double price;
 	private String mark;
 	private String firstName;
 	private String lastName;
@@ -20,9 +20,11 @@ public class SeatDTO {
 	public SeatDTO(Seat s) {
 		id = s.getId();
 		passport = s.getPassport();
-		clientId = s.getClient().getId();
+		if (s.getClient() != null)
+			clientId = s.getClient().getId();
 		flightId = s.getFlight().getId();
-		flightResId = s.getReservation().getId();
+		if (s.getReservation() != null)
+			flightResId = s.getReservation().getId();
 		price = s.getPrice();
 		mark = s.getMark();
 		firstName = s.getFirstName();
@@ -38,11 +40,11 @@ public class SeatDTO {
 		this.id = id;
 	}
 
-	public long getClientId() {
+	public Long getClientId() {
 		return clientId;
 	}
 
-	public void setClientId(long clientId) {
+	public void setClientId(Long clientId) {
 		this.clientId = clientId;
 	}
 
@@ -62,19 +64,19 @@ public class SeatDTO {
 		this.flightId = flightId;
 	}
 
-	public long getFlightResId() {
+	public Long getFlightResId() {
 		return flightResId;
 	}
 
-	public void setFlightResId(long flightResId) {
+	public void setFlightResId(Long flightResId) {
 		this.flightResId = flightResId;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

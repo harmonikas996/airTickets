@@ -21,6 +21,10 @@ import { FlightsResListComponent } from './flights-res-list/flights-res-list.com
   declarations: [
     FlightsReservationComponent,
     FlightsResListComponent,
+  ],
+  exports: [
+    FlightsReservationComponent,
+    FlightsResListComponent,
   ]
 })
 export class FlightsModule { }

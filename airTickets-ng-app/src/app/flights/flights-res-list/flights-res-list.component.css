@@ -200,3 +200,27 @@ ol {
   -webkit-animation-name: rubberBand;
   animation-name: rubberBand;
 }
+
+
+/*********************/
+.selectedSeat {
+  /* border-left: 3px solid #007bff; */
+  background: #007bff;
+}
+
+.card::hover {
+  cursor: pointer;
+  background: #f7f7f7;
+}
+
+#checkboxes input[type=checkbox]{
+  display: none;
+}
+
+#checkboxes1 input[type=checkbox]{
+  display: none;
+}
+
+.disabledBox {
+  opacity: 0.2;
+}

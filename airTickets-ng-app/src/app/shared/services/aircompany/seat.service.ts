@@ -36,8 +36,11 @@ export class SeatService {
   }
 
   generateSets(number: number, flightid: number): Observable<Object> {
-    //return this.http.post<Seat>(this.seatsUrl + '/generate', number, httpOptions);
-    return this.http.get<Seat>(this.seatsUrl + '/generate?id=' + flightid + 'number=' + number);
+    return this.http.get<Seat>(this.seatsUrl + '/generate?id=' + flightid + '&number=' + number);
+  }
+
+  seatsByFlight(id: number): Observable<Seat[]> {
+    return this.http.get<Seat[]>(this.seatsUrl + '/seatsByFlight?id=' + id);
   }
 
   removeSeat(seat: Seat | number): Observable<Seat> {

@@ -8,11 +8,22 @@ import { FlightsReservationComponent } from './flights/flights-reservation/fligh
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { FlightsResListComponent } from './flights/flights-res-list/flights-res-list.component';
 import { HotelsListComponent } from './hotels/hotels-list/hotels-list.component';
+import { FlightsComponent } from './flights/flights.component';
+import { RoleGuard } from './shared/services/guards/role-guard.service';
 import { HotelDetailsComponent } from './hotels/hotel-details/hotel-details.component';
 
 const routes: Routes = [
+  // { path: 'flights', component: FlightsComponent,
+  //   // children: [
+  //   //   { path: 'flights-reservation', component: FlightsReservationComponent },
+  //   //   { path: 'flights-res-list', component: FlightsResListComponent },
+  //   //   // { path: '', redirectTo: 'flights-reservation', pathMatch: 'full' },
+  //   //   // { path: '**', redirectTo: 'flights-reservation', pathMatch: 'full' }
+  //   // ]
+  // },
+  // { path: 'flights', component: FlightsComponent },
   { path: 'flight-reservations', component: FlightsReservationComponent },
-  { path: 'flight-res-list', component: FlightsResListComponent },
+  // { path: 'flight-res-list', component: FlightsResListComponent },
   { path: 'hotels', component: HotelsListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'hotel-details', component: HotelDetailsComponent },

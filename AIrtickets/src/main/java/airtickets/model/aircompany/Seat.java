@@ -32,7 +32,7 @@ public class Seat implements Serializable {
 	@ManyToOne
 	private User client;
 	@Column
-	private double price;
+	private Double price;
 	@Column
 	private String mark;
 	@Column
@@ -114,11 +114,11 @@ public class Seat implements Serializable {
 		this.client = client;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
