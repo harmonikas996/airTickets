@@ -51,6 +51,7 @@ import { AirportNewComponent } from './system-dashboard/airport-new/airport-new.
 import { AirportListComponent } from './system-dashboard/airport-list/airport-list.component';
 import { AirportsDetailsComponent } from './system-dashboard/airports-details/airports-details.component';
 import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservations/quick-reservations.component';
+import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
 
 
 @NgModule({
@@ -107,6 +108,7 @@ import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservat
     SpecialofferNewComponent,
     SpecialOfferUpdateComponent,
     QuickReservationsComponent,
+    QuickResHotelComponent,
   ],
   providers: [
     AuthGuard,

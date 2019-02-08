@@ -47,6 +47,7 @@ import { AirportNewComponent } from './system-dashboard/airport-new/airport-new.
 import { AirportListComponent } from './system-dashboard/airport-list/airport-list.component';
 import { AirportsDetailsComponent } from './system-dashboard/airports-details/airports-details.component';
 import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservations/quick-reservations.component';
+import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -79,6 +80,7 @@ const dashboardsRoutes: Routes = [
       { path: 'flights/new', component: FlightNewComponent },
       { path: 'flight-rating', component: FlightRatingComponent },
       { path: 'flights-details/:id', component: FlightDetailsComponent },
+      { path: 'reports-air', component: ReportsComponent },
       { path: 'user-profile', component: UserProfileComponent },
       { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
       { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
@@ -95,6 +97,7 @@ const dashboardsRoutes: Routes = [
       { path: 'amenities', component:  AmenityListComponent},
       { path: 'user-profile', component: UserProfileComponent },
       { path: 'rooms/new', component: RoomNewComponent },
+      { path: 'quick-res-hotel', component: QuickResHotelComponent },
       { path: 'amenities/new', component: AmenityNewComponent },
       { path: 'room-details/:id', component: RoomDetailsComponent },
       { path: 'rooms-prices/new', component: RoomPriceNewComponent },
