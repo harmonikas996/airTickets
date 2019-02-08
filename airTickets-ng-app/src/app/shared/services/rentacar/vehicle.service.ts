@@ -41,15 +41,19 @@ export class VehicleService {
     return this.http.put<Vehicle>(this.vehiclesUrl + '/' + vehicle.id + '/update', vehicle, httpOptions);
   }
 
-  searchVehicleByDate(datebegin: String, dateEnd: String): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.vehiclesUrl + '/free');
-  }
-
   removeVehicle(vehicle: Vehicle | number): Observable<Vehicle> {
     const id = typeof vehicle === 'number' ? vehicle : vehicle.id;
     return this.http.delete<Vehicle>(this.vehiclesUrl + '/' + id + '/delete', httpOptions).pipe(
       tap(_ => console.log(`deleted vehicle id=${id}`))
     );
+  }
+
+  searchVehicleByDate( datebegin: String, dateEnd: String, user: String): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.rentacarsUrl +
+      '/free?datebegin=' + datebegin +
+      '&dateEnd=' + dateEnd +
+      '&user=' + user
+      );
   }
 
   searchVehicles(

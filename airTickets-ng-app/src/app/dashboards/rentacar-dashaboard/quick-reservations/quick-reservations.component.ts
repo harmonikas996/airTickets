@@ -1,8 +1,11 @@
+import { CarReservation } from './../../../shared/model/rentacar/car-reservation';
+import { CarReservationService } from './../../../shared/services/rentacar/car-reservation.service';
 import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
 import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 
 @Component({
   selector: 'app-quick-reservations',
@@ -16,10 +19,19 @@ export class QuickReservationsComponent implements OnInit {
   timeBegin: String;
   timeEnd: String;
   vehicles: Vehicle[];
+  user: String;
+  carResObj: CarReservation = new CarReservation();
+
+  //reservation
+
+  vehicleIdRes: number;
+  priceRes: number;
 
   constructor(
     private formBuilder: FormBuilder,
-    private vehicleService: VehicleService
+    private vehicleService: VehicleService,
+    private token: TokenStorageService,
+    private carReservationService: CarReservationService
   ) { }
 
   ngOnInit() {
@@ -37,11 +49,12 @@ export class QuickReservationsComponent implements OnInit {
     });
 
     this.vehicles = [];
+    this.user = this.token.getUsername();
 
   }
 
-  searchVehicles(timeBegin: String, timeEnd: String): void {
-    this.vehicleService.searchVehicleByDate(timeBegin, timeEnd).subscribe(
+  searchVehicles(timeBegin: String, timeEnd: String, user: String): void {
+    this.vehicleService.searchVehicleByDate(timeBegin, timeEnd, user).subscribe(
       vehicles => this.vehicles = vehicles,
     );
   }
@@ -50,9 +63,34 @@ export class QuickReservationsComponent implements OnInit {
     if (this.quickForm.valid) {
       this.prepareData();
 
-      this.searchVehicles(this.timeBegin, this.timeEnd);
+      this.searchVehicles(this.timeBegin, this.timeEnd, this.user);
 
     }
+  }
+
+  reserve() {
+    if (this.quickFormRes.valid) {
+
+      this.prepareDataRes();
+
+      this.carReservationService.addCarReservation(this.carResObj).subscribe((response) => {
+        console.log("Response is: ", response);
+     },
+     (error) => {
+        //catch the error
+        console.error("An error occurred, ", error);
+     });
+     };
+  }
+
+
+  prepareDataRes() {
+
+    this.carResObj.vehicleId = this.quickFormRes.controls['chVehicle'].value;
+    this.carResObj.dateFrom = this.timeBegin;
+    this.carResObj.dateTo = this.timeEnd;
+    this.carResObj.price = this.quickFormRes.controls['price'].value;
+
   }
 
   prepareData() {
