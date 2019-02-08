@@ -1,6 +1,7 @@
 package airtickets.service.rentacar;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import airtickets.dto.rentacar.VehicleDTO;
+import airtickets.model.aircompany.FlightReservation;
 import airtickets.model.rentacar.CarReservation;
-import airtickets.model.rentacar.CarType;
 import airtickets.model.rentacar.Vehicle;
+import airtickets.repo.aircompany.FlightReservationRepository;
 import airtickets.repo.rentacar.CarReservationRepository;
 import airtickets.repo.rentacar.VehiclesRepository;
 
@@ -25,7 +27,9 @@ public class VehicleService {
 	VehiclesRepository vehicleRepository;
 	@Autowired
 	CarReservationRepository carReservationRepository;
-
+	@Autowired
+	FlightReservationRepository flightReservationRepository;
+	
 	public List<VehicleDTO> getVehicles() {
 		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>();
 		
@@ -110,5 +114,24 @@ public class VehicleService {
 			vehicles.add(vehicle);
  		}
 		return vehicles;
+	}
+	
+	public Long makeReservation(VehicleDTO vehicle, long id, String from, String to) {
+		LocalDateTime ldtFrom = LocalDateTime.parse(from);
+		LocalDateTime ldtTo = LocalDateTime.parse(to);
+		
+		int brDana = (int) ChronoUnit.DAYS.between(ldtFrom.toLocalDate(), ldtTo.toLocalDate());// .daysBetween();
+		
+		CarReservation cr = new CarReservation();
+		cr.setDateFrom(ldtFrom);
+		cr.setDateTo(ldtTo);
+		Vehicle v = vehicleRepository.findById(vehicle.getId());
+		cr.setPrice(brDana*v.getPricePerDay());
+		cr.setVehicle(v);
+		cr = carReservationRepository.save(cr);
+		FlightReservation fr = flightReservationRepository.findById(id);
+		fr.setCarReservation(cr);
+		flightReservationRepository.save(fr);
+		return cr.getId();
 	}
 }

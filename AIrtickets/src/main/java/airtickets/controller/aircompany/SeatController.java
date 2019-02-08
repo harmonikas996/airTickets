@@ -67,7 +67,7 @@ public class SeatController {
 	}
 	
 	@GetMapping("/seatsByFlight")
-	@PreAuthorize("hasAuthority('aircompany')")
+//	@PreAuthorize("hasAuthority('aircompany')")
 	public List<SeatDTO> getSeatsByFlightId(@RequestParam(value="id") long id) {
 		return seatService.getSeatsByFlightId(id);
 	}

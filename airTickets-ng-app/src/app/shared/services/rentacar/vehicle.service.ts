@@ -41,6 +41,10 @@ export class VehicleService {
     return this.http.put<Vehicle>(this.vehiclesUrl + '/' + vehicle.id + '/update', vehicle, httpOptions);
   }
 
+  reserveVehicle(vehicle: Vehicle, id: number, from: string, to: string): Observable<number> {
+    return this.http.put<number>(this.vehiclesUrl + '/makeReservation/' + id + '/' + from + '/' + to, vehicle, httpOptions);
+  }
+
   removeVehicle(vehicle: Vehicle | number): Observable<Vehicle> {
     const id = typeof vehicle === 'number' ? vehicle : vehicle.id;
     return this.http.delete<Vehicle>(this.vehiclesUrl + '/' + id + '/delete', httpOptions).pipe(

@@ -84,7 +84,7 @@
           <h5 class="card-title">{{vehicle.brand}}</h5>
           <h6 class="card-subtitle mb-2 text-muted">{{vehicle.model}}</h6>
           <p class="card-text"><i class="fas fa-chair"></i>{{vehicle.numberOfSeats}}</p>
-          <a href="#" class="card-link">Reserve</a>
+          <button type="button" class="card-link" (click)="reserveVehicle(vehicle)">Reserve</button>
         </div>
       </div>
     </div>

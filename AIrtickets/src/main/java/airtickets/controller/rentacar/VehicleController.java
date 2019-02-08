@@ -52,7 +52,12 @@ public class VehicleController {
     public VehicleDTO addVehicle(@RequestBody VehicleDTO vehicle) {
 			return vehicleService.addVehicle(vehicle);
 	}
-
+	
+	@PutMapping("makeReservation/{id}/{from}/{to}")
+	public Long makeReservation(@RequestBody VehicleDTO vehicle, @PathVariable Long id, @PathVariable String from, @PathVariable String to) {
+		return vehicleService.makeReservation(vehicle, id, from, to);
+	}
+	
 	@PutMapping("{id}/update")
 	public VehicleDTO updateVehicle(@RequestBody VehicleDTO vehicle, @PathVariable Long id) {
 		vehicle.setId(id);
