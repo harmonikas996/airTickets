@@ -1,6 +1,6 @@
-<div *ngIf="aiport" class="row">
+<div *ngIf="airport" class="row">
     <div  class="col-sm-12">
-        <form *ngIf="aiport | async; else loading" [formGroup]="aiportDetailsForm" (ngSubmit)="onSubmit()">
+        <form *ngIf="airport | async; else loading" [formGroup]="aiportDetailsForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col-6">
                     <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-long-arrow-alt-left"></i></button>

@@ -1,67 +1,87 @@
-<div class="row mt-4 mb-4 text-center">
+<div class="row mt-4 mb-4">
     <!-- *ngIf="rentacarObservable | async; else loading"  -->
-    <div class="col-12">
+    <div class="col">
         <h3>Hotel details</h3>
     </div>
   </div>
   <div class="row mt-4 mb-4">
 
-    <div  class="col-sm-12">
-      <form [formGroup]="hotelSearchForm" (ngSubmit)="onSubmit()">
-
-        <div class="row">
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="placeFromId">Date<span class="text-danger">*</span></label>
-                    <input class="form-control" placeholder="Pick Date Range"
-                            [style.width]="'350px'"
-                            [selectMode]="'range'"
-                            [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
-                            formControlName="datePeriod">
-
-                    <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
-                  </div>
-            </div>
-            <div class="form-group">
-                <label for="guest">Number of guests<span class="text-danger">*</span></label>
-                <input type="text" formControlName="guest" class="form-control" placeholder="Enter Name" required>
-                <small *ngIf="aircompanyProfileForm.controls.name.errors?.required && aircompanyProfileForm.controls.name.touched" class="form-text text-danger">*Required</small>
-            </div>
-            <div class="col">
-                <label>Passengers</label>
-                <select class="form-control form-control-sm" formControlName="passengers">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                  </select>
-                </div>
-
-      </div>
+    <div class="col-sm-12">
+      <form [formGroup]="hotelRoomForm" (ngSubmit)="onSubmit()">
       <div class="row">
           <div class="col">
-              <button [disabled]="!vehicleSearchForm.valid" type="submit" class="btn btn-primary mt-4">Find Vehicles</button>
+            <div class="form-group">
+                <label for="placeFromId">Date<span class="text-danger">*</span></label>
+                <input class="form-control" placeholder="Pick Date Range"
+                        [selectMode]="'range'"
+                        [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
+                        formControlName="datePeriod">
+
+                <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
+              </div>
           </div>
-      </div>
-      </form>
+
+          <div class="col">
+            <div class="form-group">
+                <label for="guest">Number of Quests<span class="text-danger">*</span></label>
+                <input type="text" formControlName="guest" class="form-control" placeholder="Enter Name" required>
+                <small *ngIf="hotelRoomForm.controls.guest.errors?.required && hotelRoomForm.controls.guest.touched" class="form-text text-danger">*Required</small>
+            </div>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="numberOfrooms1">Number Of Single Rooms</label>
+                    <ng-select [items]="numberOfrooms" formControlName="numberOfrooms1">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="numberOfrooms2">Number Of Double Rooms</label>
+                    <ng-select [items]="numberOfrooms" formControlName="numberOfrooms2">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="numberOfrooms3">Number Of Twin Rooms</label>
+                    <ng-select [items]="numberOfrooms" formControlName="numberOfrooms3">
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="numberOfrooms4">Number Of Quad Rooms</label>
+                    <ng-select [items]="numberOfrooms" formControlName="numberOfrooms4">
+                    </ng-select>
+                </div>
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="minprice">Min price<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="minprice" class="form-control" placeholder="Enter price" required>
+                    <small *ngIf="hotelRoomForm.controls.minprice.errors?.required && hotelRoomForm.controls.minprice.touched" class="form-text text-danger">*Required</small>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="maxprice">Max price<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="maxprice" class="form-control" placeholder="Enter price" required>
+                    <small *ngIf="hotelRoomForm.controls.maxprice.errors?.required && hotelRoomForm.controls.maxprice.touched" class="form-text text-danger">*Required</small>
+                </div>
+            </div>
+          </div>
+        <div class="row">
+          <div class="col">
+                  <button [disabled]="!hotelRoomForm.valid" type="submit" class="btn btn-primary mt-4">Find room</button>
+              </div>
+          </div>
+    </form>
 
     </div>
   </div>
-  <div class="row">
-    <div *ngFor="let vehicle of vehicles" class="col-sm-4 mt-4">
-      <div class="card">
-          <img src="../../../assets/img/vehicle/{{vehicle.image}}" class="card-img-top" alt="Picture of {{vehicle.brand}}">
-        <div class="card-body">
-          <h5 class="card-title">{{vehicle.brand}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{vehicle.model}}</h6>
-          <p class="card-text"><i class="fas fa-chair"></i>{{vehicle.numberOfSeats}}</p>
-          <a href="#" class="card-link">Reserve</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
