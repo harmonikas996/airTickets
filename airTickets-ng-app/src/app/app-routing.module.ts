@@ -24,9 +24,9 @@ const routes: Routes = [
   // { path: 'flights', component: FlightsComponent },
   { path: 'flight-reservations', component: FlightsReservationComponent },
   // { path: 'flight-res-list', component: FlightsResListComponent },
-  { path: 'hotels', component: HotelsListComponent },
+
   { path: 'login', component: LoginComponent },
-  { path: 'hotel-details', component: HotelDetailsComponent },
+  // { path: 'hotel-details', component: HotelDetailsComponent },
   { path: 'register', component: RegisterComponent },
 
   // uvek na kraju nek stoje

@@ -46,6 +46,7 @@ import { ReservationsReportComponent } from '../shared/reports/reservations-repo
 import { AirportNewComponent } from './system-dashboard/airport-new/airport-new.component';
 import { AirportListComponent } from './system-dashboard/airport-list/airport-list.component';
 import { AirportsDetailsComponent } from './system-dashboard/airports-details/airports-details.component';
+import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservations/quick-reservations.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -55,6 +56,7 @@ const dashboardsRoutes: Routes = [
     children: [
       { path: 'company-profile', component: CompanyProfileComponent },
       { path: 'vehicles', component: VehiclesListComponent },
+      { path: 'quick-res', component: QuickReservationsComponent },
       { path: 'vehicles/new', component: VehicleNewComponent },
       { path: 'vehicle-details/:id', component: VehicleDetailsComponent },
       { path: 'branches', component: BranchesListComponent },

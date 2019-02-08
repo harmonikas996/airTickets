@@ -1,7 +1,7 @@
+import { Hotel } from 'src/app/shared/model/hotel/hotel.model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Hotel } from '../../model/hotel/hotel.model';
 import { tap } from 'rxjs/operators';
 import { UserService } from '../user/user.service';
 import { User } from '../../model/user/user.model';
@@ -38,6 +38,10 @@ export class HotelService {
     return this.http.put(this.hotelsUrl + '/' + hotel.id + '/update', hotel, httpOptions);
   }
 
+  getLocation(): Observable<String[]>{
+    return this.http.get<String[]>(this.hotelsUrl + '/locations');
+  }
+
   removeHotel(hotel: Hotel | number):  Observable<Hotel> {
     const id = typeof hotel === 'number' ? hotel : hotel.id;
     return this.http.delete<Hotel>(this.hotelsUrl + '/' + id + '/delete', httpOptions).pipe(
@@ -70,4 +74,15 @@ export class HotelService {
 
     return null;
   }
+
+  searchHotels(name: String, location: String, timeBegin: String, timeEnd: String ): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>(this.hotelsUrl +
+      '/search?name=' + name +
+      '&location=' + location +
+      '&timeBegin=' + timeBegin +
+      '&timeEnd=' + timeEnd
+      );
+  }
+
+
 }

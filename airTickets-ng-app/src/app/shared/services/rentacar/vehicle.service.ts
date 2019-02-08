@@ -41,6 +41,10 @@ export class VehicleService {
     return this.http.put<Vehicle>(this.vehiclesUrl + '/' + vehicle.id + '/update', vehicle, httpOptions);
   }
 
+  searchVehicleByDate(datebegin: String, dateEnd: String): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.vehiclesUrl + '/free');
+  }
+
   removeVehicle(vehicle: Vehicle | number): Observable<Vehicle> {
     const id = typeof vehicle === 'number' ? vehicle : vehicle.id;
     return this.http.delete<Vehicle>(this.vehiclesUrl + '/' + id + '/delete', httpOptions).pipe(
@@ -59,14 +63,14 @@ export class VehicleService {
     rentacarId: number,
     vehicleType: number
     ): Observable<Vehicle[]> {
-    return this.http.get<Vehicle[]>(this.vehiclesUrl + 
-      '/search?rentacarId=' + rentacarId + 
+    return this.http.get<Vehicle[]>(this.vehiclesUrl +
+      '/search?rentacarId=' + rentacarId +
       '&priceFrom=' + priceFrom +
       '&priceTo=' + priceTo +
-      '&pickupDateTime=' + pickupDateTime + 
-      '&dropoffDateTime=' + dropoffDateTime + 
+      '&pickupDateTime=' + pickupDateTime +
+      '&dropoffDateTime=' + dropoffDateTime +
       '&pickupLocation=' + pickupLocation +
-      '&dropoffLocation=' + dropoffLocation + 
+      '&dropoffLocation=' + dropoffLocation +
       '&passengersSalji=' + passengersSalji +
       '&vehicleType=' + vehicleType
       );

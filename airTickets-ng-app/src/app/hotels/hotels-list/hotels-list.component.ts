@@ -18,7 +18,8 @@ export class HotelsListComponent implements OnInit {
   location: String;
   timeBegin: String;
   timeEnd: String;
-  locations: Hotel[]; // Popunitiii*********************
+  locations: String[];
+  hotelsRes: Hotel[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,10 +34,14 @@ export class HotelsListComponent implements OnInit {
       hotelLocation: [null],
       datePeriod: [null, Validators.required]
     });
+    this.hotelsRes = [];
+    this.hotels = [];
+
 
     this.getHotelsPermament();
     this.getHotels();
     this.getLocations();
+
   }
 
   getHotels(): void {
@@ -48,11 +53,15 @@ export class HotelsListComponent implements OnInit {
   }
 
   getLocations(): void {
-
+      this.hotelService.getLocation().subscribe(locations => this.locations = locations);
   }
 
   searchHotels(name: String, location: String, timeBegin: String, timeEnd: String): void {
-
+    this.hotelService.searchHotels(name, location, timeBegin, timeEnd).subscribe(
+      hotels => this.hotelsRes = hotels,
+      (error) => console.error("An error occurred, ", error),
+      () => this.hotels = []
+      );
   }
 
  onSubmit() {

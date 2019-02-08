@@ -151,4 +151,9 @@ public class HotelController {
 			) {
 		return hotelService.searchRooms(id, type, timeBegin, timeEnd);
 	}
+
+	@GetMapping("/locations")
+	public List<String> getLocations() {
+		return hotelService.getLocations();
+	}
 }

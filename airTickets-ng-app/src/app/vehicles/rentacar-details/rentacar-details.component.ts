@@ -36,7 +36,7 @@ export class RentacarDetailsComponent implements OnInit {
   dropoffDateTime: string;
   pickupLocation: string;
   dropoffLocation: string;
-  
+
 
   constructor(
     private rentacarService: RentacarService,

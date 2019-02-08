@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,10 +12,12 @@ export class HotelDetailsComponent implements OnInit {
 
   hotelRoomForm: FormGroup;
   numberOfrooms: number[];
+  id: number;
 
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -33,6 +36,8 @@ export class HotelDetailsComponent implements OnInit {
     // za datum
     // this.timeBegin = moment(this.flightResForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
     // this.timeReturn = moment(this.flightResForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    const ajDi = +this.route.snapshot.paramMap.get('id');
+    this.id = ajDi;
     this.numberOfrooms = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   }
 

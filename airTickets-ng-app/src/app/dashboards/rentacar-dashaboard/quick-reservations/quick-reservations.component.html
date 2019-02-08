@@ -1,0 +1,56 @@
+<div  class="row">
+  <div class="col">
+      <h3>Quick Reservations</h3>
+  </div>
+</div>
+<div class="row mt-4 mb-4">
+  <div class="col">
+      <form [formGroup]="quickForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col">
+                <div class="form-group">
+                  <label for="placeFromId">Date<span class="text-danger">*</span></label>
+                  <input class="form-control" placeholder="Pick Date Range"
+                          [style.width]="'350px'"
+                          [selectMode]="'range'"
+                          [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
+                          formControlName="datePeriod">
+
+                  <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
+                </div>
+            </div>
+      </div>
+      <div class="row">
+          <div class="col">
+            <button id="buttonSearch" [disabled]="!quickForm.valid" type="submit" class="btn btn-primary">Search</button>
+          </div>
+      </div>
+    </form>
+    <form [formGroup]="quickFormRes" (ngSubmit)="onSubmit()">
+      <div class="row mt-4 mb-4">
+        <div class="col">
+            <label for="price">Vehicles<span class="text-danger">*</span></label>
+            <ng-select [items]="vehicles"
+              bindLabel="name"
+              bindValue="id" formControlName="chVehicle">
+            </ng-select>
+            <small *ngIf="quickFormRes.controls.chVehicle.errors?.required && quickFormRes.controls.chVehicle.touched" class="form-text text-danger">*Required</small>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="price">Price<span class="text-danger">*</span></label>
+                <input type="text" formControlName="price" class="form-control" placeholder="Enter price" required>
+                <small *ngIf="quickFormRes.controls.price.errors?.required && quickFormRes.controls.price.touched" class="form-text text-danger">*Required</small>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col">
+            <button id="buttonSearch" [disabled]="!quickFormRes.valid" type="submit" class="btn btn-primary">Save</button>
+          </div>
+      </div>
+
+   </form>
+
+  </div>
+</div>
