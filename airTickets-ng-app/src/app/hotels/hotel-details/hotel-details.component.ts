@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { RoomService } from 'src/app/shared/services/hotel/room/room.service';
+import { Room } from 'src/app/shared/model/hotel/room.model';
+import * as moment from 'moment';
 
 
 @Component({
@@ -13,11 +16,13 @@ export class HotelDetailsComponent implements OnInit {
   hotelRoomForm: FormGroup;
   numberOfrooms: number[];
   id: number;
+  rooms: Room[];
 
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private roomService: RoomService
   ) { }
 
   ngOnInit() {
@@ -29,22 +34,24 @@ export class HotelDetailsComponent implements OnInit {
       numberOfrooms4: [null],
       minprice: [null],
       maxprice: [null],
-      guest: [null, Validators.required],
+      guest: [null],
       datePeriod: [null, Validators.required]
     });
 
-    // za datum
-    // this.timeBegin = moment(this.flightResForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
-    // this.timeReturn = moment(this.flightResForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
     const ajDi = +this.route.snapshot.paramMap.get('id');
     this.id = ajDi;
     this.numberOfrooms = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   }
 
   onSubmit() {
-    if (this.hotelRoomForm.valid) {
+      let timeBegin: string = moment(this.hotelRoomForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+      let timeEnd: string = moment(this.hotelRoomForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
 
-    }
+      this.roomService.searchRoomsByDate2(timeBegin, timeEnd, this.id).subscribe(
+        rooms => this.rooms = rooms
+      );
+      // this.searchRooms();
   }
+
 
 }

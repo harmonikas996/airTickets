@@ -24,7 +24,7 @@
           <div class="col">
             <div class="form-group">
                 <label for="guest">Number of Quests<span class="text-danger">*</span></label>
-                <input type="text" formControlName="guest" class="form-control" placeholder="Enter Name" required>
+                <input type="text" formControlName="guest" class="form-control" placeholder="Enter Name">
                 <small *ngIf="hotelRoomForm.controls.guest.errors?.required && hotelRoomForm.controls.guest.touched" class="form-text text-danger">*Required</small>
             </div>
           </div>
@@ -59,22 +59,22 @@
                 </div>
             </div>
           </div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="minprice">Min price<span class="text-danger">*</span></label>
-                    <input type="text" formControlName="minprice" class="form-control" placeholder="Enter price" required>
+                    <input type="text" formControlName="minprice" class="form-control" placeholder="Enter price">
                     <small *ngIf="hotelRoomForm.controls.minprice.errors?.required && hotelRoomForm.controls.minprice.touched" class="form-text text-danger">*Required</small>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="maxprice">Max price<span class="text-danger">*</span></label>
-                    <input type="text" formControlName="maxprice" class="form-control" placeholder="Enter price" required>
+                    <input type="text" formControlName="maxprice" class="form-control" placeholder="Enter price">
                     <small *ngIf="hotelRoomForm.controls.maxprice.errors?.required && hotelRoomForm.controls.maxprice.touched" class="form-text text-danger">*Required</small>
                 </div>
             </div>
-          </div>
+          </div> -->
         <div class="row">
           <div class="col">
                   <button [disabled]="!hotelRoomForm.valid" type="submit" class="btn btn-primary mt-4">Find room</button>
@@ -85,3 +85,16 @@
     </div>
   </div>
 
+  <div class="row mt-4 mb-4">
+      <div *ngFor="let room of rooms" class="col-sm-4 rentacar">
+          <div class="card text-center">
+  
+            <div class="card-body">
+              <h5 class="card-title">NO:{{room.number}}</h5>
+              <p>floor: {{room.floor}}</p>
+              <p>beds: {{room.noOfBeds}}</p>
+              <p>type: {{room.type}}</p>
+            </div>
+          </div>
+      </div>
+  </div>
