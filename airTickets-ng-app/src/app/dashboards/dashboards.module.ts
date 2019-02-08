@@ -47,7 +47,9 @@ import { RoomPriceDetailsComponent } from './hotel-dashboard/room-price-details/
 import { SpecialofferDetailsComponent } from './hotel-dashboard/specialoffer-details/specialoffer-details.component';
 import { SpecialofferNewComponent } from './hotel-dashboard/specialoffer-new/specialoffer-new.component';
 import { SpecialOfferUpdateComponent } from './hotel-dashboard/special-offer-update/special-offer-update.component';
-
+import { AirportNewComponent } from './system-dashboard/airport-new/airport-new.component';
+import { AirportListComponent } from './system-dashboard/airport-list/airport-list.component';
+import { AirportsDetailsComponent } from './system-dashboard/airports-details/airports-details.component';
 
 
 @NgModule({
@@ -85,6 +87,9 @@ import { SpecialOfferUpdateComponent } from './hotel-dashboard/special-offer-upd
     RentacarNewComponent,
     RentacarDetailsComponent,
     HotelDetailsComponent,
+    AirportNewComponent,
+    AirportListComponent,
+    AirportsDetailsComponent,
     HotelNewComponent,
     HotelsListComponent,
     AircompanyDetailsComponent,

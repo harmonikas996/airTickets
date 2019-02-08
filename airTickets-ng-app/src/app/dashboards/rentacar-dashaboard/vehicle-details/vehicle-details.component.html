@@ -33,12 +33,15 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="numberOfSeats">Number Of Seats<span class="text-danger">*</span></label>
-                            <input type="text" formControlName="numberOfSeats" class="form-control" placeholder="Enter Number Of Seats" required>
+                            <ng-select [items]="numberOfSeats" formControlName="numberOfSeats">
+
+                            </ng-select>
                             <small *ngIf="vehicleDetailsForm.controls.numberOfSeats.errors?.required && vehicleDetailsForm.controls.numberOfSeats.touched" class="form-text text-danger">*Required</small>
                         </div>
                         <div class="form-group">
                             <label for="type">Type<span class="text-danger">*</span></label>
-                            <input type="text" formControlName="type" class="form-control" placeholder="Enter Type" required>
+                            <ng-select [items]="types" formControlName="type">
+                            </ng-select>
                             <small *ngIf="vehicleDetailsForm.controls.type.errors?.required && vehicleDetailsForm.controls.type.touched" class="form-text text-danger">*Required</small>
                         </div>
                         <div class="form-group">

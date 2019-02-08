@@ -43,7 +43,9 @@ import { SpecialofferNewComponent } from './hotel-dashboard/specialoffer-new/spe
 import { SpecialOfferUpdateComponent } from './hotel-dashboard/special-offer-update/special-offer-update.component';
 import { ReportsComponent } from '../shared/reports/reports.component';
 import { ReservationsReportComponent } from '../shared/reports/reservations-report/reservations-report.component';
-
+import { AirportNewComponent } from './system-dashboard/airport-new/airport-new.component';
+import { AirportListComponent } from './system-dashboard/airport-list/airport-list.component';
+import { AirportsDetailsComponent } from './system-dashboard/airports-details/airports-details.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -98,7 +100,10 @@ const dashboardsRoutes: Routes = [
       { path: 'rooms-prices', component: RoomPriceListComponent },
       { path: 'specialOffers-details', component: SpecialofferDetailsComponent },
       { path: 'specialOffers/new', component: SpecialofferNewComponent },
-      { path: 'specialOffers-update/:id', component: SpecialOfferUpdateComponent }
+      { path: 'specialOffers-update/:id', component: SpecialOfferUpdateComponent },
+      { path: 'specialOffers-update/:id', component: SpecialOfferUpdateComponent },
+      { path: 'incomeReports', component: ReportsComponent },
+      { path: 'roomReports', component: ReservationsReportComponent }
 
       // { path: '', redirectTo: 'hotel-profile', pathMatch: 'full' },
       // { path: '**', redirectTo: 'hotel-profile', pathMatch: 'full' }
@@ -123,6 +128,10 @@ const dashboardsRoutes: Routes = [
     { path: 'aircompanies/new', component: AircompanyNewComponent },
     { path: 'aircompany-details/:id', component: AircompanyDetailsComponent },
     { path: 'hotels', component: HotelsListComponent },
+    { path: 'airports/new', component: AirportNewComponent },
+    { path: 'airports', component: AirportListComponent },
+    { path: 'airports-details/:id', component: AirportsDetailsComponent },
+    { path: 'user-profile', component: UserProfileComponent },
     { path: 'hotels/new', component: HotelNewComponent },
     { path: 'hotel-details/:id', component: HotelDetailsComponent },
     { path: 'rentacars', component: RentacarsListComponent },

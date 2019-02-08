@@ -10,6 +10,7 @@ import { FlightsResListComponent } from './flights/flights-res-list/flights-res-
 import { HotelsListComponent } from './hotels/hotels-list/hotels-list.component';
 import { FlightsComponent } from './flights/flights.component';
 import { RoleGuard } from './shared/services/guards/role-guard.service';
+import { HotelDetailsComponent } from './hotels/hotel-details/hotel-details.component';
 
 const routes: Routes = [
   // { path: 'flights', component: FlightsComponent,
@@ -25,6 +26,7 @@ const routes: Routes = [
   // { path: 'flight-res-list', component: FlightsResListComponent },
   { path: 'hotels', component: HotelsListComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'hotel-details', component: HotelDetailsComponent },
   { path: 'register', component: RegisterComponent },
 
   // uvek na kraju nek stoje

@@ -20,6 +20,8 @@ const httpOptions = {
 export class RentacarService {
 
   private rentacarsUrl = 'http://localhost:8080/rentacars';
+  private hotelsUrl = 'http://localhost:8080/hotels';
+  private aircompaniesUrl = 'http://localhost:8080/aircompanies';
 
   constructor(
     private http: HttpClient,
@@ -57,6 +59,36 @@ export class RentacarService {
     return this.http.post<RentACar>(this.rentacarsUrl + '/new', room, httpOptions);
   }
 
+  getMonthlyReport(companyId: number, year: String, adminType: String): Observable<Number[]> {
+    if (adminType === 'rentacar') {
+      return this.http.get<Number[]>(this.rentacarsUrl + '/monthlyIncome?id=' + companyId + '&year=' + year);
+    } else if (adminType === 'hotel') {
+      return this.http.get<Number[]>(this.hotelsUrl + '/monthlyIncome?id=' + companyId + '&year=' + year);
+    } else {
+      return this.http.get<Number[]>(this.aircompaniesUrl + '/monthlyIncome?id=' + companyId + '&year=' + year);
+    }
+  }
+
+  getWeeklyReport(companyId: number, year: String, adminType: String): Observable<Number[]> {
+    if (adminType === 'rentacar') {
+      return this.http.get<Number[]>(this.rentacarsUrl + '/weeklyIncome?id=' + companyId + '&year=' + year);
+    } else if (adminType === 'hotel') {
+      return this.http.get<Number[]>(this.hotelsUrl + '/weeklyIncome?id=' + companyId + '&year=' + year);
+    } else {
+      return this.http.get<Number[]>(this.aircompaniesUrl + '/weeklyIncome?id=' + companyId + '&year=' + year);
+    }
+  }
+
+  getYearlyReport(companyId: number, year: String, adminType: String): Observable<number> {
+    if (adminType === 'rentacar') {
+      return this.http.get<number>(this.rentacarsUrl + '/yearlyIncome?id=' + companyId + '&year=' + year);
+    } else if (adminType === 'hotel') {
+      return this.http.get<number>(this.hotelsUrl + '/yearlyIncome?id=' + companyId + '&year=' + year);
+    } else {
+      return this.http.get<number>(this.aircompaniesUrl + '/yearlyIncome?id=' + companyId + '&year=' + year);
+    }
+  }
+
   addAdmin(companyId: any, adminEmail: String): void {
     let user: User;
 
@@ -73,18 +105,6 @@ export class RentacarService {
 
   searchRentacars(name: String, location: String, timeBegin: String, timeEnd: String): Observable<RentacarsWithBranches[]> {
     return this.http.get<RentacarsWithBranches[]>(this.rentacarsUrl + '/search?name=' + name + '&location=' + location + '&timeBegin=' + timeBegin + '&timeEnd=' + timeEnd);
-  }
-
-  getMonthlyReport(rentacarId: number, year: String): Observable<Number[]> {
-    return this.http.get<Number[]>(this.rentacarsUrl + '/monthlyIncome?id=' + rentacarId + '&year=' + year);
-  }
-
-  getWeeklyReport(rentacarId: number, year: String): Observable<Number[]> {
-    return this.http.get<Number[]>(this.rentacarsUrl + '/weeklyIncome?id=' + rentacarId + '&year=' + year);
-  }
-
-  getYearlyReport(rentacarId: number, year: String): Observable<number> {
-    return this.http.get<number>(this.rentacarsUrl + '/yearlyIncome?id=' + rentacarId + '&year=' + year);
   }
 
   getFreeVehicles(rentacarId: number, dateBegin: String, dateEnd: String): Observable<Vehicle[]> {
