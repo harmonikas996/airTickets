@@ -46,4 +46,12 @@ export class RoomService {
       tap(_ => console.log(`deleted room id=${id}`))
     );
   }
+
+  searchRoomsByDate(datebegin: String, dateEnd: String, user: String): Observable<Room[]> {
+    return this.http.get<Room[]>(this.roomsUrl +
+      '/free?datebegin=' + datebegin +
+      '&dateEnd=' + dateEnd +
+      '&user=' + user
+      );
+  }
 }

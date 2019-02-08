@@ -1,5 +1,6 @@
 package airtickets.service.hotel;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import airtickets.dto.hotel.RoomDTO;
+import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.model.hotel.Room;
+import airtickets.model.rentacar.Vehicle;
+import airtickets.model.user.User;
 import airtickets.repo.hotel.RoomRepository;
+import airtickets.repo.user.UserRepository;
 
 @Service
 public class RoomService {
@@ -19,6 +24,8 @@ public class RoomService {
 	
 	@Autowired
 	RoomRepository roomRepository;
+	@Autowired
+	UserRepository userRepository;
 	
 	public List<RoomDTO> getRooms(){
 		List<RoomDTO> roomsDTO = new ArrayList<RoomDTO>();
@@ -49,5 +56,25 @@ public class RoomService {
 	
 	public void deleteRoom(long id) {
 		roomRepository.deleteById(id);
+	}
+	
+	public List<RoomDTO> freeRoomsForPeriod(long id, String from, String to) {
+		
+		LocalDateTime df = LocalDateTime.parse(from);
+		LocalDateTime dt = LocalDateTime.parse(to);
+		
+		List<RoomDTO> veh = new ArrayList<>();
+		
+		for (Room v : roomRepository.freeRoomsForPeriod(id, df, dt)) {
+			veh.add(new RoomDTO(v));
+		}
+		
+		return veh;
+	}
+	
+	public List<RoomDTO> getFreeRooms(String email, String from, String to) {
+		User user = userRepository.findByEmail(email);
+		
+		return freeRoomsForPeriod(user.getCompany().getId(), from, to);
 	}
 }

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.hotel.RoomDTO;
 import airtickets.dto.hotel.RoomReservationDTO;
 import airtickets.service.hotel.RoomReservationService;
 
@@ -48,5 +50,18 @@ public class RoomReservationController {
 	@DeleteMapping("{id}/delete")
 	public void deleteRoomReservation(@PathVariable Long id) {
 		roomReservationService.deleteRoomReservation(id);
+	}
+	
+	@GetMapping("/addQuick")
+//	@PreAuthorize("hasAuthority('rentacar')")
+	public RoomReservationDTO addQuick(
+			@RequestParam(value="user") String email,
+			@RequestParam(value="timeBegin") String from,
+			@RequestParam(value="timeEnd") String to,
+			@RequestParam(value="roomId") long id,
+			@RequestParam(value="price") double price
+			) {
+		
+		return roomReservationService.addQuick(email, from, to, id, price);
 	}
 }

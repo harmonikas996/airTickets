@@ -1,3 +1,6 @@
+import { RoomReservationService } from './../../shared/services/hotel/room-reservation/room-reservation.service';
+import { Room } from './../../shared/model/hotel/room.model';
+import { RoomReservation } from './../../shared/model/hotel/room-reservation.model';
 import { Hotel } from 'src/app/shared/model/hotel/hotel.model';
 import { HotelService } from 'src/app/shared/services/hotel/hotel.service';
 import { Component, OnInit } from '@angular/core';
@@ -21,9 +24,14 @@ export class HotelsListComponent implements OnInit {
   locations: String[];
   hotelsRes: Hotel[];
 
+
+  roomReservations: RoomReservation[];
+  roomReservation: RoomReservation;
+
   constructor(
     private formBuilder: FormBuilder,
-    private hotelService: HotelService
+    private hotelService: HotelService,
+    private roomReservationService: RoomReservationService
 
   ) { }
 
@@ -41,7 +49,12 @@ export class HotelsListComponent implements OnInit {
     this.getHotelsPermament();
     this.getHotels();
     this.getLocations();
+    this.getQuickReservation();
 
+  }
+
+  getQuickReservation(): void {
+    this.roomReservationService.getRoomsRes().subscribe(roomReservations => this.roomReservations = roomReservations);
   }
 
   getHotels(): void {

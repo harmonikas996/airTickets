@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.hotel.RoomDTO;
+import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.service.hotel.RoomService;
 
 @RestController
@@ -52,5 +54,16 @@ public class RoomController {
 	@DeleteMapping("{id}/delete")
 	public void deleteRoom(@PathVariable Long id) {
 		roomService.deleteRoom(id);
+	}
+	
+	@GetMapping("/free")
+//	@PreAuthorize("hasAuthority('rentacar')")
+	public List<RoomDTO> isCurrentlyReserved(
+			@RequestParam(value="user") String email,
+			@RequestParam(value="datebegin") String from,
+			@RequestParam(value="dateEnd") String to
+			) {
+		
+		return roomService.getFreeRooms(email, from, to);
 	}
 }
