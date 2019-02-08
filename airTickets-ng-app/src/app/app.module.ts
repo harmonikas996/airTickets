@@ -76,9 +76,6 @@ import { FlightsReservationComponent } from './flights/flights-reservation/fligh
     DashboardsModule,
     AppRoutingModule, // ovaj modul uvek nek ide ispod svih drugih modula. Pravilo zlatno
   ],
-  // exports: [
-  //   HttpClientModule
-  // ],
   providers: [
     httpInterceptorProviders,
     // { provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS }

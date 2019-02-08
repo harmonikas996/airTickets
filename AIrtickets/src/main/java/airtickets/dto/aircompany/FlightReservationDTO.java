@@ -5,17 +5,20 @@ import airtickets.model.aircompany.FlightReservation;
 public class FlightReservationDTO {
 	
 	private long id;
-	private long flightId;
-	private long hotelResId;
-	private long carResId;
+	private Long flightId;
+	private Long hotelResId;
+	private Long carResId;
 	
 	public FlightReservationDTO() {}
 	
 	public FlightReservationDTO(FlightReservation f) {
 		id = f.getId();
-		flightId = f.getFlight().getId();
-		hotelResId = f.getHotelReservation().getId();
-		carResId = f.getCarReservation().getId();
+		if (f.getFlight() != null)
+			flightId = f.getFlight().getId();
+		if (f.getHotelReservation() != null)
+			hotelResId = f.getHotelReservation().getId();
+		if (f.getCarReservation() != null)
+			carResId = f.getCarReservation().getId();
 	}
 
 	public long getId() {
@@ -26,27 +29,27 @@ public class FlightReservationDTO {
 		this.id = id;
 	}
 
-	public long getFlightId() {
+	public Long getFlightId() {
 		return flightId;
 	}
 
-	public void setFlightId(long flightId) {
+	public void setFlightId(Long flightId) {
 		this.flightId = flightId;
 	}
 
-	public long getHotelResId() {
+	public Long getHotelResId() {
 		return hotelResId;
 	}
 
-	public void setHotelResId(long hotelResId) {
+	public void setHotelResId(Long hotelResId) {
 		this.hotelResId = hotelResId;
 	}
 
-	public long getCarResId() {
+	public Long getCarResId() {
 		return carResId;
 	}
 
-	public void setCarResId(long carResId) {
+	public void setCarResId(Long carResId) {
 		this.carResId = carResId;
 	}
 

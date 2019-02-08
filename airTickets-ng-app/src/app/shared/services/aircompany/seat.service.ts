@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { FlightReservation } from '../../model/aircompany/flight-reservation.model';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -48,6 +49,10 @@ export class SeatService {
     return this.http.delete<Seat>(this.seatsUrl + '/' + id + '/delete', httpOptions).pipe(
       tap(_ => console.log(`deleted seat id=${id}`))
     );
+  }
+
+  makeReservation(seats: Seat[]): Observable<FlightReservation> {
+    return this.http.put<FlightReservation>(this.seatsUrl + '/makeReservation', seats, httpOptions);
   }
 
 }

@@ -15,10 +15,15 @@ export class FlightsResListComponent implements OnInit {
 
 
   @Input() passengers: number;
-  @Input() selectedFlightsDep: {aircompanyId: number, id: number};
-  @Input() selectedFlightsRet: {aircompanyId: number, id: number};
+  @Input() selectedFlightsDep: number;
+  @Input() selectedFlightsRet: number;
+  @Input() oneWay: boolean;
+
+  // @Input() flightDepartureId: number;
+  // @Input() flightReturnId: number;
 
   flightReservation: boolean = false;
+  passengersDetails: boolean = false;
 
   seatSelForm: FormGroup;
   alreadySelected: boolean;
@@ -45,17 +50,19 @@ export class FlightsResListComponent implements OnInit {
     this.alreadySelected = false;
 
     this.getSeats(0);
-    this.getSeats(1);
+
+    if(!this.oneWay)
+      this.getSeats(1);
   }
 
   getSeats(osmeh: number) {
     if(osmeh == 0) {
 
-      this.seatsService.seatsByFlight(this.selectedFlightsDep.id).subscribe(
+      this.seatsService.seatsByFlight(this.selectedFlightsDep).subscribe(
         data => this.seatsDeparture = data
       );
     } else {
-      this.seatsService.seatsByFlight(this.selectedFlightsRet.id).subscribe(
+      this.seatsService.seatsByFlight(this.selectedFlightsRet).subscribe(
         data => this.seatsReturn = data
       );
     }
@@ -111,21 +118,7 @@ export class FlightsResListComponent implements OnInit {
     }
   }
 
-  goBack() {
-    this.flightReservation = true;
+  goToPassengersDetails() {
+    this.passengersDetails = true;
   }
-
-  onSubmit() {
-    this.seatSelForm.controls['selectedSeat'].enable();
-  }
-
-  // public selectSeat(value: string){
-  //   if(this.selectedSeats.length < this.passengers) {
-  //     this.selectedSeats.push(value);
-  //   }
-  //   if(this.selectedSeats.length == this.passengers) {
-  //     this.seatSelForm.controls['selectedSeat'].disable();
-  //     console.log(this.selectedSeats);
-  //   }
-  // }
 }

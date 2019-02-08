@@ -1,5 +1,64 @@
-<p>
-  passengers-details works!
-  {{selectedSeatsDep[0]}}
-  {{selectedSeatsRet[0]}}
-</p>
+<div *ngIf="!flightReservationSuccess" class="row">
+  <div class="col-2"></div>
+  <form class="col-4"  [formGroup]="passengersForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col">
+        <h4>Departure Flight</h4>
+        <p>Enter passengers details for specific seat</p>
+      </div>
+    </div>
+  <div formArrayName="items" *ngFor="let item of passengersForm.get('items').controls; let i = index;">
+    <div class="row">
+      <div class="col">
+          <h6>Passenger: {{passengersForm.controls.items.controls[i].controls['firstName'].value}} {{passengersForm.controls.items.controls[i].controls['lastName'].value}}</h6>
+          <span class="bage badge-primary">SEAT: {{passengersForm.controls['items'].controls[i].controls['seat'].value}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group mb-4" [formGroupName]="i">
+                <input class="form-control mb-2" formControlName="firstName" placeholder="First Name">
+                <input class="form-control mb-2" formControlName="lastName" placeholder="Last Name">
+                <input class="form-control mb-2" formControlName="passport" placeholder="Passpord Number">
+                <input class="form-control mb-2" formControlName="contact" placeholder="Phone Number">
+            </div>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+      <button [disabled]="!passengersForm.valid || (!oneWay && !passengersFormRet.valid)" class="btn btn-primary">Next</button>
+  </div>
+  </form>
+  <form *ngIf="!oneWay" class="col-4"  [formGroup]="passengersFormRet" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col">
+          <h4>Return Flight</h4>
+          <p>Enter passengers details for specific seat</p>
+        </div>
+      </div>
+    <div formArrayName="items" *ngFor="let item of passengersFormRet.get('items').controls; let i = index;">
+      <div class="row">
+        <div class="col">
+            <h6>Passenger: {{passengersFormRet.controls.items.controls[i].controls['firstName'].value}} {{passengersFormRet.controls.items.controls[i].controls['lastName'].value}}</h6>
+            <span class="bage badge-primary">SEAT: {{passengersFormRet.controls['items'].controls[i].controls['seat'].value}}</span>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col">
+              <div class="form-group mb-4" [formGroupName]="i">
+                  <input class="form-control mb-2" formControlName="firstName" placeholder="First Name">
+                  <input class="form-control mb-2" formControlName="lastName" placeholder="Last Name">
+                  <input class="form-control mb-2" formControlName="passport" placeholder="Passpord Number">
+                  <input class="form-control mb-2" formControlName="contact" placeholder="Phone Number">
+              </div>
+          </div>
+        </div>
+    </div>
+    </form>
+  <div class="col-2"></div>
+</div>
+<div class="row">
+  <div class="col">
+    <app-between-steps *ngIf="flightReservationSuccess" [flightReservationSuccess]="flightReservationSuccess"></app-between-steps>
+  </div>
+</div>

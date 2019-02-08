@@ -30,8 +30,8 @@ export class FlightsReservationComponent implements OnInit {
   flights: Flight[];
   returnFlights: Flight[];
 
-  sDep: {aircompanyId: number, id: number};
-  sRet: {aircompanyId: number, id: number};
+  sDep: number;
+  sRet: number;
   selectedFlightsDep: {aircompanyId: number, id: number}[];
   selectedFlightsRet: {aircompanyId: number, id: number}[];
   passengers: number;
@@ -55,10 +55,17 @@ export class FlightsReservationComponent implements OnInit {
 
   searchFlights(placeFromId: Number, placeToId: Number, timeBegin: String) {
 
+    this.flights = [];
+    this.returnFlights = [];
+
     this.flightService.searchFlights(placeFromId, placeToId, timeBegin).subscribe(
       flights => this.flights = flights,
      (error) => console.error('An error occurred, ', error),
-     () => this.searchReturnFlights(this.placeToId, this.placeFromId, this.timeReturn)
+     () => {
+       if(this.flightResForm.controls['datePeriod'].value.length > 1) {
+         this.searchReturnFlights(this.placeToId, this.placeFromId, this.timeReturn)
+       }
+    }
     );
   }
 
@@ -84,16 +91,19 @@ export class FlightsReservationComponent implements OnInit {
     this.getAirPorts();
     this.selectedFlightsDep = [];
     this.selectedFlightsRet = [];
-    this.sDep = {'aircompanyId': 0, 'id':0};
-    this.sRet = {'aircompanyId': 0, 'id':0};
+    this.sDep = 0;
+    this.sRet = 0;
 
   }
 
   goToSeatSelection() {
-    this.sDep.aircompanyId = this.selectedFlightsDep[0].aircompanyId;
-    this.sDep.id = this.selectedFlightsDep[0].id;
-    this.sRet.aircompanyId = this.selectedFlightsRet[0].aircompanyId;
-    this.sRet.id = this.selectedFlightsRet[0].id;
+    // this.sDep.aircompanyId = this.selectedFlightsDep[0].aircompanyId;
+    this.sDep = this.selectedFlightsDep[0].id;
+    // this.sRet.aircompanyId = this.selectedFlightsRet[0].aircompanyId;
+    if(this.flightOptionForm.controls['val'].value == 'round') {
+
+      this.sRet = this.selectedFlightsRet[0].id;
+    }
     this.passengers = this.flightResForm.controls['passengers'].value;
     console.log(this.passengers);
     this.seatSelection = true;
@@ -201,17 +211,22 @@ export class FlightsReservationComponent implements OnInit {
   getAirportsById(): void {
     let a: Airport;
 
+    
+    
     this.airportService.getAirportById(this.placeFromId).subscribe(
       airport => a = airport,
       error => console.log('Error: ', error),
       () => this.nameFlightFrom = a.city
     );
 
-    this.airportService.getAirportById(this.placeToId).subscribe(
-      airport => a = airport,
-      error => console.log('Error: ', error),
-      () => this.nameFlightTo = a.city
-    );
+    if(this.flightResForm.controls['datePeriod'].value.length > 1) {
+      
+      this.airportService.getAirportById(this.placeToId).subscribe(
+        airport => a = airport,
+        error => console.log('Error: ', error),
+        () => this.nameFlightTo = a.city
+      );
+    }
   }
 
   onSubmit() {
@@ -240,8 +255,16 @@ export class FlightsReservationComponent implements OnInit {
     } else {
       this.placeToId = -1
     }
-    this.timeBegin = moment(this.flightResForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
-    this.timeReturn = moment(this.flightResForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    
+    console.log(this.flightResForm);
+    
+    if(this.flightResForm.controls['datePeriod'].value.length < 2) {
+      this.timeBegin = moment(this.flightResForm.controls['datePeriod'].value).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    }
+    else {
+      this.timeBegin = moment(this.flightResForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+      this.timeReturn = moment(this.flightResForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    }
     this.passengers = this.flightResForm.controls['passengers'].value;
   }
 

@@ -2,6 +2,8 @@ package airtickets.controller.aircompany;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.aircompany.FlightReservationDTO;
 import airtickets.dto.aircompany.SeatDTO;
 import airtickets.service.aircompany.SeatService;
 
@@ -23,6 +26,8 @@ import airtickets.service.aircompany.SeatService;
 @RequestMapping("/seats")
 public class SeatController {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@Autowired
 	private SeatService seatService;
 	
@@ -65,5 +70,10 @@ public class SeatController {
 	@PreAuthorize("hasAuthority('aircompany')")
 	public List<SeatDTO> getSeatsByFlightId(@RequestParam(value="id") long id) {
 		return seatService.getSeatsByFlightId(id);
+	}
+	
+	@PutMapping("/makeReservation")
+	public FlightReservationDTO updateSeat(@RequestBody List<SeatDTO> seats) {
+		return seatService.reserveSeats(seats);
 	}
 }

@@ -2,6 +2,7 @@ package airtickets.service.aircompany;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,12 +46,16 @@ public class FlightReservationService {
 	public FlightReservationDTO addFlightReservation(FlightReservationDTO flightResDTO) {
 		FlightReservation flight = new FlightReservation(flightResDTO);
 		
-		CarReservation carRes = carReservationRepository.findById(flightResDTO.getCarResId());
-		flight.setCarReservation(carRes);
-		
-		HotelReservation hotelRes = hotelReservationRepository.findById(flightResDTO.getHotelResId());
-		flight.setHotelReservation(hotelRes);
-		
+		if (flightResDTO.getCarResId() != null) {
+			
+			Optional<CarReservation> carRes = carReservationRepository.findById(flightResDTO.getCarResId());
+			flight.setCarReservation(carRes.get());
+		}
+		if (flightResDTO.getHotelResId() != null) {
+			
+			Optional<HotelReservation> hotelRes = hotelReservationRepository.findById(flightResDTO.getHotelResId());
+			flight.setHotelReservation(hotelRes.get());
+		}
 		flightReservationRepository.save(flight);
 		flightResDTO.setId(flight.getId());
 		

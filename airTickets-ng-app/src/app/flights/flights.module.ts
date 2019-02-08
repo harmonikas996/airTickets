@@ -8,6 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FlightsResListComponent } from './flights-res-list/flights-res-list.component';
 import { PassengersDetailsComponent } from './passengers-details/passengers-details.component';
+import { BetweenStepsComponent } from '../shared/utils/between-steps/between-steps.component';
 
 @NgModule({
   imports: [
@@ -23,10 +24,12 @@ import { PassengersDetailsComponent } from './passengers-details/passengers-deta
     FlightsReservationComponent,
     FlightsResListComponent,
     PassengersDetailsComponent,
+    BetweenStepsComponent
   ],
   exports: [
     FlightsReservationComponent,
     FlightsResListComponent,
+    BetweenStepsComponent
   ]
 })
 export class FlightsModule { }

@@ -8,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
 export class NavigationComponent implements OnInit {
   constructor() { }
 
+
   ngOnInit() {
+  }
+
+  checkReservation() : boolean {
+    if(window.sessionStorage.getItem('reservationId') != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  exitReservation() {
+    window.sessionStorage.removeItem('reservationId');
   }
 
 }

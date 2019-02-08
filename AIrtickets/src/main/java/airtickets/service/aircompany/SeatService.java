@@ -6,9 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import airtickets.dto.aircompany.FlightReservationDTO;
 import airtickets.dto.aircompany.SeatDTO;
 import airtickets.model.aircompany.Flight;
+import airtickets.model.aircompany.FlightReservation;
 import airtickets.model.aircompany.Seat;
+import airtickets.model.user.User;
+import airtickets.repo.aircompany.FlightReservationRepository;
 import airtickets.repo.aircompany.SeatRepository;
 
 @Service
@@ -16,6 +20,8 @@ public class SeatService {
 	
 	@Autowired
 	private SeatRepository seatRepository;
+	@Autowired
+	private FlightReservationRepository flightReservationRepository;
 
 	public List<SeatDTO> getSeats(){
 		List<SeatDTO> seats = new ArrayList<SeatDTO>();
@@ -76,5 +82,24 @@ public class SeatService {
 			seats.add(seatdto);
 		}
 		return seats;
+	}
+
+	public FlightReservationDTO reserveSeats(List<SeatDTO> seats) {
+		
+		FlightReservation fr = new FlightReservation();
+		flightReservationRepository.save(fr);
+		for (SeatDTO s : seats) {
+			Seat st = seatRepository.findById(s.getId());
+			st.setClient(new User());
+			st.getClient().setId(s.getClientId());
+			st.setContact(s.getContact());
+			st.setFirstName(s.getFirstName());
+			st.setLastName(s.getLastName());
+			st.setPassport(s.getPassport());
+			st.setReservation(fr);
+			seatRepository.save(st);
+		}
+		
+		return new FlightReservationDTO(fr);
 	}
 }

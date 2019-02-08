@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav *ngIf="!checkReservation()" class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">airTickets</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -13,3 +13,7 @@
   </div>
 
 </nav>
+<nav *ngIf="checkReservation()" class="navbar">
+    <button class="btn btn-secondary" (click)="exitReservation()">Exit Reservation</button>
+</nav>
+

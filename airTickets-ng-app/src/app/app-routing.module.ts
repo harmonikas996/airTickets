@@ -11,6 +11,8 @@ import { HotelsListComponent } from './hotels/hotels-list/hotels-list.component'
 import { FlightsComponent } from './flights/flights.component';
 import { RoleGuard } from './shared/services/guards/role-guard.service';
 import { HotelDetailsComponent } from './hotels/hotel-details/hotel-details.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AuthGuard } from './shared/services/guards/auth-guard.service';
 
 const routes: Routes = [
   // { path: 'flights', component: FlightsComponent,
@@ -22,16 +24,21 @@ const routes: Routes = [
   //   // ]
   // },
   // { path: 'flights', component: FlightsComponent },
+  { 
+    path: '',
+    pathMatch: 'full', 
+    component: ProfileComponent, 
+    canActivate: [AuthGuard]
+  },
   { path: 'flight-reservations', component: FlightsReservationComponent },
   // { path: 'flight-res-list', component: FlightsResListComponent },
   { path: 'hotels', component: HotelsListComponent },
   { path: 'login', component: LoginComponent },
   { path: 'hotel-details', component: HotelDetailsComponent },
   { path: 'register', component: RegisterComponent },
-
   // uvek na kraju nek stoje
-  { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: '**', redirectTo: '/', pathMatch: 'full' }
+  // { path: '', redirectTo: '/', pathMatch: 'full' },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
