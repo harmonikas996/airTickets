@@ -1,7 +1,6 @@
 <div  class="row mt-4 mb-4">
   <div class="col-12">
       <h3 *ngIf="searchFlight">Search flights</h3>
-      <h3 *ngIf="seatSelection">Seat Selection</h3>
   </div>
 </div>
 <div *ngIf="searchFlight" class="row mt-4 mb-4">
@@ -94,9 +93,9 @@
 
 <div *ngIf="searchFlight" class="row mt-4 mb-4">
   <div class="col-6">
-    <h4>{{this.nameFlightFrom}} -> {{this.nameFlightTo}}</h4>
+    <h4 *ngIf="flights">{{this.nameFlightFrom}} -> {{this.nameFlightTo}}</h4>
     <div *ngFor="let flight of flights">
-        <div class="card" id="checkboxes" [ngClass]="isSelectedDep(flight.aircompanyId, flight.id) ? 'selectedFlight' : ''" for="blankCheckbox" style="width: 90%;">
+        <div class="card" id="checkboxes" [ngClass]="isSelectedDep(flight.aircompanyId, flight.id) ? 'selectedFlight' : ''" for="blankCheckbox">
           <label >
             <div class="card-body">
 
@@ -123,9 +122,9 @@
     </div>
   </div>
   <div class="col-6">
-      <h4>{{this.nameFlightTo}} -> {{this.nameFlightFrom}}</h4>
+      <h4 *ngIf="returnFlights">{{this.nameFlightTo}} -> {{this.nameFlightFrom}}</h4>
     <div *ngFor="let returnFlight of returnFlights">
-        <div class="card" id="checkboxes1" [ngClass]="isSelectedRet(returnFlight.aircompanyId, returnFlight.id) ? 'selectedFlight' : ''" for="blankCheckbox1" style="width: 90%;">
+        <div class="card" id="checkboxes1" [ngClass]="isSelectedRet(returnFlight.aircompanyId, returnFlight.id) ? 'selectedFlight' : ''" for="blankCheckbox1">
           <label>
             <div class="card-body">
                   <div class="row">
@@ -151,7 +150,7 @@
   </div>
 </div>
 <div class="row mt-4 mb-4">
-    <app-flights-res-list *ngIf="seatSelection" [passengers]="passengers" [selectedFlightsDep]="sDep" [selectedFlightsRet]="sRet"></app-flights-res-list>
+    <app-flights-res-list class="col" *ngIf="seatSelection" [passengers]="passengers" [selectedFlightsDep]="sDep" [selectedFlightsRet]="sRet"></app-flights-res-list>
 </div>
 <div class="row mt-4 mb-4">
   <div class="col-10">

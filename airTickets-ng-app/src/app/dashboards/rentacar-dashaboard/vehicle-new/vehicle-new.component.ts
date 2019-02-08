@@ -43,7 +43,7 @@ export class VehicleNewComponent implements OnInit {
       numberOfSeats: ['', Validators.required],
       type: ['', Validators.required],
       pricePerDay: ['', Validators.required],
-      rentACarId: ['', Validators.required],
+      rentACarId: [''],
       image: [''],
     });
 

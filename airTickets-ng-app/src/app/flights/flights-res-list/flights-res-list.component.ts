@@ -55,7 +55,7 @@ export class FlightsResListComponent implements OnInit {
         data => this.seatsDeparture = data
       );
     } else {
-      this.seatsService.seatsByFlight(this.selectedFlightsDep.id).subscribe(
+      this.seatsService.seatsByFlight(this.selectedFlightsRet.id).subscribe(
         data => this.seatsReturn = data
       );
     }
@@ -73,7 +73,7 @@ export class FlightsResListComponent implements OnInit {
 
   selectSeatRet(seatId: number, e) {
     console.log("selectSeatRet");
-
+    console.dir("ID RER SEDISTA:" + seatId);
     if (e.target.checked) {
       if(this.selectedSeatsRet.length < this.passengers) {
         this.selectedSeatsRet.push(seatId);
@@ -93,7 +93,7 @@ export class FlightsResListComponent implements OnInit {
 
   selectSeatDep(seatId: number, e) {
     console.log("selectSeatDep");
-
+    console.dir("ID DEP SEDISTA:" + seatId);
     if (e.target.checked) {
       if(this.selectedSeatsDep.length < this.passengers) {
         this.selectedSeatsDep.push(seatId);

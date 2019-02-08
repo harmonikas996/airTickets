@@ -142,7 +142,7 @@ public class RentACarController {
 	}
 
 	@GetMapping("/isCurrentlyReserved")
-//	@PreAuthorize("hasAuthority(rentacar)")
+//	@PreAuthorize("hasAuthority('rentacar')")
 	public boolean isCurrentlyReserved(
 			@RequestParam(value="id") long id,
 			@RequestParam(value="rentacarId") long rcrId

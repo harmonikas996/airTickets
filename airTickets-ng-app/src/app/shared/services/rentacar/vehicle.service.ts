@@ -14,6 +14,7 @@ const httpOptions = {
 export class VehicleService {
 
   private vehiclesUrl = 'http://localhost:8080/vehicles';
+  private rentacarsUrl = 'http://localhost:8080/rentacars';
 
   constructor(
     private http: HttpClient
@@ -28,8 +29,8 @@ export class VehicleService {
   }
 
   // TODO
-  getVehiclesByRentACarId(id: number): Observable<Vehicle> {
-    return null;
+  getVehiclesByRentACarId(id: number): Observable<Vehicle[]> {
+    return this.http.get<Vehicle[]>(this.rentacarsUrl + '/carsFromRentacar?id=' + id);
   }
 
   addVehicle(vehicle: Vehicle): Observable<Object> {

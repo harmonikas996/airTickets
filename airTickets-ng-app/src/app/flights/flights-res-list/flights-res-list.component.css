@@ -206,6 +206,7 @@ ol {
 .selectedSeat {
   /* border-left: 3px solid #007bff; */
   background: #007bff;
+  color: white;
 }
 
 .card::hover {

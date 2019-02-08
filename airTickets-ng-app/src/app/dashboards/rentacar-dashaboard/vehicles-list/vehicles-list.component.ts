@@ -3,6 +3,7 @@ import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
 import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service';
 import { RentacarService } from 'src/app/shared/services/rentacar/rentacar.service';
 import { RentACar } from 'src/app/shared/model/rentacar/rentacar.model';
+import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 
 
 @Component({
@@ -14,18 +15,28 @@ export class VehiclesListComponent implements OnInit {
 
   vehicles: Vehicle[];
   vehicle: Vehicle;
+  rentacar: RentACar;
   
-  constructor(private vehicleService: VehicleService, private rentacarService: RentacarService) { }
+  constructor(private vehicleService: VehicleService, private rentacarService: RentacarService, private token: TokenStorageService) { }
 
   ngOnInit() {
     // srediti preuzimanje ID-a tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
-    this.getVehiclesByRentACarId();
+    this.getCompanyId();
 
+  }
+
+  getCompanyId() {
+
+    this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).subscribe(
+      data => this.rentacar = data,
+      error => console.log('Error: ', error),
+      () => this.getVehiclesByRentACarId()
+    );
   }
 
   getVehiclesByRentACarId(): void {
     // dobaviti samo ona vozila koja pripadaju rentacar servisu sa 'id' koji je prosledjen
-    this.vehicleService.getVehicles().subscribe(
+    this.vehicleService.getVehiclesByRentACarId(this.rentacar.id).subscribe(
       vehicles => this.vehicles = vehicles,
       error => console.log('Error: ', error),
       () => this.getCompanyName()

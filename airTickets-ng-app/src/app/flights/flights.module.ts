@@ -7,6 +7,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FlightsResListComponent } from './flights-res-list/flights-res-list.component';
+import { PassengersDetailsComponent } from './passengers-details/passengers-details.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { FlightsResListComponent } from './flights-res-list/flights-res-list.com
   declarations: [
     FlightsReservationComponent,
     FlightsResListComponent,
+    PassengersDetailsComponent,
   ],
   exports: [
     FlightsReservationComponent,

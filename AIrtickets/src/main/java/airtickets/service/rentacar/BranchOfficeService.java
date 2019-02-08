@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.model.rentacar.BranchOffice;
+import airtickets.model.rentacar.Vehicle;
 import airtickets.repo.rentacar.BranchOfficeRepository;
 
 @Service
@@ -47,5 +48,15 @@ public class BranchOfficeService {
 
 	public void deleteBranchOffice(long id) {
 		branchOfficeRepository.deleteById(id);
+	}
+	
+	public List<BranchOfficeDTO> findByRentACarId(long id) {
+		List<BranchOfficeDTO> brancOffices = new ArrayList<BranchOfficeDTO>();
+		
+		for (BranchOffice b  : branchOfficeRepository.findByRentACarId(id)) {
+			BranchOfficeDTO brancOffice = new BranchOfficeDTO(b);
+			brancOffices.add(brancOffice);
+ 		}
+		return brancOffices;
 	}
 }

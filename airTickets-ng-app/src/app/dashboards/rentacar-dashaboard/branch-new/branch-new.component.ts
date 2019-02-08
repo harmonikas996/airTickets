@@ -32,7 +32,7 @@ export class BranchNewComponent implements OnInit {
     // srediti preuzimanje ID-a tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
     this.newBranchForm = this.formBuilder.group({
       id: [''],
-      rentACarId: ['', Validators.required],
+      rentACarId: [''],
       address: ['', Validators.required],
       city: ['', Validators.required]
     });

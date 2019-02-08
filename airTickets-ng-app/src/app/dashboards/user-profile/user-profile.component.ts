@@ -34,7 +34,8 @@ export class UserProfileComponent implements OnInit {
       password: [''],
       activated: [''],
       bonusPoints: [''],
-      lastPasswordResetDate: ['']
+      lastPasswordResetDate: [''],
+      type: ['']
     });
     this.getUserById();
   }

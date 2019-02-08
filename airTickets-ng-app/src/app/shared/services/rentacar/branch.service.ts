@@ -26,10 +26,10 @@ export class BranchService {
   getBranchById(id: number): Observable<BranchOffice> {
     return this.http.get<BranchOffice>(this.branchesUrl + '/' + id);
   }
-
+  
   // TO DO
-  getBranchesByRentACarId(id: number): Observable<BranchOffice> {
-    return null;
+  getBranchesByRentACarId(id: number): Observable<BranchOffice[]> {
+    return this.http.get<BranchOffice[]>(this.branchesUrl + '/branchOfficesFromRentacar?id=' + id);
   }
 
   addBranch(branch: BranchOffice): Observable<Object> {

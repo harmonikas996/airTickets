@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.user.UserDTO;
+import airtickets.model.user.User;
 import airtickets.service.user.UserService;
 
 @RestController
@@ -56,9 +57,17 @@ public class UserController {
 	
 	@RequestMapping(method = PUT, value="user/profile/update/{username}")
 	public UserDTO updateUser(@RequestBody UserDTO user, @PathVariable String username) {
-		log.info("USAO SAM OVDE");
+		UserDTO u = this.userService.findByUsername(username);
 		log.info(user.getEmail());
 		user.setEmail(username);
+//		if(u.getType().equals("client") && !user.getType().equals("client")) {
+//			// admin ga dodeljuje kompaniji (proglasava ga za admina kompanije)
+//			
+//		}
+//		else if(u.getType().equals("client") && user.getType().equals("")) {
+//			
+//			user.setType(u.getType());
+//		}
 		return this.userService.addUser(user);
 	}
 	
