@@ -83,6 +83,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/rentacars/{\\^[0-9]+&}").permitAll()
 			.antMatchers("/flights/search").permitAll()
 			.antMatchers("/vehicles/search").permitAll()
+			
+			.antMatchers("/hotels/locations").permitAll()
+			.antMatchers("/airports/all").permitAll()
+			.antMatchers("/seats/seatsByFlight").hasAnyAuthority("sysadmin", "hotel", "rentacar", "aircompany", "client")
+			.antMatchers("/seats/makeReservation").hasAnyAuthority("sysadmin", "hotel", "rentacar", "aircompany", "client")
 			.antMatchers("/branchoffices/locations").permitAll()
 			// svaki zahtev mora biti autorizovan
 			.anyRequest().authenticated().and()

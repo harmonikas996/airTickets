@@ -26,6 +26,8 @@ export class RentacarDetailsComponent implements OnInit {
   locations: String[];
   passengers: Number[];
   prices: Number[];
+  carReservationId: number;
+  carReservationSuccess: boolean = false;
 
   rentacarId: number;
   vehicleType: number;
@@ -77,7 +79,6 @@ export class RentacarDetailsComponent implements OnInit {
   getLocations(): void {
     this.rentacarService.getLocations().subscribe(locations => this.locations = locations);
   }
-
   searchVehicles(
     priceFrom: number,
     priceTo: number,
@@ -126,5 +127,26 @@ export class RentacarDetailsComponent implements OnInit {
     this.passengersSalji = this.vehicleSearchForm.controls['passengers'].value;
     this.rentacarId = +this.route.snapshot.paramMap.get('id');
     this.vehicleType = this.vehicleSearchForm.controls['vehicleType'].value;
+  }
+
+  reserveVehicle(vehicle: Vehicle) {
+    this.pickupDateTime = moment(this.vehicleSearchForm.controls['pickupDateTime'].value).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    this.dropoffDateTime = moment(this.vehicleSearchForm.controls['dropoffDateTime'].value).format('YYYY-MM-DDTHH:mm:ss.SSS');
+    let key = 'reservationId';
+    let reservationId: string = window.sessionStorage.getItem(key);
+
+    console.log(vehicle);
+    console.log(this.pickupDateTime);
+    console.log(this.dropoffDateTime);
+    console.log(reservationId);
+    this.vehicleService.reserveVehicle(vehicle, +reservationId, this.pickupDateTime, this.dropoffDateTime).subscribe(
+      carReservationId => this.carReservationId = carReservationId,
+      (error) => console.error('An error occurred, ', error),
+      () => {
+        // window.sessionStorage.setItem('carReservationId', this.carReservationId.toString());
+        window.sessionStorage.removeItem(key);
+        window.location.href='../';
+      }
+    );
   }
 }
