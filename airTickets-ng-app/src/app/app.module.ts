@@ -28,6 +28,7 @@ import { ReportsComponent } from './shared/reports/reports.component';
 import { ReservationsReportComponent } from './shared/reports/reservations-report/reservations-report.component';
 import { HotelsComponent } from './hotels/hotels.component';
 import { FlightsComponent } from './flights/flights.component';
+import { FlightsReservationComponent } from './flights/flights-reservation/flights-reservation.component';
 
 // export const MY_MOMENT_FORMATS = {
 //   // parseInput: 'l LT',

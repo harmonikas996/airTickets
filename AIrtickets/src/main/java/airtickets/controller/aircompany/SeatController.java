@@ -53,11 +53,17 @@ public class SeatController {
 	}
 	
 	@GetMapping("/generate")
-	@PreAuthorize("hasAuthority(aircompany)")
+	@PreAuthorize("hasAuthority('aircompany')")
 	public void generateSeats(
 			@RequestParam(value="id") long id,
 			@RequestParam(value="number") int n
 			) {
 		seatService.generateSeats(id, n);
+	}
+	
+	@GetMapping("/seatsByFlight")
+	@PreAuthorize("hasAuthority('aircompany')")
+	public List<SeatDTO> getSeatsByFlightId(@RequestParam(value="id") long id) {
+		return seatService.getSeatsByFlightId(id);
 	}
 }

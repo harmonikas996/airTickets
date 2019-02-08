@@ -5,10 +5,12 @@ import { Flight } from './../../shared/model/aircompany/flight.model';
 import { AirportService } from './../../shared/services/aircompany/airport.service';
 import { Airport } from './../../shared/model/aircompany/airport.model';
 import { FlightReservationService } from './../../shared/services/aircompany/flight-reservation.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Event } from '@angular/router';
+import { FlightsResListComponent } from '../flights-res-list/flights-res-list.component';
+import { windowWhen } from 'rxjs/operators';
 
 @Component({
   selector: 'app-flights-reservation',
@@ -17,6 +19,10 @@ import { Event } from '@angular/router';
 })
 export class FlightsReservationComponent implements OnInit {
 
+  tekst: String = 'NOVI NASLOV';
+  seatSelection: boolean = false;
+  searchFlight: boolean = true;
+
   flightOptionForm: FormGroup;
   flightResForm: FormGroup;
   airports: Airport[];
@@ -24,6 +30,8 @@ export class FlightsReservationComponent implements OnInit {
   flights: Flight[];
   returnFlights: Flight[];
 
+  sDep: {aircompanyId: number, id: number};
+  sRet: {aircompanyId: number, id: number};
   selectedFlightsDep: {aircompanyId: number, id: number}[];
   selectedFlightsRet: {aircompanyId: number, id: number}[];
   passengers: number;
@@ -76,8 +84,20 @@ export class FlightsReservationComponent implements OnInit {
     this.getAirPorts();
     this.selectedFlightsDep = [];
     this.selectedFlightsRet = [];
-    // this.selectedFlightsDep.includes([{{flight.aircompanyId}}, {{flight.id}}])
+    this.sDep = {'aircompanyId': 0, 'id':0};
+    this.sRet = {'aircompanyId': 0, 'id':0};
 
+  }
+
+  goToSeatSelection() {
+    this.sDep.aircompanyId = this.selectedFlightsDep[0].aircompanyId;
+    this.sDep.id = this.selectedFlightsDep[0].id;
+    this.sRet.aircompanyId = this.selectedFlightsRet[0].aircompanyId;
+    this.sRet.id = this.selectedFlightsRet[0].id;
+    this.passengers = this.flightResForm.controls['passengers'].value;
+    console.log(this.passengers);
+    this.seatSelection = true;
+    this.searchFlight = false;
   }
 
   selectSeatDep(aircompanyId: number, flightId: number, e) {
@@ -87,13 +107,13 @@ export class FlightsReservationComponent implements OnInit {
     data.id = flightId;
 
     if (e.target.checked) {
-      if(this.selectedFlightsDep.length < this.passengers) {
+      if(this.selectedFlightsDep.length < 1) {
         this.selectedFlightsDep.push(data);
         console.log('Rezervisana sedista Departure:');
         console.log(this.selectedFlightsDep);
       }
     } else {
-      let jel = this.getSelectedIndex(aircompanyId, flightId);
+      let jel = this.getSelectedIndexDep(aircompanyId, flightId);
       console.log('Da li je bio rezervisan vec?     ' + jel);
       if(jel != -1) {
 
@@ -105,7 +125,32 @@ export class FlightsReservationComponent implements OnInit {
     }
   }
 
-  getSelectedIndex(aircompanyId: number, flightId: number): number {
+  selectSeatRet(aircompanyId: number, flightId: number, e) {
+    console.log("selectSeatRet");
+    let data: {aircompanyId: number, id: number} = {aircompanyId: 0, id: 0};
+    data.aircompanyId = aircompanyId;
+    data.id = flightId;
+
+    if (e.target.checked) {
+      if(this.selectedFlightsRet.length < 1) {
+        this.selectedFlightsRet.push(data);
+        console.log('Rezervisana sedista Departure:');
+        console.log(this.selectedFlightsRet);
+      }
+    } else {
+      let jel = this.getSelectedIndexRet(aircompanyId, flightId);
+      console.log('Da li je bio rezervisan vec?     ' + jel);
+      if(jel != -1) {
+
+        this.selectedFlightsRet.splice(jel, 1);
+
+        console.log('Posle brisanja');
+        console.log(this.selectedFlightsRet);
+      }
+    }
+  }
+
+  getSelectedIndexDep(aircompanyId: number, flightId: number): number {
     for(let i=0; i<this.selectedFlightsDep.length; i++) {
       let data: {aircompanyId: number, id: number} = this.selectedFlightsDep[i];
       if (data.aircompanyId === aircompanyId && data.id === flightId) {
@@ -115,9 +160,32 @@ export class FlightsReservationComponent implements OnInit {
     return -1;
   }
 
-  isSelected(aircompanyId: number, flightId: number): boolean {
+  getSelectedIndexRet(aircompanyId: number, flightId: number): number {
+    console.log("getSelectedIndexRet");
+    for(let i=0; i<this.selectedFlightsRet.length; i++) {
+      let data: {aircompanyId: number, id: number} = this.selectedFlightsRet[i];
+      if (data.aircompanyId === aircompanyId && data.id === flightId) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  isSelectedDep(aircompanyId: number, flightId: number): boolean {
     for(let i=0; i<this.selectedFlightsDep.length; i++) {
       let data: {aircompanyId: number, id: number} = this.selectedFlightsDep[i];
+      if(data.aircompanyId == aircompanyId && data.id == flightId) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  isSelectedRet(aircompanyId: number, flightId: number): boolean {
+    console.log("isSelectedRet");
+    for(let i=0; i<this.selectedFlightsRet.length; i++) {
+      let data: {aircompanyId: number, id: number} = this.selectedFlightsRet[i];
       if(data.aircompanyId == aircompanyId && data.id == flightId) {
         return true;
       }
@@ -152,6 +220,8 @@ export class FlightsReservationComponent implements OnInit {
       this.getAirportsById();
 
       this.searchFlights(this.placeFromId, this.placeToId, this.timeBegin);
+      this.selectedFlightsDep = [];
+      this.selectedFlightsRet = [];
     }
   }
 

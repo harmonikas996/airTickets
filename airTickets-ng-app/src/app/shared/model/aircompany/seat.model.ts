@@ -4,4 +4,9 @@ export class Seat {
   passport: string;
   flightId: number;
   flightResId: number;
+  price: number;
+  mark: string;
+  firstName: string;
+  lastName: string;
+  contact: string;
 }

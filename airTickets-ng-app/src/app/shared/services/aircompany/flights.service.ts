@@ -36,11 +36,11 @@ getAircompanyByAdminUsername(adminUsername: String): Observable<Flight> {
   return this.http.get<Flight>(this.flightUrl + '/admin/' + adminUsername);
 }
 
-addFlight(flight: Flight): Observable<Object> {
+addFlight(flight: Flight): Observable<Flight> {
   return this.http.post<Flight>(this.flightUrl + '/new', flight, httpOptions);
 }
 
-updateFlight(flight: Flight): Observable<Object> {
+updateFlight(flight: Flight): Observable<Flight> {
   return this.http.put<Flight>(this.flightUrl + '/' + flight.id + '/update', flight, httpOptions);
 }
 

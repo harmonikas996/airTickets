@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import airtickets.dto.aircompany.SeatDTO;
+import airtickets.model.aircompany.Flight;
 import airtickets.model.aircompany.Seat;
 import airtickets.repo.aircompany.SeatRepository;
 
@@ -50,15 +51,30 @@ public class SeatService {
 		int j = 1;
 		char c = 'A';
 		for (int i = 1; i <= n; i++) {
-			SeatDTO s = new SeatDTO();
-			s.setFlightId(id);
+			Seat s = new Seat();
+			s.setFlight(new Flight());
+			s.getFlight().setId(id);
 			if (j == 7) {
 				j = 1;
 				c = 'A';
 			}
+			else if (c == 'G') {
+				++j;
+				c = 'A';
+			}
 			s.setMark("" + j + c);
-			Seat seat = new Seat(s);
-			seatRepository.save(seat);
+			seatRepository.save(s);
+			
+			++c;
 		}
+	}
+
+	public List<SeatDTO> getSeatsByFlightId(long id) {
+		List<SeatDTO> seats = new ArrayList<>();
+		for(Seat s : seatRepository.findByFlightId(id)) {
+			SeatDTO seatdto = new SeatDTO(s);
+			seats.add(seatdto);
+		}
+		return seats;
 	}
 }

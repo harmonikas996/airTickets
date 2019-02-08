@@ -35,6 +35,7 @@ export class FlightNewComponent implements OnInit {
   timePr: String;
   nastavak: String;
   aircompany: Aircompany;
+  flightId: number;
 
   id: number;
   timeBegin: any;
@@ -116,11 +117,15 @@ export class FlightNewComponent implements OnInit {
 
     this.flightsService.addFlight(this.flightObj).subscribe((response) => {
       console.log("Response is: ", response);
+      this.flightId = response.id;
       this.location.back();
    },
    (error) => console.error("An error occurred, ", error),
    () => {
-    //  this.seatsService.
+      // generisi sedista
+      console.log(this.flightId);
+      console.log(this.newFlightForm.controls['numberSeats'].value);
+      this.seatsService.generateSets(this.newFlightForm.controls['numberSeats'].value, this.flightId).subscribe();
    }
    );
   }

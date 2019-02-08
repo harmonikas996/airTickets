@@ -20,3 +20,7 @@
   display: none;
 }
 
+#checkboxes1 input[type=checkbox]{
+  display: none;
+}
+

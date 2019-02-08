@@ -1,9 +1,10 @@
-<div class="row mt-4 mb-4">
+<div  class="row mt-4 mb-4">
   <div class="col-12">
-      <h3>Search flights</h3>
+      <h3 *ngIf="searchFlight">Search flights</h3>
+      <h3 *ngIf="seatSelection">Seat Selection</h3>
   </div>
 </div>
-<div class="row mt-4 mb-4">
+<div *ngIf="searchFlight" class="row mt-4 mb-4">
   <div class="col">
     <form [formGroup]="flightResForm" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -91,23 +92,15 @@
 
 </div>
 
-<div class="row mt-4 mb-4">
+<div *ngIf="searchFlight" class="row mt-4 mb-4">
   <div class="col-6">
     <h4>{{this.nameFlightFrom}} -> {{this.nameFlightTo}}</h4>
     <div *ngFor="let flight of flights">
-        <!-- : selectedIndex == {{flight.}} -->
-        <!-- (click)="setSelected(1)" -->
-        <!-- [{{flight.aircompanyId}}, {{flight.id}}]) -->
-      <div>
-        <div class="card" id="checkboxes" [ngClass]="isSelected(flight.aircompanyId, flight.id) ? 'selectedFlight' : ''" for="blankCheckbox" style="width: 90%;">
+        <div class="card" id="checkboxes" [ngClass]="isSelectedDep(flight.aircompanyId, flight.id) ? 'selectedFlight' : ''" for="blankCheckbox" style="width: 90%;">
           <label >
             <div class="card-body">
 
                 <div class="row">
-                  <!-- <div class="col-sm-4">
-                      <h4 class="card-title">From: {{this.nameFlightFrom}}</h4>
-                      <h4 class="card-title">To: {{this.nameFlightTo}}</h4>
-                  </div> -->
                   <div class="col-sm-4">
                       <h6 class="card-title">Time begin: {{flight.timeBegin  | date: 'medium'}}</h6>
                       <h6 class="card-title">Time end: {{flight.timeEnd  | date: 'medium'}}</h6>
@@ -120,52 +113,54 @@
                 </div>
                 <div class="row">
                   <div class="col-sm-4">
-                      <a href="#" class="card-link text-center">Select</a>
-                      <!-- <div class="form-check"> -->
-                          <!-- flight.aircompanyId|flight.id -->
                         <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{flight.aircompanyId}}|{{flight.id}}" (click)="selectSeatDep(flight.aircompanyId, flight.id, $event)">
-                      <!-- </div> -->
                   </div>
                 </div>
 
             </div>
           </label>
         </div>
-      </div>
     </div>
   </div>
   <div class="col-6">
       <h4>{{this.nameFlightTo}} -> {{this.nameFlightFrom}}</h4>
     <div *ngFor="let returnFlight of returnFlights">
-        <div class="card" style="width: 90%;">
-          <div class="card-body">
-
-              <div class="row">
-                <!-- <div class="col-sm-4">
-                    <h4 class="card-title">From: {{this.nameFlightTo}}</h4>
-                    <h4 class="card-title">To: {{this.nameFlightFrom}}</h4>
-                </div> -->
-                <div class="col-sm-4">
-                    <h6 class="card-title">Time begin: {{returnFlight.timeBegin}}</h6>
-                    <h6 class="card-title">Time end: {{returnFlight.timeEnd}}</h6>
-                    <h6 class="card-title"><i class="fas fa-plane icon"></i> {{returnFlight.airplaneType}}</h6>
-                </div>
-                <div class="col-sm-4">
-                    <h6 class="card-title">Price: {{returnFlight.price}}</h6>
-                    <h6 class="card-title">Aircompany: {{returnFlight.aircompanyId}}</h6>
-                </div>
+        <div class="card" id="checkboxes1" [ngClass]="isSelectedRet(returnFlight.aircompanyId, returnFlight.id) ? 'selectedFlight' : ''" for="blankCheckbox1" style="width: 90%;">
+          <label>
+            <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-4">
+                        <h6 class="card-title">Time begin: {{returnFlight.timeBegin}}</h6>
+                        <h6 class="card-title">Time end: {{returnFlight.timeEnd}}</h6>
+                        <h6 class="card-title"><i class="fas fa-plane icon"></i> {{returnFlight.airplaneType}}</h6>
+                    </div>
+                    <div class="col-sm-4">
+                        <h6 class="card-title">Price: {{returnFlight.price}}</h6>
+                        <h6 class="card-title">Aircompany: {{returnFlight.aircompanyId}}</h6>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox1" value="{{returnFlight.aircompanyId}}|{{returnFlight.id}}" (click)="selectSeatRet(returnFlight.aircompanyId, returnFlight.id, $event)">
+                    </div>
+                  </div>
               </div>
-              <div class="row">
-                <div class="col-sm-4">
-                    <a href="#" class="card-link text-center">Select</a>
-                </div>
-              </div>
-
-          </div>
+          </label>  
         </div>
     </div>
   </div>
 </div>
+<div class="row mt-4 mb-4">
+    <app-flights-res-list *ngIf="seatSelection" [passengers]="passengers" [selectedFlightsDep]="sDep" [selectedFlightsRet]="sRet"></app-flights-res-list>
+</div>
+<div class="row mt-4 mb-4">
+  <div class="col-10">
+  </div>
+  <div class="col-2">
+    <button *ngIf="(selectedFlightsDep.length == 1) && (selectedFlightsRet.length == 1) && !seatSelection" id="buttonSearch" type="submit" class="btn btn-success" (click)="goToSeatSelection()">Next</button>
+  </div>
+</div>
+
 
 
 

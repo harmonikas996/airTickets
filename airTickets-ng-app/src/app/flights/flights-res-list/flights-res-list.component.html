@@ -1,7 +1,62 @@
-<div class="plane">
+<div class="row">
+  <div class="col">
+    <h3>Seat Selection</h3>
+    <!-- <h6>Odabrana avio kompanija za let TAMO: {{selectedFlightsDep.aircompanyId}} | {{selectedFlightsDep.id}}</h6>
+    <h6>Odabrana avio kompanija za let OVAMO: {{selectedFlightsRet.aircompanyId}} | {{selectedFlightsRet.id}}</h6> -->
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-6">
+      <h5 class="text-center pb-3">Departure Flight</h5>
+      <p>(Select <strong>{{passengers}}</strong> Seats)</p>
+    <div class="row">
+      <div *ngFor="let seatDep of seatsDeparture" class="col-2">
+        <div class="card mb-4" id="checkboxes" [ngClass]="isSelectedDep(seatDep.id) ? 'selectedSeat' : ''" for="blankCheckbox">
+          <label>
+            <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                        <span [ngClass]="(seatDep.clientId !=null) ? 'disabledBox' : ''" class="badge text-center">{{seatDep.mark}}</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                        <input [disabled]="(seatDep.clientId !=null)" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{seatDep.id}}" (click)="selectSeatDep(seatDep.id, $event)">
+                    </div>
+                  </div>
+              </div>
+          </label>  
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+      <h5 class="text-center pb-3">Return Flight</h5>
+      <p>(Select <strong>{{passengers}}</strong> Seats)</p>
+    <div class="row">
+      <div *ngFor="let seatRet of seatsReturn" class="col-2">
+        <div class="card mb-4" id="checkboxes" [ngClass]="isSelectedRet(seatRet.id) ? 'selectedSeat' : ''" for="blankCheckbox">
+          <label>
+            <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                        <span [ngClass]="(seatRet.clientId !=null) ? 'disabledBox' : ''" class="badge text-center">{{seatRet.mark}}</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                        <input [disabled]="(seatRet.clientId !=null)" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{seatRet.id}}" (click)="selectSeatRet(seatRet.id, $event)">
+                    </div>
+                  </div>
+              </div>
+          </label>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="plane">
   <div class="cockpit">
-    <h1>Please select a seat proba</h1>
-    <!-- <span class="badge">SELECTED SEAT: {{seatSelForm.controls['selectedSeat'].value}}</span> -->
   </div>
   <div class="exit exit--front fuselage">
 
@@ -216,6 +271,13 @@
   </form>
   <div class="exit exit--back fuselage">
 
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-10">
+  </div>
+  <div class="col-2">
+      <button [disabled]="!(seatsReturn.length == passengs && seatsDeparture == passengers)" type="submit" class="btn btn-success" (click)="goToPassengersDetails()">Next</button>
   </div>
 </div>
 
