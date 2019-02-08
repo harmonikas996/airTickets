@@ -5,13 +5,13 @@ Find Your Next Flight Ticket, Book Hotel, Rent A Car On Your Next Journey
 
 1. Install
 
-[nodeJS](https://nodejs.org/en/)
+* [nodeJS](https://nodejs.org/en/)
 
-[Angular 6](https://angular.io/)
+* [Angular 6](https://angular.io/)
 
-[STS](https://spring.io/tools3/sts/all)
+* [STS](https://spring.io/tools3/sts/all)
 
-[Visual Studio Code](https://code.visualstudio.com/download)
+* [Visual Studio Code](https://code.visualstudio.com/download)
 
 2. clone repository 
 ```
