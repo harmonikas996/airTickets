@@ -15,18 +15,22 @@ export class AircompanyProfileComponent implements OnInit {
 
   aircompany: Observable<Aircompany>;
   aircompanyProfileForm: FormGroup;
+  _address: string;
+  searchForAddress: string;
 
   constructor(
     private aircompanyService: AircompanyService,
     private formBuilder: FormBuilder,
     private token: TokenStorageService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.aircompanyProfileForm = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
-      address: ['', Validators.required],
+      address: [{ value: '', disabled: true }, Validators.required],
+      textAddress: [''],
       description: ['']
     });
     this.getAircompanyById();
@@ -34,18 +38,22 @@ export class AircompanyProfileComponent implements OnInit {
 
   getAircompanyById(): void {
     this.aircompany = this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).pipe(
-      tap(aircompany => this.aircompanyProfileForm.patchValue(aircompany))
+      tap(aircompany => {
+        this.aircompanyProfileForm.patchValue(aircompany);
+        this._address = aircompany.address;
+      })
     );
   }
 
   onSubmit() {
     if (this.aircompanyProfileForm.valid) {
-      this.aircompanyService.updateAircompany(this.aircompanyProfileForm.value).subscribe((response) => {
+      console.log('Sending: ', this.aircompanyProfileForm.value);
+      this.aircompanyService.updateAircompany(this.aircompanyProfileForm.getRawValue()).subscribe((response) => {
         console.log('Response is: ', response);
         location.reload();
      },
      (error) => {
-        //catch the error
+        // catch the error
         console.error('An error occurred, ', error);
      });
      };
@@ -53,5 +61,17 @@ export class AircompanyProfileComponent implements OnInit {
 
   onCancel() {
     location.reload();
+  }
+
+  onSelectedCoordsChange(coords: string) {
+    this.aircompanyProfileForm.controls['address'].setValue(coords);
+  }
+
+  onSelectedAddressChange(address: string) {
+    this.aircompanyProfileForm.controls['textAddress'].setValue(address);
+  }
+
+  searchAddress() {
+    this.searchForAddress = this.aircompanyProfileForm.controls['textAddress'].value;
   }
 }

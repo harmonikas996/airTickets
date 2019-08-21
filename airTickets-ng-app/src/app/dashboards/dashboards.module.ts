@@ -52,6 +52,7 @@ import { AirportListComponent } from './system-dashboard/airport-list/airport-li
 import { AirportsDetailsComponent } from './system-dashboard/airports-details/airports-details.component';
 import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservations/quick-reservations.component';
 import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-
     ReactiveFormsModule,
     NgSelectModule,
     MyDatePickerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SharedModule,
   ],
   declarations: [
     RentacarDashboardComponent,

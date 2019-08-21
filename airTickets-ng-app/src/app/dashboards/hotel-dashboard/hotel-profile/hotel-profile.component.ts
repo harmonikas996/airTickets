@@ -14,8 +14,9 @@ import { tap } from 'rxjs/operators';
 export class HotelProfileComponent implements OnInit {
 
   hotel: Observable<Hotel>;
-  // hotelModel: Hotel;
   companyProfileForm: FormGroup;
+  _address: string;
+  searchForAddress: string;
 
   constructor(
     private hotelService: HotelService,
@@ -27,7 +28,8 @@ export class HotelProfileComponent implements OnInit {
     this.companyProfileForm = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
-      address: ['', Validators.required],
+      address: [{ value: '', disabled: true }, Validators.required],
+      textAddress: [''],
       description: ['']
     });
     // srediti preuzimanje ID-a kompanije tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
@@ -37,13 +39,16 @@ export class HotelProfileComponent implements OnInit {
   getHotelById(): void {
     // this.hotelService.getHotelById(id).subscribe(hotel => this.hotel = hotel);
     this.hotel = this.hotelService.getHotelByAdminUsername(this.token.getUsername()).pipe(
-      tap(rentacar => this.companyProfileForm.patchValue(rentacar))
+      tap(hotel => {
+        this.companyProfileForm.patchValue(hotel);
+        this._address = hotel.address;
+      })
     );
   }
 
   onSubmit() {
     if (this.companyProfileForm.valid) {
-      this.hotelService.updateHotel(this.companyProfileForm.value).subscribe((response) => {
+      this.hotelService.updateHotel(this.companyProfileForm.getRawValue()).subscribe((response) => {
         console.log('Response is: ', response);
         location.reload();
      },
@@ -56,5 +61,17 @@ export class HotelProfileComponent implements OnInit {
 
   onCancel() {
     location.reload();
+  }
+
+  onSelectedCoordsChange(coords: string) {
+    this.companyProfileForm.controls['address'].setValue(coords);
+  }
+
+  onSelectedAddressChange(address: string) {
+    this.companyProfileForm.controls['textAddress'].setValue(address);
+  }
+
+  searchAddress() {
+    this.searchForAddress = this.companyProfileForm.controls['textAddress'].value;
   }
 }

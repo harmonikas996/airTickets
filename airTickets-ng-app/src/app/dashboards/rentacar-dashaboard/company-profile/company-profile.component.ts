@@ -14,8 +14,9 @@ import { TokenStorageService } from 'src/app/user-authentication/service/token-s
 export class CompanyProfileComponent implements OnInit {
 
   rentacar: Observable<RentACar>;
-  //rentacarModel: RentACar;
   companyProfileForm: FormGroup;
+  _address: string;
+  searchForAddress: string;
 
   constructor(
     private rentacarService: RentacarService,
@@ -27,7 +28,8 @@ export class CompanyProfileComponent implements OnInit {
     this.companyProfileForm = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
-      address: ['', Validators.required],
+      address: [{ value: '', disabled: true }, Validators.required],
+      textAddress: [''],
       description: ['']
     });
     // srediti preuzimanje ID-a kompanije tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
@@ -37,13 +39,16 @@ export class CompanyProfileComponent implements OnInit {
   getRentacarById(): void {
     // this.rentacarService.getRentacarById(id).subscribe(rentacar => this.rentacar = rentacar);
     this.rentacar = this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).pipe(
-      tap(rentacar => this.companyProfileForm.patchValue(rentacar))
+      tap(rentacar => {
+        this.companyProfileForm.patchValue(rentacar);
+        this._address = rentacar.address;
+      })
     );
   }
 
   onSubmit() {
     if (this.companyProfileForm.valid) {
-      this.rentacarService.updateRentacar(this.companyProfileForm.value).subscribe((response) => {
+      this.rentacarService.updateRentacar(this.companyProfileForm.getRawValue()).subscribe((response) => {
         console.log("Response is: ", response);
         location.reload();
      },
@@ -56,5 +61,17 @@ export class CompanyProfileComponent implements OnInit {
 
   onCancel() {
     location.reload();
+  }
+
+  onSelectedCoordsChange(coords: string) {
+    this.companyProfileForm.controls['address'].setValue(coords);
+  }
+
+  onSelectedAddressChange(address: string) {
+    this.companyProfileForm.controls['textAddress'].setValue(address);
+  }
+
+  searchAddress() {
+    this.searchForAddress = this.companyProfileForm.controls['textAddress'].value;
   }
 }

@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  bingMapCredentials: 'Al233sOdD0K43F-30BzM9X6-2l26SSXrgnDtmhNXypK-RefM5UbWqmzNJdx1c64l'
 };
 
 /*

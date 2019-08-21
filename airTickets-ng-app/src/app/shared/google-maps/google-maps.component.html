@@ -1,0 +1,37 @@
+<!-- <agm-map [latitude]='latitude' [longitude]='longitude' 
+      [mapTypeId]='mapType'>
+</agm-map> -->
+<div class="form-group">
+  <label>Enter address</label>
+  <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+</div>
+<agm-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [zoom]="14"
+      (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+    >
+      <agm-marker
+        [latitude]="latitude"
+        [longitude]="longitude"
+        [opacity]="1"
+        [markerDraggable]="true"
+        [iconUrl]="iconUrl"
+        (markerClick)="selectMarker($event)"
+        (dragEnd)="markerDragEnd($event)"
+      >
+      </agm-marker>
+      <!-- <agm-rectangle
+        [north]="max('lat')"
+        [east]="max('lng')"
+        [south]="min('lat')"
+        [west]="min('lng')"
+      >
+      </agm-rectangle> -->
+    </agm-map>
+    <p *ngIf="selectedMarker">
+      Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+    </p>
+    <h5>Address: {{address}}</h5>
+    <div>Latitude: {{latitude}}</div>
+    <div>Longitude: {{longitude}}</div>

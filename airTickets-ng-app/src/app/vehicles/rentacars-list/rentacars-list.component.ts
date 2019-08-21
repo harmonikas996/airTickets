@@ -10,6 +10,8 @@ import { RentacarService } from 'src/app/shared/services/rentacar/rentacar.servi
 import * as moment from 'moment';
 import { BranchOffice } from 'src/app/shared/model/rentacar/branchOffice.model';
 import { RentacarsWithBranches } from 'src/app/shared/model/rentacar/rentacarsWithBranches.model';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-rentacars-list',
   templateUrl: './rentacars-list.component.html',
@@ -38,8 +40,8 @@ export class RentacarsListComponent implements OnInit {
     private rentacarService: RentacarService,
     private formBuilder: FormBuilder,
     private carReservationService: CarReservationService,
-    private vehicleService: VehicleService
-
+    private vehicleService: VehicleService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -61,7 +63,19 @@ export class RentacarsListComponent implements OnInit {
   }
 
   getRentacars(): void {
-    this.rentacarService.getRentacars().subscribe(rentacars => this.rentacars = rentacars);
+    this.rentacarService.getRentacars().subscribe(
+      rentacars => {
+        rentacars.forEach((rentacar) => {
+          this.http.jsonp('http://dev.virtualearth.net/REST/v1/Locations/' + rentacar.address +
+          '?jsonp=JSONP_CALLBACK&key=' + environment.bingMapCredentials, 'JSONP_CALLBACK')
+          .subscribe(
+            (response: any) => {
+              rentacar.address = response.resourceSets[0].resources[0].address.formattedAddress;
+            }
+          );
+        });
+        this.rentacars = rentacars;
+      });
   }
 
   getRentacarsPermanent(): void {

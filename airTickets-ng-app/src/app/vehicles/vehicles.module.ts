@@ -8,6 +8,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
+import { SharedModule } from '../shared/shared.module';
 
 // export const MY_MOMENT_FORMATS = {
 //   parseInput: 'dd.DD.YYYY LT',
