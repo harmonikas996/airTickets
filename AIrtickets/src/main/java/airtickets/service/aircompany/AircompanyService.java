@@ -80,6 +80,8 @@ public class AircompanyService {
 				incomes.add(0.0);
 			else if (d == null)
 				incomes.add(dd);
+			else if(dd == null)
+				incomes.add(d);
 			else
 				incomes.add(d+dd);
 		}
@@ -102,6 +104,8 @@ public class AircompanyService {
 				incomes.add(0.0);
 			else if (d == null)
 				incomes.add(dd);
+			else if(dd == null)
+				incomes.add(d);
 			else
 				incomes.add(d+dd);
 			
@@ -111,11 +115,13 @@ public class AircompanyService {
 		to = LocalDateTime.parse((year+1) + "-01-01T00:00:00");
 		Double d = airCompanyRepository.incomeForPeriodRegular(aircId, from, to);
 		Double dd = airCompanyRepository.incomeForPeriodDiscount(aircId, from, to);
-		
+
 		if (d == null && dd == null)
 			incomes.add(0.0);
 		else if (d == null)
 			incomes.add(dd);
+		else if(dd == null)
+			incomes.add(d);
 		else
 			incomes.add(d+dd);
 		
@@ -134,6 +140,8 @@ public class AircompanyService {
 			return 0.0;
 		else if (d == null)
 			return dd;
+		else if(dd == null)
+			return d;
 		else
 			return d+dd;
 	}

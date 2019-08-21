@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.aircompany.AircompanyDTO;
-import airtickets.dto.rentacar.RentACarDTO;
 import airtickets.dto.user.UserDTO;
 import airtickets.service.aircompany.AircompanyService;
 import airtickets.service.user.UserService;
@@ -102,7 +101,6 @@ public class AircompanyController {
 			@RequestParam(value="id") long aircId,
 			@RequestParam(value="year") int year
 			) {
-		
 		return aircompanyService.yearlyIncome(aircId, year);
 	}
 }

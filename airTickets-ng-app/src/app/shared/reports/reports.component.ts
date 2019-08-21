@@ -15,15 +15,15 @@ import { AircompanyService } from '../services/aircompany/aircompany.service';
 
 export class ReportsComponent implements OnInit {
   // lineChart
-  public lineChartData:Array<any> = [
+  public lineChartData: Array<any> = [
     {data: [], label: 'Income in EUR(€)'}
   ];
-  public lineChartLabels:Array<any> = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-  public lineChartLabelsWeeks:Array<any> = [];
-  public lineChartOptions:any = {
+  public lineChartLabels: Array<any> = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  public lineChartLabelsWeeks: Array<any> = [];
+  public lineChartOptions: any = {
     responsive: true
   };
-  public lineChartColors:Array<any> = [
+  public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(0,123,255, 0.2)',
       borderColor: '#007BFF',
@@ -33,8 +33,8 @@ export class ReportsComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
+  public lineChartLegend = true;
+  public lineChartType = 'line';
 
   reportForm: FormGroup;
   types: String[];
@@ -64,7 +64,7 @@ export class ReportsComponent implements OnInit {
     this.types = ['Monthly', 'Weekly'];
     this.years = ['2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009'];
 
-    for(let i=1; i<=53; i++) {
+    for (let i = 1; i <= 53; i++) {
       this.lineChartLabelsWeeks.push(i);
     }
 
@@ -72,15 +72,15 @@ export class ReportsComponent implements OnInit {
   }
 
   getCompanyByAdminUsername() {
-    if(this.token.getAuthorities().includes('rentacar')) {
+    if (this.token.getAuthorities().includes('rentacar')) {
 
       this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).subscribe(data => this.id = data.id);
       this.adminType = 'rentacar';
-    } else if(this.token.getAuthorities().includes('hotel')) {
+    } else if (this.token.getAuthorities().includes('hotel')) {
 
       this.hotelService.getHotelByAdminUsername(this.token.getUsername()).subscribe(data => this.id = data.id);
       this.adminType = 'hotel';
-    } else if(this.token.getAuthorities().includes('aircompany')) {
+    } else if (this.token.getAuthorities().includes('aircompany')) {
 
       this.aircompanyService.getAircompanyByAdminUsername(this.token.getUsername()).subscribe(data => this.id = data.id);
       this.adminType = 'aircompany';
@@ -89,12 +89,12 @@ export class ReportsComponent implements OnInit {
 
   onSubmit() {
 
-        if(this.reportForm.controls['reportType'].value == 'Monthly') {
+        if (this.reportForm.controls['reportType'].value === 'Monthly') {
           this.rentacarService.getMonthlyReport(this.id, this.reportForm.controls['reportYear'].value, this.adminType).subscribe(
             data => this.dataSet = data,
             (error) => console.error('An error occurred, ', error),
             () => {
-              let _lineChartData:Array<any> = new Array(this.lineChartData.length);
+              const _lineChartData: Array<any> = new Array(this.lineChartData.length);
                 _lineChartData[0] = {data: new Array(this.dataSet.length), label: 'Income in EUR(€)'};
                 for (let j = 0; j < this.dataSet.length; j++) {
                   _lineChartData[0].data[j] = this.dataSet[j];
@@ -103,12 +103,12 @@ export class ReportsComponent implements OnInit {
             }
 
           );
-        } else if(this.reportForm.controls['reportType'].value == 'Weekly') {
+        } else if (this.reportForm.controls['reportType'].value === 'Weekly') {
           this.rentacarService.getWeeklyReport(this.id, this.reportForm.controls['reportYear'].value, this.adminType).subscribe(
             data => this.dataSet = data,
             (error) => console.error('An error occurred, ', error),
             () => {
-              let _lineChartData:Array<any> = new Array(this.lineChartData.length);
+              const _lineChartData: Array<any> = new Array(this.lineChartData.length);
                 _lineChartData[0] = {data: new Array(this.dataSet.length), label: 'Income in EUR(€)'};
                 for (let j = 0; j < this.dataSet.length; j++) {
                   _lineChartData[0].data[j] = this.dataSet[j];
@@ -121,34 +121,37 @@ export class ReportsComponent implements OnInit {
   }
 
   fetchData(way: number): void {
-    if (way == 1) {
-      console.log("Daj mi Monthly");
-      if(this.reportForm.controls['reportYear'].value != '') {
+    if (way === 1) {
+      if (this.reportForm.controls['reportYear'].value !== '') {
         this.onSubmit();
       }
-    }
-    else {
-      if(this.reportForm.controls['reportType'].value != null) {
-        console.log("ODABRANO");
+    } else {
+      if (this.reportForm.controls['reportType'].value != null) {
         this.onSubmit();
       }
-      console.log("Daj mi Yearly");
         this.rentacarService.getYearlyReport(this.id, this.reportForm.controls['reportYear'].value, this.adminType).subscribe(
-        data => this.yearlyIncome = data
+        data => {
+          this.yearlyIncome = data;
+        },
+        error => {
+          if (error.status === 404) {
+            this.yearlyIncome = 0;
+          }
+        }
       );
     }
   }
 
   switch() {
-    this.lineChartType = !(this.reportForm.controls['reportGraphType'].value) ? 'line' : 'bar'
+    this.lineChartType = !(this.reportForm.controls['reportGraphType'].value) ? 'line' : 'bar';
   }
 
   // events
-  public chartClicked(e:any):void {
+  public chartClicked(e: any): void {
     console.log(e);
   }
 
-  public chartHovered(e:any):void {
+  public chartHovered(e: any): void {
     console.log(e);
   }
 }
