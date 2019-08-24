@@ -28,6 +28,16 @@ public class CarReservationController {
 	public List<CarReservationDTO> getAllCarReservations() {
 		return carReservationService.getCarReservations();
 	}
+	
+	@GetMapping("/user/{id}")
+	public List<CarReservationDTO> getCarReservationsByUser(@PathVariable Long id) {
+		return carReservationService.getCarReservationsByUser(id);
+	}
+	
+	@GetMapping("/quick/{id}")
+	public List<CarReservationDTO> getQuickCarReservationsByCompanyId(@PathVariable Long id) {
+		return carReservationService.getQuickCarReservationsByCompanyId(id);
+	}
 
 	@GetMapping("/{id}")
 	public CarReservationDTO getById(@PathVariable Long id) {

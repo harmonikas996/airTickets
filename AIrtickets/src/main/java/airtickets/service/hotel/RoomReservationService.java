@@ -43,6 +43,28 @@ public class RoomReservationService {
 		}
 		return roomReservationsDTO;
 	}
+
+	public List<RoomReservationDTO> getRoomReservationsByUser(Long id) {
+		List<RoomReservationDTO> roomReservationsDTO = new ArrayList<RoomReservationDTO>();
+		List<RoomReservation> roomReservations = roomReservationRepository.getRoomReservationsByUser(id);
+		
+		for(RoomReservation r : roomReservations) {
+			RoomReservationDTO roomReservationDTO = new RoomReservationDTO(r);
+			roomReservationsDTO.add(roomReservationDTO);
+		}
+		return roomReservationsDTO;
+	}
+
+	public List<RoomReservationDTO> getQuickRoomReservationsByCompanyId(long id) {
+		List<RoomReservationDTO> roomReservationsDTO = new ArrayList<RoomReservationDTO>();
+		List<RoomReservation> roomReservations = roomReservationRepository.getQuickRoomReservationsByCompanyId(id);
+		
+		for(RoomReservation r : roomReservations) {
+			RoomReservationDTO roomReservationDTO = new RoomReservationDTO(r);
+			roomReservationsDTO.add(roomReservationDTO);
+		}
+		return roomReservationsDTO;
+	}
 	
 	public RoomReservationDTO getRoomReservation(long id) {
 		RoomReservation r = roomReservationRepository.findById(id);

@@ -36,6 +36,17 @@ public class FlightReservationService {
 		return flights;
 	}
 	
+	public List<FlightReservationDTO> getFlightReservationsByUser(Long id){
+		List<FlightReservationDTO> flights = new ArrayList<FlightReservationDTO>();
+		List<FlightReservation> flight = flightReservationRepository.getFlightReservationsByUser(id);
+		
+		for(FlightReservation f : flight) {
+			FlightReservationDTO fl = new FlightReservationDTO(f);
+			flights.add(fl);
+		}
+		return flights;
+	}
+	
 	public FlightReservationDTO getFlightReservation(long id) {
 		FlightReservation f = flightReservationRepository.findById(id);
 		FlightReservationDTO flight = new FlightReservationDTO(f);

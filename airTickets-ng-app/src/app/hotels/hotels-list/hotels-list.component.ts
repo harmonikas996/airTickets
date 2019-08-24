@@ -6,6 +6,7 @@ import { HotelService } from 'src/app/shared/services/hotel/hotel.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-hotels-list',
@@ -49,12 +50,7 @@ export class HotelsListComponent implements OnInit {
     this.getHotelsPermament();
     this.getHotels();
     this.getLocations();
-    this.getQuickReservation();
 
-  }
-
-  getQuickReservation(): void {
-    this.roomReservationService.getRoomsRes().subscribe(roomReservations => this.roomReservations = roomReservations);
   }
 
   getHotels(): void {

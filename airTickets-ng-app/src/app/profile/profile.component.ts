@@ -3,6 +3,9 @@ import { RoomReservationService } from './../shared/services/hotel/room-reservat
 import { CarReservation } from './../shared/model/rentacar/car-reservation';
 import { CarReservationService } from './../shared/services/rentacar/car-reservation.service';
 import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from '../user-authentication/service/token-storage.service';
+import { FlightReservationService } from '../shared/services/aircompany/flight-reservation.service';
+import { FlightReservation } from '../shared/model/aircompany/flight-reservation.model';
 
 @Component({
   selector: 'app-profile',
@@ -11,29 +14,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  carReservations: CarReservation[];
+  flightReservations = [];
+  flightReservation: FlightReservation;
+
+  carReservations = [];
   carReservation: CarReservation;
 
-  roomReservations: RoomReservation[];
+  roomReservations = [];
   roomReservation: RoomReservation;
 
   constructor(
+    private flightReservationService: FlightReservationService,
     private carReservationService: CarReservationService,
-    private roomReservationService: RoomReservationService
+    private roomReservationService: RoomReservationService,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   ngOnInit() {
-
-    this.getQuickReservation();
-    this.getQuickReservationRoom();
+    this.getFlightReservationsByUser();
+    this.getCarReservationsByUser();
+    this.getRoomReservationsByUser();
   }
 
-  getQuickReservation(): void {
-    this.carReservationService.getCarReservations().subscribe(carReservations => this.carReservations = carReservations);
+  getFlightReservationsByUser(): void {
+    this.flightReservationService.getFlightReservationsByUser(this.tokenStorageService.getUserId())
+    .subscribe(flightReservations => this.flightReservations = flightReservations);
   }
 
-  getQuickReservationRoom(): void {
-    this.roomReservationService.getRoomsRes().subscribe(roomReservations => this.roomReservations = roomReservations);
+  getCarReservationsByUser(): void {
+    this.carReservationService.getCarReservationsByUser(this.tokenStorageService.getUserId())
+    .subscribe(carReservations => this.carReservations = carReservations);
+  }
+
+  getRoomReservationsByUser(): void {
+    this.roomReservationService.getRoomReservationsByUser(this.tokenStorageService.getUserId())
+    .subscribe(roomReservations => this.roomReservations = roomReservations);
   }
 
 }

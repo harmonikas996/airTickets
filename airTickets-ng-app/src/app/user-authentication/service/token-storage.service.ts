@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
+const USERID_KEY = 'UserId';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 
 @Injectable({
@@ -33,6 +34,15 @@ export class TokenStorageService {
     return sessionStorage.getItem(USERNAME_KEY);
   }
 
+  public saveUserId(userId: number) {
+    window.sessionStorage.removeItem(USERID_KEY);
+    window.sessionStorage.setItem(USERID_KEY, userId.toString());
+  }
+
+  public getUserId(): string {
+    return sessionStorage.getItem(USERID_KEY);
+  }
+
   public saveAuthorities(authorities: string[]) {
     window.sessionStorage.removeItem(AUTHORITIES_KEY);
     window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
@@ -50,38 +60,43 @@ export class TokenStorageService {
     return this.roles;
   }
 
-  public isSysAdmin() : boolean {
-    if(this.roles.includes('sysadmin'))
+  public isSysAdmin(): boolean {
+    if (this.roles.includes('sysadmin')) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
-  public isHotel() : boolean {
-    if(this.roles.includes('hotel'))
+  public isHotel(): boolean {
+    if (this.roles.includes('hotel')) {
     return true;
-    else
+    } else {
       return false;
+    }
   }
 
-  public isRentacar() : boolean {
-    if(this.roles.includes('rentacar'))
+  public isRentacar(): boolean {
+    if (this.roles.includes('rentacar')) {
     return true;
-    else
+    } else {
       return false;
+    }
   }
 
-  public isAircompany() : boolean {
-    if(this.roles.includes('aircompany'))
+  public isAircompany(): boolean {
+    if (this.roles.includes('aircompany')) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
-  public isUser() : boolean {
-    if(this.roles.includes('client'))
+  public isUser(): boolean {
+    if (this.roles.includes('client')) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 }

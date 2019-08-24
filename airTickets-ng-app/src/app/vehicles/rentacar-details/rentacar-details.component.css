@@ -1,0 +1,15 @@
+.activePrice {
+    position: absolute;
+    top: 42px;
+    right: 20px;
+}
+.oldPrice {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+}
+
+.reservationDate {
+    font-size: 14px;
+    color: #999;
+}

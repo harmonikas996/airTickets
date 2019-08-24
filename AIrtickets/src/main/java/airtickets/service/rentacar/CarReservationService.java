@@ -26,6 +26,26 @@ public class CarReservationService {
 		return carReservations;
 	}
 
+	public List<CarReservationDTO> getCarReservationsByUser(Long id) {
+		List<CarReservationDTO> carReservations = new ArrayList<CarReservationDTO>();
+		
+		for (CarReservation c  : carReservationRepository.getCarReservationsByUser(id)) {
+			CarReservationDTO car = new CarReservationDTO(c);
+			carReservations.add(car);
+ 		}
+		return carReservations;
+	}
+
+	public List<CarReservationDTO> getQuickCarReservationsByCompanyId(long id) {
+		List<CarReservationDTO> carReservations = new ArrayList<CarReservationDTO>();
+		
+		for (CarReservation c  : carReservationRepository.getQuickCarReservationsByCompanyId(id)) {
+			CarReservationDTO car = new CarReservationDTO(c);
+			carReservations.add(car);
+ 		}
+		return carReservations;
+	}
+
 	public CarReservationDTO getCarReservation(long id) {
 		CarReservation c  = carReservationRepository.findById(id);
 		CarReservationDTO carReservation = new CarReservationDTO(c);
@@ -42,5 +62,4 @@ public class CarReservationService {
 	public void deleteCarReservation(long id) {
 		carReservationRepository.deleteById(id);
 	}
-	
 }

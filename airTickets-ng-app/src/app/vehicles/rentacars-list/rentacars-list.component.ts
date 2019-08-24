@@ -33,13 +33,10 @@ export class RentacarsListComponent implements OnInit {
   location: String;
   timeBegin: String;
   timeEnd: String;
-  carReservations: CarReservation[];
-  carReservation: CarReservation;
 
   constructor(
     private rentacarService: RentacarService,
     private formBuilder: FormBuilder,
-    private carReservationService: CarReservationService,
     private vehicleService: VehicleService,
     private http: HttpClient
   ) { }
@@ -55,11 +52,6 @@ export class RentacarsListComponent implements OnInit {
     this.getRentacarsPermanent();
     this.getRentacars();
     this.getLocations();
-    this.getQuickReservation();
-  }
-
-  getQuickReservation(): void {
-    this.carReservationService.getCarReservations().subscribe(carReservations => this.carReservations = carReservations);
   }
 
   getRentacars(): void {

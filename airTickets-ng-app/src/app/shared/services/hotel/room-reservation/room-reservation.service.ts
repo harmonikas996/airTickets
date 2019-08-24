@@ -23,6 +23,14 @@ export class RoomReservationService {
     return this.http.get<RoomReservation[]>(this.roomsResUrl + '/all');
   }
 
+  getRoomReservationsByUser(id: string): Observable<RoomReservation[]> {
+    return this.http.get<RoomReservation[]>(this.roomsResUrl + '/user/' + id);
+  }
+
+  getQuickRoomReservationsByCompanyId(id: number): Observable<RoomReservation[]> {
+    return this.http.get<RoomReservation[]>(this.roomsResUrl + '/quick/' + id);
+  }
+
   getRoomResById(id: number): Observable<RoomReservation> {
     return this.http.get<RoomReservation>(this.roomsResUrl + '/' + id);
   }

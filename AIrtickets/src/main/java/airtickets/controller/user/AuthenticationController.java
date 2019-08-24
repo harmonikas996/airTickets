@@ -82,7 +82,7 @@ public class AuthenticationController {
 		int expiresIn = tokenUtils.getExpiredIn();
 		
 		// Vrati token kao odgovor na uspesno autentifikaciju
-		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getEmail(), user.getAuthorities()));
+		return ResponseEntity.ok(new UserTokenState(jwt, expiresIn, user.getEmail(), user.getId(), user.getAuthorities()));
 	}
 
 	@RequestMapping(value = "/refresh", method = RequestMethod.POST)
@@ -98,7 +98,7 @@ public class AuthenticationController {
 			String refreshedToken = tokenUtils.refreshToken(token);
 			int expiresIn = tokenUtils.getExpiredIn();
 
-			return ResponseEntity.ok(new UserTokenState(refreshedToken, expiresIn, user.getEmail(), user.getAuthorities()));
+			return ResponseEntity.ok(new UserTokenState(refreshedToken, expiresIn, user.getEmail(), user.getId(), user.getAuthorities()));
 		} else {
 			UserTokenState userTokenState = new UserTokenState();
 			return ResponseEntity.badRequest().body(userTokenState);

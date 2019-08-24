@@ -1,17 +1,43 @@
 <div class="row mt-4 mb-4">
-    <div class="col-6">
-        <h3>Car reservation history</h3>
-    </div>
+  <div class="col-6">
+      <h3>Flight Reservation History</h3>
   </div>
-  <div class="row">
+</div>
+<div class="row">
   <div class="col-12">
-    <table *ngIf="carReservations" class="table table-striped table-hover">
+    <table *ngIf="flightReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Flight</th>
+          <th scope="col">Hotel</th>
+          <th scope="col">Rentacar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let flightReservation of flightReservations">
+          <td class="align-middle">{{flightReservation.id}}</td>
+          <td class="align-middle">{{flightReservation.flightId}}</td>
+          <td class="align-middle">{{flightReservation.hotelResId}}</td>
+          <td class="align-middle">{{flightReservation.carResId}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+      <h3>Car Reservation History</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table *ngIf="carReservations.length > 0; else emptyTable" class="table table-striped table-hover">
       <thead>
         <tr>
           <th scope="col">Date from</th>
           <th scope="col">Date to</th>
           <th scope="col">Price</th>
-          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
@@ -23,29 +49,38 @@
       </tbody>
     </table>
   </div>
-  </div>
+</div>
 
-  <div class="row mt-4 mb-4">
-      <div class="col-6">
-          <h3>Hotel reservation history</h3>
-      </div>
-    </div>
-    <div class="row">
-    <div class="col-12">
-      <table *ngIf="roomReservations" class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Room</th>
-            <th scope="col">Hotel</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let roomReservation of roomReservations">
-            <td class="align-middle">{{roomReservation.roomId}}</td>
-            <td class="align-middle">{{roomReservation.hotelReservationId}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    </div>
+<div class="row mt-4 mb-4">
+  <div class="col-6">
+      <h3>Hotel Reservation History</h3>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <table *ngIf="roomReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Room</th>
+          <th scope="col">Hotel</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let roomReservation of roomReservations">
+          <td class="align-middle">{{roomReservation.roomId}}</td>
+          <td class="align-middle">{{roomReservation.hotelReservationId}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<ng-template #emptyTable>
+    <table class="table table-striped table-hover">
+      <tbody>
+        <tr>
+          <td class="align-middle text-center">No Records</td>
+        </tr>
+      </tbody>
+    </table>
+</ng-template>

@@ -62,12 +62,11 @@ export class LoginComponent implements OnInit {
           this.tokenStorage.saveUsername(data.username);
           // console.log('Korisnik: ' + data.username);
           // alert('EXPIRES IN: ' + data.expiresIn);
-
+          this.tokenStorage.saveUserId(data.userId);
           this.tokenStorage.saveAuthorities(data.authorities);
           this.isLoginFailed = false;
           this.isLoggedIn = true;
           this.roles = this.tokenStorage.getAuthorities();
-          //this.router.navigate(['/register']);
           this.location.replaceState('/');
           this.reloadPage();
         },

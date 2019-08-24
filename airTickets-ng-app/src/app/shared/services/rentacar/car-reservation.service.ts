@@ -22,8 +22,12 @@ export class CarReservationService {
     return this.http.get<CarReservation[]>(this.carResUrl + '/all');
   }
 
-  getCarReservationsById(id: number): Observable<CarReservation> {
-    return this.http.get<CarReservation>(this.carResUrl + '/' + id);
+  getCarReservationsByUser(id: string): Observable<CarReservation[]> {
+    return this.http.get<CarReservation[]>(this.carResUrl + '/user/' + id);
+  }
+
+  getQuickCarReservationsByCompanyId(id: number): Observable<CarReservation[]> {
+    return this.http.get<CarReservation[]>(this.carResUrl + '/quick/' + id);
   }
 
   addCarReservation(res: CarReservation): Observable<Object> {

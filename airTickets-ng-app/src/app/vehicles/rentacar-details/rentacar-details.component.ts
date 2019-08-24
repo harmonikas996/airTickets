@@ -10,6 +10,8 @@ import { tap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service';
 import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
+import { CarReservation } from 'src/app/shared/model/rentacar/car-reservation';
+import { CarReservationService } from 'src/app/shared/services/rentacar/car-reservation.service';
 
 @Component({
   selector: 'app-rentacar-details',
@@ -39,13 +41,16 @@ export class RentacarDetailsComponent implements OnInit {
   pickupLocation: string;
   dropoffLocation: string;
 
+  carReservations = [];
+
 
   constructor(
     private rentacarService: RentacarService,
     private vehicleService: VehicleService,
     private route: ActivatedRoute,
     private location: Location,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private carReservationService: CarReservationService,
   ) { }
 
   ngOnInit() {
@@ -65,9 +70,41 @@ export class RentacarDetailsComponent implements OnInit {
     this.passengers = [1,2,3,4,5,6,7,8,9];
     this.prices = [10,25,50,75,100,150,200,500,1000];
     const id = +this.route.snapshot.paramMap.get('id');
-    //this.vehicleSearchForm.controls['id'].value(id);
+    // this.vehicleSearchForm.controls['id'].value(id);
     this.getRentACarById(id);
     this.getLocations();
+    this.getQuickReservation(id);
+  }
+
+  getQuickReservation(id: number): void {
+    this.carReservationService.getQuickCarReservationsByCompanyId(id)
+    .subscribe(carReservations => {
+      for (let carReservation of carReservations) {
+
+        this.vehicleService.getVehicleById(carReservation.vehicleId).subscribe(
+          vehicle => {
+
+            this.carReservations.push({
+                  id: carReservation.id,
+                  vehicleId: carReservation.vehicleId,
+                  dateFrom: carReservation.dateFrom,
+                  dateTo: carReservation.dateTo,
+                  price: carReservation.price,
+                  name: vehicle.name,
+                  brand: vehicle.brand,
+                  model: vehicle.model,
+                  yearOfProduction: vehicle.yearOfProduction,
+                  numberOfSeats: vehicle.numberOfSeats,
+                  type: vehicle.type,
+                  pricePerDay: vehicle.pricePerDay,
+                  rentACarId: vehicle.rentACarId,
+                  image: vehicle.image,
+              }
+            );
+          }
+        );
+      }
+    });
   }
 
   getRentACarById(id: number): void {

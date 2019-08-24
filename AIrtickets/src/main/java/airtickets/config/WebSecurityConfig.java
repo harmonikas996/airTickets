@@ -78,6 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/flightreservations").permitAll()
 
 			.antMatchers("/vehicles/all").permitAll()
+			.antMatchers("/vehicles/**").permitAll()
 			.antMatchers("/rentacars/all").permitAll()
 			.antMatchers("/rentacars/search").permitAll()
 			.antMatchers("/rentacars/{\\^[0-9]+&}").permitAll()
@@ -91,6 +92,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/roomReservations/all").permitAll()
 			.antMatchers("/hotels/freeRooms").permitAll()
 			.antMatchers("/carreservations/all").permitAll()
+			.antMatchers("/carreservations/quick/**").permitAll()
 			.antMatchers("/seats/seatsByFlight").hasAnyAuthority("sysadmin", "hotel", "rentacar", "aircompany", "client")
 			.antMatchers("/seats/makeReservation").hasAnyAuthority("sysadmin", "hotel", "rentacar", "aircompany", "client")
 			.antMatchers("/branchoffices/locations").permitAll()

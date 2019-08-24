@@ -31,6 +31,16 @@ public class RoomReservationController {
 		return roomReservationService.getRoomReservations();
 	}
 	
+	@GetMapping("/user/{id}")
+	public List<RoomReservationDTO> getRoomReservationsByUser(@PathVariable Long id){
+		return roomReservationService.getRoomReservationsByUser(id);
+	}
+	
+	@GetMapping("/quick/{id}")
+	public List<RoomReservationDTO> getQuickRoomReservationsByCompanyId(@PathVariable Long id){
+		return roomReservationService.getQuickRoomReservationsByCompanyId(id);
+	}
+	
 	@GetMapping("/{id}")
 	public RoomReservationDTO getById(@PathVariable Long id){
 		return roomReservationService.getRoomReservation(id);

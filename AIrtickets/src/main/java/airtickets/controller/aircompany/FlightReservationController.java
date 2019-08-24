@@ -29,6 +29,11 @@ public class FlightReservationController {
 		return flightReservationService.getFlightReservations();
 	}
 	
+	@GetMapping("/user/{id}")
+	public List<FlightReservationDTO> getFlightReservationsByUser(@PathVariable Long id){
+		return flightReservationService.getFlightReservationsByUser(id);
+	}
+	
 	@GetMapping("/{id}")
 	public FlightReservationDTO getById(@PathVariable Long id){
 		return flightReservationService.getFlightReservation(id);

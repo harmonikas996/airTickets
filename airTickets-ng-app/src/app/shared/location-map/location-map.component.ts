@@ -12,6 +12,7 @@ export class LocationMapComponent implements AfterViewInit, OnChanges {
   @Input() defaultCoords: string;
   @Input() addressTyped: string;
   @Output() selectedAddress = new EventEmitter<string>();
+  @Output() selectedCity = new EventEmitter<string>();
   @Output() selectedCoords = new EventEmitter<string>();
   @ViewChild('locationMap') locationMapViewChild: ElementRef;
   map: Microsoft.Maps.Map;
@@ -78,6 +79,7 @@ export class LocationMapComponent implements AfterViewInit, OnChanges {
           location: new Microsoft.Maps.Location(latitude, longitude),
           callback: (answer, userData) => {
             this.selectedAddress.emit(answer.address.formattedAddress);
+            this.selectedCity.emit(answer.address.locality);
             if (initialLoad) {
               this.map.setView({
                 center: new Microsoft.Maps.Location(latitude, longitude),

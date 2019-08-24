@@ -98,3 +98,28 @@
           </div>
       </div>
   </div>
+  <ng-container *ngIf="userLoggedIn">
+    <h4 class="mt-4"> Quick Reservations: </h4>
+    <div class="row">
+      <div *ngFor="let roomReservation of roomReservations" class="col-sm-3 rentacar">
+        <div class="card">
+            <!-- <img src="../../../assets/img/vehicle/{{carReservation.image}}" class="card-img-top" alt="Picture of {{carReservation.brand}}"> -->
+          <div class="card-body text-center">
+            <h5 class="card-title">{{roomReservation.id}}</h5>
+            <!-- <p class="reservationDate mt-2">{{carReservation.dateFrom | date: 'MMM d, y'}} - {{carReservation.dateTo | date: 'MMM d, y'}}</p> -->
+            <div class="row">
+              <div class="col-md-6">
+                <p class="card-text"><i class="fas fa-ellipsis-v mr-2"></i>{{roomReservation.floor}}</p>
+              </div>
+              <div class="col-md-6">
+                <p class="card-text"><i class="fas fa-bed mr-2"></i>{{roomReservation.noOfBeds}}</p>
+              </div>
+            </div>
+            <!-- <h6 class="card-subtitle mb-2 text-muted oldPrice"><s>{{carReservation.price}}€</s></h6> -->
+            <!-- <h5 class="activePrice"><span class="badge badge-warning ml-1">{{carReservation.pricePerDay}}€</span></h5> -->
+            <button class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>

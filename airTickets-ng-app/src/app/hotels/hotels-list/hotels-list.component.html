@@ -70,16 +70,3 @@
   </div>
 </div>
 
-<h4> Quick Reservations: </h4>
-<div class="row mt-4 mb-4">
-    <div *ngFor="let roomReservation of roomReservations" class="col-sm-4 rentacar">
-        <div class="card text-center">
-
-          <div class="card-body">
-            <h5 class="card-title">{{roomReservation.roomId}}</h5>
-            <a class="card-link" routerLink="../hotels-details/{{hotel.id}}">Select</a>
-          </div>
-        </div>
-    </div>
-</div>
-

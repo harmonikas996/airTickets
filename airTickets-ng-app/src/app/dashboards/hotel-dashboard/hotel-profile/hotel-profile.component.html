@@ -12,6 +12,11 @@
           <small *ngIf="companyProfileForm.controls.name.errors?.required && companyProfileForm.controls.name.touched" class="form-text text-danger">*Required</small>
         </div>
         <div class="form-group" hidden>
+          <label for="city">City<span class="text-danger">*</span></label>
+          <input type="text" formControlName="city" class="form-control" placeholder="Enter Name" required>
+          <small *ngIf="companyProfileForm.controls.city.errors?.required && companyProfileForm.controls.city.touched" class="form-text text-danger">*Required</small>
+        </div>
+        <div class="form-group" hidden>
           <input type="text" formControlName="address" class="form-control" placeholder="Enter Address" required>
           <!-- <app-google-maps></app-google-maps> -->
         </div>
@@ -24,7 +29,7 @@
             </div>
           </div>
           <small *ngIf="companyProfileForm.controls.address.errors?.required && companyProfileForm.controls.address.touched" class="form-text text-danger">Click on the map to select address</small>
-          <app-location-map [defaultCoords]="_address" [addressTyped]="searchForAddress" (selectedCoords)="onSelectedCoordsChange($event)" (selectedAddress)="onSelectedAddressChange($event)"></app-location-map>
+          <app-location-map [defaultCoords]="_address" [addressTyped]="searchForAddress" (selectedCoords)="onSelectedCoordsChange($event)" (selectedAddress)="onSelectedAddressChange($event)" (selectedCity)="onSelectedCityChange($event)"></app-location-map>
         </div>
         <div class="form-group">
           <label for="description">Short Description <span class="text-muted">(max: 160 characters)</span></label>

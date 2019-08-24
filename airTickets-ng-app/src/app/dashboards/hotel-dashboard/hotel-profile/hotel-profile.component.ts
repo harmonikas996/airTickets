@@ -28,6 +28,7 @@ export class HotelProfileComponent implements OnInit {
     this.companyProfileForm = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
+      city: ['', Validators.required],
       address: [{ value: '', disabled: true }, Validators.required],
       textAddress: [''],
       description: ['']
@@ -69,6 +70,10 @@ export class HotelProfileComponent implements OnInit {
 
   onSelectedAddressChange(address: string) {
     this.companyProfileForm.controls['textAddress'].setValue(address);
+  }
+
+  onSelectedCityChange(city: string) {
+    this.companyProfileForm.controls['city'].setValue(city);
   }
 
   searchAddress() {

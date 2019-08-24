@@ -24,6 +24,10 @@ export class FlightReservationService {
     return this.http.get<FlightReservation[]>(this.flightResUrl + '/all');
   }
 
+  getFlightReservationsByUser(id: string): Observable<FlightReservation[]> {
+    return this.http.get<FlightReservation[]>(this.flightResUrl + '/user/' + id);
+  }
+
   getFlightResById(id: number): Observable<FlightReservation> {
     return this.http.get<FlightReservation>(this.flightResUrl + '/' + id);
   }

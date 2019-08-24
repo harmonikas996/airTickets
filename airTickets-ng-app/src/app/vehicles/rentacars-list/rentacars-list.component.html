@@ -75,20 +75,3 @@
         </div>
     </div>
 </div>
-
-
-<h4> Quick Reservations: </h4>
-<div class="row mt-4 mb-4">
-    <div *ngFor="let carReservation of carReservations" class="col-sm-4 rentacar">
-        <div class="card text-center">
-
-          <div class="card-body">
-            <h5 class="card-title">{{carReservation.dateFrom | date: 'medium'}}</h5>
-            <h5 class="card-title">{{carReservation.dateTo | date: 'medium'}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">Price: {{carReservation.price}}</h6>
-            <a class="card-link">Select</a>
-            <!-- routerLink="{{rentacar.id}} -->
-          </div>
-        </div>
-    </div>
-</div>
