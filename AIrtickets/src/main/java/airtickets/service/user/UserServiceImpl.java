@@ -1,5 +1,6 @@
 package airtickets.service.user;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,5 +74,25 @@ public class UserServiceImpl implements UserService {
 		userDTO.setId(user.getId());
 		
 		return userDTO;
+	}
+
+	@Override
+	public List<UserDTO> searchUsers(String name) {
+		
+		String[] tokens = name.split("_");
+		
+		List<UserDTO> usersDTO = new ArrayList<UserDTO>();
+		List<User> users = null;
+		if(tokens.length > 1)
+			users = userRepository.getUsers(tokens[0], tokens[1]);	
+		else	
+			users = userRepository.getUsers(tokens[0]);
+		
+		for(User u : users) {
+			UserDTO userDTO = new UserDTO(u);
+			usersDTO.add(userDTO);
+		}
+		return usersDTO;
+		
 	}
 }

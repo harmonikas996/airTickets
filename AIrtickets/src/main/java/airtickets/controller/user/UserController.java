@@ -71,4 +71,9 @@ public class UserController {
 		return this.userService.addUser(user);
 	}
 	
+	@RequestMapping(method = GET, value = "/user/search/{name1}")
+	public List<UserDTO> searchUsers(@PathVariable String name1) {
+		return userService.searchUsers(name1);
+	}
+	
 }

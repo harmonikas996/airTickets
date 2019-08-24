@@ -15,6 +15,7 @@ const httpOptions = {
 export class UserService {
 
   private profileUrl = 'http://localhost:8080/api/user/profile';
+  private userUrl = 'http://localhost:8080/api/user';
 
   constructor(
     private http: HttpClient,
@@ -27,6 +28,10 @@ export class UserService {
 
   getUserByEmail(username: String): Observable<User> {
     return this.http.get<User>(this.profileUrl + '/' + username);
+  }
+
+  getUserSearch(name: String): Observable<User[]> {
+    return this.http.get<User[]>(this.userUrl + '/search/' + name);
   }
 
   updateUser(user: User): Observable<User> {

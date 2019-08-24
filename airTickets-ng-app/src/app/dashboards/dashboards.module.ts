@@ -53,6 +53,7 @@ import { AirportsDetailsComponent } from './system-dashboard/airports-details/ai
 import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservations/quick-reservations.component';
 import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
 import { SharedModule } from '../shared/shared.module';
+import { FriendsListComponent } from './user-dashboard/friends-list/friends-list.component';
 
 
 @NgModule({
@@ -111,6 +112,7 @@ import { SharedModule } from '../shared/shared.module';
     SpecialOfferUpdateComponent,
     QuickReservationsComponent,
     QuickResHotelComponent,
+    FriendsListComponent
   ],
   providers: [
     AuthGuard,

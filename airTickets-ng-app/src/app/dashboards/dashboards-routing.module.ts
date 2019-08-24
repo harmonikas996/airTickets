@@ -48,6 +48,7 @@ import { AirportListComponent } from './system-dashboard/airport-list/airport-li
 import { AirportsDetailsComponent } from './system-dashboard/airports-details/airports-details.component';
 import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservations/quick-reservations.component';
 import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
+import { FriendsListComponent } from './user-dashboard/friends-list/friends-list.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -120,6 +121,7 @@ const dashboardsRoutes: Routes = [
   data: {role: 'client'},
   children: [
     { path: 'user-profile', component: UserProfileComponent },
+    { path: 'friends-list', component: FriendsListComponent },
     { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
     { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
   ]

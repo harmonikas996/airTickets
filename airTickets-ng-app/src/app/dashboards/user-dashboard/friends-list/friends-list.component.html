@@ -1,0 +1,58 @@
+<h3 class="py-2">Add Friends</h3>
+<form class="form-inline" [formGroup]="addFriendForm" (ngSubmit)="onSubmit()">
+  <label class="sr-only" for="inlineFormInputName2">Name</label>
+  <input type="text"  formControlName="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Name">
+  <button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">City</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.city}}</td>
+      <a type="button" class="btn btn-primary" (click)="addFriendSubmit(user)">Add Friend</a>
+    </tr>
+  </tbody>
+</table>
+
+<h3 class="pb-2">Friends request</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let friendRequest of friendRequests">
+      <td>{{friendRequest.initier}}</td>
+      <a type="button" class="btn btn-danger" (click)="accept(friendRequest)">Accept</a>
+      <a type="button" class="btn btn-danger" (click)="onRemove(friendRequest)">Remove</a>
+    </tr>
+  </tbody>
+</table>
+<h3 class="py-2">All Friends</h3>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let friend of friends">
+      <td>{{friend.id}}</td>
+      <a type="button" class="btn btn-danger" (click)="onRemove(friend)">Remove</a>
+    </tr>
+  </tbody>
+</table>
+

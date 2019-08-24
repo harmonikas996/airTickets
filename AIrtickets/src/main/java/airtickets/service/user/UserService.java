@@ -12,4 +12,5 @@ public interface UserService {
     List<UserDTO> findAll ();
     List<UserDTO> findClients ();
     UserDTO addUser(UserDTO user);
+    List<UserDTO> searchUsers(String name1);
 }

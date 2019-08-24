@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import airtickets.dto.user.FriendShipDTO;
+
 @Entity
 public class Friendship implements Serializable {
 
@@ -30,7 +32,17 @@ public class Friendship implements Serializable {
 	private boolean confirmed;
 
 	public Friendship() {}
-
+	
+	public Friendship(FriendShipDTO f) {
+		this.id = f.getId();
+		this.initier = new User();
+		this.initier.setId(f.getInitier());
+		this.confirmer = new User();
+		this.confirmer.setId(f.getConfirmer());
+		this.confirmed = f.isConfirmed();
+		
+	}
+	
 	public long getId() {
 		return id;
 	}
