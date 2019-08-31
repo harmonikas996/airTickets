@@ -30,4 +30,6 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 			" where hr.id = rr.hotel_reservation_id and hr.hotel_id = ?1 and hr.date_from <= ?4 \r\n" + 
 			" and hr.date_to >= ?3))", nativeQuery=true)
 	public List<Room> searchRooms(long id, String type, LocalDateTime df, LocalDateTime dt);
+	@Query(value="select * from airtickets.room where hotel_id = ?1", nativeQuery=true)
+	public List<Room> getRoomsByHotel(long id);
 }

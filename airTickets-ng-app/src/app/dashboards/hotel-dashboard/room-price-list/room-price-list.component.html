@@ -20,11 +20,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let roomPrice of roomPrices">
-        <td class="align-middle">{{roomPrice.roomId}}</td>
-        <td class="align-middle">{{roomPrice.datoFrom}}</td>
-        <td class="align-middle">{{roomPrice.datoTo}}</td>
-        <td class="align-middle">{{roomPrice.price}}</td>
-        <td class="align-middle"><a type="button" class="btn btn-primary" routerLink="../roomprice-details/{{roomPrice.id}}"><i class="fas fa-edit"></i></a></td>
+        <td class="align-middle">{{roomPrice.number}}</td>
+        <td class="align-middle">{{roomPrice.dateFrom | date:'medium'}}</td>
+        <td class="align-middle">{{roomPrice.dateTo | date:'medium'}}</td>
+        <td class="align-middle">{{roomPrice.price}}€</td>
+        <td class="align-middle"><a type="button" class="btn btn-primary" routerLink="../rooms-prices/{{roomPrice.id}}"><i class="fas fa-edit"></i></a></td>
         <td class="align-middle"><a type="button" class="btn btn-danger" (click)="onRemove(roomPrice)"><i class="fas fa-trash text-white"></i></a></td>
       </tr>
     </tbody>

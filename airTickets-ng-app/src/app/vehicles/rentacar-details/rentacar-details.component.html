@@ -1,7 +1,13 @@
-<div *ngIf="rentacarObservable | async; else loading" class="row mt-4 mb-4 text-center">
-    <div class="col-12">
-        <span class="badge">SELECTED RENTACAR</span>
-        <h3>{{rentacar.name}}</h3>
+<div *ngIf="rentacarObservable | async; else loading" class="row mt-4 mb-4">
+    <div class="col-6 text-center">
+        <img src="../../../assets/img/rentacar/{{rentacar.image}}.png" class="card-img-top company-logo" alt="Logo of {{rentacar.name}}">
+    </div>
+    <div class="col-6 align-self-center">
+        <h1>{{rentacar.name}}</h1>
+        <p>
+          <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          <i class="fas fa-map-marker-alt ml-2"></i> {{rentacar.address}}</p>
+        <p class="text-secondary">{{rentacar.description}}</p>
     </div>
 </div>
   <div class="row mt-4 mb-4">
@@ -80,11 +86,20 @@
     <div *ngFor="let vehicle of vehicles" class="col-sm-4 mt-4">
       <div class="card">
           <img src="../../../assets/img/vehicle/{{vehicle.image}}" class="card-img-top" alt="Picture of {{vehicle.brand}}">
-        <div class="card-body">
-          <h5 class="card-title">{{vehicle.brand}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{vehicle.model}}</h6>
-          <p class="card-text"><i class="fas fa-chair"></i>{{vehicle.numberOfSeats}}</p>
-          <button type="button" class="card-link" (click)="reserveVehicle(vehicle)">Reserve</button>
+        <div class="card-body text-center">
+          <h5 class="card-title">{{vehicle.brand}} {{vehicle.model}}</h5>
+          <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="card-text"><i class="far fa-calendar mr-2"></i>{{vehicle.yearOfProduction}}</p>
+            </div>
+            <div class="col-md-6">
+              <p class="card-text"><i class="fas fa-male mr-2"></i>{{vehicle.numberOfSeats}}</p>
+            </div>
+          </div>
+          <h6 class="oldPrice"><span class="badge badge-light">{{vehicle.pricePerDay}}€/day</span></h6>
+          <h5 class="loweredPrice"><span class="badge badge-primary">{{vehicle.price}}€</span></h5>
+          <button class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
         </div>
       </div>
     </div>
@@ -97,6 +112,7 @@
           <img src="../../../assets/img/vehicle/{{carReservation.image}}" class="card-img-top" alt="Picture of {{carReservation.brand}}">
         <div class="card-body text-center">
           <h5 class="card-title">{{carReservation.brand}} {{carReservation.model}}</h5>
+          <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
           <p class="reservationDate mt-2">{{carReservation.dateFrom | date: 'MMM d, y'}} - {{carReservation.dateTo | date: 'MMM d, y'}}</p>
           <div class="row">
             <div class="col-md-6">
@@ -106,10 +122,17 @@
               <p class="card-text"><i class="fas fa-male mr-2"></i>{{carReservation.numberOfSeats}}</p>
             </div>
           </div>
-          <h6 class="card-subtitle mb-2 text-muted oldPrice"><s>{{carReservation.price}}€</s></h6>
-          <h5 class="activePrice"><span class="badge badge-warning ml-1">{{carReservation.pricePerDay}}€</span></h5>
+          <h6 class="card-subtitle mb-2 text-muted oldPrice"><s>{{carReservation.pricePerDay}}€/day</s></h6>
+          <h5 class="loweredPrice"><span class="badge badge-warning ml-1">{{carReservation.price}}€</span></h5>
           <button class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
         </div>
       </div>
     </div>
   </div>
+
+  
+  <ng-template #t let-fill="fill">
+      <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+      </span>
+  </ng-template>

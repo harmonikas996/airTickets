@@ -58,7 +58,7 @@ export class AircompanyService {
       () => {
         user.type = 'aircompany';
         user.company = companyId;
-        this.userService.updateNotLoggedUser(user).subscribe();
+        this.userService.updateAuthority(user).subscribe();
       }
     );
   }

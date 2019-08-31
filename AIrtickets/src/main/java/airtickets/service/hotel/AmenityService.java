@@ -26,6 +26,17 @@ public class AmenityService {
 		}
 		return amenitiesDTO;
 	}
+
+	public List<AmenityDTO> getAmenitiesByHotel(Long id) {
+		List<AmenityDTO> amenitiesDTO = new ArrayList<AmenityDTO>();
+		List<Amenity> amenities = amenityRepository.getAmenitiesByHotel(id);
+		
+		for(Amenity a : amenities) {
+			AmenityDTO amenityDTO = new AmenityDTO(a);
+			amenitiesDTO.add(amenityDTO);
+		}
+		return amenitiesDTO;
+	}
 	
 	public AmenityDTO getAmenity(long id) {
 		Amenity a = amenityRepository.findById(id);

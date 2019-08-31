@@ -12,6 +12,8 @@ import { VehicleService } from 'src/app/shared/services/rentacar/vehicle.service
 import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
 import { CarReservation } from 'src/app/shared/model/rentacar/car-reservation';
 import { CarReservationService } from 'src/app/shared/services/rentacar/car-reservation.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-rentacar-details',
@@ -21,7 +23,7 @@ import { CarReservationService } from 'src/app/shared/services/rentacar/car-rese
 export class RentacarDetailsComponent implements OnInit {
 
   rentacar: RentACar;
-  vehicles: Vehicle[];
+  vehicles = [];
   rentacarObservable: Observable<RentACar>;
   vehicleSearchForm: FormGroup;
   types: String[];
@@ -51,6 +53,7 @@ export class RentacarDetailsComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private carReservationService: CarReservationService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -109,7 +112,16 @@ export class RentacarDetailsComponent implements OnInit {
 
   getRentACarById(id: number): void {
     this.rentacarObservable = this.rentacarService.getRentacarById(id).pipe(
-      tap(rentacar => this.rentacar = rentacar)
+      tap(rentacar => {
+        this.http.jsonp('http://dev.virtualearth.net/REST/v1/Locations/' + rentacar.address +
+          '?jsonp=JSONP_CALLBACK&key=' + environment.bingMapCredentials, 'JSONP_CALLBACK')
+          .subscribe(
+            (response: any) => {
+              rentacar.address = response.resourceSets[0].resources[0].address.formattedAddress;
+            }
+          );
+        this.rentacar = rentacar;
+      })
     );
   }
 
@@ -129,7 +141,27 @@ export class RentacarDetailsComponent implements OnInit {
     ) {
 
     this.vehicleService.searchVehicles(priceFrom, priceTo, pickupDateTime, dropoffDateTime, pickupLocation, dropoffLocation, passengersSalji, rentacarId, vehicleType).subscribe(
-      vehicles => this.vehicles = vehicles,
+      vehicles => {
+        // this.vehicles = vehicles
+        this.vehicles = [];
+        for (const vehicle of vehicles) {
+
+          const start = moment(pickupDateTime).startOf('day');
+          const end = moment(dropoffDateTime).startOf('day');
+          this.vehicles.push({
+            name: vehicle.name,
+            brand: vehicle.brand,
+            model: vehicle.model,
+            yearOfProduction: vehicle.yearOfProduction,
+            numberOfSeats: vehicle.numberOfSeats,
+            type: vehicle.type,
+            pricePerDay: vehicle.pricePerDay,
+            price: vehicle.pricePerDay  * (+((moment.duration(start.diff(end)).asDays() - 1) * (-1)).toPrecision(1)),
+            rentACarId: vehicle.rentACarId,
+            image: vehicle.image,
+          });
+        }
+      },
      (error) => console.error('An error occurred, ', error),
      () => {}
     );

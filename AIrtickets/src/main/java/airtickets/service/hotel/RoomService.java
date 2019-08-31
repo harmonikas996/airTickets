@@ -38,6 +38,17 @@ public class RoomService {
 		return roomsDTO;
 	}
 	
+	public List<RoomDTO> getRoomsByHotel(long id){
+		List<RoomDTO> roomsDTO = new ArrayList<RoomDTO>();
+		List<Room> rooms = roomRepository.getRoomsByHotel(id);
+		
+		for(Room r : rooms) {
+			RoomDTO roomDTO = new RoomDTO(r);
+			roomsDTO.add(roomDTO);
+		}
+		return roomsDTO;
+	}
+	
 	public RoomDTO getRoom(long id) {
 		Room r = roomRepository.findById(id);
 		RoomDTO roomDTO = new RoomDTO(r);

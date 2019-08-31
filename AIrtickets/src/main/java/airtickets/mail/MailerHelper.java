@@ -35,7 +35,7 @@ public class MailerHelper {
     Content emailContent = new Content("text/plain", message);
 
     // Umesto AA u tokenu stavi SG
-    SendGrid sendgrid = new SendGrid("AA.HdFbLBElS2WzFUZfbut3hw.ZyBn59_1vWbTch8ylWi6o4Yq5qSW_A454OSXLBRQXyw");
+    SendGrid sendgrid = new SendGrid("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");
     Request request = new Request();
 
     Mail mail = new Mail(from, subject, to, emailContent);

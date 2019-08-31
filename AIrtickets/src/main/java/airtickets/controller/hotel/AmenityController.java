@@ -29,6 +29,11 @@ public class AmenityController {
 		return amenityService.getAmenities();
 	}
 	
+	@GetMapping("/hotel/{id}")
+	public List<AmenityDTO> getAmenitiesByHotel(@PathVariable Long id){
+		return amenityService.getAmenitiesByHotel(id);
+	}
+	
 	@GetMapping("/{id}")
 	public AmenityDTO getById(@PathVariable Long id){
 		return amenityService.getAmenity(id);

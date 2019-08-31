@@ -1,9 +1,10 @@
-import { Location } from '@angular/common';
 import { RoomService } from './../../../shared/services/hotel/room/room.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Room } from 'src/app/shared/model/hotel/room.model';
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-room-new',
@@ -18,7 +19,8 @@ export class RoomNewComponent implements OnInit {
   constructor(
     private roomService: RoomService,
     private formBuilder: FormBuilder,
-    private location: Location
+    private userService: UserService,
+    private locationService: Location
   ) { }
 
   ngOnInit() {
@@ -28,26 +30,29 @@ export class RoomNewComponent implements OnInit {
       noOfBeds: ['', Validators.required],
       floor: ['', Validators.required],
       type: ['', Validators.required],
-      hotel: ['', Validators.required],
+      hotel: [''],
       image: ['']
     });
   }
 
   onSubmit() {
     if (this.newRoomForm.valid) {
-      this.roomService.addRoom(this.newRoomForm.value).subscribe((response) => {
-        console.log('Response is: ', response);
-        this.location.back();
-     },
-     (error) => {
-        // catch the error
-        console.error('An error occurred, ', error);
-     });
+      this.userService.getUserById().subscribe(
+        response => {
+          this.newRoomForm.controls.hotel.setValue(response.company);
+          this.roomService.addRoom(this.newRoomForm.value).subscribe((res) => {
+              location.assign('/hotel-dashboard/rooms');
+          },
+          (error) => {
+              // catch the error
+              console.error('An error occurred, ', error);
+          });
+        });
      }
     }
 
   onCancel() {
-    this.location.back();
+    this.locationService.back();
   }
 
 }

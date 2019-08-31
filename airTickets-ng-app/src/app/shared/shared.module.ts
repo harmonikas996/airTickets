@@ -4,6 +4,7 @@ import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import { AgmCoreModule } from '@agm/core';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { LocationMapComponent } from './location-map/location-map.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { LocationMapComponent } from './location-map/location-map.component';
       libraries: ['places']
     }),
     HttpClientModule,
+    NgbModule,
     HttpClientJsonpModule
   ],
   declarations: [
@@ -22,6 +24,7 @@ import { LocationMapComponent } from './location-map/location-map.component';
   exports: [
     GoogleMapsComponent,
     LocationMapComponent,
+    NgbModule
   ]
 })
 export class SharedModule { }

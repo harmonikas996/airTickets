@@ -35,6 +35,11 @@ public class RoomController {
 		return roomService.getRooms();
 	}
 	
+	@GetMapping("hotel/{id}")
+	public List<RoomDTO> getRoomsByHotel(@PathVariable Long id){
+		return roomService.getRoomsByHotel(id);
+	}
+	
 	@GetMapping("/{id}")
 	public RoomDTO getById(@PathVariable Long id){
 		return roomService.getRoom(id);

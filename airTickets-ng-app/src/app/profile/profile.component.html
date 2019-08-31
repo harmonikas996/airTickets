@@ -1,77 +1,107 @@
-<div class="row mt-4 mb-4">
-  <div class="col-6">
-      <h3>Flight Reservation History</h3>
-  </div>
-</div>
 <div class="row">
-  <div class="col-12">
-    <table *ngIf="flightReservations.length > 0; else emptyTable" class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Flight</th>
-          <th scope="col">Hotel</th>
-          <th scope="col">Rentacar</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let flightReservation of flightReservations">
-          <td class="align-middle">{{flightReservation.id}}</td>
-          <td class="align-middle">{{flightReservation.flightId}}</td>
-          <td class="align-middle">{{flightReservation.hotelResId}}</td>
-          <td class="align-middle">{{flightReservation.carResId}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<div class="row mt-4 mb-4">
-  <div class="col-6">
-      <h3>Car Reservation History</h3>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <table *ngIf="carReservations.length > 0; else emptyTable" class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Date from</th>
-          <th scope="col">Date to</th>
-          <th scope="col">Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let carReservation of carReservations">
-          <td class="align-middle">{{carReservation.dateFrom | date: 'medium'}}</td>
-          <td class="align-middle">{{carReservation.dateTo | date: 'medium'}}</td>
-          <td class="align-middle">{{carReservation.price}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+  <div class="col-10">
 
-<div class="row mt-4 mb-4">
-  <div class="col-6">
-      <h3>Hotel Reservation History</h3>
+    <div class="row mt-4 mb-4">
+      <div class="col-6">
+          <h3>Flight Reservation History</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table *ngIf="flightReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Flight</th>
+              <th scope="col">Hotel</th>
+              <th scope="col">Rentacar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let flightReservation of flightReservations">
+              <td class="align-middle">{{flightReservation.id}}</td>
+              <td class="align-middle">{{flightReservation.flightId}}</td>
+              <td class="align-middle">{{flightReservation.hotelResId}}</td>
+              <td class="align-middle">{{flightReservation.carResId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mt-4 mb-4">
+      <div class="col-6">
+          <h3>Car Reservation History</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table *ngIf="carReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Date from</th>
+              <th scope="col">Date to</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let carReservation of carReservations">
+              <td class="align-middle">{{carReservation.dateFrom | date: 'medium'}}</td>
+              <td class="align-middle">{{carReservation.dateTo | date: 'medium'}}</td>
+              <td class="align-middle">{{carReservation.price}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row mt-4 mb-4">
+      <div class="col-6">
+          <h3>Hotel Reservation History</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table *ngIf="roomReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Room</th>
+              <th scope="col">Hotel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let roomReservation of roomReservations">
+              <td class="align-middle">{{roomReservation.roomId}}</td>
+              <td class="align-middle">{{roomReservation.hotelReservationId}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <table *ngIf="roomReservations.length > 0; else emptyTable" class="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th scope="col">Room</th>
-          <th scope="col">Hotel</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let roomReservation of roomReservations">
-          <td class="align-middle">{{roomReservation.roomId}}</td>
-          <td class="align-middle">{{roomReservation.hotelReservationId}}</td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="col-2">
+    <div class="row mt-4 mb-4">
+      <div class="col">
+        <p class="text-uppercase font-weight-bold mb-2">Aircompanies</p>
+        <div class="list-group">
+          <a *ngFor="let aircompany of aircompanies" href="#" class="list-group-item list-group-item-action">{{aircompany.name}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 mb-4">
+      <div class="col">
+        <p class="text-uppercase font-weight-bold mb-2">Hotels</p>
+        <div class="list-group">
+          <a *ngFor="let hotel of hotels" routerLink="/hotels-details/{{hotel.id}}" class="list-group-item list-group-item-action">{{hotel.name}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4 mb-4">
+      <div class="col">
+        <p class="text-uppercase font-weight-bold mb-2">Rentacars</p>
+        <div class="list-group">
+          <a *ngFor="let rentacar of rentacars" routerLink="/rentacars/{{rentacar.id}}" class="list-group-item list-group-item-action">{{rentacar.name}}</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

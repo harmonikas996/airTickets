@@ -24,23 +24,14 @@
                       <input type="text" formControlName="floor" class="form-control" placeholder="Enter Floor" required>
                       <small *ngIf="newRoomForm.controls.floor.errors?.required && newRoomForm.controls.floor.touched" class="form-text text-danger">*Required</small>
                   </div>
-              </div>
-              <div class="col-md-4">
                   <div class="form-group">
-                      <label for="type">Type<span class="text-danger">*</span></label>
-                      <input type="text" formControlName="type" class="form-control" placeholder="Enter Type" required>
-                      <small *ngIf="newRoomForm.controls.type.errors?.required && newRoomForm.controls.type.touched" class="form-text text-danger">*Required</small>
-                  </div>
-              </div>
-              <div class="col-md-4">
-                  <div class="form-group">
-                      <label for="hotel">Hotel Id<span class="text-danger">*</span></label>
-                      <input type="text" formControlName="hotel" class="form-control" placeholder="Enter Rent A Car Id" required>
-                      <small *ngIf="newRoomForm.controls.hotel.errors?.required && newRoomForm.controls.hotel.touched" class="form-text text-danger">*Required</small>
+                    <label for="type">Type<span class="text-danger">*</span></label>
+                    <input type="text" formControlName="type" class="form-control" placeholder="Enter Type" required>
+                    <small *ngIf="newRoomForm.controls.type.errors?.required && newRoomForm.controls.type.touched" class="form-text text-danger">*Required</small>
                   </div>
                   <div class="form-group">
-                      <label for="image">Image</label>
-                      <input type="text" formControlName="image" class="form-control" placeholder="Enter Image Name" required>
+                    <label for="image">Image</label>
+                    <input type="text" formControlName="image" class="form-control" placeholder="Enter Image Name" required>
                   </div>
               </div>
           </div>

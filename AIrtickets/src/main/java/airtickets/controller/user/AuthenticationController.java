@@ -7,13 +7,17 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -68,10 +72,18 @@ public class AuthenticationController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest,
 			HttpServletResponse response/*, Device device*/) throws AuthenticationException, IOException {
 		
-		final Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(
-						authenticationRequest.getUsername(),
-						authenticationRequest.getPassword()));
+		Authentication authentication = null;
+		try {
+			
+			authentication = authenticationManager
+					.authenticate(new UsernamePasswordAuthenticationToken(
+							authenticationRequest.getUsername(),
+							authenticationRequest.getPassword()));
+		} catch (DisabledException e) {
+			
+		} catch (BadCredentialsException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Bad Credentials.");
+		}
 
 		// Ubaci username + password u kontext
 		SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -129,6 +141,7 @@ public class AuthenticationController {
 			return ResponseEntity.badRequest().body(result);
 		}
 		else {
+			log.warn("Izgenerisao token za MAIL" + DateTime.now().toString());
 			mailerService.sendMail(user.getEmail(), user.getUsername());
 			return ResponseEntity.accepted().body(result);
 		}
@@ -138,14 +151,14 @@ public class AuthenticationController {
 	public String verify(@RequestParam(value="username") String username, @RequestParam(value="token") String token){
 		
 		UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-		if(tokenUtils.validateToken(token, userDetails)) {
+		if(tokenUtils.verifyToken(token, userDetails)) {
 			UserDTO userDTO = userService.findByUsername(userDetails.getUsername());
 			userDTO.setActivated(true);
 			userService.addUser(userDTO);
 			return "Your email address has been verified. Login -> http://localhost:8080/auth/login";
 		} else {
 			
-			return "Failed to verify email address. Token invalid or expired.";
+			return "Token invalid or expired.";
 		}
 		
 	}

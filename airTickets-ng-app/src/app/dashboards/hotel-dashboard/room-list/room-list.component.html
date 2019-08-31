@@ -16,18 +16,16 @@
         <th scope="col">number of beds</th>
         <th scope="col">floor</th>
         <th scope="col">type</th>
-        <th scope="col">hotel</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let room of rooms">
-        <td><img height="60" src="../../../../../assets/img/room/{{room.image}}"></td>
+        <td><img height="60" src="../../../../../assets/img/room/{{room.image}}.jpg"></td>
         <td class="align-middle">{{room.number}}</td>
         <td class="align-middle">{{room.noOfBeds}}</td>
         <td class="align-middle">{{room.floor}}</td>
         <td class="align-middle">{{room.type}}</td>
-        <td class="align-middle">{{room.hotel}}</td>
         <td class="align-middle"><a type="button" class="btn btn-primary" routerLink="../room-details/{{room.id}}"><i class="fas fa-edit"></i></a></td>
         <td class="align-middle"><a type="button" class="btn btn-danger" (click)="onRemove(room)"><i class="fas fa-trash text-white"></i></a></td>
       </tr>

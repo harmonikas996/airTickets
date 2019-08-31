@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../user-authentication/service/token-storage.service';
 import { FlightReservationService } from '../shared/services/aircompany/flight-reservation.service';
 import { FlightReservation } from '../shared/model/aircompany/flight-reservation.model';
+import { RentacarService } from '../shared/services/rentacar/rentacar.service';
+import { HotelService } from '../shared/services/hotel/hotel.service';
+import { AircompanyService } from '../shared/services/aircompany/aircompany.service';
 
 @Component({
   selector: 'app-profile',
@@ -23,17 +26,27 @@ export class ProfileComponent implements OnInit {
   roomReservations = [];
   roomReservation: RoomReservation;
 
+  aircompanies = [];
+  rentacars = [];
+  hotels = [];
+
   constructor(
     private flightReservationService: FlightReservationService,
     private carReservationService: CarReservationService,
     private roomReservationService: RoomReservationService,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private aircompanyService: AircompanyService,
+    private rentacarService: RentacarService,
+    private hotelService: HotelService
   ) { }
 
   ngOnInit() {
     this.getFlightReservationsByUser();
     this.getCarReservationsByUser();
     this.getRoomReservationsByUser();
+    this.getAircompanies();
+    this.getRentacars();
+    this.getHotels();
   }
 
   getFlightReservationsByUser(): void {
@@ -49,6 +62,21 @@ export class ProfileComponent implements OnInit {
   getRoomReservationsByUser(): void {
     this.roomReservationService.getRoomReservationsByUser(this.tokenStorageService.getUserId())
     .subscribe(roomReservations => this.roomReservations = roomReservations);
+  }
+
+  getAircompanies(): void {
+    this.aircompanyService.getAircompanies()
+    .subscribe(aircompanies => this.aircompanies = aircompanies);
+  }
+
+  getRentacars(): void {
+    this.rentacarService.getRentacars()
+    .subscribe(rentacars => this.rentacars = rentacars);
+  }
+
+  getHotels(): void {
+    this.hotelService.gethotels()
+    .subscribe(hotels => this.hotels = hotels);
   }
 
 }

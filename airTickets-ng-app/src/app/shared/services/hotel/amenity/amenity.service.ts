@@ -23,13 +23,12 @@ export class AmenityService {
     return this.http.get<Amenity[]>(this.amenitiesUrl + '/all');
   }
 
-  getAmenityById(id: number): Observable<Amenity> {
-    return this.http.get<Amenity>(this.amenitiesUrl + '/' + id);
+  getAmenitiesByHotel(id: number): Observable<Amenity[]> {
+    return this.http.get<Amenity[]>(this.amenitiesUrl + '/hotel/' + id);
   }
 
-  // TODO
-  getAmenitiesByHotelId(id: number): Observable<Amenity> {
-    return null;
+  getAmenityById(id: number): Observable<Amenity> {
+    return this.http.get<Amenity>(this.amenitiesUrl + '/' + id);
   }
 
   addAmenity(amenity: Amenity): Observable<Object> {

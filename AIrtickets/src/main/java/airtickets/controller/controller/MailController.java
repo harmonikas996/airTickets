@@ -8,21 +8,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.mail.MailerHelper;
-import airtickets.service.mail.MailerService;
 
 @RestController
 public class MailController {
   private static final Logger logger = LoggerFactory.getLogger(MailController.class);
 
   @Autowired
-  private MailerService mailerService;
-
-  @Autowired
   private MailerHelper mailerHelper;
 
   @RequestMapping("send-mail")
-  public String sendMail(@RequestParam(value="address") String address, @RequestParam(value="jwt") String jwt, @RequestParam(value="username") String username) {
-    Long start = System.currentTimeMillis();
+  public String sendMail(@RequestParam(value="address") String address, @RequestParam(value="username") String username) {
+	  
+	Long start = System.currentTimeMillis();
     logger.info("starting controller");
     mailerHelper.sendMail(address, username);
     return String.format("Message sent to %s in %d ms", address, System.currentTimeMillis() - start);

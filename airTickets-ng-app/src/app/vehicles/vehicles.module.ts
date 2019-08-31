@@ -38,6 +38,7 @@ export const DATE_NATIVE_FORMATS = {
     OwlNativeDateTimeModule,
     MyDatePickerModule,
     NgSelectModule,
+    SharedModule,
     VehiclesRoutingModule,
   ],
   declarations: [VehiclesListComponent, RentacarsListComponent, RentacarDetailsComponent],

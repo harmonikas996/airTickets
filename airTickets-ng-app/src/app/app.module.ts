@@ -60,7 +60,7 @@ import { HotelRoutingModule } from './hotels/hotel-routing.module';
     FlightsComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     HttpClientModule,
     CoreModule,
     FormsModule,

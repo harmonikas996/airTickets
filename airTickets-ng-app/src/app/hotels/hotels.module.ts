@@ -7,6 +7,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_FORMATS } from 'ng-pick-datetime';
 import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 export const DATE_NATIVE_FORMATS = {
   fullPickerInput: {year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false},
@@ -26,6 +27,7 @@ export const DATE_NATIVE_FORMATS = {
     OwlNativeDateTimeModule,
     MyDatePickerModule,
     NgSelectModule,
+    SharedModule,
     RouterModule
   ],
   declarations: [HotelsListComponent, HotelDetailsComponent],

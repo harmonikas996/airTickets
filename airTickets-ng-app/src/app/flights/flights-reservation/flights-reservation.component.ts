@@ -59,7 +59,9 @@ export class FlightsReservationComponent implements OnInit {
     this.returnFlights = [];
 
     this.flightService.searchFlights(placeFromId, placeToId, timeBegin).subscribe(
-      flights => this.flights = flights,
+      flights => {
+        this.flights = flights;
+      },
      (error) => console.error('An error occurred, ', error),
      () => {
        if(this.flightResForm.controls['datePeriod'].value.length > 1) {

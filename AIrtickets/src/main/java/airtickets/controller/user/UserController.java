@@ -60,15 +60,12 @@ public class UserController {
 		UserDTO u = this.userService.findByUsername(username);
 		log.info(user.getEmail());
 		user.setEmail(username);
-//		if(u.getType().equals("client") && !user.getType().equals("client")) {
-//			// admin ga dodeljuje kompaniji (proglasava ga za admina kompanije)
-//			
-//		}
-//		else if(u.getType().equals("client") && user.getType().equals("")) {
-//			
-//			user.setType(u.getType());
-//		}
 		return this.userService.addUser(user);
+	}
+	
+	@RequestMapping(method = PUT, value="user/authority")
+	public UserDTO addUserAuthority(@RequestBody UserDTO user) {
+		return this.userService.addAuthority(user);
 	}
 	
 	@RequestMapping(method = GET, value = "/user/search/{name1}")

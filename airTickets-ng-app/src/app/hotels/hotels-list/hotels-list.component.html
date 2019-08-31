@@ -47,10 +47,12 @@
 </div>
 
 <div *ngIf="hotels.length > 0" class="row mt-4 mb-4">
-  <div *ngFor="let hotel of hotels" class="col-sm-4 hotel">
+  <div *ngFor="let hotel of hotels" class="col-3 hotel">
       <div class="card text-center">
+          <img src="../../../assets/img/hotel/{{hotel.image}}.png" class="card-img-top" alt="Logo of {{hotel.name}}">
         <div class="card-body">
           <h5 class="card-title">{{hotel.name}}</h5>
+          <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           <h6 class="card-subtitle mb-2 text-muted">{{hotel.address}}</h6>
           <a class="card-link" routerLink="../hotels-details/{{hotel.id}}">Select</a>
         </div>
@@ -59,14 +61,22 @@
 </div>
 
 <div *ngIf="hotelsRes.length > 0" class="row mt-4 mb-4">
-  <div *ngFor="let hotel of hotelsRes" class="col-sm-4 hotel">
+  <div *ngFor="let hotel of hotelsRes" class="col-3 hotel">
       <div class="card text-center">
+          <img src="../../../assets/img/hotel/{{hotel.image}}.png" class="card-img-top" alt="Logo of {{hotel.name}}">
         <div class="card-body">
           <h5 class="card-title">{{hotel.name}}</h5>
+          <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           <h6 class="card-subtitle mb-2 text-muted">{{hotel.address}}</h6>
           <a class="card-link" routerLink="../hotels-details/{{hotel.id}}">Select</a>
         </div>
       </div>
   </div>
 </div>
+
+<ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+</ng-template>
 

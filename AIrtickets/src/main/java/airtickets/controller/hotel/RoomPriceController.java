@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.hotel.RoomDTO;
@@ -28,6 +29,11 @@ public class RoomPriceController {
 	@GetMapping("/all")
 	public List<RoomPriceDTO> getAllRoomPrices(){
 		return roomPriceService.getRoomPrices();
+	}
+	
+	@GetMapping("/hotel/{id}")
+	public List<RoomPriceDTO> getRoomPricesByHotel(@PathVariable Long id){
+		return roomPriceService.getRoomPricesByHotel(id);
 	}
 	
 	@GetMapping("/{id}")
@@ -49,5 +55,13 @@ public class RoomPriceController {
 	@DeleteMapping("{id}/delete")
 	public void deleteRoom(@PathVariable Long id) {
 		roomPriceService.deleteRoomPrice(id);
+	}
+	
+	@GetMapping("/search")
+	public RoomPriceDTO searchRoomPriceForDateRange(
+			@RequestParam(value="roomId") Long roomId,
+			@RequestParam(value="datoFrom") String datoFrom,
+			@RequestParam(value="datoTo") String datoTo){
+		return roomPriceService.searchRoomPriceForDateRange(roomId, datoFrom, datoTo);
 	}
 }

@@ -60,7 +60,7 @@ public class User implements UserDetails {
         CascadeType.PERSIST,
         CascadeType.MERGE
     },
-    mappedBy = "authorities")
+    mappedBy = "users")
     private Set<Authority> authorities;
 	
 	// admin

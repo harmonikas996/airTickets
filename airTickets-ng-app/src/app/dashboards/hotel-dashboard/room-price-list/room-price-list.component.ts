@@ -2,6 +2,9 @@ import { RoomPriceService } from './../../../shared/services/hotel/room-price/ro
 import { RoomService } from './../../../shared/services/hotel/room/room.service';
 import { RoomPrice } from './../../../shared/model/hotel/room-price.model';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/shared/services/user/user.service';
+import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-room-price-list',
@@ -10,11 +13,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomPriceListComponent implements OnInit {
 
-  roomPrices: RoomPrice[];
-  roomprice: RoomPrice;
+  roomPrices = [];
 
   constructor(
-    private roomPriceService: RoomPriceService
+    private roomPriceService: RoomPriceService,
+    private roomService: RoomService,
+    private userService: UserService,
+    private tokenStorageService: TokenStorageService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -22,19 +28,46 @@ export class RoomPriceListComponent implements OnInit {
   }
 
   getRoomsPricesByHotelId(): void {
-    this.roomPriceService.getRoomsPrice().subscribe(
-      roomPrices => this.roomPrices = roomPrices,
-      error => console.log('Error: ', error),
-       () => this.getRoomName()
+    this.userService.getUserById().subscribe(
+      response => {
+        this.roomPriceService.getRoomPriceByHotel(response.company).subscribe(
+          roomPrices => {
+            // this.roomPrices = roomPrices as any;
+            for (const roomPrice of roomPrices) {
+              this.roomService.getRoomById(roomPrice.roomId).subscribe(
+                room => {
+                  this.roomPrices.push({
+                    id: roomPrice.id,
+                    dateFrom: roomPrice.datoFrom,
+                    dateTo: roomPrice.datoTo,
+                    price: roomPrice.price,
+                    roomId: roomPrice.roomId,
+                    number: room.number
+                  });
+                }
+              );
+            }
+          },
+          error => console.log('Error: ', error),
+           () => this.getRoomName()
+        );
+      }
     );
+
+    
   }
 
   getRoomName(): void {
     // Ovde odraditiiii
   }
 
-  onRemove() {
-
+  onRemove(roomPrice: RoomPrice) {
+    // this.router.navigateByUrl('hotel-dashboard/rooms-prices', { skipLocationChange: true });
+    this.roomPriceService.removeRoomPrice(roomPrice.id).subscribe(
+      response => {
+        this.roomPrices.splice(this.roomPrices.indexOf(roomPrice), 1);
+      }
+    );
   }
 
 }

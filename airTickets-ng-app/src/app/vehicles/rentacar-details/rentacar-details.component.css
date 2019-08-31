@@ -1,5 +1,11 @@
 .activePrice {
     position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.loweredPrice {
+    position: absolute;
     top: 42px;
     right: 20px;
 }
@@ -12,4 +18,25 @@
 .reservationDate {
     font-size: 14px;
     color: #999;
+}
+
+.company-logo {
+    width: 200px;
+    height: 200px;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    color: #d3d3d3;
+}
+.full {
+    color: #ffc107;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #ffc107;
 }

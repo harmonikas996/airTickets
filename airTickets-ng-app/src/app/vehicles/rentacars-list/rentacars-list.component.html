@@ -48,10 +48,12 @@
 </div>
 
 <div *ngIf="rentacars.length > 0" class="row mt-4 mb-4">
-    <div *ngFor="let rentacar of rentacars" class="col-sm-4 rentacar">
+    <div *ngFor="let rentacar of rentacars" class="col-3 rentacar">
         <div class="card text-center">
+          <img src="../../../assets/img/rentacar/{{rentacar.image}}.png" class="card-img-top" alt="Logo of {{rentacar.name}}">
           <div class="card-body">
             <h5 class="card-title">{{rentacar.name}}</h5>
+            <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
             <h6 class="card-subtitle mb-2 text-muted">{{rentacar.address}}</h6>
             <a class="card-link" routerLink="{{rentacar.id}}">Select</a>
           </div>
@@ -60,10 +62,12 @@
 </div>
 
 <div *ngIf="rentacarsWithBranches.length > 0" class="row mt-4 mb-4">
-    <div *ngFor="let rentacarWithBranches of rentacarsWithBranches" class="col-sm-4 rentacar">
+    <div *ngFor="let rentacarWithBranches of rentacarsWithBranches" class="col-3 rentacar">
         <div class="card text-center">
+          <img src="../../../assets/img/rentacar/{{rentacarWithBranches.rentacar.image}}.png" class="card-img-top" alt="Logo of {{rentacarWithBranches.rentacar.name}}">
           <div class="card-body">
             <h5 class="card-title">{{rentacarWithBranches.rentacar.name}}</h5>
+            <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
             <h6 class="card-subtitle mb-2 text-muted">{{rentacarWithBranches.rentacar.address}}</h6>
             <ul class="list-group list-group-flush mt-3 mb-3 text-left">
               <div *ngFor="let branchOffice of rentacarWithBranches.branches">
@@ -75,3 +79,9 @@
         </div>
     </div>
 </div>
+
+<ng-template #t let-fill="fill">
+    <span class="star" [class.full]="fill === 100">
+      <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+    </span>
+</ng-template>

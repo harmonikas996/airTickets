@@ -49,6 +49,7 @@ import { AirportsDetailsComponent } from './system-dashboard/airports-details/ai
 import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservations/quick-reservations.component';
 import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
 import { FriendsListComponent } from './user-dashboard/friends-list/friends-list.component';
+import { RoomPriceDetailsComponent } from './hotel-dashboard/room-price-details/room-price-details.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -102,6 +103,7 @@ const dashboardsRoutes: Routes = [
       { path: 'amenities/new', component: AmenityNewComponent },
       { path: 'room-details/:id', component: RoomDetailsComponent },
       { path: 'rooms-prices/new', component: RoomPriceNewComponent },
+      { path: 'rooms-prices/:id', component: RoomPriceNewComponent },
       { path: 'amenity-details/:id', component: AmenityDetailsComponent },
       { path: 'rooms-prices', component: RoomPriceListComponent },
       { path: 'specialOffers-details', component: SpecialofferDetailsComponent },

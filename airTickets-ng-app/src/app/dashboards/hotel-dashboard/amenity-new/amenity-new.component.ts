@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-amenity-new',
@@ -18,7 +19,8 @@ export class AmenityNewComponent implements OnInit {
   constructor(
     private amenityService: AmenityService,
     private formBuilder: FormBuilder,
-    private location: Location
+    private location: Location,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -26,20 +28,25 @@ export class AmenityNewComponent implements OnInit {
       id: [''],
       title: ['', Validators.required],
       price: ['', Validators.required],
-      hotelId: ['', Validators.required]
+      hotelId: ['']
     });
   }
 
   onSubmit() {
     if (this.newAmenityForm.valid) {
-      this.amenityService.addAmenity(this.newAmenityForm.value).subscribe((response) => {
-        console.log('Response is: ', response);
-        this.location.back();
-     },
-     (error) => {
-        // catch the error
-        console.error('An error occurred, ', error);
-     });
+      this.userService.getUserById().subscribe(
+        user => {
+          this.newAmenityForm.controls.hotelId.setValue(user.company);
+          this.amenityService.addAmenity(this.newAmenityForm.value).subscribe((response) => {
+              console.log('Response is: ', response);
+              this.location.back();
+          },
+          (error) => {
+              // catch the error
+              console.error('An error occurred, ', error);
+          });
+        }
+      );
      }
     }
 

@@ -23,13 +23,12 @@ export class RoomService {
     return this.http.get<Room[]>(this.roomsUrl + '/all');
   }
 
-  getRoomById(id: number): Observable<Room> {
-    return this.http.get<Room>(this.roomsUrl + '/' + id);
+  getRoomsByHotel(id: number): Observable<Room[]> {
+    return this.http.get<Room[]>(this.roomsUrl + '/hotel/' + id);
   }
 
-  // TODO
-  getRoomsByHotelId(id: number): Observable<Room> {
-    return null;
+  getRoomById(id: number): Observable<Room> {
+    return this.http.get<Room>(this.roomsUrl + '/' + id);
   }
 
   addRoom(room: Room): Observable<Object> {

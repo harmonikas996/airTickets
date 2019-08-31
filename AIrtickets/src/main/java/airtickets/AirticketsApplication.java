@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 public class AirticketsApplication extends AsyncConfigurerSupport {
 
+	
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(AirticketsApplication.class, args);
 		// mora

@@ -98,7 +98,7 @@ export class RentacarService {
       () => {
         user.type = 'rentacar';
         user.company = companyId;
-        this.userService.updateNotLoggedUser(user).subscribe();
+        this.userService.updateAuthority(user).subscribe();
       }
     );
   }

@@ -2,6 +2,7 @@ package airtickets.service.hotel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,17 @@ public class RoomPriceService {
 		return roomPricesDTO;
 	}
 	
+	public List<RoomPriceDTO> getRoomPricesByHotel(long id){
+		List<RoomPriceDTO> roomPricesDTO = new ArrayList<RoomPriceDTO>();
+		List<RoomPrice> roomPrices = roomPriceRepository.findByHotel(id);
+		
+		for(RoomPrice r : roomPrices) {
+			RoomPriceDTO roomDTO = new RoomPriceDTO(r);
+			roomPricesDTO.add(roomDTO);
+		}
+		return roomPricesDTO;
+	}
+	
 	public RoomPriceDTO getRoomPrice(long id) {
 		RoomPrice r = roomPriceRepository.findById(id);
 		RoomPriceDTO roomPriceDTO = new RoomPriceDTO(r);
@@ -48,5 +60,16 @@ public class RoomPriceService {
 	
 	public void deleteRoomPrice(long id) {
 		roomPriceRepository.deleteById(id);
+	}
+
+	public RoomPriceDTO searchRoomPriceForDateRange(long roomId, String datoFrom, String datoTo) {
+		Optional<RoomPrice> r = roomPriceRepository.searchRoomPriceForDateRange(roomId, datoFrom, datoTo);
+		
+		if(r.isPresent()) {
+			
+			return new RoomPriceDTO(r.get());
+		}
+		
+		return new RoomPriceDTO();
 	}
 }

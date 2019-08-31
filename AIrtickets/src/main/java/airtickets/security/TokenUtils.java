@@ -210,4 +210,13 @@ public class TokenUtils {
 		return request.getHeader(AUTH_HEADER);
 	}
 
+	public boolean verifyToken(String token, UserDetails userDetails) {
+		User user = (User) userDetails;
+		final String username = getUsernameFromToken(token);
+		final Date created = getIssuedAtDateFromToken(token);
+		
+		return (username != null && username.equals(userDetails.getUsername())
+				&& !isTokenExpired(token));
+	}
+
 }

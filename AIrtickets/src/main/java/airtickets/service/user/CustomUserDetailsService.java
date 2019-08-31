@@ -1,7 +1,10 @@
 package airtickets.service.user;
 
+import java.util.Optional;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +16,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import airtickets.model.user.Authority;
 import airtickets.model.user.User;
+import airtickets.repo.user.AuthorityRepository;
 import airtickets.repo.user.UserRepository;
 
 @Service
@@ -23,6 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private AuthorityRepository authorityRepository;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -77,7 +85,23 @@ public class CustomUserDetailsService implements UserDetailsService {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			userRepository.save(user);
+			
+			
+			//
+//			Set<Authority> authorities = new HashSet<Authority>();
+  
+	        Optional<Authority> authority = authorityRepository.findByName("client");
+	        
+	        if(authority.isPresent()) {
+//	        	user.getAuthorities().add(e);
+//	        	authorities.add(authority.get());
+	        	authority.get().getUsers().add(user);
+	        	userRepository.save(user);
+	        	LOGGER.warn("Sacuvao u bazu korisnika" + DateTime.now().toString());
+	        }
+			//
+//			user.setAuthorities(authorities);
+			
 			return "success";
 		}
 		return "Email already exists.";

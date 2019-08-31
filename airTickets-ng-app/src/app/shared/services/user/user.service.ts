@@ -38,8 +38,8 @@ export class UserService {
     return this.http.put<User>(this.profileUrl + '/update/' + this.token.getUsername(), user, httpOptions);
   }
 
-  updateNotLoggedUser(user: User): Observable<User> {
-    return this.http.put<User>(this.profileUrl + '/update/' + user.email, user, httpOptions);
+  updateAuthority(user: User): Observable<User> {
+    return this.http.put<User>(this.userUrl + '/authority', user, httpOptions);
   }
 
   getClients(): Observable<User[]> {

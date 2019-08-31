@@ -13,6 +13,7 @@ import { RoleGuard } from './shared/services/guards/role-guard.service';
 import { HotelDetailsComponent } from './hotels/hotel-details/hotel-details.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './shared/services/guards/auth-guard.service';
+import { ThankYouComponent } from './user-authentication/register/thank-you/thank-you.component';
 
 const routes: Routes = [
   // { path: 'flights', component: FlightsComponent,
@@ -34,7 +35,7 @@ const routes: Routes = [
   // { path: 'flight-res-list', component: FlightsResListComponent },
 
   { path: 'login', component: LoginComponent },
-  // { path: 'hotel-details', component: HotelDetailsComponent },
+  { path: 'thank-you/:firstName', component: ThankYouComponent },
   { path: 'register', component: RegisterComponent },
   // uvek na kraju nek stoje
   // { path: '', redirectTo: '/', pathMatch: 'full' },

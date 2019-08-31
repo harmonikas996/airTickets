@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-hotels-list',
@@ -32,7 +34,8 @@ export class HotelsListComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private hotelService: HotelService,
-    private roomReservationService: RoomReservationService
+    private roomReservationService: RoomReservationService,
+    private http: HttpClient
 
   ) { }
 
@@ -54,11 +57,33 @@ export class HotelsListComponent implements OnInit {
   }
 
   getHotels(): void {
-    this.hotelService.gethotels().subscribe(hotels => this.hotels = hotels);
+    this.hotelService.gethotels().subscribe(hotels => {
+      hotels.forEach((hotel) => {
+        this.http.jsonp('http://dev.virtualearth.net/REST/v1/Locations/' + hotel.address +
+        '?jsonp=JSONP_CALLBACK&key=' + environment.bingMapCredentials, 'JSONP_CALLBACK')
+        .subscribe(
+          (response: any) => {
+            hotel.address = response.resourceSets[0].resources[0].address.formattedAddress;
+          }
+        );
+      });
+      this.hotels = hotels;
+    });
   }
 
   getHotelsPermament(): void {
-      this.hotelService.gethotels().subscribe(hotels => this.hotelsPermanent = hotels);
+      this.hotelService.gethotels().subscribe(hotels => {
+        hotels.forEach((hotel) => {
+          this.http.jsonp('http://dev.virtualearth.net/REST/v1/Locations/' + hotel.address +
+          '?jsonp=JSONP_CALLBACK&key=' + environment.bingMapCredentials, 'JSONP_CALLBACK')
+          .subscribe(
+            (response: any) => {
+              hotel.address = response.resourceSets[0].resources[0].address.formattedAddress;
+            }
+          );
+        });
+        this.hotelsPermanent = hotels;
+      });
   }
 
   getLocations(): void {
@@ -66,11 +91,21 @@ export class HotelsListComponent implements OnInit {
   }
 
   searchHotels(name: String, location: String, timeBegin: String, timeEnd: String): void {
-    this.hotelService.searchHotels(name, location, timeBegin, timeEnd).subscribe(
-      hotels => this.hotelsRes = hotels,
-      (error) => console.error("An error occurred, ", error),
-      () => this.hotels = []
-      );
+    this.hotelService.searchHotels(name, location, timeBegin, timeEnd).subscribe(hotels => {
+      hotels.forEach((hotel) => {
+        this.http.jsonp('http://dev.virtualearth.net/REST/v1/Locations/' + hotel.address +
+        '?jsonp=JSONP_CALLBACK&key=' + environment.bingMapCredentials, 'JSONP_CALLBACK')
+        .subscribe(
+          (response: any) => {
+            hotel.address = response.resourceSets[0].resources[0].address.formattedAddress;
+          }
+        );
+      });
+      this.hotelsRes = hotels;
+    },
+    (error) => console.log(error.error),
+    () => this.hotels = []
+    );
   }
 
  onSubmit() {

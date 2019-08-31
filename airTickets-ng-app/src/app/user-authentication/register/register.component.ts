@@ -26,11 +26,14 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     if (this.token.getToken()) {
       this.router.navigate(['/']);
-    }
-    else {
+    } else {
       this.RegisterForm = this.formBuilder.group({
         email: ['', Validators.required],
-        password: ['', Validators.required],
+        // password: ['', Validators.required],
+        password: this.formBuilder.group({
+          password: ['', [Validators.required]],
+          confirmPassword: ['']
+        }, {validator: this.checkPasswords }),
         // repeatPassword: ['', Validators.required],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -42,25 +45,31 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.RegisterForm.valid) {
-      console.log(this.RegisterForm.value);
+      const formData = this.RegisterForm.value;
+      formData.password = this.RegisterForm.get('password').get('password').value;
 
-      // if (this.RegisterForm.controls.password.value != this.RegisterForm.controls.repeatPassword.value) {
-      //   this.RegisterForm.controls.repeatPassword.setErrors({'incorrect': true});
-        
-      // }
-
-      this.auth.signUp(this.RegisterForm.value).subscribe(
+      this.auth.signUp(formData).subscribe(
         data => {
           this.message = data;
-          // if(this.message == '')
           this.isRegistrationFailed = false;
+          location.assign('/thank-you/' + formData.firstName);
         },
         error => {
-          //console.log(error);
           this.message = error.error.result;
           this.isRegistrationFailed = true;
         }
-      )
+      );
+    }
+  }
+
+  checkPasswords(group: FormGroup) {
+    const pass = group.get('password').value;
+    const confirmPass = group.get('confirmPassword').value;
+
+    if (pass === confirmPass) {
+      return null;
+    } else {
+      return { notSame: true };
     }
   }
 

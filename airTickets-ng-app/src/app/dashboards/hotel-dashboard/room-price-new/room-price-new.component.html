@@ -4,7 +4,7 @@
           <div class="row">
               <div class="col-6">
                   <button type="button" class="btn btn-secondary" (click)="onCancel()"><i class="fas fa-long-arrow-alt-left"></i></button>
-                  <h3 class="mt-4">Room price new</h3>
+                <h3 class="mt-4">{{title}}</h3>
               </div>
           </div>
           <div class="row mt-4">
@@ -13,9 +13,9 @@
                   <label>Room</label>
                   <ng-select [items]="roomsItem"
                     bindLabel="number"
-                    bindValue="id" formControlName="roomCh">
+                    bindValue="id" formControlName="roomId">
                   </ng-select>
-                  <small *ngIf="newRoomPriceForm.controls.roomCh.errors?.required && newRoomPriceForm.controls.roomCh.touched" class="form-text text-danger">*Required</small>
+                  <small *ngIf="newRoomPriceForm.controls.roomId.errors?.required && newRoomPriceForm.controls.roomId.touched" class="form-text text-danger">*Required</small>
                 </div>
               </div>
               <div class="col-md-4">
@@ -40,7 +40,7 @@
           </div>
           <div class="row">
               <div class="col-12">
-                  <button type="submit" [disabled]="!newRoomPriceForm.valid" class="btn btn-primary">Save Changes</button>
+                  <button type="submit" [disabled]="!newRoomPriceForm.valid" class="btn btn-primary">{{buttonTitle}}</button>
                   <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
               </div>
           </div>

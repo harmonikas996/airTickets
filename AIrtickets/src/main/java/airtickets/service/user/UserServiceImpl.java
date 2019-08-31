@@ -1,6 +1,5 @@
 package airtickets.service.user;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,12 +11,10 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import airtickets.dto.aircompany.AirportDTO;
-import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.dto.user.UserDTO;
-import airtickets.model.aircompany.Airport;
-import airtickets.model.rentacar.Vehicle;
+import airtickets.model.user.Authority;
 import airtickets.model.user.User;
+import airtickets.repo.user.AuthorityRepository;
 import airtickets.repo.user.UserRepository;
 
 @Service
@@ -27,12 +24,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private AuthorityRepository authorityRepository;
 
 	@Override
 	public UserDTO findByUsername(String username) throws UsernameNotFoundException {
 		User u = userRepository.findByEmail(username);
 		UserDTO user = new UserDTO(u);
 		return user;
+	}
+	
+	@Override
+	public User findUserByUsername(String username) throws UsernameNotFoundException {
+		return userRepository.findByEmail(username);
 	}
 
 	public UserDTO findById(Long id) throws AccessDeniedException {
@@ -94,5 +98,22 @@ public class UserServiceImpl implements UserService {
 		}
 		return usersDTO;
 		
+	}
+
+	@Override
+	public UserDTO addAuthority(UserDTO user) {
+		User u = this.findUserByUsername(user.getEmail());
+		
+		if(u.getType().equals("client") && !user.getType().equals("client")) {
+			// admin ga dodeljuje kompaniji (proglasava ga za admina kompanije)
+			
+			Optional<Authority> authority = authorityRepository.findByName(user.getType());
+	        
+	        if(authority.isPresent()) {
+	        	authority.get().getUsers().add(u);
+	        	return this.addUser(user);
+	        }
+		}
+		return new UserDTO();
 	}
 }

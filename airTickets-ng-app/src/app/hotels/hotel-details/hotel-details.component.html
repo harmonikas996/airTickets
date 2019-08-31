@@ -1,9 +1,15 @@
 <div class="row mt-4 mb-4">
-    <!-- *ngIf="rentacarObservable | async; else loading"  -->
-    <div class="col">
-        <h3>Hotel details</h3>
+    <div class="col-6 text-center">
+        <img src="../../../assets/img/hotel/{{hotel.image}}.png" class="card-img-top company-logo" alt="Logo of {{hotel.name}}">
     </div>
-  </div>
+    <div class="col-6 align-self-center">
+        <h1>{{hotel.name}}</h1>
+        <p>
+          <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          <i class="fas fa-map-marker-alt ml-2"></i> {{hotel.address}}</p>
+        <p class="text-secondary">{{hotel.description}}</p>
+    </div>
+</div>
   <div class="row mt-4 mb-4">
 
     <div class="col-sm-12">
@@ -85,17 +91,95 @@
     </div>
   </div>
 
-  <div class="row mt-4 mb-4">
-      <div *ngFor="let room of rooms" class="col-sm-4 rentacar">
-          <div class="card text-center">
-  
-            <div class="card-body">
-              <h5 class="card-title">NO:{{room.number}}</h5>
-              <p>floor: {{room.floor}}</p>
-              <p>beds: {{room.noOfBeds}}</p>
-              <p>type: {{room.type}}</p>
+  <div *ngIf="rooms.length > 0" class="row mt-4 mb-4 searchResults">
+      <div class="col-9">
+        <h4 class="mt-4"> Search Results: </h4>
+        <div class="row">
+          <div *ngFor="let room of rooms" class="col-sm-3">
+            <div class="card cursor-pointer" (click)="onSelectRoom(room)" [ngClass]="isRoomSelected(room) ? 'selectedRoom' : ''">
+              <img src="../../../assets/img/room/{{room.image}}.jpg" class="card-img-top">
+              <div class="card-body text-center">
+                <h5 class="card-title">No. {{room.number}}</h5>
+                <ngb-rating class="mt-2" [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+                <p class="reservationDate mt-2">{{room.type}}</p>
+                <div class="row">
+                  <div class="col-md-6">
+                    <p class="card-text"><i class="far fa-building mr-2"></i>{{room.floor}}</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="card-text"><i class="fas fa-bed mr-2"></i>{{room.noOfBeds}}</p>
+                  </div>
+                </div>
+                <h6 class="oldPrice"><span class="badge badge-light">{{room.pricePerDay}}€/day</span></h6>
+                <h5 class="loweredPrice"><span class="badge badge-primary">{{room.price}}€</span></h5>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col">
+            <h4 class="mt-4 mb-2"> Amenities</h4>
+            <ng-select
+                [items]="amenities"
+                [multiple]="true"
+                bindLabel="name"
+                bindValue="id"
+                [(ngModel)]="selectedAmenities"
+                [hideSelected]="true"
+                [closeOnSelect]="false"
+                [searchable]="false"
+                (add)="onAddAmenity($event)"
+                (remove)="onRemoveAmenity($event)"
+                (clear)="onClearAmenities()"
+                placeholder="Select amenities">
+    
+                <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                    <span class="badge badge-primary mx-1 my-1">{{item.price}}€</span>
+                    {{item.title}}
+                    <!-- <span class="ng-value-label"><img [src]="item.avatar_url" width="20px" height="20px"> {{item.login}}</span> -->
+                    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                </ng-template>
+    
+                <ng-template ng-option-tmp let-item="item">
+                    <!-- <img [src]="item.avatar_url" width="20px" height="20px"> {{item.login}} -->
+                    <span class="badge badge-primary mx-1 my-1">{{item.price}}€</span>
+                    {{item.title}}
+                </ng-template>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div *ngIf="selectedRoomsObj.length > 0 || selectedAmenitiesObj.length > 0" class="row mt-4 mx-1 px-4 py-4 bg-white">
+          <div class="col">
+            <h3 class="mb-4">Hotel Reservation</h3>
+            <table class="table">
+              <tbody>
+                <tr *ngIf="selectedRoomsObj.length > 0">
+                  <td class="align-middle"><span class="text-uppercase font-weight-bold">Rooms</span></td>
+                  <td class="align-middle"></td>
+                </tr>
+                <tr *ngFor="let selectedRoom of selectedRoomsObj">
+                  <td class="align-middle">No. {{selectedRoom.number}}</td>
+                  <td class="align-middle text-right">{{selectedRoom.price}}€</td>
+                </tr>
+                <tr *ngIf="selectedAmenitiesObj.length > 0">
+                  <td class="align-middle"><span class="text-uppercase font-weight-bold">Amenities</span></td>
+                  <td class="align-middle"></td>
+                </tr>
+                <tr *ngFor="let amenity of selectedAmenitiesObj">
+                  <td class="align-middle">{{amenity.title}}</td>
+                  <td class="align-middle text-right">{{amenity.price}}€</td>
+                </tr>
+                <tr class="bt-b">
+                  <td class="align-middle font-weight-bold">TOTAL</td>
+                  <td class="align-middle text-right"><b>{{amenitySum + roomsSum}}€</b></td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-success btn-block mt-4" type="button" (click)="makeReservation()" [disabled]="(selectedRoomsObj.length === 0)">Make Reservation</button>
+          </div>
+        </div>
       </div>
   </div>
   <ng-container *ngIf="userLoggedIn">
@@ -123,3 +207,9 @@
       </div>
     </div>
   </ng-container>
+
+  <ng-template #t let-fill="fill">
+      <span class="star" [class.full]="fill === 100">
+        <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+      </span>
+  </ng-template>

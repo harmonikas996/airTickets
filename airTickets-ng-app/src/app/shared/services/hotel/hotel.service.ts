@@ -62,7 +62,7 @@ export class HotelService {
       () => {
         user.type = 'hotel';
         user.company = companyId;
-        this.userService.updateNotLoggedUser(user).subscribe(
+        this.userService.updateAuthority(user).subscribe(
           userToBeAdmin => user = userToBeAdmin,
           error => console.log('Error: ', error),
           () => {

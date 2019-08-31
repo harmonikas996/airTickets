@@ -10,16 +10,18 @@
                   <input type="email" formControlName="email" class="form-control" placeholder="Enter email">
                   <small *ngIf="RegisterForm.controls.email.errors?.required && RegisterForm.controls.email.touched" class="form-text text-danger">*Required</small>
                 </div>
-                <div class="form-group">
-                  <label for="password">Password<span class="text-danger">*</span></label>
-                  <input type="password" formControlName="password" class="form-control" placeholder="Enter Password">
-                  <small *ngIf="RegisterForm.controls.password.errors?.required && RegisterForm.controls.password.touched" class="form-text text-danger">*Required</small>
-                </div>
-                <!-- <div class="form-group">
-                  <label for="repeatPassword">Repeat Password<span class="text-danger">*</span></label>
-                  <input type="password" formControlName="repeatPassword" class="form-control"placeholder="Enter password again">
-                  <small *ngIf="RegisterForm.controls.repeatPassword.errors?.required && RegisterForm.controls.repeatPassword.touched" class="form-text text-danger">*Required</small>
-                </div> -->
+                <ng-container formGroupName="password">
+                  <div class="form-group">
+                    <label for="password">Password<span class="text-danger">*</span></label>
+                    <input type="password" formControlName="password" class="form-control" placeholder="Enter Password">
+                    <small *ngIf="RegisterForm.controls.password.controls.password.errors?.required && RegisterForm.controls.password.controls.password.touched" class="form-text text-danger">*Required</small>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword">Confirm Password<span class="text-danger">*</span></label>
+                    <input type="password" formControlName="confirmPassword" class="form-control"placeholder="Enter password again">
+                    <small *ngIf="RegisterForm.controls.password.hasError('notSame') && RegisterForm.controls.password.controls.confirmPassword.dirty" class="form-text text-danger">Password don't match</small>
+                  </div>
+                </ng-container>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
@@ -44,7 +46,7 @@
           </div>
           <div class="row">
             <div class="col text-center">
-              <button type="submit" class="btn btn-primary">Register</button>
+              <button type="submit" [disabled]="!RegisterForm.valid" class="btn btn-primary">Register</button>
               <small *ngIf="isRegistrationFailed" class="form-text text-danger mt-3">{{message}}</small>
             </div>
           </div>
