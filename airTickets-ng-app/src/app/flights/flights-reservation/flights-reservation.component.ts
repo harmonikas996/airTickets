@@ -30,6 +30,8 @@ export class FlightsReservationComponent implements OnInit {
   flights: Flight[];
   returnFlights: Flight[];
 
+  aircompanies = [];
+
   sDep: number;
   sRet: number;
   selectedFlightsDep: {aircompanyId: number, id: number}[];
@@ -49,7 +51,7 @@ export class FlightsReservationComponent implements OnInit {
     private flightService: FlightsService,
     private formBuilder: FormBuilder,
     private airportService: AirportService,
-    private aircompanyService: AircompanyService
+    private aircompanyService: AircompanyService,
 
   ) { }
 
@@ -91,11 +93,18 @@ export class FlightsReservationComponent implements OnInit {
     });
 
     this.getAirPorts();
+    this.getAirCompanies();
     this.selectedFlightsDep = [];
     this.selectedFlightsRet = [];
     this.sDep = 0;
     this.sRet = 0;
 
+  }
+
+  getAirCompanies() {
+    this.aircompanyService.getAircompanies().subscribe(
+      response => this.aircompanies = response
+    );
   }
 
   goToSeatSelection() {

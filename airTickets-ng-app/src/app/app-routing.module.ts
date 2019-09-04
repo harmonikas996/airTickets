@@ -14,6 +14,7 @@ import { HotelDetailsComponent } from './hotels/hotel-details/hotel-details.comp
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './shared/services/guards/auth-guard.service';
 import { ThankYouComponent } from './user-authentication/register/thank-you/thank-you.component';
+import { AircompanyDetailsComponent } from './flights/aircompany-details/aircompany-details.component';
 
 const routes: Routes = [
   // { path: 'flights', component: FlightsComponent,
@@ -32,6 +33,10 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   { path: 'flight-reservations', component: FlightsReservationComponent },
+  {
+    path: 'aircompanies-details/:id',
+    component: AircompanyDetailsComponent
+  },
   // { path: 'flight-res-list', component: FlightsResListComponent },
 
   { path: 'login', component: LoginComponent },

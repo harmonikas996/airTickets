@@ -1,0 +1,66 @@
+.card img {
+    object-fit: cover;
+    height: 220px;
+}
+
+.activePrice {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.loweredPrice {
+    position: absolute;
+    top: 42px;
+    right: 20px;
+}
+.oldPrice {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+}
+
+.reservationDate {
+    font-size: 14px;
+    color: #999;
+}
+
+.searchResults {
+    background-color: #f7f7f7;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.selectedRoom {
+    border: 1px solid #48b461;
+    box-shadow: 0 0 0 0.2rem #48b461;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.bt-b {
+    border-top: 0.2rem solid #dee2e6;
+}
+
+.company-logo {
+    width: 200px;
+    height: 200px;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    color: #d3d3d3;
+}
+.full {
+    color: #ffc107;
+}
+.half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #ffc107;
+}

@@ -9,6 +9,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { FlightsResListComponent } from './flights-res-list/flights-res-list.component';
 import { PassengersDetailsComponent } from './passengers-details/passengers-details.component';
 import { BetweenStepsComponent } from '../shared/utils/between-steps/between-steps.component';
+import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { AircompanyDetailsComponent } from './aircompany-details/aircompany-details.component';
 
 @NgModule({
   imports: [
@@ -18,13 +21,16 @@ import { BetweenStepsComponent } from '../shared/utils/between-steps/between-ste
     OwlNativeDateTimeModule,
     ReactiveFormsModule,
     MyDatePickerModule,
-    NgSelectModule
+    NgSelectModule,
+    SharedModule,
+    RouterModule
   ],
   declarations: [
     FlightsReservationComponent,
     FlightsResListComponent,
     PassengersDetailsComponent,
-    BetweenStepsComponent
+    BetweenStepsComponent,
+    AircompanyDetailsComponent
   ],
   exports: [
     FlightsReservationComponent,
