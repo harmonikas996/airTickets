@@ -41,7 +41,8 @@ export class RoomNewComponent implements OnInit {
         response => {
           this.newRoomForm.controls.hotel.setValue(response.company);
           this.roomService.addRoom(this.newRoomForm.value).subscribe((res) => {
-              location.assign('/hotel-dashboard/rooms');
+              // location.assign('/hotel-dashboard/rooms');
+              this.locationService.back();
           },
           (error) => {
               // catch the error

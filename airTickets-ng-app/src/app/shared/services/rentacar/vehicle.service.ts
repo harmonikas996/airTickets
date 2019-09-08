@@ -45,6 +45,11 @@ export class VehicleService {
     return this.http.put<number>(this.vehiclesUrl + '/makeReservation/' + id + '/' + from + '/' + to, vehicle, httpOptions);
   }
 
+  reserveQuickVehicle(reservationId: number, carReservationId: number) {
+    return this.http.put<number>(
+      this.vehiclesUrl + '/makeQuickReservation/' + reservationId + '/' + carReservationId, httpOptions);
+  }
+
   removeVehicle(vehicle: Vehicle | number): Observable<Vehicle> {
     const id = typeof vehicle === 'number' ? vehicle : vehicle.id;
     return this.http.delete<Vehicle>(this.vehiclesUrl + '/' + id + '/delete', httpOptions).pipe(

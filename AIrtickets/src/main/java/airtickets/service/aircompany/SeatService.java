@@ -3,6 +3,8 @@ package airtickets.service.aircompany;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,8 @@ import airtickets.repo.aircompany.SeatRepository;
 
 @Service
 public class SeatService {
-	
+
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private SeatRepository seatRepository;
 	@Autowired
@@ -84,20 +87,50 @@ public class SeatService {
 		return seats;
 	}
 
+	public List<SeatDTO> getQuickSeatsByCompanyId(long id) {
+		List<SeatDTO> seats = new ArrayList<>();
+		for(Seat s : seatRepository.getQuickSeatsByCompanyId(id)) {
+			SeatDTO seatdto = new SeatDTO(s);
+			seats.add(seatdto);
+		}
+		return seats;
+	}
+	// 1. Making standard reservation
+	// 2. Making quick reservation (when FlightResId != null)
 	public FlightReservationDTO reserveSeats(List<SeatDTO> seats) {
 		
-		FlightReservation fr = new FlightReservation();
-		flightReservationRepository.save(fr);
+		
+		FlightReservation fr = null;
+		boolean  flightIdSet = false;
+		
+		if(seats.get(0).getFlightResId() == null) {
+			
+			fr = new FlightReservation();
+			flightReservationRepository.save(fr);
+		} else {
+			fr = flightReservationRepository.findById(seats.get(0).getFlightResId()).get();
+			flightIdSet = true; // already exists because of quick reservation creation process
+		}
+		
 		for (SeatDTO s : seats) {
 			Seat st = seatRepository.findById(s.getId());
 			st.setClient(new User());
 			st.getClient().setId(s.getClientId());
+			if(s.getPrice() != null) {
+				st.setPrice(s.getPrice());
+			}
 			st.setContact(s.getContact());
 			st.setFirstName(s.getFirstName());
 			st.setLastName(s.getLastName());
 			st.setPassport(s.getPassport());
 			st.setReservation(fr);
 			seatRepository.save(st);
+			
+			if(!flightIdSet) {
+				fr.setFlight(st.getFlight());
+				flightReservationRepository.save(fr);
+				flightIdSet = true;
+			}
 		}
 		
 		return new FlightReservationDTO(fr);

@@ -60,4 +60,17 @@ export class RoomReservationService {
     );
   }
 
+
+  makeReservation(selectedRoomsObj: any[], flightReservationId: number, from: any, to: any): Observable<number> {
+    return this.http.put<number>(
+      this.roomsResUrl + '/makeReservation/' + flightReservationId + '/' + from + '/' + to, selectedRoomsObj, httpOptions
+      );
+  }
+
+  makeQuickReservation(flightReservationId: number, hotelReservationId: number): Observable<number> {
+    return this.http.put<number>(
+      this.roomsResUrl + '/makeQuickReservation/' + flightReservationId + '/' + hotelReservationId, httpOptions
+      );
+  }
+
 }

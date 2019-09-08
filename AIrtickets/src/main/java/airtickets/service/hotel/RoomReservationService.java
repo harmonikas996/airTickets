@@ -7,12 +7,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import airtickets.dto.hotel.RoomDTO;
 import airtickets.dto.hotel.RoomReservationDTO;
+import airtickets.model.aircompany.FlightReservation;
 import airtickets.model.hotel.Hotel;
 import airtickets.model.hotel.HotelReservation;
 import airtickets.model.hotel.Room;
 import airtickets.model.hotel.RoomReservation;
 import airtickets.model.user.User;
+import airtickets.repo.aircompany.FlightReservationRepository;
 import airtickets.repo.hotel.HotelRepository;
 import airtickets.repo.hotel.HotelReservationRepository;
 import airtickets.repo.hotel.RoomRepository;
@@ -24,6 +27,8 @@ public class RoomReservationService {
 
 	@Autowired
 	RoomReservationRepository roomReservationRepository;
+	@Autowired
+	FlightReservationRepository flightReservationRepository;
 	@Autowired
 	HotelReservationRepository hotelReservationRepository;
 	@Autowired
@@ -107,5 +112,50 @@ public class RoomReservationService {
 		rr = roomReservationRepository.save(rr);
 		
 		return new RoomReservationDTO(rr);
+	}
+
+	public Long makeReservation(List<RoomDTO> rooms, Long flightReservationId, String from, String to) {
+		LocalDateTime ldtFrom = LocalDateTime.parse(from);
+		LocalDateTime ldtTo = LocalDateTime.parse(to);
+		
+		boolean hotelReservationCreated = false;
+		HotelReservation hr = new HotelReservation();
+		double sumPrice = 0;
+		hr.setDateFrom(ldtFrom);
+		hr.setDateTo(ldtTo);
+		for(RoomDTO room : rooms) {
+			if(room.getId() > 0) {
+				
+				Room r = roomRepository.findById(room.getId());
+				if(r.getId() > 0) {
+					if(!hotelReservationCreated) {						
+						hr.setHotel(r.getHotel());
+						hr = hotelReservationRepository.save(hr);
+					}
+					RoomReservation rr = new RoomReservation();
+					rr.setHotelReservation(hr);
+					rr.setRoom(r);
+					rr = roomReservationRepository.save(rr);
+				}
+			}
+		}
+//		hr.setPrice(price);
+//		hr = hotelReservationRepository.save(hr);
+		
+		FlightReservation fr = flightReservationRepository.getOne(flightReservationId);
+		fr.setHotelReservation(hr);
+		flightReservationRepository.save(fr);
+		
+		
+		return hr.getId();
+	}
+
+	public Long makeQuickReservation(Long flightReservationId, Long hotelReservationId) {
+		FlightReservation fr = flightReservationRepository.getOne(flightReservationId);
+		HotelReservation hr = hotelReservationRepository.getOne(hotelReservationId);
+		fr.setHotelReservation(hr);
+		flightReservationRepository.save(fr);
+		
+		return hr.getId();
 	}
 }

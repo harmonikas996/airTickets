@@ -48,6 +48,8 @@ export class FlightNewComponent implements OnInit {
   placeToId: any;
   aircompanyId: any;
 
+  todayDate = new Date(moment().add(1, 'days').toLocaleString());
+
 
   constructor(
     private flightsService: FlightsService,
@@ -69,7 +71,7 @@ export class FlightNewComponent implements OnInit {
       distance: ['', Validators.required],
       price: ['', Validators.required],
       airplaneType: ['', Validators.required],
-      loweredPrice: ['', Validators.required],
+      loweredPrice: [''],
       placeFromId: ['', Validators.required],
       placeToId: ['', Validators.required],
       numberSeats: ['', Validators.required]

@@ -30,7 +30,8 @@ export class CompanyProfileComponent implements OnInit {
       name: ['', Validators.required],
       address: [{ value: '', disabled: true }, Validators.required],
       textAddress: [''],
-      description: ['']
+      description: [''],
+      image: ['']
     });
     // srediti preuzimanje ID-a kompanije tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
     this.getRentacarById();

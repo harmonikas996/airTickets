@@ -28,10 +28,11 @@ export class HotelProfileComponent implements OnInit {
     this.companyProfileForm = this.formBuilder.group({
       id: [''],
       name: ['', Validators.required],
-      city: ['', Validators.required],
+      city: [''],
       address: [{ value: '', disabled: true }, Validators.required],
-      textAddress: [''],
-      description: ['']
+      textAddress: ['', Validators.required],
+      description: [''],
+      image: ['']
     });
     // srediti preuzimanje ID-a kompanije tako sto proveris kojoj kompaniji je dodeljen ulogovani admin
     this.getHotelById();

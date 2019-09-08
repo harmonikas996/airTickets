@@ -22,6 +22,7 @@ export class RoomPriceNewComponent implements OnInit {
   ajDi: string;
   title: string;
   buttonTitle: string;
+  todayDate = new Date(moment().subtract(1, 'days').toISOString());
 
   constructor(
     private formBuilder: FormBuilder,

@@ -36,6 +36,7 @@ export class FlightDetailsComponent implements OnInit {
   types = [];
   flightObj: Flight = new Flight();
   aircompany: Aircompany;
+  todayDate = new Date(moment().add(1, 'days').toLocaleString());
 
   constructor(
     private flightService: FlightsService,
@@ -55,7 +56,7 @@ export class FlightDetailsComponent implements OnInit {
       distance: ['', Validators.required],
       price: ['', Validators.required],
       airplaneType: ['', Validators.required],
-      loweredPrice: ['', Validators.required],
+      loweredPrice: [''],
       placeFromId: ['', Validators.required],
       placeToId: ['', Validators.required]
     });
@@ -80,7 +81,12 @@ export class FlightDetailsComponent implements OnInit {
 
   getFlightById(id: number): void {
     this.flight = this.flightService.getFlightById(id).pipe(
-      tap(flight => this.flightDetailsForm.patchValue(flight))
+      tap(flight => {
+        this.flightDetailsForm.patchValue(flight);
+        const dateStart = new Date(flight.timeBegin);
+        const dateEnd = new Date(flight.timeEnd);
+        this.flightDetailsForm.controls.datePeriod.setValue([dateStart, dateEnd]);
+      })
     );
   }
 

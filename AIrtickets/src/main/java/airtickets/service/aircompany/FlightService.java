@@ -31,6 +31,17 @@ public class FlightService {
 		
 		return flightDTO;
 	}
+
+	public List<FlightDTO> getFlightsByUser(Long id) {
+		List<FlightDTO> flights = new ArrayList<FlightDTO>();
+		List<Flight> flight = flightRepository.getFlightsByUser(id);
+		
+		for(Flight f : flight) {
+			FlightDTO fl = new FlightDTO(f);
+			flights.add(fl);
+		}
+		return flights;
+	}
 	
 	public List<FlightDTO> getFlights(){
 		List<FlightDTO> flights = new ArrayList<FlightDTO>();
@@ -78,9 +89,30 @@ public class FlightService {
 		
 		date = "^" + dt.toString().substring(0, 10);
 		
-		log.info(date);
-		
 		for (Flight f  : flightRepository.searchFlights(pf, pt, date)) {
+			FlightDTO flight = new FlightDTO(f);
+			flights.add(flight);
+ 		}
+		return flights;
+	}
+
+	public List<FlightDTO> searchFlightsByCompany(String placeFromId, String placeToId, String date, Long companyId) {
+		
+		LocalDateTime dt = LocalDateTime.parse(date);
+		
+		String pf = "^[0-9]+$";
+		String pt = "^[0-9]+$";
+		
+		if(!placeFromId.equals("-1"))
+			pf = "^" + placeFromId + "$";
+		if(!placeToId.equals("-1"))
+			pt = "^" + placeToId + "$";
+		
+		List<FlightDTO> flights = new ArrayList<FlightDTO>();
+		
+		date = "^" + dt.toString().substring(0, 10);
+		
+		for (Flight f  : flightRepository.searchFlightsByCompany(pf, pt, date, companyId)) {
 			FlightDTO flight = new FlightDTO(f);
 			flights.add(flight);
  		}

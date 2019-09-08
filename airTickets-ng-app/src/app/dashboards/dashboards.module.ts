@@ -54,6 +54,7 @@ import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservat
 import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
 import { SharedModule } from '../shared/shared.module';
 import { FriendsListComponent } from './user-dashboard/friends-list/friends-list.component';
+import { QuickResAircompanyComponent } from './aircompany-dashboard/quick-res-aircompany/quick-res-aircompany.component';
 
 
 @NgModule({
@@ -112,7 +113,8 @@ import { FriendsListComponent } from './user-dashboard/friends-list/friends-list
     SpecialOfferUpdateComponent,
     QuickReservationsComponent,
     QuickResHotelComponent,
-    FriendsListComponent
+    FriendsListComponent,
+    QuickResAircompanyComponent
   ],
   providers: [
     AuthGuard,

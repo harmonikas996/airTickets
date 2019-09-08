@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.hotel.AmenityDTO;
 import airtickets.dto.hotel.AmenityReservationDTO;
 import airtickets.service.hotel.AmenityReservationService;
 
@@ -48,5 +49,10 @@ public class AmenityReservationController {
 	@DeleteMapping("{id}/delete")
 	public void deleteAmenity(@PathVariable Long id) {
 		amenityReservationService.deleteAmenityReservation(id);
+	}
+	
+	@PutMapping("makeReservation/{hotelReservationId}")
+	public boolean makeReservation(@RequestBody List<AmenityDTO> amenities, @PathVariable Long hotelReservationId) {
+		return amenityReservationService.makeReservation(amenities, hotelReservationId);
 	}
 }

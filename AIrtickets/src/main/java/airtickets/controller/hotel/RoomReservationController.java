@@ -74,4 +74,14 @@ public class RoomReservationController {
 		
 		return roomReservationService.addQuick(email, from, to, id, price);
 	}
+	
+	@PutMapping("makeReservation/{flightReservationId}/{from}/{to}")
+	public Long makeReservation(@RequestBody List<RoomDTO> rooms, @PathVariable Long flightReservationId, @PathVariable String from, @PathVariable String to) {
+		return roomReservationService.makeReservation(rooms, flightReservationId, from, to);
+	}
+	
+	@PutMapping("makeQuickReservation/{flightReservationId}/{hotelReservationId}")
+	public Long makeReservation(@PathVariable Long flightReservationId, @PathVariable Long hotelReservationId) {
+		return roomReservationService.makeQuickReservation(flightReservationId, hotelReservationId);
+	}
 }

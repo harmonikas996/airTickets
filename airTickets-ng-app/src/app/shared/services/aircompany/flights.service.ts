@@ -27,9 +27,8 @@ getFlightById(id: number): Observable<Flight> {
   return this.http.get<Flight>(this.flightUrl + '/' + id);
 }
 
-// Ovdeeee letovi samo za aircomapany koja je izabrana
-getFlightsByAircompanyId(id: number): Observable<Flight>{
-  return null;
+getFlightsByCompanyId(id: number): Observable<Flight[]> {
+  return this.http.get<Flight[]>(this.flightUrl + '/aircompany/' + id);
 }
 
 getAircompanyByAdminUsername(adminUsername: String): Observable<Flight> {
@@ -53,6 +52,10 @@ removeFlight(flight: Flight | number): Observable<Flight> {
 
 searchFlights(placeFromId: Number, placeToId: Number, timeBegin: String): Observable<Flight[]> {
   return this.http.get<Flight[]>(this.flightUrl + '/search?placeFromId=' + placeFromId + '&placeToId=' + placeToId + '&timeBegin=' + timeBegin);
+}
+
+searchFlightsByCompany(placeFromId: Number, placeToId: Number, timeBegin: String, companyId: number): Observable<Flight[]> {
+  return this.http.get<Flight[]>(this.flightUrl + '/searchByCompany?placeFromId=' + placeFromId + '&placeToId=' + placeToId + '&timeBegin=' + timeBegin + '&companyId=' + companyId);
 }
 
 }

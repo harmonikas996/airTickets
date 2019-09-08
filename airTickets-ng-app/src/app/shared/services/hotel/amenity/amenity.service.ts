@@ -14,6 +14,8 @@ const httpOptions = {
 export class AmenityService {
 
   private amenitiesUrl = 'http://localhost:8080/amenities';
+  private amenityReservationUrl = 'http://localhost:8080/amenityReservations';
+
 
   constructor(
     private http: HttpClient
@@ -44,5 +46,9 @@ export class AmenityService {
     return this.http.delete<Amenity>(this.amenitiesUrl + '/' + id + '/delete', httpOptions).pipe(
       tap(_ => console.log(`deleted amenity id=${id}`))
     );
+  }
+
+  makeReservation(amenities: any[], hotelReservationId: number): Observable<boolean> {
+    return this.http.put<boolean>(this.amenityReservationUrl + '/makeReservation/' + hotelReservationId, amenities, httpOptions);
   }
 }

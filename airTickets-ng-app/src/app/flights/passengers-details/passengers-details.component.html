@@ -19,14 +19,17 @@
             <div class="form-group mb-4" [formGroupName]="i">
                 <input class="form-control mb-2" formControlName="firstName" placeholder="First Name">
                 <input class="form-control mb-2" formControlName="lastName" placeholder="Last Name">
-                <input class="form-control mb-2" formControlName="passport" placeholder="Passpord Number">
+                <input class="form-control mb-2" formControlName="passport" placeholder="Passport Number">
                 <input class="form-control mb-2" formControlName="contact" placeholder="Phone Number">
             </div>
         </div>
       </div>
   </div>
   <div class="row">
-      <button [disabled]="!passengersForm.valid || (!oneWay && !passengersFormRet.valid)" class="btn btn-primary">Next</button>
+    <div class="col">
+
+      <button [disabled]="!passengersForm.valid || (!oneWay && !passengersFormRet.valid)" class="btn btn-success btn-block">Make Flight Reservation</button>
+    </div>
   </div>
   </form>
   <form *ngIf="!oneWay" class="col-4"  [formGroup]="passengersFormRet" (ngSubmit)="onSubmit()">

@@ -126,10 +126,18 @@ public class VehicleService {
 		cr.setDateFrom(ldtFrom);
 		cr.setDateTo(ldtTo);
 		Vehicle v = vehicleRepository.findById(vehicle.getId());
-		cr.setPrice(brDana*v.getPricePerDay());
+		cr.setPrice((++brDana)*v.getPricePerDay());
 		cr.setVehicle(v);
 		cr = carReservationRepository.save(cr);
 		FlightReservation fr = flightReservationRepository.findById(id);
+		fr.setCarReservation(cr);
+		flightReservationRepository.save(fr);
+		return cr.getId();
+	}
+
+	public Long makeQuickReservation(long reservationId, long carReservationId) {		
+		CarReservation cr = carReservationRepository.findById(carReservationId);
+		FlightReservation fr = flightReservationRepository.findById(reservationId);
 		fr.setCarReservation(cr);
 		flightReservationRepository.save(fr);
 		return cr.getId();

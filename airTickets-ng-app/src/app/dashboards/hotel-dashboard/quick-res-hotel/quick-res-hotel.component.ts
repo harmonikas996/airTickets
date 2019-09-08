@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quick-res-hotel',
@@ -30,7 +31,8 @@ export class QuickResHotelComponent implements OnInit {
     private formBuilder: FormBuilder,
     private token: TokenStorageService,
     private roomService: RoomService,
-    private roomResService: RoomReservationService
+    private roomResService: RoomReservationService,
+    private locationService: Location
   ) { }
 
   ngOnInit() {
@@ -82,7 +84,7 @@ export class QuickResHotelComponent implements OnInit {
       this.roomID = this.quickFormRes.controls['chRooms'].value;
       this.price = this.quickFormRes.controls['price'].value;
       this.roomResService.addRoomReservation(this.timeBegin, this.timeEnd, this.user, this.roomID, this.price).subscribe((response) => {
-
+        location.replace('./hotel-dashboard');
      },
      (error) => {
         //catch the error

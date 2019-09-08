@@ -164,27 +164,84 @@
       </div>
     </div>
 </div> -->
-<!-- <ng-container *ngIf="userLoggedIn">
+<ng-container>
   <h4 class="mt-4"> Quick Reservations: </h4>
   <div class="row">
-    <div *ngFor="let roomReservation of roomReservations" class="col-sm-3 rentacar">
-      <div class="card">
-        <div class="card-body text-center">
-          <h5 class="card-title">{{roomReservation.id}}</h5>
-          <div class="row">
-            <div class="col-md-6">
-              <p class="card-text"><i class="fas fa-ellipsis-v mr-2"></i>{{roomReservation.floor}}</p>
-            </div>
-            <div class="col-md-6">
-              <p class="card-text"><i class="fas fa-bed mr-2"></i>{{roomReservation.noOfBeds}}</p>
+    <div class="col-9">
+      <div class="row">
+          <div *ngFor="let quickReservation of quickReservations" class="col-sm-3 rentacar">
+            <div class="card cursor-pointer mb-4" (click)="onSelectQuickReservation(quickReservation)" [ngClass]="(selectedQuickReservation['id'] === quickReservation.id) ? 'selectedQuickReservation' : ''">
+              <div class="card-body text-center">
+                <h6 class="card-title">{{quickReservation.placeFrom}} <i class="fas fa-plane px-2 svg-plane"></i> {{quickReservation.placeTo}}</h6>
+                <div class="row">
+                  <div class="col">
+                    <p class="reservationDate">{{quickReservation.timeBegin | date:'medium'}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <p class="reservationDate"><i class="fas fa-plane-departure px-2 svg-plane pr-2"></i>{{quickReservation.airplaneType}}</p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <h6>{{quickReservation.mark}}</h6>
+                  </div>
+                  <div class="col">
+                      <h6><del class="reservationDate">{{quickReservation.originalPrice}}€</del><span class="badge badge-pill badge-success ml-2">{{quickReservation.loweredPrice}}€</span></h6>
+                    </div>
+                </div>
+                <!-- <button class="btn btn-primary mt-4" type="button" (click)="isQuickSelected = !isQuickSelected">Reserve</button> -->
+              </div>
             </div>
           </div>
-          <button class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
+        </div>
+    </div>
+    <div class="col-3">
+      <div [ngbCollapse]="!isQuickSelected">
+        <div class="card">
+          <div class="card-body">
+            <form class="col"  [formGroup]="passengerForm" (ngSubmit)="onSubmit()">
+              <div class="row mt-2">
+                <div class="col">
+                  <h5>Quick Reservation</h5>
+                  <p class="reservationDate">Enter passenger details</p>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                    <p>{{selectedQuickReservation.placeFrom}} <i class="fas fa-plane px-2 svg-plane"></i> {{selectedQuickReservation.placeTo}}</p>
+                    <p>{{selectedQuickReservation.timeBegin | date:'medium'}}</p>
+                    <p>SEAT: <span class="badge badge-pill badge-success">{{selectedQuickReservation.mark}}</span></p>
+                  </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col">
+                    <div class="form-group mb-4">
+                        <input class="form-control mb-2" formControlName="firstName" placeholder="First Name">
+                        <input class="form-control mb-2" formControlName="lastName" placeholder="Last Name">
+                        <input class="form-control mb-2" formControlName="passport" placeholder="Passport Number">
+                        <input class="form-control mb-2" formControlName="contact" placeholder="Phone Number">
+                    </div>
+                </div>
+              </div>
+              <div class="row my-2">
+                <div class="col">
+                    <h6>PRICE: {{selectedQuickReservation.loweredPrice}}€</h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <button [disabled]="!passengerForm.valid" class="btn btn-success btn-block">Make Reservation</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</ng-container> -->
+</ng-container>
 
 <ng-template #t let-fill="fill">
     <span class="star" [class.full]="fill === 100">

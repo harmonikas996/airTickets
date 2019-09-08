@@ -13,7 +13,7 @@
         </div>
         <div class="form-group" hidden>
           <label for="city">City<span class="text-danger">*</span></label>
-          <input type="text" formControlName="city" class="form-control" placeholder="Enter Name" required>
+          <input type="text" formControlName="city" class="form-control" placeholder="Enter Name">
           <small *ngIf="companyProfileForm.controls.city.errors?.required && companyProfileForm.controls.city.touched" class="form-text text-danger">*Required</small>
         </div>
         <div class="form-group" hidden>
@@ -34,6 +34,10 @@
         <div class="form-group">
           <label for="description">Short Description <span class="text-muted">(max: 160 characters)</span></label>
           <textarea rows="4" formControlName="description" class="form-control" placeholder="A few words about your company..." maxlength="160"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="image">Image<span class="text-danger">*</span></label>
+          <input type="text" formControlName="image" class="form-control" placeholder="Image name" required>
         </div>
         <button type="submit" [disabled]="!companyProfileForm.valid" class="btn btn-primary">Save Changes</button>
         <button type="button" class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>

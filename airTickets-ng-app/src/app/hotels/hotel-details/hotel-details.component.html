@@ -187,21 +187,23 @@
     <div class="row">
       <div *ngFor="let roomReservation of roomReservations" class="col-sm-3 rentacar">
         <div class="card">
-            <!-- <img src="../../../assets/img/vehicle/{{carReservation.image}}" class="card-img-top" alt="Picture of {{carReservation.brand}}"> -->
+            <img src="../../../assets/img/room/{{roomReservation.image}}.jpg" class="card-img-top" alt="Picture of {{roomReservation.number}}">
           <div class="card-body text-center">
-            <h5 class="card-title">{{roomReservation.id}}</h5>
-            <!-- <p class="reservationDate mt-2">{{carReservation.dateFrom | date: 'MMM d, y'}} - {{carReservation.dateTo | date: 'MMM d, y'}}</p> -->
+            <h5 class="card-title">No. {{roomReservation.number}}</h5>
+            <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
+            <p class="reservationDate mt-2">{{roomReservation.from | date: 'MMM d, y'}} - {{roomReservation.to | date: 'MMM d, y'}}</p>
+            <p class="reservationDate mt-2">{{roomReservation.type}}</p>
             <div class="row">
               <div class="col-md-6">
-                <p class="card-text"><i class="fas fa-ellipsis-v mr-2"></i>{{roomReservation.floor}}</p>
+                <p class="card-text"><i class="far fa-building mr-2"></i>{{roomReservation.floor}}</p>
               </div>
               <div class="col-md-6">
                 <p class="card-text"><i class="fas fa-bed mr-2"></i>{{roomReservation.noOfBeds}}</p>
               </div>
             </div>
-            <!-- <h6 class="card-subtitle mb-2 text-muted oldPrice"><s>{{carReservation.price}}€</s></h6> -->
-            <!-- <h5 class="activePrice"><span class="badge badge-warning ml-1">{{carReservation.pricePerDay}}€</span></h5> -->
-            <button class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
+            <h6 class="oldPrice"><span class="badge badge-light">{{roomReservation.pricePerDay}}€</span></h6>
+            <button [disabled]="!isAfterFlightReservation()" class="btn btn-primary mt-4" type="button" (click)="makeQuickReservation(roomReservation)">Make Reservation</button>
+            <p class="reservationDate mt-2" *ngIf="!isAfterFlightReservation()">Login / Book a flight before booking a room</p>
           </div>
         </div>
       </div>

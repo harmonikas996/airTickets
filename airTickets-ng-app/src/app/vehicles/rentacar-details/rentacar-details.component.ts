@@ -44,6 +44,7 @@ export class RentacarDetailsComponent implements OnInit {
   dropoffLocation: string;
 
   carReservations = [];
+  todayDate = new Date(moment().toLocaleString());
 
 
   constructor(
@@ -86,8 +87,36 @@ export class RentacarDetailsComponent implements OnInit {
 
         this.vehicleService.getVehicleById(carReservation.vehicleId).subscribe(
           vehicle => {
+            const flightStart = window.sessionStorage.getItem('flightStart');
+            if (flightStart != null && moment(flightStart).isAfter(moment())) {
 
-            this.carReservations.push({
+              this.todayDate = new Date(flightStart);
+
+              if (moment(carReservation.dateFrom).isAfter(moment(flightStart))) {
+
+                this.carReservations.push({
+                      id: carReservation.id,
+                      vehicleId: carReservation.vehicleId,
+                      dateFrom: carReservation.dateFrom,
+                      dateTo: carReservation.dateTo,
+                      price: carReservation.price,
+                      name: vehicle.name,
+                      brand: vehicle.brand,
+                      model: vehicle.model,
+                      yearOfProduction: vehicle.yearOfProduction,
+                      numberOfSeats: vehicle.numberOfSeats,
+                      type: vehicle.type,
+                      pricePerDay: vehicle.pricePerDay,
+                      rentACarId: vehicle.rentACarId,
+                      image: vehicle.image,
+                  }
+                );
+              }
+            } else {
+
+              if (moment(carReservation.dateFrom).isAfter(moment())) {
+
+                this.carReservations.push({
                   id: carReservation.id,
                   vehicleId: carReservation.vehicleId,
                   dateFrom: carReservation.dateFrom,
@@ -102,8 +131,10 @@ export class RentacarDetailsComponent implements OnInit {
                   pricePerDay: vehicle.pricePerDay,
                   rentACarId: vehicle.rentACarId,
                   image: vehicle.image,
+                }
+                );
               }
-            );
+            }
           }
         );
       }
@@ -149,6 +180,7 @@ export class RentacarDetailsComponent implements OnInit {
           const start = moment(pickupDateTime).startOf('day');
           const end = moment(dropoffDateTime).startOf('day');
           this.vehicles.push({
+            id: vehicle.id,
             name: vehicle.name,
             brand: vehicle.brand,
             model: vehicle.model,
@@ -203,19 +235,32 @@ export class RentacarDetailsComponent implements OnInit {
     this.dropoffDateTime = moment(this.vehicleSearchForm.controls['dropoffDateTime'].value).format('YYYY-MM-DDTHH:mm:ss.SSS');
     let key = 'reservationId';
     let reservationId: string = window.sessionStorage.getItem(key);
-
-    console.log(vehicle);
-    console.log(this.pickupDateTime);
-    console.log(this.dropoffDateTime);
-    console.log(reservationId);
     this.vehicleService.reserveVehicle(vehicle, +reservationId, this.pickupDateTime, this.dropoffDateTime).subscribe(
       carReservationId => this.carReservationId = carReservationId,
       (error) => console.error('An error occurred, ', error),
       () => {
         // window.sessionStorage.setItem('carReservationId', this.carReservationId.toString());
         window.sessionStorage.removeItem(key);
-        window.location.href='../';
+        window.location.href = '../';
       }
     );
+  }
+
+  reserveQuickVehicle(carReservation: any) {
+    this.vehicleService.reserveQuickVehicle(+window.sessionStorage.getItem('reservationId'), carReservation.id).subscribe(
+      carReservationId => this.carReservationId = carReservationId,
+      (error) => console.error('An error occurred, ', error),
+      () => {
+        window.location.href = '/';
+      }
+    );
+  }
+
+  isAfterFlightReservation(): boolean {
+    return window.sessionStorage.getItem('reservationId') != null;
+  }
+
+  isLoggedIn(): boolean {
+    return window.sessionStorage.getItem('UserId') != null;
   }
 }

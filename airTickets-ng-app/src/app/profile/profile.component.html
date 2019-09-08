@@ -82,7 +82,7 @@
       <div class="col">
         <p class="text-uppercase font-weight-bold mb-2">Aircompanies</p>
         <div class="list-group">
-          <a *ngFor="let aircompany of aircompanies" href="#" class="list-group-item list-group-item-action">{{aircompany.name}}</a>
+          <a *ngFor="let aircompany of aircompanies" routerLink="/aircompanies-details/{{aircompany.id}}" class="list-group-item list-group-item-action">{{aircompany.name}}</a>
         </div>
       </div>
     </div>

@@ -44,6 +44,10 @@ export class SeatService {
     return this.http.get<Seat[]>(this.seatsUrl + '/seatsByFlight?id=' + id);
   }
 
+  quickSeatsByCompany(companyId: number): Observable<Seat[]> {
+    return this.http.get<Seat[]>(this.seatsUrl + '/quickSeatsByCompany?id=' + companyId);
+  }
+
   removeSeat(seat: Seat | number): Observable<Seat> {
     const id = typeof seat === 'number' ? seat : seat.id;
     return this.http.delete<Seat>(this.seatsUrl + '/' + id + '/delete', httpOptions).pipe(

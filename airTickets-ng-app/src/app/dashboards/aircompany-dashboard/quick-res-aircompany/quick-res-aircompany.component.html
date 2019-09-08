@@ -1,0 +1,155 @@
+<div  class="row mt-4 mb-4">
+  <div class="col-12">
+      <h3 *ngIf="searchFlight">Quick Reservations</h3>
+  </div>
+</div>
+<div *ngIf="searchFlight" class="row mt-4 mb-4">
+  <div class="col">
+    <h5>Search Flights</h5>
+    <form [formGroup]="flightResForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+          <div class="col">
+              <label>Depart from</label>
+              <ng-select [items]="airports"
+                bindLabel="city"
+                bindValue="id" formControlName="placeFromId">
+              </ng-select>
+              <small *ngIf="flightResForm.controls.placeFromId.errors?.required && flightResForm.controls.placeFromId.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="col">
+              <label>Arrive at</label>
+              <ng-select [items]="airports"
+                bindLabel="city"
+                bindValue="id" formControlName="placeToId">
+              </ng-select>
+              <small *ngIf="flightResForm.controls.placeToId.errors?.required && flightResForm.controls.placeToId.touched" class="form-text text-danger">*Required</small>
+          </div>
+          <div class="col">
+              <div class="form-group">
+                <label for="placeFromId">Date<span class="text-danger">*</span></label>
+                <input class="form-control" placeholder="Pick Date"
+                        [style.width]="'350px'"
+                        [selectMode]="'rangeFrom'"
+                        [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
+                        formControlName="datePeriod"
+                        [min]="todayDate">
+
+                <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
+              </div>
+          </div>
+
+          <div class="col">
+              <button id="buttonSearch" [disabled]="!flightResForm.valid" type="submit" class="btn btn-primary">Search</button>
+          </div>
+    </div>
+    </form>
+  </div>
+
+</div>
+
+<div *ngIf="searchFlight" class="row mt-4 mb-4">
+  <div class="col">
+    <h5 *ngIf="flights">Select Flight ({{this.nameFlightFrom}} <i class="fas fa-plane px-2 svg-plane"></i> {{this.nameFlightTo}})</h5>
+    <div *ngFor="let flight of flights">
+        <div class="card mb-2" id="checkboxes" [ngClass]="isSelectedDep(flight.aircompanyId, flight.id) ? 'selectedFlight' : ''" for="blankCheckbox">
+          <label >
+            <div class="card-body">
+
+                <div class="row">
+                  <div class="col-sm-4">
+                      <h6 class="card-title">Time begin: {{flight.timeBegin  | date: 'medium'}}</h6>
+                      <h6 class="card-title">Time end: {{flight.timeEnd  | date: 'medium'}}</h6>
+                      <h6 class="card-title"><i class="fas fa-plane icon"></i> {{flight.airplaneType}}</h6>
+                  </div>
+                  <div class="col-sm-4">
+                      <h6 class="card-title">Price: {{flight.price}}</h6>
+                      <h6 class="card-title">Aircompany: {{flight.aircompanyId}}</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-4">
+                        <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{flight.aircompanyId}}|{{flight.id}}" (click)="selectFlightDep(flight.aircompanyId, flight.id, $event)">
+                  </div>
+                </div>
+
+            </div>
+          </label>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row mt-4 mb-4">
+    <div class="col">
+      <button *ngIf="selectedFlightsDep.length == 1 && !seatSelection" id="buttonSearch" type="submit" class="btn btn-success btn-block" (click)="goToSeatSelection()">Next</button>
+    </div>
+</div> -->
+<!-- <div class="row mt-4 mb-4">
+    <app-flights-res-list class="col" *ngIf="seatSelection" [oneWay]="(flightOptionForm.controls['val'].value == 'one') ? true : false" [passengers]="passengers" [selectedFlightsDep]="sDep" [selectedFlightsRet]="sRet"></app-flights-res-list>
+</div> -->
+
+  <div *ngIf="seatSelection" class="row mt-4">
+    <div class="col">
+        <h5>Select Seat</h5>
+      <div class="row">
+        <div *ngFor="let seatDep of seatsDeparture" class="col-2">
+          <div class="card mb-4" id="checkboxes" [ngClass]="isSeatSelected(seatDep.id) ? 'selectedSeat' : ''" for="blankCheckbox">
+            <label>
+              <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-12 text-center">
+                          <span [ngClass]="(seatDep.clientId !=null) ? 'disabledBox' : ''" class="badge text-center">{{seatDep.mark}}</span>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                          <input [disabled]="(seatDep.clientId !=null)" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{seatDep.id}}" (click)="selectSeatDep(seatDep.id, $event)">
+                      </div>
+                    </div>
+                </div>
+            </label>  
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-2"></div>
+  </div>
+  
+  <div *ngIf="selectedSeatDep > 0" class="row">
+    <div class="col">
+        <form [formGroup]="quickReservationForm" (ngSubmit)="createQuickReservation()">
+            <div class="row mt-4">
+              <div class="col-md-2">
+                  <div class="form-group">
+                      <label for="price">Price<span class="text-danger">*</span></label>
+                      <input type="text" formControlName="price" class="form-control" placeholder="Enter Price" required>
+                      <small *ngIf="quickReservationForm.controls.price.errors?.required && quickReservationForm.controls.price.touched" class="form-text text-danger">*Required</small>
+                  </div>
+              </div>
+              <div class="col-md-2">
+                  <button id="buttonSearch" [disabled]="selectedSeatDep == 0 || !quickReservationForm.valid" type="submit" class="btn btn-success btn-block">Create Reservation</button>
+              </div>
+            </div>
+        </form>
+    </div>
+  </div>
+  
+  <!-- <div *ngIf="passengersDetails" class="row">
+    <div class="col">
+        <app-passengers-details [oneWay]="oneWay" [flightDepartureId]="selectedFlightsDep" [flightReturnId]="selectedFlightsRet"  [passengers]="passengers" [selectedSeatsDep]="selectedSeatsDep" [selectedSeatsRet]="selectedSeatsRet"></app-passengers-details>
+    </div>
+  </div>   -->
+
+<!-- OVDE -->
+
+<ng-template #t let-fill="fill">
+  <span class="star" [class.full]="fill === 100">
+    <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+  </span>
+</ng-template>
+
+
+
+
+

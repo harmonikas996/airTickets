@@ -31,7 +31,8 @@ export class AircompanyProfileComponent implements OnInit {
       name: ['', Validators.required],
       address: [{ value: '', disabled: true }, Validators.required],
       textAddress: [''],
-      description: ['']
+      description: [''],
+      image: ['']
     });
     this.getAircompanyById();
   }

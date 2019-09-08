@@ -58,6 +58,11 @@ public class VehicleController {
 		return vehicleService.makeReservation(vehicle, id, from, to);
 	}
 	
+	@PutMapping("makeQuickReservation/{reservationId}/{carReservationId}")
+	public Long makeQuickReservation(@PathVariable Long reservationId, @PathVariable Long carReservationId) {
+		return vehicleService.makeQuickReservation(reservationId, carReservationId);
+	}
+	
 	@PutMapping("{id}/update")
 	public VehicleDTO updateVehicle(@RequestBody VehicleDTO vehicle, @PathVariable Long id) {
 		vehicle.setId(id);

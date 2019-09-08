@@ -1,8 +1,6 @@
 <div *ngIf="!passengersDetails" class="row">
   <div class="col">
     <h3>Seat Selection</h3>
-    <!-- <h6>Odabrana avio kompanija za let TAMO: {{selectedFlightsDep.aircompanyId}} | {{selectedFlightsDep.id}}</h6>
-    <h6>Odabrana avio kompanija za let OVAMO: {{selectedFlightsRet.aircompanyId}} | {{selectedFlightsRet.id}}</h6> -->
   </div>
 </div>
 <div *ngIf="!passengersDetails" class="row mt-4">
@@ -58,16 +56,14 @@
 </div>
 
 <div *ngIf="!passengersDetails" class="row">
-  <div class="col-10">
-  </div>
-  <div class="col-2">
-      <button [disabled]="!((selectedSeatsRet.length == passengers || oneWay) && (selectedSeatsDep.length == passengers))" type="submit" class="btn btn-success" (click)="goToPassengersDetails()">Next</button>
+  <div class="col">
+      <button [disabled]="!((selectedSeatsRet.length == passengers || oneWay) && (selectedSeatsDep.length == passengers))" type="submit" class="btn btn-success btn-block" (click)="goToPassengersDetails()">Next</button>
   </div>
 </div>
 
 <div *ngIf="passengersDetails" class="row">
   <div class="col">
-      <app-passengers-details [oneWay]="oneWay" [flightDepartureId]="selectedFlightsDep" [flightReturnId]="selectedFlightsRet"  [passengers]="passengers" [selectedSeatsDep]="selectedSeatsDep" [selectedSeatsRet]="selectedSeatsRet"></app-passengers-details>
+      <app-passengers-details [oneWay]="oneWay" [flightDepartureId]="selectedFlightsDep" [flightReturnId]="selectedFlightsRet" [flightStart]="flightStart"  [passengers]="passengers" [selectedSeatsDep]="selectedSeatsDep" [selectedSeatsRet]="selectedSeatsRet"></app-passengers-details>
   </div>
 </div>
 

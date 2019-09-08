@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from 'src/app/shared/services/hotel/room/room.service';
 import { Room } from 'src/app/shared/model/hotel/room.model';
 import * as moment from 'moment';
@@ -46,7 +46,8 @@ export class HotelDetailsComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private hotelService: HotelService,
     private http: HttpClient,
-    private amenityService: AmenityService
+    private amenityService: AmenityService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -70,7 +71,7 @@ export class HotelDetailsComponent implements OnInit {
     this.getHotelById(ajDi);
     if (this.tokenStorage.getToken() !== '') {
       this.userLoggedIn = true;
-      this.getQuickReservation(ajDi);
+      // this.getQuickReservation(ajDi);
     } else {
       this.userLoggedIn = false;
     }
@@ -86,6 +87,8 @@ export class HotelDetailsComponent implements OnInit {
 
       const timeBegin: string = moment(this.hotelRoomForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
       const timeEnd: string = moment(this.hotelRoomForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+
+      this.getQuickReservation(this.id);
 
       this.roomService.searchRoomsByDate2(timeBegin, timeEnd, this.id).subscribe(
         rooms => {
@@ -142,20 +145,48 @@ export class HotelDetailsComponent implements OnInit {
   getQuickReservation(id: number): void {
     this.roomReservationService.getQuickRoomReservationsByCompanyId(id)
     .subscribe(roomReservations => {
+      this.roomReservations = [];
       for (let roomReservation of roomReservations) {
 
         this.roomService.getRoomById(roomReservation.roomId).subscribe(
           room => {
 
-            this.roomReservations.push({
-                id: roomReservation.id,
-                roomId: roomReservation.roomId,
-                hotelReservationId: roomReservation.hotelReservationId,
-                floor: room.floor,
-                number: room.number,
-                noOfBeds: room.noOfBeds,
-                type: room.type,
-                image: room.image
+            const timeBegin: string = moment(this.hotelRoomForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+            const timeEnd: string = moment(this.hotelRoomForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+            this.roomPriceService.searchRoomPriceForDateRange(room.id, timeBegin, timeEnd).subscribe(
+              roomPrice => {
+                const start = moment(timeBegin);
+                const end = moment(timeEnd);
+
+                if (roomPrice.id !== 0) {
+                  this.roomReservations.push({
+                    id: roomReservation.id,
+                    roomId: roomReservation.roomId,
+                    hotelReservationId: roomReservation.hotelReservationId,
+                    floor: room.floor,
+                    number: room.number,
+                    noOfBeds: room.noOfBeds,
+                    type: room.type,
+                    image: room.image,
+                    pricePerDay: roomPrice.price,
+                    from: timeBegin,
+                    to: timeEnd
+                    }
+                  );
+                  // this.rooms.push(
+                  //   {
+                  //     id: room.id,
+                  //     floor: room.floor,
+                  //     number: room.number,
+                  //     noOfBeds: room.noOfBeds,
+                  //     type: room.type,
+                  //     hotel: room.hotel,
+                  //     image: room.image,
+                  //     pricePerDay: roomPrice.price,
+                  //     price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1)
+                  //   }
+                  // );
+                }
               }
             );
           }
@@ -193,5 +224,25 @@ export class HotelDetailsComponent implements OnInit {
     return (this.selectedRoomsObj.findIndex(x => x.id === room.id) !== -1) ? true : false;
   }
 
+  makeReservation() {
+    this.roomReservationService.makeReservation(
+      this.selectedRoomsObj,
+      +window.sessionStorage.getItem('reservationId'),
+      moment(this.hotelRoomForm.controls.datePeriod.value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS'),
+      moment(this.hotelRoomForm.controls.datePeriod.value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS'))
+      .subscribe(response => {
+        if (response != null) {
+          this.amenityService.makeReservation(this.selectedAmenitiesObj, response).subscribe();
+        }
+      });
+  }
 
+  makeQuickReservation(roomReservation: any) {
+    this.roomReservationService.makeQuickReservation(+window.sessionStorage.getItem('reservationId'), roomReservation.hotelReservationId)
+    .subscribe(response => this.router.navigate(['./']));
+  }
+
+  isAfterFlightReservation() {
+    return window.sessionStorage.getItem('reservationId') != null;
+  }
 }

@@ -13,7 +13,7 @@ import { SeatService } from 'src/app/shared/services/aircompany/seat.service';
 })
 export class FlightsResListComponent implements OnInit {
 
-
+  @Input() flightStart: string;
   @Input() passengers: number;
   @Input() selectedFlightsDep: number;
   @Input() selectedFlightsRet: number;

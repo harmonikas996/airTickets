@@ -1,0 +1,77 @@
+#type {
+    margin-bottom: 15px;
+    margin-left: -15px;
+  }
+  
+  #buttonSearch{
+    margin-top: 32px;
+  }
+  
+  .selectedFlight {
+    border-left: 3px solid #007bff;
+  }
+  
+  #checkboxes input[type=checkbox]{
+    display: none;
+  }
+  
+  #checkboxes1 input[type=checkbox]{
+    display: none;
+  }
+  
+  .aircompany {
+    margin-top: 30px;
+  }
+  .star {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    color: #d3d3d3;
+  }
+  .full {
+    color: #ffc107;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: #ffc107;
+  }
+  ngb-rating {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .svg-plane {
+    font-size: 30px;
+    vertical-align: text-top;
+  }
+
+  .selectedSeat {
+    /* border-left: 3px solid #007bff; */
+    background: #007bff;
+    color: white;
+  }
+  
+  .card:hover {
+    cursor: pointer;
+  }
+
+  .card label:hover {
+    cursor: pointer;
+  }
+  
+  #checkboxes input[type=checkbox]{
+    display: none;
+  }
+  
+  #checkboxes1 input[type=checkbox]{
+    display: none;
+  }
+  
+  .disabledBox {
+    opacity: 0.2;
+  }
+  
+  

@@ -50,6 +50,7 @@ import { QuickReservationsComponent } from './rentacar-dashaboard/quick-reservat
 import { QuickResHotelComponent } from './hotel-dashboard/quick-res-hotel/quick-res-hotel.component';
 import { FriendsListComponent } from './user-dashboard/friends-list/friends-list.component';
 import { RoomPriceDetailsComponent } from './hotel-dashboard/room-price-details/room-price-details.component';
+import { QuickResAircompanyComponent } from './aircompany-dashboard/quick-res-aircompany/quick-res-aircompany.component';
 
 const dashboardsRoutes: Routes = [
   { path: 'rentacar-dashboard',
@@ -80,6 +81,7 @@ const dashboardsRoutes: Routes = [
       { path: 'aircompany-profile', component: AircompanyProfileComponent },
       { path: 'flights', component: FlightsComponent },
       { path: 'flights/new', component: FlightNewComponent },
+      { path: 'quick-res-aircompany', component: QuickResAircompanyComponent },
       { path: 'flight-rating', component: FlightRatingComponent },
       { path: 'flights-details/:id', component: FlightDetailsComponent },
       { path: 'reports-air', component: ReportsComponent },

@@ -21,7 +21,8 @@
                   <label for="pickupDateTime">Pickup Date & Time</label>
                   <input class="form-control" placeholder="Pick Date & Time"
                         [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
-                        formControlName="pickupDateTime">
+                        formControlName="pickupDateTime"
+                        [min]="todayDate">
                   <owl-date-time #dtRange1></owl-date-time>
                 </div>
             </div>
@@ -30,7 +31,8 @@
                     <label for="dropoffDateTime">Dropoff Date & Time</label>
                     <input class="form-control" placeholder="Pick Date & Time"
                           [owlDateTimeTrigger]="dtRange2" [owlDateTime]="dtRange2"
-                          formControlName="dropoffDateTime">
+                          formControlName="dropoffDateTime"
+                          [min]="todayDate">
                     <owl-date-time #dtRange2></owl-date-time>
                   </div>
             </div>
@@ -99,36 +101,39 @@
           </div>
           <h6 class="oldPrice"><span class="badge badge-light">{{vehicle.pricePerDay}}€/day</span></h6>
           <h5 class="loweredPrice"><span class="badge badge-primary">{{vehicle.price}}€</span></h5>
-          <button class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
+          <button [disabled]="!isAfterFlightReservation()" class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
+          <p class="reservationDate mt-2" *ngIf="!isAfterFlightReservation()">Login / Book a flight before booking a car</p>
         </div>
       </div>
     </div>
   </div>
-
-  <h4 class="mt-4"> Quick Reservations: </h4>
-  <div class="row">
-    <div *ngFor="let carReservation of carReservations" class="col-sm-3 rentacar">
-      <div class="card">
-          <img src="../../../assets/img/vehicle/{{carReservation.image}}" class="card-img-top" alt="Picture of {{carReservation.brand}}">
-        <div class="card-body text-center">
-          <h5 class="card-title">{{carReservation.brand}} {{carReservation.model}}</h5>
-          <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
-          <p class="reservationDate mt-2">{{carReservation.dateFrom | date: 'MMM d, y'}} - {{carReservation.dateTo | date: 'MMM d, y'}}</p>
-          <div class="row">
-            <div class="col-md-6">
-              <p class="card-text"><i class="far fa-calendar mr-2"></i>{{carReservation.yearOfProduction}}</p>
+  <ng-container *ngIf="isLoggedIn()">
+    <h4 class="mt-4"> Quick Reservations: </h4>
+    <div class="row">
+      <div *ngFor="let carReservation of carReservations" class="col-sm-3 rentacar">
+        <div class="card">
+            <img src="../../../assets/img/vehicle/{{carReservation.image}}" class="card-img-top" alt="Picture of {{carReservation.brand}}">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{carReservation.brand}} {{carReservation.model}}</h5>
+            <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
+            <p class="reservationDate mt-2">{{carReservation.dateFrom | date: 'MMM d, y'}} - {{carReservation.dateTo | date: 'MMM d, y'}}</p>
+            <div class="row">
+              <div class="col-md-6">
+                <p class="card-text"><i class="far fa-calendar mr-2"></i>{{carReservation.yearOfProduction}}</p>
+              </div>
+              <div class="col-md-6">
+                <p class="card-text"><i class="fas fa-male mr-2"></i>{{carReservation.numberOfSeats}}</p>
+              </div>
             </div>
-            <div class="col-md-6">
-              <p class="card-text"><i class="fas fa-male mr-2"></i>{{carReservation.numberOfSeats}}</p>
-            </div>
+            <h6 class="card-subtitle mb-2 text-muted oldPrice"><s>{{carReservation.pricePerDay}}€/day</s></h6>
+            <h5 class="loweredPrice"><span class="badge badge-warning ml-1">{{carReservation.price}}€</span></h5>
+            <button [disabled]="!isAfterFlightReservation()" class="btn btn-primary mt-4" type="button" (click)="reserveQuickVehicle(carReservation)">Reserve</button>
+            <p class="reservationDate mt-2" *ngIf="!isAfterFlightReservation()">Login / Book a flight before booking a car</p>
           </div>
-          <h6 class="card-subtitle mb-2 text-muted oldPrice"><s>{{carReservation.pricePerDay}}€/day</s></h6>
-          <h5 class="loweredPrice"><span class="badge badge-warning ml-1">{{carReservation.price}}€</span></h5>
-          <button class="btn btn-primary mt-4" type="button" (click)="reserveVehicle(vehicle)">Reserve</button>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 
   
   <ng-template #t let-fill="fill">

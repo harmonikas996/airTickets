@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import airtickets.dto.aircompany.AircompanyDTO;
 import airtickets.dto.aircompany.FlightDTO;
-import airtickets.dto.rentacar.RentACarDTO;
 import airtickets.dto.user.UserDTO;
 import airtickets.service.aircompany.FlightService;
 import airtickets.service.user.UserService;
@@ -43,6 +41,11 @@ public class FlightController {
 	@GetMapping("/all")
 	public List<FlightDTO> getAllFlights(){
 		return flightService.getFlights();
+	}
+	
+	@GetMapping("/aircompany/{id}")
+	public List<FlightDTO> getFlightsByUser(@PathVariable Long id){
+		return flightService.getFlightsByUser(id);
 	}
 	
 	@GetMapping("/{id}")
@@ -75,6 +78,17 @@ public class FlightController {
 			) {
 		
 		return flightService.searchFlights(placeFromId, placeToId, date);
+	}
+	
+	@GetMapping("/searchByCompany")
+	public List<FlightDTO> searchFlights(
+			@RequestParam(value="placeFromId") String placeFromId,
+			@RequestParam(value="placeToId") String placeToId,
+			@RequestParam(value="timeBegin") String date,
+			@RequestParam(value="companyId") Long companyId
+			) {
+		
+		return flightService.searchFlightsByCompany(placeFromId, placeToId, date,companyId);
 	}
 	
 	@GetMapping("/admin/{username}")

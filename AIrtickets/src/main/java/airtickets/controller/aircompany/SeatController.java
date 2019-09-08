@@ -72,6 +72,12 @@ public class SeatController {
 		return seatService.getSeatsByFlightId(id);
 	}
 	
+	@GetMapping("/quickSeatsByCompany")
+//	@PreAuthorize("hasAuthority('aircompany')")
+	public List<SeatDTO> getQuickSeatsByFlightId(@RequestParam(value="id") long id) {
+		return seatService.getQuickSeatsByCompanyId(id);
+	}
+	
 	@PutMapping("/makeReservation")
 	public FlightReservationDTO updateSeat(@RequestBody List<SeatDTO> seats) {
 		return seatService.reserveSeats(seats);

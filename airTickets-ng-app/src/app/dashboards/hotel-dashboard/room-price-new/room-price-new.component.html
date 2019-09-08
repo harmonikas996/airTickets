@@ -32,7 +32,8 @@
                               [style.width]="'350px'"
                               [selectMode]="'range'"
                               [owlDateTimeTrigger]="dtRange1" [owlDateTime]="dtRange1"
-                              formControlName="datePeriod">
+                              formControlName="datePeriod"
+                              [min]="todayDate">
 
                       <owl-date-time [pickerType]="'calendar'" #dtRange1></owl-date-time>
                     </div>

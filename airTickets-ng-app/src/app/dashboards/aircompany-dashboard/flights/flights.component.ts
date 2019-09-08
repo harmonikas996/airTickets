@@ -1,11 +1,12 @@
-import { AircompanyService } from './../../../shared/services/aircompany/aircompany.service';
-import { Aircompany } from './../../../shared/model/aircompany/aircompany.model';
-import { AirportService } from './../../../shared/services/aircompany/airport.service';
-import { Airport } from '../../../shared/model/aircompany/airport.model';
-import { FlightsService } from './../../../shared/services/aircompany/flights.service';
-import { Flight } from './../../../shared/model/aircompany/flight.model';
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
+
+import { Airport } from '../../../shared/model/aircompany/airport.model';
+import { Aircompany } from './../../../shared/model/aircompany/aircompany.model';
+import { Flight } from './../../../shared/model/aircompany/flight.model';
+import { AircompanyService } from './../../../shared/services/aircompany/aircompany.service';
+import { AirportService } from './../../../shared/services/aircompany/airport.service';
+import { FlightsService } from './../../../shared/services/aircompany/flights.service';
 
 @Component({
   selector: 'app-flights',
@@ -21,7 +22,7 @@ export class FlightsComponent implements OnInit {
     private flightService: FlightsService,
     private airportService: AirportService,
     private aircompanyService: AircompanyService,
-    private token: TokenStorageService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -30,11 +31,16 @@ export class FlightsComponent implements OnInit {
   }
 
   getFlightsByAirCompanyId(): void {
-    this.flightService.getFlights().subscribe(
-      flights => this.flights = flights,
-      error => console.log('Error: ', error),
-      () => this.getCompanyName()
-      );
+    this.userService.getUserById().subscribe(
+      response => {
+
+        this.flightService.getFlightsByCompanyId(response.company).subscribe(
+          flights => this.flights = flights,
+          error => console.log('Error: ', error),
+          () => this.getCompanyName()
+          );
+      }
+    );
   }
 
   getCompanyName(): void {

@@ -33,6 +33,7 @@ export class RentacarsListComponent implements OnInit {
   location: String;
   timeBegin: String;
   timeEnd: String;
+  todayDate = new Date(moment().subtract(1, 'days').toLocaleString());
 
   constructor(
     private rentacarService: RentacarService,

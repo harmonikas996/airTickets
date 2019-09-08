@@ -1,32 +1,29 @@
-import { Aircompany } from './../../shared/model/aircompany/aircompany.model';
-import { AircompanyService } from './../../shared/services/aircompany/aircompany.service';
-import { FlightsService } from './../../shared/services/aircompany/flights.service';
-import { Flight } from './../../shared/model/aircompany/flight.model';
-import { AirportService } from './../../shared/services/aircompany/airport.service';
-import { Airport } from './../../shared/model/aircompany/airport.model';
-import { FlightReservationService } from './../../shared/services/aircompany/flight-reservation.service';
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Airport } from 'src/app/shared/model/aircompany/airport.model';
+import { Flight } from 'src/app/shared/model/aircompany/flight.model';
+import { FlightsService } from 'src/app/shared/services/aircompany/flights.service';
+import { AirportService } from 'src/app/shared/services/aircompany/airport.service';
+import { AircompanyService } from 'src/app/shared/services/aircompany/aircompany.service';
 import * as moment from 'moment';
-import { Event } from '@angular/router';
-import { FlightsResListComponent } from '../flights-res-list/flights-res-list.component';
-import { windowWhen } from 'rxjs/operators';
 import { SeatService } from 'src/app/shared/services/aircompany/seat.service';
+import { UserService } from './../../../shared/services/user/user.service';
+import { Seat } from 'src/app/shared/model/aircompany/seat.model';
+import { TokenStorageService } from 'src/app/user-authentication/service/token-storage.service';
 
 @Component({
-  selector: 'app-flights-reservation',
-  templateUrl: './flights-reservation.component.html',
-  styleUrls: ['./flights-reservation.component.css']
+  selector: 'app-quick-res-aircompany',
+  templateUrl: './quick-res-aircompany.component.html',
+  styleUrls: ['./quick-res-aircompany.component.css']
 })
-export class FlightsReservationComponent implements OnInit {
+export class QuickResAircompanyComponent implements OnInit {
 
-
-  flightStart: string;
   seatSelection: boolean = false;
   searchFlight: boolean = true;
 
   flightOptionForm: FormGroup;
   flightResForm: FormGroup;
+  quickReservationForm: FormGroup;
   airports: Airport[];
   flightObj: Flight = new Flight();
   flights: Flight[];
@@ -35,9 +32,7 @@ export class FlightsReservationComponent implements OnInit {
   aircompanies = [];
 
   sDep: number;
-  sRet: number;
   selectedFlightsDep: {aircompanyId: number, id: number}[];
-  selectedFlightsRet: {aircompanyId: number, id: number}[];
   passengers: number;
 
   placeFromId: any;
@@ -50,12 +45,16 @@ export class FlightsReservationComponent implements OnInit {
   cdateTo: String;
   todayDate = new Date(moment().subtract(1, 'days').toLocaleString());
 
+  seatsDeparture = [];
+  selectedSeatDep = 0;
+
   constructor(
     private flightService: FlightsService,
     private formBuilder: FormBuilder,
     private airportService: AirportService,
     private aircompanyService: AircompanyService,
-    private seatService: SeatService
+    private seatsService: SeatService,
+    private userService: UserService
 
   ) { }
 
@@ -64,61 +63,41 @@ export class FlightsReservationComponent implements OnInit {
     this.flights = [];
     this.returnFlights = [];
 
-    this.flightService.searchFlights(placeFromId, placeToId, timeBegin).subscribe(
-      flights => {
-
-        // show flight only if it's 'timeBegin' field is 3hrs behind current time
-        flights.forEach(flight => {
-
-          // get seats to check if there are left enough
-          this.seatService.seatsByFlight(flight.id).subscribe(
-            seats => {
-              seats = seats.filter(seat => (seat.clientId === null));
-              if (seats.length >= +this.flightResForm.controls.passengers.value &&
-                (moment(flight.timeBegin).isAfter(moment().add(1, 'hours')))) {
-                  this.flights.push(flight);
-              }
-            }
-          );
-        });
-      },
-     (error) => console.error('An error occurred, ', error),
-     () => {
-       if(this.flightResForm.controls['datePeriod'].value.length > 1) {
-         this.searchReturnFlights(this.placeToId, this.placeFromId, this.timeReturn)
-       }
-    }
-    );
-  }
-
-  searchReturnFlights(placeFromId: Number, placeToId: Number, timeBegin: String) {
-    this.flightService.searchFlights(placeFromId, placeToId, timeBegin).subscribe(
-      flights => {
-        // show flight only if it's 'timeBegin' field is 3hrs behind current time
-        this.returnFlights = flights.filter(flight => (moment(flight.timeBegin).isAfter(moment().add(1, 'hours'))));
+    this.userService.getUserById().subscribe(
+      response => {
+        this.flightService.searchFlightsByCompany(placeFromId, placeToId, timeBegin, response.company).subscribe(
+          flights => {
+            // show flight only if it's 'timeBegin' field is 3hrs behind current time
+            this.flights = flights.filter(flight => (moment(flight.timeBegin).isAfter(moment().add(3, 'hours'))));
+          },
+         (error) => console.error('An error occurred, ', error)
+        );
       }
     );
   }
 
   ngOnInit() {
 
+    this.quickReservationForm = this.formBuilder.group({
+      price: ['', Validators.required]
+    });
+
     this.flightOptionForm = this.formBuilder.group({
-      val: ['round', Validators.required]
+      val: ['one', Validators.required]
     });
 
     this.flightResForm = this.formBuilder.group({
       placeFromId: [null, Validators.required],
       placeToId: [null, Validators.required],
       datePeriod: [null, Validators.required],
-      passengers: [null, Validators.required]
+      passengers: [1]
     });
 
     this.getAirPorts();
     this.getAirCompanies();
     this.selectedFlightsDep = [];
-    this.selectedFlightsRet = [];
     this.sDep = 0;
-    this.sRet = 0;
+    this.seatSelection = false;
 
   }
 
@@ -132,18 +111,13 @@ export class FlightsReservationComponent implements OnInit {
     // this.sDep.aircompanyId = this.selectedFlightsDep[0].aircompanyId;
     this.sDep = this.selectedFlightsDep[0].id;
     // this.sRet.aircompanyId = this.selectedFlightsRet[0].aircompanyId;
-    if(this.flightOptionForm.controls['val'].value == 'round') {
-
-      this.sRet = this.selectedFlightsRet[0].id;
-    }
     this.passengers = this.flightResForm.controls['passengers'].value;
-    console.log(this.passengers);
     this.seatSelection = true;
-    this.searchFlight = false;
-    this.flightStart = this.flightResForm.controls.datePeriod.value[1];
+    this.getSeats();
+    // this.searchFlight = true;
   }
 
-  selectSeatDep(aircompanyId: number, flightId: number, e) {
+  selectFlightDep(aircompanyId: number, flightId: number, e) {
 
     let data: {aircompanyId: number, id: number} = {aircompanyId: 0, id: 0};
     data.aircompanyId = aircompanyId;
@@ -152,43 +126,21 @@ export class FlightsReservationComponent implements OnInit {
     if (e.target.checked) {
       if(this.selectedFlightsDep.length < 1) {
         this.selectedFlightsDep.push(data);
-        console.log('Rezervisana sedista Departure:');
-        console.log(this.selectedFlightsDep);
+        this.goToSeatSelection();
       }
     } else {
       let jel = this.getSelectedIndexDep(aircompanyId, flightId);
-      console.log('Da li je bio rezervisan vec?     ' + jel);
-      if(jel != -1) {
+      if (jel !== -1) {
 
         this.selectedFlightsDep.splice(jel, 1);
 
-        console.log('Posle brisanja');
-        console.log(this.selectedFlightsDep);
-      }
-    }
-  }
-
-  selectSeatRet(aircompanyId: number, flightId: number, e) {
-    console.log("selectSeatRet");
-    let data: {aircompanyId: number, id: number} = {aircompanyId: 0, id: 0};
-    data.aircompanyId = aircompanyId;
-    data.id = flightId;
-
-    if (e.target.checked) {
-      if(this.selectedFlightsRet.length < 1) {
-        this.selectedFlightsRet.push(data);
-        console.log('Rezervisana sedista Departure:');
-        console.log(this.selectedFlightsRet);
-      }
-    } else {
-      let jel = this.getSelectedIndexRet(aircompanyId, flightId);
-      console.log('Da li je bio rezervisan vec?     ' + jel);
-      if(jel != -1) {
-
-        this.selectedFlightsRet.splice(jel, 1);
-
-        console.log('Posle brisanja');
-        console.log(this.selectedFlightsRet);
+        this.sDep = 0;
+        // this.sRet.aircompanyId = this.selectedFlightsRet[0].aircompanyId;
+        this.passengers = 0;
+        this.seatSelection = false;
+        this.seatsDeparture = [];
+        this.selectedSeatDep = 0;
+        this.quickReservationForm.controls.price.setValue('');
       }
     }
   }
@@ -203,32 +155,9 @@ export class FlightsReservationComponent implements OnInit {
     return -1;
   }
 
-  getSelectedIndexRet(aircompanyId: number, flightId: number): number {
-    console.log("getSelectedIndexRet");
-    for(let i=0; i<this.selectedFlightsRet.length; i++) {
-      let data: {aircompanyId: number, id: number} = this.selectedFlightsRet[i];
-      if (data.aircompanyId === aircompanyId && data.id === flightId) {
-        return i;
-      }
-    }
-    return -1;
-  }
-
   isSelectedDep(aircompanyId: number, flightId: number): boolean {
     for(let i=0; i<this.selectedFlightsDep.length; i++) {
       let data: {aircompanyId: number, id: number} = this.selectedFlightsDep[i];
-      if(data.aircompanyId == aircompanyId && data.id == flightId) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  isSelectedRet(aircompanyId: number, flightId: number): boolean {
-    console.log("isSelectedRet");
-    for(let i=0; i<this.selectedFlightsRet.length; i++) {
-      let data: {aircompanyId: number, id: number} = this.selectedFlightsRet[i];
       if(data.aircompanyId == aircompanyId && data.id == flightId) {
         return true;
       }
@@ -266,10 +195,8 @@ export class FlightsReservationComponent implements OnInit {
     if (this.flightResForm.valid) {
       this.prepareData();
       this.getAirportsById();
-      console.log(this.timeBegin);
       this.searchFlights(this.placeFromId, this.placeToId, this.timeBegin);
       this.selectedFlightsDep = [];
-      this.selectedFlightsRet = [];
     }
   }
 
@@ -307,4 +234,52 @@ export class FlightsReservationComponent implements OnInit {
       this.flightResForm.patchValue({myDate: null});
   }
 
+  getSeats() {
+      this.seatsService.seatsByFlight(this.sDep).subscribe(
+        data => this.seatsDeparture = data
+      );
+  }
+
+  selectSeatDep(seatId: number, e) {
+    if (e.target.checked) {
+      if (this.selectedSeatDep === 0) {
+        this.selectedSeatDep = seatId;
+      }
+    } else {
+      if (this.selectedSeatDep !== 0) {
+        this.selectedSeatDep = 0;
+      }
+    }
+  }
+
+  isSeatSelected(seatId: number): boolean {
+    return (this.selectedSeatDep === seatId) ? true : false;
+  }
+
+  createQuickReservation() {
+
+    const seat: Seat = new Seat();
+    console.log(this.quickReservationForm.controls.price.value + ' cena')
+    seat.price = +this.quickReservationForm.controls.price.value;
+    seat.id = this.selectedSeatDep;
+    seat.flightId = this.selectedFlightsDep[0].id;
+    seat.firstName = null;
+    seat.lastName = null;
+    seat.passport = null;
+    seat.contact = null;
+    console.log([seat]);
+    this.userService.getUserById().subscribe(
+      user => {
+        seat.clientId = user.id;
+        this.seatsService.makeReservation([seat]).subscribe(
+          response => { 
+            location.reload();
+          }
+        );
+      }
+    );
+
+    
+  }
 }
+

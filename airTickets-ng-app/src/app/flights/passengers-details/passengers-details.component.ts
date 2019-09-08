@@ -13,6 +13,7 @@ import { SeatService } from 'src/app/shared/services/aircompany/seat.service';
 })
 export class PassengersDetailsComponent implements OnInit {
 
+  @Input() flightStart: string;
   @Input() passengers: number;
   @Input() flightDepartureId: number;
   @Input() flightReturnId: number;
@@ -92,7 +93,7 @@ export class PassengersDetailsComponent implements OnInit {
   }
 
   onSubmit() {
-
+    window.sessionStorage.setItem('flightStart', this.flightStart);
     let seats: Seat[] = [];
 
     for(let i=0; i<this.passengers; i++) {
