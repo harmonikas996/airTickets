@@ -1,3 +1,4 @@
+import { FlightRatingService } from './../../shared/services/aircompany/flight-rating.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -17,13 +18,15 @@ export class AircompanyDetailsComponent implements OnInit {
 
   aircompany = [];
   id: number;
+  airCompanyRating: number;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private tokenStorage: TokenStorageService,
     private aircompanyService: AircompanyService,
-    private http: HttpClient
+    private http: HttpClient,
+    private flightRatingService: FlightRatingService
   ) { }
 
   ngOnInit() {
@@ -41,6 +44,7 @@ export class AircompanyDetailsComponent implements OnInit {
             aircompany.address = response.resourceSets[0].resources[0].address.formattedAddress;
           }
         );
+        this.flightRatingService.getRatingsByAirCompany(this.id).subscribe(rating => this.airCompanyRating = rating);
       this.aircompany = aircompany as any;
     });
   }

@@ -5,16 +5,16 @@
     <div class="col-6 align-self-center">
         <h1>{{rentacar.name}}</h1>
         <p>
-          <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          <ngb-rating [rate]="companyRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           <i class="fas fa-map-marker-alt ml-2"></i> {{rentacar.address}}</p>
         <p class="text-secondary">{{rentacar.description}}</p>
     </div>
 </div>
   <div class="row mt-4 mb-4">
-  
+
     <div  class="col-sm-12">
       <form [formGroup]="vehicleSearchForm" (ngSubmit)="onSubmit()">
-    
+
         <div class="row">
             <div class="col-3">
               <div class="form-group">
@@ -79,7 +79,7 @@
           </div>
       </div>
       </form>
-    
+
     </div>
   </div>
   <div class="row">
@@ -112,7 +112,7 @@
           <img src="../../../assets/img/vehicle/{{carReservation.image}}" class="card-img-top" alt="Picture of {{carReservation.brand}}">
         <div class="card-body text-center">
           <h5 class="card-title">{{carReservation.brand}} {{carReservation.model}}</h5>
-          <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
+          <p class="text-center mt-2"><ngb-rating [rate]="vehicleRating[carReservation.vehicleId]" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
           <p class="reservationDate mt-2">{{carReservation.dateFrom | date: 'MMM d, y'}} - {{carReservation.dateTo | date: 'MMM d, y'}}</p>
           <div class="row">
             <div class="col-md-6">
@@ -130,7 +130,7 @@
     </div>
   </div>
 
-  
+
   <ng-template #t let-fill="fill">
       <span class="star" [class.full]="fill === 100">
         <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;

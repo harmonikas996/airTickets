@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import airtickets.dto.aircompany.FlightRatingDTO;
 import airtickets.dto.rentacar.RentACarRatingDTO;
+import airtickets.model.aircompany.FlightRating;
 import airtickets.model.rentacar.RentACarRating;
 import airtickets.repo.rentacar.RentACarRatingRepository;
 
@@ -31,6 +33,18 @@ public class RentACarRatingService {
 		RentACarRatingDTO rentACarRating = new RentACarRatingDTO(c);
 		return rentACarRating;
 	}
+	
+	public RentACarRatingDTO getRatingByRentACarId(long id) {
+		RentACarRating c = rentACarRatingRepository.findByRentACarId(id);
+		
+		if( c == null) {
+			return new RentACarRatingDTO();
+		}
+		
+		RentACarRatingDTO rentacar = new RentACarRatingDTO(c);
+		
+		return rentacar;
+	}
 
 	public RentACarRatingDTO addRentACarRating(RentACarRatingDTO rentACarRatingDTO) {
 		RentACarRating rentcarRating = new RentACarRating(rentACarRatingDTO);
@@ -41,5 +55,19 @@ public class RentACarRatingService {
 
 	public void deleteRentACarRating(long id) {
 		rentACarRatingRepository.deleteById(id);
+	}
+
+	public double getRating(long rentACarId) {
+		List<RentACarRatingDTO> rentACarRatings = new ArrayList<RentACarRatingDTO>();
+		
+		double sum = 0;
+		
+		for (RentACarRating c  : rentACarRatingRepository.findAllById(rentACarId)) {
+			sum += c.getRating();
+			RentACarRatingDTO rentACarRating = new RentACarRatingDTO(c);
+			rentACarRatings.add(rentACarRating);
+ 		}
+		
+		return sum / (rentACarRatings.size() * 1.0);
 	}
 }

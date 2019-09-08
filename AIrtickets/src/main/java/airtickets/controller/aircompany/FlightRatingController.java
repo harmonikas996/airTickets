@@ -29,6 +29,11 @@ public class FlightRatingController {
 		return flightRatingService.getFlightRatings();
 	}
 	
+	@GetMapping("/flight/{flightId}")
+	public FlightRatingDTO getRatingByFlightId(@PathVariable Long flightId){
+		return flightRatingService.getRatingByFlightId(flightId);
+	}
+	
 	@GetMapping("/{id}")
 	public FlightRatingDTO getById(@PathVariable Long id){
 		return flightRatingService.getFlightRating(id);

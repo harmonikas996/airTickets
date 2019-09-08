@@ -1,3 +1,4 @@
+import { ProfileComponent } from './../profile/profile.component';
 import { AmenityDetailsComponent } from './hotel-dashboard/amenity-details/amenity-details.component';
 import { AmenityNewComponent } from './hotel-dashboard/amenity-new/amenity-new.component';
 import { AmenityListComponent } from './hotel-dashboard/amenity-list/amenity-list.component';
@@ -124,6 +125,7 @@ const dashboardsRoutes: Routes = [
   children: [
     { path: 'user-profile', component: UserProfileComponent },
     { path: 'friends-list', component: FriendsListComponent },
+    { path: 'history', component: ProfileComponent },
     { path: '', redirectTo: 'aircompany-profile', pathMatch: 'full' },
     { path: '**', redirectTo: 'aircompany-profile', pathMatch: 'full' }
   ]

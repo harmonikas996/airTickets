@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.aircompany.AircompanyRatingDTO;
 import airtickets.dto.hotel.RoomRatingDTO;
 import airtickets.service.hotel.RoomRatingService;
 
@@ -32,6 +33,11 @@ public class RoomRatingController {
 	@GetMapping("/{id}")
 	public RoomRatingDTO getById(@PathVariable Long id){
 		return roomRatingService.getRoomRating(id);
+	}
+	
+	@GetMapping("/room/{roomId}")
+	public RoomRatingDTO getRatingByRoomId(@PathVariable Long roomId){
+		return roomRatingService.getRatingByRoomId(roomId);
 	}
 	
 	@PostMapping("/new")

@@ -1,3 +1,4 @@
+import { CarRatingService } from './../../shared/services/rentacar/car-rating.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -43,6 +44,10 @@ export class RentacarDetailsComponent implements OnInit {
   pickupLocation: string;
   dropoffLocation: string;
 
+  companyRating: number;
+
+  vehicleRating = [];
+
   carReservations = [];
 
 
@@ -53,7 +58,8 @@ export class RentacarDetailsComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private carReservationService: CarReservationService,
-    private http: HttpClient
+    private http: HttpClient,
+    private carRatingService: CarRatingService
   ) { }
 
   ngOnInit() {
@@ -77,6 +83,7 @@ export class RentacarDetailsComponent implements OnInit {
     this.getRentACarById(id);
     this.getLocations();
     this.getQuickReservation(id);
+
   }
 
   getQuickReservation(id: number): void {
@@ -87,23 +94,32 @@ export class RentacarDetailsComponent implements OnInit {
         this.vehicleService.getVehicleById(carReservation.vehicleId).subscribe(
           vehicle => {
 
-            this.carReservations.push({
-                  id: carReservation.id,
-                  vehicleId: carReservation.vehicleId,
-                  dateFrom: carReservation.dateFrom,
-                  dateTo: carReservation.dateTo,
-                  price: carReservation.price,
-                  name: vehicle.name,
-                  brand: vehicle.brand,
-                  model: vehicle.model,
-                  yearOfProduction: vehicle.yearOfProduction,
-                  numberOfSeats: vehicle.numberOfSeats,
-                  type: vehicle.type,
-                  pricePerDay: vehicle.pricePerDay,
-                  rentACarId: vehicle.rentACarId,
-                  image: vehicle.image,
+            this.carRatingService.getRatingByVehicle(carReservation.vehicleId).subscribe(
+
+              rating => {
+
+                this.vehicleRating[carReservation.vehicleId] = rating;
+
+                this.carReservations.push({
+                      id: carReservation.id,
+                      vehicleId: carReservation.vehicleId,
+                      dateFrom: carReservation.dateFrom,
+                      dateTo: carReservation.dateTo,
+                      price: carReservation.price,
+                      name: vehicle.name,
+                      brand: vehicle.brand,
+                      model: vehicle.model,
+                      yearOfProduction: vehicle.yearOfProduction,
+                      numberOfSeats: vehicle.numberOfSeats,
+                      type: vehicle.type,
+                      pricePerDay: vehicle.pricePerDay,
+                      rentACarId: vehicle.rentACarId,
+                      image: vehicle.image,
+                  }
+                );
               }
             );
+
           }
         );
       }
@@ -121,6 +137,7 @@ export class RentacarDetailsComponent implements OnInit {
             }
           );
         this.rentacar = rentacar;
+        this.carRatingService.getRatingByRentACar(rentacar.id).subscribe(response => this.companyRating = response);
       })
     );
   }

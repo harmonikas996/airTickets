@@ -8,21 +8,68 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <table *ngIf="flightReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+        <table *ngIf="flightRatingW.length > 0; else emptyTable" class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Flight</th>
-              <th scope="col">Hotel</th>
-              <th scope="col">Rentacar</th>
+              <th scope="col">Place From</th>
+              <th scope="col">Place To</th>
+              <th scope="col">Time Begin</th>
+              <th scope="col">Time End</th>
+              <th scope="col">Air Company</th>
+              <th scope="col">Air Company Rating</th>
+              <th scope="col">Flight Rating</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let flightReservation of flightReservations">
-              <td class="align-middle">{{flightReservation.id}}</td>
-              <td class="align-middle">{{flightReservation.flightId}}</td>
-              <td class="align-middle">{{flightReservation.hotelResId}}</td>
-              <td class="align-middle">{{flightReservation.carResId}}</td>
+            <tr *ngFor="let f of flightRatingW">
+              <td class="align-middle">{{f.placeFrom}}</td>
+              <td class="align-middle">{{f.placeTo}}</td>
+              <td class="align-middle">{{f.timeBegin | date: 'medium'}}</td>
+              <td class="align-middle">{{f.timeEnd | date: 'medium'}}</td>
+              <td class="align-middle">{{f.aircompanyName}}</td>
+
+              <ng-container *ngIf="f.ratingAirCompany === 0; then aircompanyInput; else aircomapanyRating"></ng-container>
+              <ng-container *ngIf="f.ratingFlight === 0; then flightInput; else flightRating"></ng-container>
+              <td class="align-middle"><ng-container *ngIf="f.ratingAirCompany === 0  ||  f.ratingFlight === 0; then btn"></ng-container></td>
+
+              <ng-template #aircompanyInput>
+                  <td class="align-middle">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" [(ngModel)]="currentRateAirCompany[f.idAircompany]">
+                      <option value="undefined" selected>Choose...</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </td>
+                </ng-template>
+
+                <ng-template #flightInput>
+                  <td class="align-middle">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" [(ngModel)]="currentRateFlight[f.idFlight]">
+                      <option value="undefined" selected>Choose...</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                  </td>
+                </ng-template>
+
+                <ng-template #flightRating>
+                  <td class="align-middle">{{f.ratingFlight}}</td>
+                </ng-template>
+
+                <ng-template #aircomapanyRating>
+                  <td class="align-middle">{{f.ratingAirCompany}}</td>
+                </ng-template>
+
+                <ng-template #btn>
+                  <button type="button" class="btn btn-primary" (click)="ratingFlight(f)" [disabled] = "!(isRatableFlight(f))">Submit</button>
+                </ng-template>
             </tr>
           </tbody>
         </table>
@@ -35,19 +82,71 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <table *ngIf="carReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+        <table *ngIf="carRatingW.length > 0; else emptyTable" class="table">
           <thead>
             <tr>
+              <th scope="col">Rent-A-Car</th>
+              <th scope="col">Date from</th>
               <th scope="col">Date from</th>
               <th scope="col">Date to</th>
               <th scope="col">Price</th>
+              <th scope="col">Rent-A-Car Rating</th>
+              <th scope="col">Car Rating</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let carReservation of carReservations">
-              <td class="align-middle">{{carReservation.dateFrom | date: 'medium'}}</td>
-              <td class="align-middle">{{carReservation.dateTo | date: 'medium'}}</td>
-              <td class="align-middle">{{carReservation.price}}</td>
+            <tr *ngFor="let c of carRatingW">
+              <td class="align-middle">{{c.rentAcar}}
+              <td class="align-middle">{{c.vehicleName}}
+              <td class="align-middle">{{c.dateFrom | date: 'medium'}}</td>
+              <td class="align-middle">{{c.dateTo | date: 'medium'}}</td>
+              <td class="align-middle">{{c.price}}</td>
+
+              <ng-container *ngIf="c.rentACarRating === 0; then rentACarInput; else rentACarRating"></ng-container>
+              <ng-container *ngIf="c.carRating === 0; then carInput; else carRating"></ng-container>
+              <td class="align-middle">
+                <ng-container *ngIf="c.rentACarRating === 0  ||  c.carRating === 0; then btn"></ng-container>
+              </td>
+
+              <ng-template #rentACarInput>
+                <td class="align-middle">
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" [(ngModel)]="currentRateRentACar[c.idRentAcar]">
+                    <option value="undefined" selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </td>
+              </ng-template>
+
+              <ng-template #carInput>
+                <td class="align-middle">
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" [(ngModel)]="currentRateCar[c.idVehicle]">
+                    <option value="undefined" selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </td>
+              </ng-template>
+
+              <ng-template #carRating>
+                <td class="align-middle">{{c.carRating}}</td>
+              </ng-template>
+
+              <ng-template #rentACarRating>
+                <td class="align-middle">{{c.rentACarRating}}</td>
+              </ng-template>
+
+              <ng-template #btn>
+                <button type="button" class="btn btn-primary" (click)="ratingCarReservation(c)" [disabled] = "!(isRatableCar(c))">Submit</button>
+              </ng-template>
+
             </tr>
           </tbody>
         </table>
@@ -60,17 +159,69 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <table *ngIf="roomReservations.length > 0; else emptyTable" class="table table-striped table-hover">
+        <table *ngIf="roomRatingW.length > 0; else emptyTable" class="table">
           <thead>
             <tr>
-              <th scope="col">Room</th>
               <th scope="col">Hotel</th>
+              <th scope="col">Room</th>
+              <th scope="col">Room Type</th>
+              <th scope="col">Date From</th>
+              <th scope="col">Date To</th>
+              <th scope="col">Hotel Rating</th>
+              <th scope="col">Room Rating</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let roomReservation of roomReservations">
-              <td class="align-middle">{{roomReservation.roomId}}</td>
-              <td class="align-middle">{{roomReservation.hotelReservationId}}</td>
+            <tr *ngFor="let r of roomRatingW">
+              <td class="align-middle">{{ r.hotelName }}</td>
+              <td class="align-middle">{{ r.roomName }}</td>
+              <td class="align-middle">{{ r.roomType }}</td>
+              <td class="align-middle">{{ r.timeBegin | date: 'medium'}}</td>
+              <td class="align-middle">{{ r.timeEnd | date: 'medium'}}</td>
+
+              <ng-container *ngIf="r.hotelRating === 0; then hotelInput; else hotelRating"></ng-container>
+              <ng-container *ngIf="r.roomRating === 0; then roomInput; else roomRating"></ng-container>
+              <td class="align-middle"><ng-container *ngIf="r.hotelRating === 0  ||  r.roomRating === 0; then btn"></ng-container></td>
+
+              <ng-template #hotelInput>
+                <td class="align-middle">
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1" [(ngModel)]="currentHotelRate[r.hotelId]">
+                    <option value="undefined" selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </td>
+              </ng-template>
+
+              <ng-template #roomInput>
+                <td class="align-middle">
+                  <select class="custom-select mr-sm-2" id="inlineFormCustomSelect2" [(ngModel)]="currentRateRoom[r.roomId]">
+                    <option value="undefined" selected>Choose...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </td>
+              </ng-template>
+
+              <ng-template #roomRating>
+                <td class="align-middle">{{r.roomRating}}</td>
+              </ng-template>
+
+              <ng-template #hotelRating>
+                <td class="align-middle">{{r.hotelRating}}</td>
+              </ng-template>
+
+              <ng-template #btn>
+                <button type="button" class="btn btn-primary" (click)="ratingHotel(r)" [disabled] = "!(isRatableRoom(r))">Submit</button>
+              </ng-template>
+
             </tr>
           </tbody>
         </table>

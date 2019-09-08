@@ -53,7 +53,7 @@
           <img src="../../../assets/img/rentacar/{{rentacar.image}}.png" class="card-img-top" alt="Logo of {{rentacar.name}}">
           <div class="card-body">
             <h5 class="card-title">{{rentacar.name}}</h5>
-            <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+            <ngb-rating [rate]="companyRating[rentacar.id]" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
             <h6 class="card-subtitle mb-2 text-muted">{{rentacar.address}}</h6>
             <a class="card-link" routerLink="{{rentacar.id}}">Select</a>
           </div>
@@ -67,7 +67,7 @@
           <img src="../../../assets/img/rentacar/{{rentacarWithBranches.rentacar.image}}.png" class="card-img-top" alt="Logo of {{rentacarWithBranches.rentacar.name}}">
           <div class="card-body">
             <h5 class="card-title">{{rentacarWithBranches.rentacar.name}}</h5>
-            <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+            <ngb-rating [rate]="companyRating[rentacarWithBranches.rentacar.id]" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
             <h6 class="card-subtitle mb-2 text-muted">{{rentacarWithBranches.rentacar.address}}</h6>
             <ul class="list-group list-group-flush mt-3 mb-3 text-left">
               <div *ngFor="let branchOffice of rentacarWithBranches.branches">

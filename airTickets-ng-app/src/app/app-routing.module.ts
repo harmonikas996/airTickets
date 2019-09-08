@@ -26,10 +26,10 @@ const routes: Routes = [
   //   // ]
   // },
   // { path: 'flights', component: FlightsComponent },
-  { 
+  {
     path: '',
-    pathMatch: 'full', 
-    component: ProfileComponent, 
+    pathMatch: 'full',
+    component: FlightsReservationComponent,
     canActivate: [AuthGuard]
   },
   { path: 'flight-reservations', component: FlightsReservationComponent },

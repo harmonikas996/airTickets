@@ -1,3 +1,4 @@
+import { HotelRatingService } from './../../shared/services/hotel/hotel-rating/hotel-rating.service';
 import { RoomReservationService } from './../../shared/services/hotel/room-reservation/room-reservation.service';
 import { Room } from './../../shared/model/hotel/room.model';
 import { RoomReservation } from './../../shared/model/hotel/room-reservation.model';
@@ -27,6 +28,7 @@ export class HotelsListComponent implements OnInit {
   locations: String[];
   hotelsRes: Hotel[];
 
+  hotelRating = [];
 
   roomReservations: RoomReservation[];
   roomReservation: RoomReservation;
@@ -35,7 +37,8 @@ export class HotelsListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private hotelService: HotelService,
     private roomReservationService: RoomReservationService,
-    private http: HttpClient
+    private http: HttpClient,
+    private hotelRatingService: HotelRatingService
 
   ) { }
 
@@ -66,6 +69,7 @@ export class HotelsListComponent implements OnInit {
             hotel.address = response.resourceSets[0].resources[0].address.formattedAddress;
           }
         );
+        this.hotelRatingService.getRatingsByHotel(hotel.id).subscribe(rating => this.hotelRating[hotel.id] = rating);
       });
       this.hotels = hotels;
     });
