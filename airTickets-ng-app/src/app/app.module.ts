@@ -30,6 +30,7 @@ import { HotelsComponent } from './hotels/hotels.component';
 import { FlightsComponent } from './flights/flights.component';
 import { FlightsReservationComponent } from './flights/flights-reservation/flights-reservation.component';
 import { HotelRoutingModule } from './hotels/hotel-routing.module';
+import { SharedModule } from './shared/shared.module';
 
 // export const MY_MOMENT_FORMATS = {
 //   // parseInput: 'l LT',
@@ -76,6 +77,7 @@ import { HotelRoutingModule } from './hotels/hotel-routing.module';
     UserAuthenticationModule,
     DashboardsModule,
     HotelRoutingModule,
+    SharedModule,
     AppRoutingModule, // ovaj modul uvek nek ide ispod svih drugih modula. Pravilo zlatno
   ],
   providers: [

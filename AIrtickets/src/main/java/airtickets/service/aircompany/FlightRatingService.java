@@ -27,6 +27,18 @@ public class FlightRatingService {
 		return flights;
 	}
 	
+	public FlightRatingDTO getRatingByFlightId(long flightId) {
+		FlightRating f = flightRatingRepository.findByflightId(flightId);
+		
+		if( f == null) {
+			return new FlightRatingDTO();
+		}
+		
+		FlightRatingDTO flight = new FlightRatingDTO(f);
+		
+		return flight;
+	}
+	
 	public FlightRatingDTO getFlightRating(long id) {
 		FlightRating f = flightRatingRepository.findById(id);
 		FlightRatingDTO flight = new FlightRatingDTO(f);

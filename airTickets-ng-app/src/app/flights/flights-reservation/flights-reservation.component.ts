@@ -1,3 +1,5 @@
+import { FlightRatingService } from './../../shared/services/aircompany/flight-rating.service';
+import { AirCompanyRating } from './../../shared/model/aircompany/aircompany-rating';
 import { Aircompany } from './../../shared/model/aircompany/aircompany.model';
 import { AircompanyService } from './../../shared/services/aircompany/aircompany.service';
 import { FlightsService } from './../../shared/services/aircompany/flights.service';
@@ -32,7 +34,7 @@ export class FlightsReservationComponent implements OnInit {
   flights: Flight[];
   returnFlights: Flight[];
 
-  aircompanies = [];
+  aircompanies: Aircompany[];
 
   sDep: number;
   sRet: number;
@@ -50,12 +52,15 @@ export class FlightsReservationComponent implements OnInit {
   cdateTo: String;
   todayDate = new Date(moment().subtract(1, 'days').toLocaleString());
 
+  airCompanyRating = [];
+
   constructor(
     private flightService: FlightsService,
     private formBuilder: FormBuilder,
     private airportService: AirportService,
     private aircompanyService: AircompanyService,
-    private seatService: SeatService
+    private seatService: SeatService,
+    private flightRatingService: FlightRatingService
 
   ) { }
 
@@ -124,7 +129,15 @@ export class FlightsReservationComponent implements OnInit {
 
   getAirCompanies() {
     this.aircompanyService.getAircompanies().subscribe(
-      response => this.aircompanies = response
+      response =>  {
+        this.aircompanies = response;
+
+        for(let a of this.aircompanies) {
+
+          this.flightRatingService.getRatingsByAirCompany(a.id).subscribe(rating => this.airCompanyRating[a.id] = rating);
+
+        }
+      }
     );
   }
 
@@ -244,8 +257,8 @@ export class FlightsReservationComponent implements OnInit {
   getAirportsById(): void {
     let a: Airport;
 
-    
-    
+
+
     this.airportService.getAirportById(this.placeFromId).subscribe(
       airport => a = airport,
       error => console.log('Error: ', error),
@@ -253,7 +266,7 @@ export class FlightsReservationComponent implements OnInit {
     );
 
     if(this.flightResForm.controls['datePeriod'].value.length > 1) {
-      
+
       this.airportService.getAirportById(this.placeToId).subscribe(
         airport => a = airport,
         error => console.log('Error: ', error),

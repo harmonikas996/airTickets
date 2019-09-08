@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.hotel.HotelDTO;
 import airtickets.dto.hotel.RoomDTO;
+import airtickets.dto.hotel.RoomRatingDTO;
 import airtickets.dto.rentacar.RentacarWithBrachesDTO;
 import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.service.hotel.HotelService;
@@ -38,7 +39,7 @@ public class HotelController {
 	public HotelDTO getById(@PathVariable Long id){
 		return hotelService.getHotel(id);
 	}
-
+	
 	@PostMapping("/new")
 	public HotelDTO addHotel(@RequestBody HotelDTO hotel) {
 		return hotelService.addHotel(hotel);

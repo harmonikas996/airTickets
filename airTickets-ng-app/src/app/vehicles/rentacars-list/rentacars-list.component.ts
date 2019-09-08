@@ -1,3 +1,4 @@
+import { CarRatingService } from './../../shared/services/rentacar/car-rating.service';
 import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
 import { VehicleService } from './../../shared/services/rentacar/vehicle.service';
 import { CarReservation } from './../../shared/model/rentacar/car-reservation';
@@ -35,11 +36,14 @@ export class RentacarsListComponent implements OnInit {
   timeEnd: String;
   todayDate = new Date(moment().subtract(1, 'days').toLocaleString());
 
+  companyRating = [];
+
   constructor(
     private rentacarService: RentacarService,
     private formBuilder: FormBuilder,
     private vehicleService: VehicleService,
-    private http: HttpClient
+    private http: HttpClient,
+    private carRatingService: CarRatingService
   ) { }
 
   ngOnInit() {
@@ -59,14 +63,18 @@ export class RentacarsListComponent implements OnInit {
     this.rentacarService.getRentacars().subscribe(
       rentacars => {
         rentacars.forEach((rentacar) => {
+
           this.http.jsonp('http://dev.virtualearth.net/REST/v1/Locations/' + rentacar.address +
           '?jsonp=JSONP_CALLBACK&key=' + environment.bingMapCredentials, 'JSONP_CALLBACK')
           .subscribe(
             (response: any) => {
+
               rentacar.address = response.resourceSets[0].resources[0].address.formattedAddress;
             }
           );
+          this.carRatingService.getRatingByRentACar(rentacar.id).subscribe(rating => this.companyRating[rentacar.id] = rating);
         });
+
         this.rentacars = rentacars;
       });
   }

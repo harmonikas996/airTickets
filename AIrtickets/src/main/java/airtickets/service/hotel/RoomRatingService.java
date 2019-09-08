@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import airtickets.dto.aircompany.AircompanyRatingDTO;
 import airtickets.dto.hotel.RoomRatingDTO;
+import airtickets.model.aircompany.AircompanyRating;
 import airtickets.model.hotel.RoomRating;
 import airtickets.repo.hotel.RoomRatingRepository;
 
@@ -32,6 +34,18 @@ public class RoomRatingService {
 		RoomRatingDTO roomRatingDTO = new RoomRatingDTO(r);
 		
 		return roomRatingDTO;
+	}
+	
+	public RoomRatingDTO getRatingByRoomId(long roomId) {
+		RoomRating r = roomRatingRepository.findByroomId(roomId);
+		
+		if( r == null) {
+			return new RoomRatingDTO();
+		}
+		
+		RoomRatingDTO room = new RoomRatingDTO(r);
+		
+		return room;
 	}
 	
 	public RoomRatingDTO addRoomRating(RoomRatingDTO roomRatingDTO) {

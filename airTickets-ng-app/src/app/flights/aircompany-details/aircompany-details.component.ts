@@ -1,3 +1,4 @@
+import { FlightRatingService } from './../../shared/services/aircompany/flight-rating.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -26,6 +27,7 @@ export class AircompanyDetailsComponent implements OnInit {
   isQuickSelected = false;
   selectedQuickReservation = {};
   passengerForm: FormGroup;
+  airCompanyRating: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +37,8 @@ export class AircompanyDetailsComponent implements OnInit {
     private seatService: SeatService,
     private flightService: FlightsService,
     private airportService: AirportService,
-    private http: HttpClient
+    private http: HttpClient,
+    private flightRatingService: FlightRatingService
   ) { }
 
   ngOnInit() {
@@ -62,6 +65,8 @@ export class AircompanyDetailsComponent implements OnInit {
             this.getQuickSeats(aircompany.id);
           }
         );
+        this.flightRatingService.getRatingsByAirCompany(this.id).subscribe(rating => this.airCompanyRating = rating);
+      this.aircompany = aircompany as any;
     });
   }
 

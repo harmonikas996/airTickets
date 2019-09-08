@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.dto.rentacar.CarRatingDTO;
+import airtickets.dto.rentacar.RentACarRatingDTO;
 import airtickets.service.rentacar.CarRatingService;
 
 @RestController
@@ -34,10 +35,20 @@ public class CarRatingController {
 	public CarRatingDTO getById(@PathVariable Long id) {
 		return carRatingService.getCarRating(id);
 	}
+	
+	@GetMapping("/car/{vehicleId}")
+	public CarRatingDTO getRatingByRentACarId(@PathVariable Long vehicleId){
+		return carRatingService.getRatingByVehicleId(vehicleId);
+	}
 
 	@PostMapping("/new")
     public CarRatingDTO addCarRating(@RequestBody CarRatingDTO carRatingDTO) {
 			return carRatingService.addCarRating(carRatingDTO);
+	}
+	
+	@GetMapping("/all/{vehicleId}")
+	public double getRating(@PathVariable Long vehicleId){
+		return carRatingService.getRating(vehicleId);
 	}
 
 	@PutMapping("{id}/update")

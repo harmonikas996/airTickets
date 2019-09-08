@@ -5,7 +5,7 @@
   <div class="col-6 align-self-center">
       <h1>{{aircompany.name}}</h1>
       <p>
-        <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+        <ngb-rating [rate]="airCompanyRating" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
         <i class="fas fa-map-marker-alt ml-2"></i> {{aircompany.address}}</p>
       <p class="text-secondary">{{aircompany.description}}</p>
   </div>
@@ -116,13 +116,13 @@
               (remove)="onRemoveAmenity($event)"
               (clear)="onClearAmenities()"
               placeholder="Select amenities">
-  
+
               <ng-template ng-label-tmp let-item="item" let-clear="clear">
                   <span class="badge badge-primary mx-1 my-1">{{item.price}}€</span>
                   {{item.title}}
                   <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
               </ng-template>
-  
+
               <ng-template ng-option-tmp let-item="item">
                   <span class="badge badge-primary mx-1 my-1">{{item.price}}€</span>
                   {{item.title}}

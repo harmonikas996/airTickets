@@ -1,3 +1,4 @@
+import { CarRatingService } from './../../shared/services/rentacar/car-rating.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -43,6 +44,11 @@ export class RentacarDetailsComponent implements OnInit {
   pickupLocation: string;
   dropoffLocation: string;
 
+  companyRating: number;
+
+  vehicleRating = [];
+  quickVehicleRating = [];
+
   carReservations = [];
   todayDate = new Date(moment().toLocaleString());
 
@@ -54,7 +60,8 @@ export class RentacarDetailsComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private carReservationService: CarReservationService,
-    private http: HttpClient
+    private http: HttpClient,
+    private carRatingService: CarRatingService
   ) { }
 
   ngOnInit() {
@@ -78,6 +85,7 @@ export class RentacarDetailsComponent implements OnInit {
     this.getRentACarById(id);
     this.getLocations();
     this.getQuickReservation(id);
+
   }
 
   getQuickReservation(id: number): void {
@@ -91,7 +99,15 @@ export class RentacarDetailsComponent implements OnInit {
             if (flightStart != null && moment(flightStart).isAfter(moment())) {
 
               this.todayDate = new Date(flightStart);
+//
+              this.carRatingService.getRatingByVehicle(carReservation.vehicleId).subscribe(
 
+                rating => {
+
+                  this.quickVehicleRating[carReservation.vehicleId] = rating;
+                }
+              );
+//
               if (moment(carReservation.dateFrom).isAfter(moment(flightStart))) {
 
                 this.carReservations.push({
@@ -152,6 +168,7 @@ export class RentacarDetailsComponent implements OnInit {
             }
           );
         this.rentacar = rentacar;
+        this.carRatingService.getRatingByRentACar(rentacar.id).subscribe(response => this.companyRating = response);
       })
     );
   }
@@ -177,6 +194,13 @@ export class RentacarDetailsComponent implements OnInit {
         this.vehicles = [];
         for (const vehicle of vehicles) {
 
+          this.carRatingService.getRatingByVehicle(vehicle.id).subscribe(
+
+            rating => {
+
+              this.vehicleRating[vehicle.id] = rating;
+            }
+          );
           const start = moment(pickupDateTime).startOf('day');
           const end = moment(dropoffDateTime).startOf('day');
           this.vehicles.push({
@@ -192,6 +216,7 @@ export class RentacarDetailsComponent implements OnInit {
             rentACarId: vehicle.rentACarId,
             image: vehicle.image,
           });
+
         }
       },
      (error) => console.error('An error occurred, ', error),

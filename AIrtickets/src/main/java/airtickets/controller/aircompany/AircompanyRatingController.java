@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import airtickets.dto.aircompany.AircompanyRatingDTO;
+import airtickets.dto.aircompany.FlightRatingDTO;
 import airtickets.service.aircompany.AircompanyRatingService;
 
 @RestController
@@ -34,9 +35,19 @@ public class AircompanyRatingController {
 		return aircompanyRatingService.getAircompanyRating(id);
 	}
 	
+	@GetMapping("/company/{companyId}")
+	public AircompanyRatingDTO getRatingByAirCompanyId(@PathVariable Long companyId){
+		return aircompanyRatingService.getRatingByAirCompanyId(companyId);
+	}
+	
 	@PostMapping("/new")
 	public AircompanyRatingDTO addAircompanyRating(@RequestBody AircompanyRatingDTO aircompanyRating) {
 		return aircompanyRatingService.addAircompanyRating(aircompanyRating);
+	}
+	
+	@GetMapping("/all/{companyId}")
+	public double getRating(@PathVariable Long companyId){
+		return aircompanyRatingService.getRating(companyId);
 	}
 	
 	@PutMapping("{id}/update")

@@ -147,7 +147,7 @@
                     </div>
                   </div>
               </div>
-          </label>  
+          </label>
         </div>
     </div>
   </div>
@@ -167,7 +167,7 @@
           <img src="../../../assets/img/aircompany/{{aircompany.image}}.png" class="card-img-top" alt="Logo of {{aircompany.name}}">
         <div class="card-body">
           <h5 class="card-title">{{aircompany.name}}</h5>
-          <ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+          <ngb-rating [rate]="airCompanyRating[aircompany.id]" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
           <a class="card-link" routerLink="../aircompanies-details/{{aircompany.id}}">Company Profile</a>
         </div>
       </div>

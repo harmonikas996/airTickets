@@ -1,3 +1,4 @@
+import { HotelRatingService } from './../../shared/services/hotel/hotel-rating/hotel-rating.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,6 +37,7 @@ export class HotelDetailsComponent implements OnInit {
   amenitySum = 0;
   roomsSum = 0;
 
+  hotelRating: number;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,7 +49,8 @@ export class HotelDetailsComponent implements OnInit {
     private hotelService: HotelService,
     private http: HttpClient,
     private amenityService: AmenityService,
-    private router: Router
+    private router: Router,
+    private hotelRatingService: HotelRatingService
   ) { }
 
   ngOnInit() {
@@ -138,6 +141,7 @@ export class HotelDetailsComponent implements OnInit {
             hotel.address = response.resourceSets[0].resources[0].address.formattedAddress;
           }
         );
+      this.hotelRatingService.getRatingsByHotel(id).subscribe(rating => this.hotelRating = rating);
       this.hotel = hotel as any;
     });
   }
