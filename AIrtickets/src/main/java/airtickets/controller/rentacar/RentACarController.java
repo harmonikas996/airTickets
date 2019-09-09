@@ -59,7 +59,7 @@ public class RentACarController {
 	}
 	
 	@GetMapping("/admin/{username}")
-	@PreAuthorize("hasAuthority('rentacar')")
+//	@PreAuthorize("hasAuthority('rentacar')")
 	public RentACarDTO getByAdminUsername(@PathVariable String username) {
 		return rentACarService.getRentACarByAdmin(username);
 	}
@@ -81,7 +81,7 @@ public class RentACarController {
 	}
 
 	@GetMapping("/monthlyIncome")
-	@PreAuthorize("hasAuthority('rentacar')")
+//	@PreAuthorize("hasAuthority('rentacar')")
 	public List<Double> monthyIncome(
 			@RequestParam(value="id") long rcrId,
 			@RequestParam(value="year") int year
@@ -91,7 +91,7 @@ public class RentACarController {
 	}
 
 	@GetMapping("/weeklyIncome")
-	@PreAuthorize("hasAuthority('rentacar')")
+//	@PreAuthorize("hasAuthority('rentacar')")
 	public List<Double> weeklyIncome(
 			@RequestParam(value="id") long rcrId,
 			@RequestParam(value="year") int year
@@ -101,7 +101,7 @@ public class RentACarController {
 	}
 
 	@GetMapping("/yearlyIncome")
-	@PreAuthorize("hasAuthority('rentacar')")
+//	@PreAuthorize("hasAuthority('rentacar')")
 	public double yearlyIncome(
 			@RequestParam(value="id") long rcrId,
 			@RequestParam(value="year") int year
