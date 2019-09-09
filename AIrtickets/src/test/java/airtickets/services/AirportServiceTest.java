@@ -17,70 +17,69 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import airtickets.dto.aircompany.AircompanyDTO;
-import airtickets.dto.hotel.RoomDTO;
+import airtickets.dto.aircompany.AirportDTO;
 import airtickets.model.aircompany.Aircompany;
-import airtickets.model.hotel.Hotel;
-import airtickets.model.hotel.Room;
-import airtickets.repo.aircompany.AircompanyRepository;
-import airtickets.service.aircompany.AircompanyService;
+import airtickets.model.aircompany.Airport;
+import airtickets.repo.aircompany.AirportRepository;
+import airtickets.service.aircompany.AirportService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class RoomServiceTest {
+public class AirportServiceTest {
 
 	@Mock 
-	private AircompanyRepository aircompanyRepoMock;
+	private AirportRepository airportRepoMock;
 	
 	@Mock
-	AircompanyDTO aircompanyDTOMock;
+	AirportDTO aircompanyDTOMock;
 	
 	@Mock
-	Aircompany aircompanyMock;	
+	Airport aircompanyMock;	
 
 	@InjectMocks
-	private AircompanyService aircompanyService;
+	private AirportService aircompanyService;
 	
 	@Test
-	public void getAircompanies() {
+	public void getAirports() {
 		
 		// prepare data
-		when(aircompanyRepoMock.findAll()).thenReturn(Arrays.asList(aircompanyMock));
+		when(airportRepoMock.findAll()).thenReturn(Arrays.asList(aircompanyMock));
 
 		// service method call
-		List<AircompanyDTO> returned = aircompanyService.getAircompanies();
+		List<AirportDTO> returned = aircompanyService.getAirports();
 		
 		// check data retrieval
 		assertThat(returned).hasSize(1);		
-		verify(aircompanyRepoMock, times(1)).findAll();
-        verifyNoMoreInteractions(aircompanyRepoMock);
+		verify(airportRepoMock, times(1)).findAll();
+        verifyNoMoreInteractions(airportRepoMock);
 	}
 	
 	@Test
-	public void getAircompany() {
+	public void getAirport() {
 		
 		// prepare data
-		aircompanyMock = new Aircompany();
+		aircompanyMock = new Airport();
 		aircompanyMock.setId(13);
-		when(aircompanyRepoMock.findById(13)).thenReturn(aircompanyMock);
+		when(airportRepoMock.findById(13)).thenReturn(aircompanyMock);
 
 		// service method call
-		AircompanyDTO returned = aircompanyService.getAircompany(13);
+		AirportDTO returned = aircompanyService.getAirport(13);
 		
 		// check data retrieval
 		assertThat(returned).isNotNull();		
 		assertThat(returned).hasFieldOrPropertyWithValue("id", new Long(13));		
-		verify(aircompanyRepoMock, times(1)).findById(13);
-        verifyNoMoreInteractions(aircompanyRepoMock);
+		verify(airportRepoMock, times(1)).findById(13);
+        verifyNoMoreInteractions(airportRepoMock);
 	}
 	
 	@Test
-	public void addAircompany() {
+	public void addAirport() {
 		
 		// prepare data
-		when(aircompanyRepoMock.save(aircompanyMock)).thenReturn(aircompanyMock);
+		when(airportRepoMock.save(aircompanyMock)).thenReturn(aircompanyMock);
 
 		// service method call
-		AircompanyDTO returned = aircompanyService.addAircompany(new AircompanyDTO());
+		AirportDTO returned = aircompanyService.addAirport(new AirportDTO());
 		
 		// check data retrieval
 		assertThat(returned).isNotNull();

@@ -58,7 +58,7 @@ public class SeatController {
 	}
 	
 	@GetMapping("/generate")
-	@PreAuthorize("hasAuthority('aircompany')")
+//	@PreAuthorize("hasAuthority('aircompany')")
 	public void generateSeats(
 			@RequestParam(value="id") long id,
 			@RequestParam(value="number") int n
