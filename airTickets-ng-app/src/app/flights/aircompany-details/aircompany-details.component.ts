@@ -143,6 +143,7 @@ export class AircompanyDetailsComponent implements OnInit {
     };
     
     this.seatService.makeReservation([reservedSeat]).subscribe(
+      // vrati nazad
       response => location.assign('/')
     );
   }
