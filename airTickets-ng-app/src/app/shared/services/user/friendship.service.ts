@@ -34,7 +34,7 @@ export class FriendshipService {
   }
 
   accept(friend: Friendship): Observable<Object> {
-    friend.confirmed = true;
+
     return this.http.put(this.friendshipUrl + '/' + friend.id + '/update', friend, httpOptions);
   }
 

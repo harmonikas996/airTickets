@@ -26,6 +26,10 @@ export class UserService {
     return this.http.get<User>(this.profileUrl + '/' + this.token.getUsername());
   }
 
+  getUserByIdParam(id: number): Observable<User> {
+    return this.http.get<User>(this.userUrl + '/' + id);
+  }
+
   getUserByEmail(username: String): Observable<User> {
     return this.http.get<User>(this.profileUrl + '/' + username);
   }

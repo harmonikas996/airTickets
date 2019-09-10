@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import airtickets.dto.aircompany.AircompanyRatingDTO;
+import airtickets.dto.hotel.HotelRatingDTO;
 import airtickets.dto.hotel.RoomRatingDTO;
 import airtickets.model.aircompany.AircompanyRating;
+import airtickets.model.hotel.HotelRating;
 import airtickets.model.hotel.RoomRating;
 import airtickets.repo.hotel.RoomRatingRepository;
 
@@ -34,6 +36,20 @@ public class RoomRatingService {
 		RoomRatingDTO roomRatingDTO = new RoomRatingDTO(r);
 		
 		return roomRatingDTO;
+	}
+	
+	public double getRating(Long companyId) {
+		List<RoomRatingDTO> rooms = new ArrayList<RoomRatingDTO>();
+		
+		double sum = 0;
+		
+		for (RoomRating c  : roomRatingRepository.findAllById(companyId)) {
+			sum += c.getRating();
+			RoomRatingDTO roomRating = new RoomRatingDTO(c);
+			rooms.add(roomRating);
+ 		}
+		
+		return sum / (rooms.size() * 1.0);
 	}
 	
 	public RoomRatingDTO getRatingByRoomId(long roomId) {
