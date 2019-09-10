@@ -21,34 +21,58 @@
 </form>
 <div  class="row mt-4">
   <div *ngIf="freeVehiclesObservable | async; else loading" class="col-6">
-      <h5 class="text-center pb-3">Available Vehicles</h5>
+      <h5 class="text-center pb-3">Available</h5>
       <ul class="list-group list-group-flush">
           <li *ngFor="let freeVehicle of freeVehicles" class="list-group-item">
-            <div class="row">
-                <div class="col-3">
-                    <img src="../../../assets/img/vehicle/{{freeVehicle.image}}" class="card-img-top" alt="Picture of {{freeVehicle.brand}}">
+            <ng-container *ngIf="getUserType(); else hotelTemplate">
+              <div class="row">
+                  <div class="col-3">
+                      <img src="../../../assets/img/vehicle/{{freeVehicle.image}}" class="card-img-top">
+                  </div>
+                  <div class="col-9 align-self-center">
+                    <strong>{{freeVehicle.name}}</strong> ({{freeVehicle.brand}}, {{freeVehicle.model}}) - <span class="badge">{{freeVehicle.pricePerDay}}€</span>
+                  </div>
                 </div>
-                <div class="col-9 align-self-center">
-                  <strong>{{freeVehicle.name}}</strong> ({{freeVehicle.brand}}, {{freeVehicle.model}}) - <span class="badge">{{freeVehicle.pricePerDay}}€</span>
-                </div>
-              </div>
+            </ng-container>
+            <ng-template #hotelTemplate>
+                <div class="row">
+                    <div class="col-3">
+                        <img src="../../../assets/img/room/{{freeVehicle.image}}.jpg" class="card-img-top">
+                    </div>
+                    <div class="col-9 align-self-center">
+                      <strong>{{freeVehicle.number}}</strong> <span class="badge">{{freeVehicle.type}}</span>
+                    </div>
+                  </div>
+            </ng-template>
           </li>
       </ul>
       <ng-template #loading><h6>Loading data...</h6></ng-template>
       <div *ngIf="(freeVehiclesObservable | async)?.length==0"><h6 class="text-muted">No records found.</h6></div>
   </div>
   <div *ngIf="reservedVehiclesObservable | async; else loading" class="col-6">
-      <h5 class="text-center pb-3">Reserved Vehicles</h5>
+      <h5 class="text-center pb-3">Reserved</h5>
       <ul class="list-group list-group-flush">
           <li *ngFor="let reservedVehicle of reservedVehicles" class="list-group-item">
-            <div class="row">
-              <div class="col-3">
-                  <img src="../../../assets/img/vehicle/{{reservedVehicle.image}}" class="card-img-top" alt="Picture of {{reservedVehicle.brand}}">
-              </div>
-              <div class="col-9 align-self-center">
-                <strong>{{reservedVehicle.name}}</strong> ({{reservedVehicle.brand}}, {{reservedVehicle.model}}) - <span class="badge">{{reservedVehicle.pricePerDay}}€</span>
-              </div>
-            </div>
+              <ng-container *ngIf="getUserType(); else hotelTemplate">
+                  <div class="row">
+                      <div class="col-3">
+                          <img src="../../../assets/img/vehicle/{{reservedVehicle.image}}" class="card-img-top">
+                      </div>
+                      <div class="col-9 align-self-center">
+                        <strong>{{reservedVehicle.name}}</strong> ({{reservedVehicle.brand}}, {{reservedVehicle.model}}) - <span class="badge">{{reservedVehicle.pricePerDay}}€</span>
+                      </div>
+                    </div>
+                </ng-container>
+                <ng-template #hotelTemplate>
+                    <div class="row">
+                        <div class="col-3">
+                            <img src="../../../assets/img/room/{{reservedVehicle.image}}.jpg" class="card-img-top">
+                        </div>
+                        <div class="col-9 align-self-center">
+                          <strong>{{reservedVehicle.number}}</strong> <span class="badge">{{reservedVehicle.type}}</span>
+                        </div>
+                      </div>
+                </ng-template>
           </li>
       </ul>
       <ng-template #loading><h6>Loading data...</h6></ng-template>
