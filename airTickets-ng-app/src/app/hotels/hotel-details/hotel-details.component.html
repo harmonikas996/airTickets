@@ -177,7 +177,8 @@
                 </tr>
               </tbody>
             </table>
-            <button class="btn btn-success btn-block mt-4" type="button" (click)="makeReservation()" [disabled]="(selectedRoomsObj.length === 0)">Make Reservation</button>
+            <button class="btn btn-success btn-block mt-4" type="button" (click)="makeReservation()" [disabled]="(selectedRoomsObj.length === 0) || !isAfterFlightReservation()">Make Reservation</button>
+            <p class="reservationDate mt-2" *ngIf="!isAfterFlightReservation()">Login / Book a flight before booking a room</p>
           </div>
         </div>
       </div>

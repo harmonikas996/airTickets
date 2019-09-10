@@ -1,6 +1,5 @@
 package airtickets.service.rentacar;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.rentacar.BranchOfficeDTO;
 import airtickets.dto.rentacar.RentACarDTO;
@@ -40,6 +41,7 @@ public class RentACarService {
 	@Autowired
 	CarReservationRepository carReservationRepository;
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RentACarDTO> getRentACars() {
 		List<RentACarDTO> rentACars = new ArrayList<RentACarDTO>();
 		
@@ -50,12 +52,14 @@ public class RentACarService {
 		return rentACars;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public RentACarDTO getRentACar(long id) {
 		RentACar r  = rentACarRepository.findById(id);
 		RentACarDTO rentACar = new RentACarDTO(r);
 		return rentACar;
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public RentACarDTO addRentACar(RentACarDTO rentACarDTO) {
 		RentACar rentACar = new RentACar(rentACarDTO);
 		rentACarRepository.save(rentACar);
@@ -63,10 +67,12 @@ public class RentACarService {
 		return rentACarDTO;
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteRentACar(long id) {
 		rentACarRepository.deleteById(id);
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public RentACarDTO getRentACarByAdmin(String adminUsername) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -78,6 +84,7 @@ public class RentACarService {
 		return rentACar;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<RentacarWithBrachesDTO> searchRentACars(String name, String location, String timeBegin, String timeEnd) {
 		
 		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
@@ -110,6 +117,7 @@ public class RentACarService {
 		return rentACars;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<Double> monthyIncome(long rcrId, int year) {
 		
 		List<Double> incomes = new ArrayList<>();
@@ -144,6 +152,7 @@ public class RentACarService {
 		return incomes;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<VehicleDTO> freeVehiclesForPeriod(long id, String from, String to) {
 		
 		LocalDateTime df = LocalDateTime.parse(from);
@@ -158,6 +167,7 @@ public class RentACarService {
 		return veh;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<VehicleDTO> reservedVehiclesForPeriod(long id, String from, String to) {
 		
 		LocalDateTime df = LocalDateTime.parse(from);
@@ -172,6 +182,7 @@ public class RentACarService {
 		return veh;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<Double> weeklyIncome(long rcrId, int year) {
 		
 		List<Double> incomes = new ArrayList<>();
@@ -193,6 +204,7 @@ public class RentACarService {
 		return incomes;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public double yearlyIncome(long rcrId, int year) {
 		
 		LocalDateTime from = LocalDateTime.parse(year + "-01-01T00:00:00");
@@ -206,6 +218,7 @@ public class RentACarService {
 		return income;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<VehicleDTO> getCarsFromRentacar(long id) {
 		List<VehicleDTO> veh = new ArrayList<>();
 		for (Vehicle v  : vehicleRepository.findByRentACarId(id)) {
@@ -214,6 +227,7 @@ public class RentACarService {
 		return veh;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public boolean isCurrentlyReserved(long id) {
 		List<CarReservation> reservations = carReservationRepository.findByVehicleId(id);
 		for (CarReservation cr : reservations) {
@@ -223,6 +237,7 @@ public class RentACarService {
 		return false;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<VehicleDTO> getFreeVehicles(String email, String from, String to) {
 		User user = userRepository.findByEmail(email);
 		

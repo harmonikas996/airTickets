@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.aircompany.AircompanyDTO;
 import airtickets.dto.aircompany.FlightDTO;
@@ -25,6 +27,7 @@ public class FlightService {
 	@Autowired
 	FlightRepository flightRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public FlightDTO getFlightAdmin(long id) {
 		Flight f = flightRepository.findById(id);
 		FlightDTO flightDTO = new FlightDTO(f);
@@ -32,6 +35,7 @@ public class FlightService {
 		return flightDTO;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<FlightDTO> getFlightsByUser(Long id) {
 		List<FlightDTO> flights = new ArrayList<FlightDTO>();
 		List<Flight> flight = flightRepository.getFlightsByUser(id);
@@ -43,6 +47,7 @@ public class FlightService {
 		return flights;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<FlightDTO> getFlights(){
 		List<FlightDTO> flights = new ArrayList<FlightDTO>();
 		List<Flight> flight = flightRepository.findAll();
@@ -54,6 +59,7 @@ public class FlightService {
 		return flights;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public FlightDTO getFlight(long id) {
 		Flight f = flightRepository.findById(id);
 		FlightDTO flight = new FlightDTO(f);
@@ -61,6 +67,7 @@ public class FlightService {
 		return flight;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public FlightDTO addFlight(FlightDTO flightDTO) {
 		Flight flight = new Flight(flightDTO);
 		flightRepository.save(flight);
@@ -69,10 +76,12 @@ public class FlightService {
 		return flightDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteFlight(long id) {
 		flightRepository.deleteById(id);
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<FlightDTO> searchFlights(String placeFromId, String placeToId, String date) {
 		
 		LocalDateTime dt = LocalDateTime.parse(date);
@@ -96,6 +105,7 @@ public class FlightService {
 		return flights;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<FlightDTO> searchFlightsByCompany(String placeFromId, String placeToId, String date, Long companyId) {
 		
 		LocalDateTime dt = LocalDateTime.parse(date);

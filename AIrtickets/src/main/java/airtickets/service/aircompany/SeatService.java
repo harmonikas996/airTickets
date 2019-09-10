@@ -6,7 +6,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import airtickets.dto.aircompany.FlightReservationDTO;
 import airtickets.dto.aircompany.SeatDTO;
@@ -26,6 +30,7 @@ public class SeatService {
 	@Autowired
 	private FlightReservationRepository flightReservationRepository;
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<SeatDTO> getSeats(){
 		List<SeatDTO> seats = new ArrayList<SeatDTO>();
 		List<Seat> seatList = seatRepository.findAll();
@@ -37,6 +42,7 @@ public class SeatService {
 		return seats;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public SeatDTO getSeat(long id) {
 		Seat s = seatRepository.findById(id);
 		SeatDTO seat = new SeatDTO(s);
@@ -44,6 +50,7 @@ public class SeatService {
 		return seat;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public SeatDTO addSeat(SeatDTO seatDTO) {
 		Seat seat = new Seat(seatDTO);
 		seatRepository.save(seat);
@@ -52,10 +59,12 @@ public class SeatService {
 		return seatDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteSeat(long id) {
 		seatRepository.deleteById(id);
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void generateSeats(long id, int n) {
 		int j = 1;
 		char c = 'A';
@@ -78,6 +87,7 @@ public class SeatService {
 		}
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<SeatDTO> getSeatsByFlightId(long id) {
 		List<SeatDTO> seats = new ArrayList<>();
 		for(Seat s : seatRepository.findByFlightId(id)) {
@@ -87,6 +97,7 @@ public class SeatService {
 		return seats;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<SeatDTO> getQuickSeatsByCompanyId(long id) {
 		List<SeatDTO> seats = new ArrayList<>();
 		for(Seat s : seatRepository.getQuickSeatsByCompanyId(id)) {
@@ -97,39 +108,45 @@ public class SeatService {
 	}
 	// 1. Making standard reservation
 	// 2. Making quick reservation (when FlightResId != null)
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public FlightReservationDTO reserveSeats(List<SeatDTO> seats) {
 		
 		
 		FlightReservation fr = null;
 		boolean  flightIdSet = false;
 		
-		if(seats.get(0).getFlightResId() == null) {
-			
-			fr = new FlightReservation();
-			flightReservationRepository.save(fr);
-		} else {
-			fr = flightReservationRepository.findById(seats.get(0).getFlightResId()).get();
-			flightIdSet = true; // already exists because of quick reservation creation process
-		}
 		
 		for (SeatDTO s : seats) {
 			Seat st = seatRepository.findById(s.getId());
-			st.setClient(new User());
-			st.getClient().setId(s.getClientId());
-			if(s.getPrice() != null) {
-				st.setPrice(s.getPrice());
-			}
-			st.setContact(s.getContact());
-			st.setFirstName(s.getFirstName());
-			st.setLastName(s.getLastName());
-			st.setPassport(s.getPassport());
-			st.setReservation(fr);
-			seatRepository.save(st);
-			
-			if(!flightIdSet) {
-				fr.setFlight(st.getFlight());
-				flightReservationRepository.save(fr);
-				flightIdSet = true;
+			// da li je rezervisano vec
+			if(st.getFirstName() == null) {
+				
+				st.setClient(new User());
+				st.getClient().setId(s.getClientId());
+				if(s.getPrice() != null) {
+					st.setPrice(s.getPrice());
+				}
+				st.setContact(s.getContact());
+				st.setFirstName(s.getFirstName());
+				st.setLastName(s.getLastName());
+				st.setPassport(s.getPassport());
+				if(!flightIdSet) {
+					
+					if(seats.get(0).getFlightResId() == null) {
+						
+						fr = new FlightReservation();
+					} else {
+						fr = flightReservationRepository.findById(seats.get(0).getFlightResId()).get();
+					}
+					fr.setFlight(st.getFlight());
+					flightReservationRepository.save(fr);
+					flightIdSet = true;
+				}
+				st.setReservation(fr);
+				seatRepository.save(st);
+				
+			} else {
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Mesto je zauzeto");
 			}
 		}
 		

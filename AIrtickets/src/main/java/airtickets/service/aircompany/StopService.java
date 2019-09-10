@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.aircompany.SeatDTO;
 import airtickets.dto.aircompany.StopDTO;
@@ -17,6 +19,7 @@ public class StopService {
 	@Autowired
 	private StopRepository stopRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<StopDTO> getStops(){
 		List<StopDTO> stop = new ArrayList<StopDTO>();
 		List<Stop> stopList = stopRepository.findAll();
@@ -28,6 +31,7 @@ public class StopService {
 		return stop;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public StopDTO getStop(long id) {
 		Stop s = stopRepository.findById(id);
 		StopDTO stop = new StopDTO(s);
@@ -35,6 +39,7 @@ public class StopService {
 		return stop;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public StopDTO addStop(StopDTO stopdto) {
 		Stop stop = new Stop(stopdto);
 		stopRepository.save(stop);
@@ -43,6 +48,7 @@ public class StopService {
 		return stopdto;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteStop(long id) {
 		stopRepository.deleteById(id);
 	}

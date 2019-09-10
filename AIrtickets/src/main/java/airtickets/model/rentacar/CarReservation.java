@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 
 import airtickets.dto.rentacar.CarReservationDTO;
 import airtickets.model.aircompany.FlightReservation;
@@ -22,6 +23,17 @@ public class CarReservation implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4426569286511251516L;
+	
+	@Version
+	private long version;
+	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -54,6 +66,7 @@ public class CarReservation implements Serializable {
 		this.price = c.getPrice();
 //		this.rentACar = new RentACar();
 //		this.rentACar.setId(c.getRentACarId());
+		this.version = c.getVersion();
 	}
 
 //	public RentACar getRentACar() {

@@ -9,4 +9,5 @@ export interface Vehicle {
     pricePerDay: number;
     rentACarId: any;
     image: string;
+    version?: number;
 }

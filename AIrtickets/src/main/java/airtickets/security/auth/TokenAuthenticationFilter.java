@@ -44,25 +44,25 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 		
 		if (authToken != null) {
 			// uzmi username iz tokena
-			log.info("AUTHTOKEN: " + authToken);
+//			log.info("AUTHTOKEN: " + authToken);
 			username = tokenUtils.getUsernameFromToken(authToken);
 			
-			log.info("USERNAME: " + username);
+//			log.info("USERNAME: " + username);
 			if (username != null) {
 				// uzmi user-a na osnovu username-a
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);		
-				log.info("POSLE IF-A USERNAME: " + username);
+//				log.info("POSLE IF-A USERNAME: " + username);
 				// proveri da li je prosledjeni token validan
 				if (tokenUtils.validateToken(authToken, userDetails)) {
 					// kreiraj autentifikaciju
-					log.info("TOKEN VALIDAN");
+//					log.info("TOKEN VALIDAN");
 					TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
 					authentication.setToken(authToken);
 					
 					Collection<GrantedAuthority> autoriti = authentication.getAuthorities();
 					Authority autor = (Authority) autoriti.iterator().next();
 					
-					log.info("COVEK JE: " + autor.getName());
+//					log.info("COVEK JE: " + autor.getName());
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			}

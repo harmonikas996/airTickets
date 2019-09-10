@@ -17,8 +17,8 @@ export class PassengersDetailsComponent implements OnInit {
   @Input() passengers: number;
   @Input() flightDepartureId: number;
   @Input() flightReturnId: number;
-  @Input() selectedSeatsDep: number[] = []; 
-  @Input() selectedSeatsRet: number[] = [];
+  @Input() selectedSeatsDep: {id: number, version: number}[] = []; 
+  @Input() selectedSeatsRet: {id: number, version: number}[] = [];
   @Input() oneWay: boolean;
 
   flightReservationSuccess: boolean = false;
@@ -28,6 +28,7 @@ export class PassengersDetailsComponent implements OnInit {
   items: FormArray;
   clientId: number;
   reservationId: number;
+  errorMessage = '';
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -58,13 +59,14 @@ export class PassengersDetailsComponent implements OnInit {
     this.userService.getUserByEmail(this.token.getUsername()).subscribe( data => this.clientId = data.id );
   }
 
-  createItem(seatId: number): FormGroup {
+  createItem(seat: {id: number, version: number}): FormGroup {
     return this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       passport: ['', Validators.required],
       contact: ['', Validators.required],
-      seat: seatId,
+      seat: seat.id,
+      version: seat.version
     });
   }
 
@@ -78,14 +80,14 @@ export class PassengersDetailsComponent implements OnInit {
     }
   }
 
-  addItem(seat: number, idx: number): void {
+  addItem(seat: {id: number, version: number}, idx: number): void {
     this.items = this.passengersForm.get('items') as FormArray;
     if(idx==0)
       this.items.removeAt(0);
     this.items.push(this.createItem(seat));
   }
 
-  addItemRet(seat: number, idx: number): void {
+  addItemRet(seat: {id: number, version: number}, idx: number): void {
     this.items = this.passengersFormRet.get('items') as FormArray;
     if(idx==0)
       this.items.removeAt(0);
@@ -106,6 +108,7 @@ export class PassengersDetailsComponent implements OnInit {
       sedisteDep.flightId = this.flightDepartureId;
       sedisteDep.id = this.passengersForm.controls['items'].value[i].seat;
       sedisteDep.clientId = this.clientId;
+      sedisteDep.version = this.passengersForm.controls['items'].value[i].version;
       seats.push(sedisteDep);
       
       if(!this.oneWay) {
@@ -117,6 +120,7 @@ export class PassengersDetailsComponent implements OnInit {
         sedisteRet.flightId = this.flightReturnId;
         sedisteRet.id = this.passengersFormRet.controls['items'].value[i].seat;
         sedisteRet.clientId = this.clientId;
+        sedisteRet.version = this.passengersFormRet.controls['items'].value[i].version;
         seats.push(sedisteRet);
       }
 
@@ -124,7 +128,7 @@ export class PassengersDetailsComponent implements OnInit {
 
     this.seatService.makeReservation(seats).subscribe(
       reservation => this.reservationId = reservation.id,
-      (error) => console.error('An error occurred, ', error),
+      (error) => {console.error('An error occurred, ', error); this.errorMessage = error.error.message;},
       () => {
         let key = 'reservationId';
         window.sessionStorage.setItem(key, this.reservationId.toString());

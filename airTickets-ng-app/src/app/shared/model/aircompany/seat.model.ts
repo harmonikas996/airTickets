@@ -10,6 +10,7 @@ export class Seat {
   firstName: string;
   lastName: string;
   contact: string;
+  version?: number;
 
   constructor() {
     this.id = 0;

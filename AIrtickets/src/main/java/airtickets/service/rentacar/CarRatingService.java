@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.rentacar.CarRatingDTO;
 import airtickets.dto.rentacar.RentACarRatingDTO;
@@ -18,6 +20,7 @@ public class CarRatingService {
 	@Autowired
 	CarRatingRepository carRatingRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<CarRatingDTO> getCarRatings() {
 		List<CarRatingDTO> carRatings = new ArrayList<CarRatingDTO>();
 		
@@ -28,6 +31,7 @@ public class CarRatingService {
 		return carRatings;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public CarRatingDTO getRatingByVehicleId(long id) {
 		CarRating c = carRatingRepository.findByVehicleId(id);
 		
@@ -40,12 +44,14 @@ public class CarRatingService {
 		return car;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public CarRatingDTO getCarRating(long id) {
 		CarRating c  = carRatingRepository.findById(id);
 		CarRatingDTO carRating = new CarRatingDTO(c);
 		return carRating;
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public CarRatingDTO addCarRating(CarRatingDTO carRatingDTO) {
 		CarRating carRating = new CarRating(carRatingDTO);
 		carRatingRepository.save(carRating);
@@ -53,10 +59,12 @@ public class CarRatingService {
 		return carRatingDTO;
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteCarRating(long id) {
 		carRatingRepository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public double getRating(Long vehicleId) {
 		List<CarRatingDTO> carRatings = new ArrayList<CarRatingDTO>();
 		
