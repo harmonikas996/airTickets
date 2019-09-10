@@ -8,12 +8,26 @@ import { Component, OnInit } from '@angular/core';
 export class NavigationComponent implements OnInit {
   constructor() { }
 
+  hotelReservationDone = false;
+  carReservationDone = false;
+  hotelBtnTxt = 'Book a room?';
+  carBtnTxt = 'Book a car?';
 
   ngOnInit() {
+
   }
 
   checkReservation() : boolean {
     if(window.sessionStorage.getItem('reservationId') != null) {
+      if (sessionStorage.getItem('carReservationId') !== null) {
+        this.carBtnTxt = 'Car booked!';
+        this.carReservationDone = true;
+      }
+  
+      if (sessionStorage.getItem('hotelReservationId') !== null) {
+        this.hotelBtnTxt = 'Room booked!';
+        this.hotelReservationDone = true;
+      }
       return true;
     } else {
       return false;
@@ -21,7 +35,10 @@ export class NavigationComponent implements OnInit {
   }
 
   exitReservation() {
-    window.sessionStorage.removeItem('reservationId');
+    sessionStorage.removeItem('carReservationId');
+    sessionStorage.removeItem('hotelReservationId');
+    sessionStorage.removeItem('reservationId');
+    sessionStorage.removeItem('flightStart');
   }
 
 }

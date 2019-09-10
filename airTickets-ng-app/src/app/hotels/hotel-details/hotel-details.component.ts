@@ -224,7 +224,7 @@ export class HotelDetailsComponent implements OnInit {
     }
   }
 
-  isRoomSelected(room:any) {
+  isRoomSelected(room: any) {
     return (this.selectedRoomsObj.findIndex(x => x.id === room.id) !== -1) ? true : false;
   }
 
@@ -235,15 +235,45 @@ export class HotelDetailsComponent implements OnInit {
       moment(this.hotelRoomForm.controls.datePeriod.value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS'),
       moment(this.hotelRoomForm.controls.datePeriod.value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS'))
       .subscribe(response => {
-        if (response != null) {
-          this.amenityService.makeReservation(this.selectedAmenitiesObj, response).subscribe();
+        const hotelReservationId = response;
+        if (hotelReservationId != null) {
+          this.amenityService.makeReservation(this.selectedAmenitiesObj, hotelReservationId).subscribe(
+            response => {
+              sessionStorage.setItem('hotelReservationId', hotelReservationId.toString());
+              
+              if (sessionStorage.getItem('carReservationId') === null) {
+                this.router.navigate(['./rentacars']);
+              } else {
+                if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+                  sessionStorage.removeItem('carReservationId');
+                  sessionStorage.removeItem('hotelReservationId');
+                  sessionStorage.removeItem('reservationId');
+                  sessionStorage.removeItem('flightStart');
+                }
+                this.router.navigate(['./user-dashboard/history']);
+              }
+            }
+          );
         }
       });
   }
 
   makeQuickReservation(roomReservation: any) {
     this.roomReservationService.makeQuickReservation(+window.sessionStorage.getItem('reservationId'), roomReservation.hotelReservationId)
-    .subscribe(response => this.router.navigate(['./']));
+    .subscribe(response => {
+      sessionStorage.setItem('hotelReservationId', response.toString());
+      if (sessionStorage.getItem('carReservationId') === null) {
+        this.router.navigate(['./rentacars']);
+      } else {
+        if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+          sessionStorage.removeItem('carReservationId');
+          sessionStorage.removeItem('hotelReservationId');
+          sessionStorage.removeItem('reservationId');
+          sessionStorage.removeItem('flightStart');
+        }
+        this.router.navigate(['./user-dashboard/history']);
+      }
+    });
   }
 
   isAfterFlightReservation() {

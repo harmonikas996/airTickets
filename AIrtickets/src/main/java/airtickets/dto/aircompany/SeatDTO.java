@@ -15,6 +15,16 @@ public class SeatDTO {
 	private String lastName;
 	private String contact;
 	
+	private long version;
+	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+	
 	public SeatDTO() {}
 	
 	public SeatDTO(Seat s) {
@@ -30,6 +40,7 @@ public class SeatDTO {
 		firstName = s.getFirstName();
 		lastName = s.getLastName();
 		contact = s.getContact();
+		version = s.getVersion();
 	}
 
 	public long getId() {

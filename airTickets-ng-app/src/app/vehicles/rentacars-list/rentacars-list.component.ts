@@ -1,8 +1,5 @@
 import { CarRatingService } from './../../shared/services/rentacar/car-rating.service';
-import { Vehicle } from 'src/app/shared/model/rentacar/vehicle.model';
 import { VehicleService } from './../../shared/services/rentacar/vehicle.service';
-import { CarReservation } from './../../shared/model/rentacar/car-reservation';
-import { CarReservationService } from './../../shared/services/rentacar/car-reservation.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { IMyDpOptions } from 'mydatepicker';

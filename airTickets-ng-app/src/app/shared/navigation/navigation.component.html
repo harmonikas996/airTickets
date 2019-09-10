@@ -14,16 +14,14 @@
 
 </nav>
 <nav *ngIf="checkReservation()" class="navbar">
-  <div class="row">
-    <div class="col">
-      <button class="btn btn-primary  btn-block" routerLink="./hotels">Hotels</button>
-    </div>
-    <div class="col">
-      <button class="btn btn-success btn-block" routerLink="./rentacars">Rentacars</button>
-    </div>
-    <div class="col">
-      <button class="btn btn-secondary btn-block" (click)="exitReservation()">Exit Room/Car Reservation</button>
-    </div>
+  <div class="col">
+    <button class="btn btn-primary  btn-block" routerLink="./hotels" [disabled]="hotelReservationDone">{{hotelBtnTxt}}</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-success btn-block" routerLink="./rentacars" [disabled]="carReservationDone">{{carBtnTxt}}</button>
+  </div>
+  <div class="col">
+    <button class="btn btn-secondary btn-block" (click)="exitReservation()">Finish Reservation</button>
   </div>
 </nav>
 

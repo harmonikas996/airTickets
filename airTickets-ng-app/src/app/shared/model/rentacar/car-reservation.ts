@@ -4,4 +4,5 @@ export class CarReservation {
   dateFrom: any;
   dateTo: any;
   price: number;
+  version?: number;
 }

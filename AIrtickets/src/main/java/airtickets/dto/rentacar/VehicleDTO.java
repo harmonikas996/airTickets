@@ -4,6 +4,7 @@ import airtickets.model.rentacar.Vehicle;
 
 public class VehicleDTO {
 	
+	private long version;
 	private long id;
 	private String name;
 	private String brand;
@@ -32,6 +33,7 @@ public class VehicleDTO {
 		//numberOfRates = vehicle.getNumberOfRates();
 		pricePerDay = vehicle.getPricePerDay();
 		rentACarId = vehicle.getRentACar().getId();
+		version = vehicle.getVersion();
 	}
 
 	public long getId() {
@@ -128,6 +130,14 @@ public class VehicleDTO {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 
 }

@@ -29,8 +29,8 @@ export class FlightsResListComponent implements OnInit {
   alreadySelected: boolean;
 
   // id-evi selektovanih sedista
-  selectedSeatsDep: number[] = []; 
-  selectedSeatsRet: number[] = [];
+  selectedSeatsDep: {id: number, version: number}[] = [];
+  selectedSeatsRet: {id: number, version: number}[] = [];
 
   seatsDeparture: Seat[];
   seatsReturn: Seat[];
@@ -69,49 +69,55 @@ export class FlightsResListComponent implements OnInit {
   }
 
   isSelectedRet(seatId: number): boolean {
-    console.log("isSelectedRet");
-    return (this.selectedSeatsRet.includes(seatId)) ? true : false;
+    // console.log("isSelectedRet");
+    return (this.selectedSeatsRet.find(seat => seat.id === seatId)) !== undefined ? true : false;
   }
 
   isSelectedDep(seatId: number): boolean {
-    console.log("isSelectedRDep");
-    return (this.selectedSeatsDep.includes(seatId)) ? true : false;
+    const found = this.selectedSeatsDep.find(seat => seat.id === seatId);
+    return (found !== undefined && found.id === seatId) ? true : false;
   }
 
-  selectSeatRet(seatId: number, e) {
-    console.log("selectSeatRet");
-    console.dir("ID RER SEDISTA:" + seatId);
+  selectSeatRet(id: number, version: number, e) {
+    // console.log("selectSeatRet");
+    // console.dir("ID RER SEDISTA:" + seatId);
     if (e.target.checked) {
       if(this.selectedSeatsRet.length < this.passengers) {
-        this.selectedSeatsRet.push(seatId);
-        console.log('Rezervisana sedista Return:');
-        console.log(this.selectedSeatsRet);
+        this.selectedSeatsRet.push({id, version});
+        // console.log('Rezervisana sedista Return:');
+        // console.log(this.selectedSeatsRet);
       }
     } else {
-      let idx = this.selectedSeatsRet.indexOf(seatId);
-      console.log('Da li je bio rezervisan vec?     ' + idx);
-      if(idx != -1) {
-        this.selectedSeatsRet.splice(idx, 1);
-        console.log('Posle brisanja');
-        console.log(this.selectedSeatsRet);
+      // let idx = this.selectedSeatsRet.indexOf(seat);
+      let idx = this.selectedSeatsRet.find(s => s.id === id);
+      // console.log('Da li je bio rezervisan vec?     ' + idx);
+      if(idx !== undefined) {
+        this.selectedSeatsRet = this.selectedSeatsRet.filter(s => s.id !== idx.id);
+        // console.log('Posle brisanja');
+        // console.log(this.selectedSeatsRet);
       }
     }
   }
 
-  selectSeatDep(seatId: number, e) {
-    console.log("selectSeatDep");
-    console.dir("ID DEP SEDISTA:" + seatId);
+  selectSeatDep(id: number, version: number, e) {
+    // console.log("selectSeatDep");
+    // console.dir("ID DEP SEDISTA:" + seatId);
     if (e.target.checked) {
       if(this.selectedSeatsDep.length < this.passengers) {
-        this.selectedSeatsDep.push(seatId);
+        this.selectedSeatsDep.push({id, version});
         console.log('Rezervisana sedista Departure:');
         console.log(this.selectedSeatsDep);
       }
     } else {
-      let idx = this.selectedSeatsDep.indexOf(seatId);
-      console.log('Da li je bio rezervisan vec?     ' + idx);
-      if(idx != -1) {
-        this.selectedSeatsDep.splice(idx, 1);
+      // let idx = this.selectedSeatsDep.indexOf(seatId);
+      // console.log('USAO');
+      // console.log('USAO: ' + id + ' v: ' + version);
+      // console.log(this.selectedSeatsRet);
+      let idx = this.selectedSeatsDep.find(s => s.id === id);
+      // console.log('Da li je bio rezervisan vec?     ' + idx);
+      if (idx !== undefined) {
+        // this.selectedSeatsDep.splice(idx, 1);
+        this.selectedSeatsDep = this.selectedSeatsDep.filter(s => s.id !== idx.id);
         console.log('Posle brisanja');
         console.log(this.selectedSeatsDep);
       }

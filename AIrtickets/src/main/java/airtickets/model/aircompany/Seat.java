@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
 import airtickets.dto.aircompany.SeatDTO;
 import airtickets.model.user.Invitation;
@@ -24,6 +25,18 @@ public class Seat implements Serializable {
 	 * Flight
 	 */
 	private static final long serialVersionUID = 2993706379896649796L;
+	
+	@Version
+	private long version;
+	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -68,6 +81,7 @@ public class Seat implements Serializable {
 		firstName = s.getFirstName();
 		lastName = s.getLastName();
 		contact = s.getContact();
+		version = s.getVersion();
 	}
 
 	public long getId() {

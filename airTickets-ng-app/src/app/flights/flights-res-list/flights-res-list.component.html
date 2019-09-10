@@ -19,7 +19,7 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-4">
-                        <input [disabled]="(seatDep.clientId !=null)" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{seatDep.id}}" (click)="selectSeatDep(seatDep.id, $event)">
+                        <input [disabled]="(seatDep.clientId !=null)" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{seatDep.id}}" (click)="selectSeatDep(seatDep.id, seatDep.version, $event)">
                     </div>
                   </div>
               </div>
@@ -44,7 +44,7 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-4">
-                        <input [disabled]="(seatRet.clientId !=null)" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{seatRet.id}}" (click)="selectSeatRet(seatRet.id, $event)">
+                        <input [disabled]="(seatRet.clientId !=null)" class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="{{seatRet.id}}" (click)="selectSeatRet(seatRet.id, seatRet.version, $event)">
                     </div>
                   </div>
               </div>

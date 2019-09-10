@@ -1,6 +1,6 @@
 import { CarRatingService } from './../../shared/services/rentacar/car-rating.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { RentacarService } from 'src/app/shared/services/rentacar/rentacar.service';
@@ -61,7 +61,8 @@ export class RentacarDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private carReservationService: CarReservationService,
     private http: HttpClient,
-    private carRatingService: CarRatingService
+    private carRatingService: CarRatingService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -125,6 +126,7 @@ export class RentacarDetailsComponent implements OnInit {
                       pricePerDay: vehicle.pricePerDay,
                       rentACarId: vehicle.rentACarId,
                       image: vehicle.image,
+                      version: carReservation.version
                   }
                 );
               }
@@ -147,6 +149,7 @@ export class RentacarDetailsComponent implements OnInit {
                   pricePerDay: vehicle.pricePerDay,
                   rentACarId: vehicle.rentACarId,
                   image: vehicle.image,
+                  version: carReservation.version
                 }
                 );
               }
@@ -264,16 +267,39 @@ export class RentacarDetailsComponent implements OnInit {
       carReservationId => this.carReservationId = carReservationId,
       (error) => console.error('An error occurred, ', error),
       () => {
-        // window.sessionStorage.setItem('carReservationId', this.carReservationId.toString());
-        window.sessionStorage.removeItem(key);
-        window.location.href = '../';
+        window.sessionStorage.setItem('carReservationId', this.carReservationId.toString());
+        if (sessionStorage.getItem('hotelReservationId') === null) {
+          this.router.navigate(['./hotels']);
+        } else {
+          if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+            sessionStorage.removeItem('carReservationId');
+            sessionStorage.removeItem('hotelReservationId');
+            sessionStorage.removeItem('reservationId');
+            sessionStorage.removeItem('flightStart');
+          }
+          this.router.navigate(['./user-dashboard/history']);
+        }
       }
     );
   }
 
   reserveQuickVehicle(carReservation: any) {
     this.vehicleService.reserveQuickVehicle(+window.sessionStorage.getItem('reservationId'), carReservation.id).subscribe(
-      carReservationId => this.carReservationId = carReservationId,
+      carReservationId => {
+        this.carReservationId = carReservationId;
+        window.sessionStorage.setItem('carReservationId', this.carReservationId.toString());
+        if (sessionStorage.getItem('hotelReservationId') === null) {
+          this.router.navigate(['./hotels']);
+        } else {
+          if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+            sessionStorage.removeItem('carReservationId');
+            sessionStorage.removeItem('hotelReservationId');
+            sessionStorage.removeItem('reservationId');
+            sessionStorage.removeItem('flightStart');
+          }
+          this.router.navigate(['./user-dashboard/history']);
+        }
+      },
       (error) => console.error('An error occurred, ', error),
       () => {
         window.location.href = '/';

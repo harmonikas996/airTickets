@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.rentacar.VehicleDTO;
 import airtickets.model.aircompany.FlightReservation;
@@ -22,6 +24,7 @@ import airtickets.repo.rentacar.VehiclesRepository;
 public class VehicleService {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
+
 	
 	@Autowired
 	VehiclesRepository vehicleRepository;
@@ -30,6 +33,7 @@ public class VehicleService {
 	@Autowired
 	FlightReservationRepository flightReservationRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<VehicleDTO> getVehicles() {
 		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>();
 		
@@ -40,20 +44,22 @@ public class VehicleService {
 		return vehicles;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public VehicleDTO getVehicle(long id) {
 		Vehicle v  = vehicleRepository.findById(id);
 		VehicleDTO vehicle = new VehicleDTO(v);
 		return vehicle;
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public VehicleDTO addVehicle(VehicleDTO vehicleDTO) {
 		Vehicle vehicle = new Vehicle(vehicleDTO);
-		log.info(vehicle.getType() + "");
 		vehicleRepository.save(vehicle);
 		vehicleDTO.setId(vehicle.getId());
 		return vehicleDTO;
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteVehicle(long id) {
 		
 		List<CarReservation> reservations = carReservationRepository.findByVehicleId(id);
@@ -76,6 +82,7 @@ public class VehicleService {
 		return vehicles;
 	}
 	*/
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<VehicleDTO> searchVehicles(long rentacarId, String type, int passangers, 
 			double lowerPrice, double upperPrice, String from, String to) {
 		
@@ -98,24 +105,16 @@ public class VehicleService {
 		else
 			ct = 3;
 		
-		log.info(rentacarId + "");
-		log.info(ct + "");
-		log.info(passangers + "");
-		log.info(lowerPrice + "");
-		log.info(upperPrice + "");
-		log.info(ldtFrom + "");
-		log.info(ldtTo + "");
-		
 		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>();
 		
 		for (Vehicle v  : vehicleRepository.searchVehicles(rentacarId, ct, passangers, lowerPrice, upperPrice, ldtFrom, ldtTo)) {
-			log.info("EHEJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
 			VehicleDTO vehicle = new VehicleDTO(v);
 			vehicles.add(vehicle);
  		}
 		return vehicles;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public Long makeReservation(VehicleDTO vehicle, long id, String from, String to) {
 		LocalDateTime ldtFrom = LocalDateTime.parse(from);
 		LocalDateTime ldtTo = LocalDateTime.parse(to);
@@ -135,6 +134,7 @@ public class VehicleService {
 		return cr.getId();
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public Long makeQuickReservation(long reservationId, long carReservationId) {		
 		CarReservation cr = carReservationRepository.findById(carReservationId);
 		FlightReservation fr = flightReservationRepository.findById(reservationId);

@@ -38,7 +38,8 @@ export class VehicleDetailsComponent implements OnInit {
       type: ['', Validators.required],
       pricePerDay: ['', Validators.required],
       rentACarId: [''],
-      image: ['']
+      image: [''],
+      version: []
     });
 
     const id = +this.route.snapshot.paramMap.get('id');
@@ -50,7 +51,7 @@ export class VehicleDetailsComponent implements OnInit {
 
   getVehicleById(id: number): void {
     this.vehicle = this.vehicleService.getVehicleById(id).pipe(
-      tap(vehicle => this.vehicleDetailsForm.patchValue(vehicle))
+      tap(vehicle => {this.vehicleDetailsForm.patchValue(vehicle); console.log(vehicle)})
     );
   }
 

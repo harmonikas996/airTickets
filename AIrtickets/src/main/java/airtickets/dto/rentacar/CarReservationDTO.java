@@ -12,7 +12,16 @@ public class CarReservationDTO {
 	private LocalDateTime dateTo;
 	private double price;
 //	private long rentACarId;
+	private long version;
 	
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
 	public CarReservationDTO() {}
 	
 	public CarReservationDTO(CarReservation c) {
@@ -21,6 +30,7 @@ public class CarReservationDTO {
 		this.dateFrom = c.getDateFrom();
 		this.dateTo = c.getDateTo();
 		this.price = c.getPrice();
+		this.version = c.getVersion();
 //		this.rentACarId = c.getRentACar().getId();
 	}
 	
