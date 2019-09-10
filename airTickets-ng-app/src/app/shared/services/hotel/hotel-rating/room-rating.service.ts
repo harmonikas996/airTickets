@@ -27,6 +27,10 @@ export class RoomRatingService {
     return this.http.get<RoomRating>(this.roomRatingUrl + '/' + id);
   }
 
+  getRating(id: number): Observable<number> {
+    return this.http.get<number>(this.roomRatingUrl + '/all/' + id);
+  }
+
   getRatingByRoomId(id: number): Observable<RoomRating> {
     return this.http.get<RoomRating>(this.roomRatingUrl + '/room/' + id);
   }

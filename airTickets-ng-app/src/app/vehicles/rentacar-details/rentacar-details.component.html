@@ -90,7 +90,7 @@
           <img src="../../../assets/img/vehicle/{{vehicle.image}}" class="card-img-top" alt="Picture of {{vehicle.brand}}">
         <div class="card-body text-center">
           <h5 class="card-title">{{vehicle.brand}} {{vehicle.model}}</h5>
-          <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
+          <p class="text-center mt-2"><ngb-rating [rate]="vehicleRating[vehicle.id]" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
           <div class="row">
             <div class="col-md-6">
               <p class="card-text"><i class="far fa-calendar mr-2"></i>{{vehicle.yearOfProduction}}</p>

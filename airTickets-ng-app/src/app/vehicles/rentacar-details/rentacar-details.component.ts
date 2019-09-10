@@ -91,23 +91,26 @@ export class RentacarDetailsComponent implements OnInit {
   getQuickReservation(id: number): void {
     this.carReservationService.getQuickCarReservationsByCompanyId(id)
     .subscribe(carReservations => {
+      console.log('1');
       for (let carReservation of carReservations) {
 
         this.vehicleService.getVehicleById(carReservation.vehicleId).subscribe(
           vehicle => {
+
+            this.carRatingService.getRatingByVehicle(carReservation.vehicleId).subscribe(
+
+              rating => {
+                console.log(rating);
+                this.quickVehicleRating[carReservation.vehicleId] = rating;
+              }
+            );
+
             const flightStart = window.sessionStorage.getItem('flightStart');
+
             if (flightStart != null && moment(flightStart).isAfter(moment())) {
 
               this.todayDate = new Date(flightStart);
-//
-              this.carRatingService.getRatingByVehicle(carReservation.vehicleId).subscribe(
 
-                rating => {
-
-                  this.quickVehicleRating[carReservation.vehicleId] = rating;
-                }
-              );
-//
               if (moment(carReservation.dateFrom).isAfter(moment(flightStart))) {
 
                 this.carReservations.push({

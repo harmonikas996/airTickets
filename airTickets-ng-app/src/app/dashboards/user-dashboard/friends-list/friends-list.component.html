@@ -1,11 +1,11 @@
 <h3 class="py-2">Add Friends</h3>
 <form class="form-inline" [formGroup]="addFriendForm" (ngSubmit)="onSubmit()">
   <label class="sr-only" for="inlineFormInputName2">Name</label>
-  <input type="text"  formControlName="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Name">
-  <button type="submit" class="btn btn-primary mb-2">Submit</button>
+  <input type="text"  formControlName="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Name" [(ngModel)]='inputSearch' name="inputSearch">
+  <button type="submit" class="btn btn-primary mb-2" [disabled]="!inputSearch">Submit</button>
 </form>
 
-<table class="table table-striped">
+<table *ngIf="users.length > 0; else emptyTable" class="table table-striped">
   <thead>
     <tr>
       <th scope="col">First Name</th>
@@ -19,40 +19,60 @@
       <td>{{user.firstName}}</td>
       <td>{{user.lastName}}</td>
       <td>{{user.city}}</td>
-      <a type="button" class="btn btn-primary" (click)="addFriendSubmit(user)">Add Friend</a>
+      <td><button type="button" class="btn btn-primary" (click)="addFriendSubmit(user)">Add Friend</button></td>
     </tr>
   </tbody>
 </table>
 
 <h3 class="pb-2">Friends request</h3>
-<table class="table table-striped">
+<table *ngIf="allFriendRequest.length > 0; else emptyTable" class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Name</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">City</th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let friendRequest of friendRequests">
-      <td>{{friendRequest.initier}}</td>
-      <a type="button" class="btn btn-danger" (click)="accept(friendRequest)">Accept</a>
-      <a type="button" class="btn btn-danger" (click)="onRemove(friendRequest)">Remove</a>
-    </tr>
-  </tbody>
-</table>
-<h3 class="py-2">All Friends</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let friend of friends">
-      <td>{{friend.id}}</td>
-      <a type="button" class="btn btn-danger" (click)="onRemove(friend)">Remove</a>
+    <tr *ngFor="let friendRequest of allFriendRequest; let i = index">
+      <td>{{friendRequest.firstName}}</td>
+      <td>{{friendRequest.lastName}}</td>
+      <td>{{friendRequest.city}}</td>
+      <td>
+        <button type="button" class="btn btn-primary" (click)="accept(friendRequest, i)">Accept</button>
+        <button type="button" class="btn btn-danger" (click)="onRemoveFriednRequest(friendRequest, i)">Remove</button>
+      </td>
     </tr>
   </tbody>
 </table>
 
+<h3 class="py-2">All Friends</h3>
+<table *ngIf="allFriends.length > 0; else emptyTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">City</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let friend of allFriends; let i = index">
+      <td>{{friend.firstName}}</td>
+      <td>{{friend.lastName}}</td>
+      <td>{{friend.city}}</td>
+      <td><button type="button" class="btn btn-danger" (click)="onRemove(friend, i)">Remove</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #emptyTable>
+  <table class="table table-striped table-hover">
+    <tbody>
+      <tr>
+        <td class="align-middle text-center">No Records</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

@@ -100,7 +100,7 @@
               <img src="../../../assets/img/room/{{room.image}}.jpg" class="card-img-top">
               <div class="card-body text-center">
                 <h5 class="card-title">No. {{room.number}}</h5>
-                <ngb-rating class="mt-2" [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
+                <ngb-rating class="mt-2" [rate]="roomRating[room.id]" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating>
                 <p class="reservationDate mt-2">{{room.type}}</p>
                 <div class="row">
                   <div class="col-md-6">
@@ -190,7 +190,7 @@
             <img src="../../../assets/img/room/{{roomReservation.image}}.jpg" class="card-img-top" alt="Picture of {{roomReservation.number}}">
           <div class="card-body text-center">
             <h5 class="card-title">No. {{roomReservation.number}}</h5>
-            <p class="text-center mt-2"><ngb-rating [rate]="1.5" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
+            <p class="text-center mt-2"><ngb-rating [rate]="quickRatingRating[roomReservation.roomId]" [starTemplate]="t" [readonly]="true" [max]="5"></ngb-rating></p>
             <p class="reservationDate mt-2">{{roomReservation.from | date: 'MMM d, y'}} - {{roomReservation.to | date: 'MMM d, y'}}</p>
             <p class="reservationDate mt-2">{{roomReservation.type}}</p>
             <div class="row">

@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { RoomPriceService } from 'src/app/shared/services/hotel/room-price/room-price.service';
 import { AmenityService } from 'src/app/shared/services/hotel/amenity/amenity.service';
+import { RoomRatingService } from 'src/app/shared/services/hotel/hotel-rating/room-rating.service';
 
 
 @Component({
@@ -39,6 +40,9 @@ export class HotelDetailsComponent implements OnInit {
 
   hotelRating: number;
 
+  quickRatingRating = [];
+  roomRating = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -50,7 +54,8 @@ export class HotelDetailsComponent implements OnInit {
     private http: HttpClient,
     private amenityService: AmenityService,
     private router: Router,
-    private hotelRatingService: HotelRatingService
+    private hotelRatingService: HotelRatingService,
+    private roomRatingService: RoomRatingService
   ) { }
 
   ngOnInit() {
@@ -95,14 +100,25 @@ export class HotelDetailsComponent implements OnInit {
 
       this.roomService.searchRoomsByDate2(timeBegin, timeEnd, this.id).subscribe(
         rooms => {
+
           this.rooms = [];
           for (const room of rooms) {
+
             this.roomPriceService.searchRoomPriceForDateRange(room.id, timeBegin, timeEnd).subscribe(
               roomPrice => {
+
                 const start = moment(timeBegin);
                 const end = moment(timeEnd);
 
                 if (roomPrice.id !== 0) {
+                  console.log(room.id);
+                  this.roomRatingService.getRating(room.id).subscribe(
+
+                    rating => {
+                      console.log(rating);
+                      this.roomRating[room.id] = rating;
+                    }
+                  );
 
                   this.rooms.push(
                     {
@@ -154,6 +170,15 @@ export class HotelDetailsComponent implements OnInit {
 
         this.roomService.getRoomById(roomReservation.roomId).subscribe(
           room => {
+
+
+            this.roomRatingService.getRating(room.id).subscribe(
+
+              rating => {
+
+                this.quickRatingRating[room.id] = rating;
+              }
+            );
 
             const timeBegin: string = moment(this.hotelRoomForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
             const timeEnd: string = moment(this.hotelRoomForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');

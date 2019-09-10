@@ -45,6 +45,11 @@ public class RoomRatingController {
 		return roomRatingService.addRoomRating(roomRating);
 	}
 	
+	@GetMapping("/all/{companyId}")
+	public double getRating(@PathVariable Long companyId){
+		return roomRatingService.getRating(companyId);
+	}
+	
 	@PutMapping("{id}/update")
 	public RoomRatingDTO updateRoomRating(@RequestBody RoomRatingDTO roomRating, @PathVariable Long id) {
 		roomRating.setId(id);
