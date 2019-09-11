@@ -33,7 +33,8 @@ export class RoomDetailsComponent implements OnInit {
       noOfBeds: ['', Validators.required],
       type: ['', Validators.required],
       hotel: ['', Validators.required],
-      image: ['']
+      image: [''],
+      version: ['']
     });
 
     const id = +this.route.snapshot.paramMap.get('id');

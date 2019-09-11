@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.aircompany.AirportDTO;
 import airtickets.model.aircompany.Airport;
@@ -16,6 +18,7 @@ public class AirportService {
 	@Autowired
 	AirportRepository airportRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<AirportDTO> getAirports(){
 		List<AirportDTO> airports = new ArrayList<AirportDTO>();
 		List<Airport> air = airportRepository.findAll();
@@ -27,6 +30,7 @@ public class AirportService {
 		return airports;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public AirportDTO getAirport(long id) {
 		Airport a = airportRepository.findById(id);
 		AirportDTO airport = new AirportDTO(a);
@@ -34,6 +38,7 @@ public class AirportService {
 		return airport;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public AirportDTO addAirport(AirportDTO airportDTO) {
 		Airport airport= new Airport(airportDTO);
 		airportRepository.save(airport);
@@ -42,6 +47,7 @@ public class AirportService {
 		return airportDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteAircompany(long id) {
 		airportRepository.deleteById(id);
 	}

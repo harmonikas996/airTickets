@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.hotel.HotelReservationDTO;
 import airtickets.model.hotel.HotelReservation;
@@ -16,6 +18,7 @@ public class HotelReservationService {
 	@Autowired
 	HotelReservationRepository hotelReservationRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<HotelReservationDTO> getHotelReservations(){
 		List<HotelReservationDTO> hotelReservationsDTO = new ArrayList<HotelReservationDTO>();
 		List<HotelReservation> hotelReservations = hotelReservationRepository.findAll();
@@ -27,6 +30,7 @@ public class HotelReservationService {
 		return hotelReservationsDTO;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public HotelReservationDTO getHotelReservation(long id) {
 		HotelReservation h = hotelReservationRepository.findById(id);
 		HotelReservationDTO hotelReservationDTO = new HotelReservationDTO(h);
@@ -34,6 +38,7 @@ public class HotelReservationService {
 		return hotelReservationDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public HotelReservationDTO addHotelReservation(HotelReservationDTO hotelReservationDTO) {
 		HotelReservation hotelReservation = new HotelReservation(hotelReservationDTO);
 		hotelReservationRepository.save(hotelReservation);
@@ -42,6 +47,7 @@ public class HotelReservationService {
 		return hotelReservationDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteHotelReservation(long id) {
 		hotelReservationRepository.deleteById(id);
 	}

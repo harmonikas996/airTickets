@@ -78,6 +78,8 @@ export class ProfileComponent implements OnInit {
   currentRateRoom = {};
   currentHotelRate = {};
 
+  cancelFlightDays = {value: 0, type: ''};
+
   constructor(
     private flightReservationService: FlightReservationService,
     private carReservationService: CarReservationService,
@@ -438,6 +440,62 @@ export class ProfileComponent implements OnInit {
 
   isRatableRoom(c): boolean {
     return moment(c.timeEnd).isBefore(moment());
+  }
+
+  isCancelableCar(c): boolean {
+    const localDateTime = moment(moment(c.dateFrom).toLocaleString()).subtract(2, 'days').toLocaleString();
+    const isBefore = moment(moment().toLocaleString()).isBefore(localDateTime);
+    return isBefore;
+  }
+
+  isCancelableFlight(f): boolean {
+    const localDateTime = moment(moment(f.timeBegin).toLocaleString()).subtract(3, 'hours').toLocaleString();
+    const isBefore = moment(moment().toLocaleString()).isBefore(localDateTime);
+    return isBefore;
+  }
+
+  cancelFlight() {
+
+  }
+
+  cancelRoom() {
+
+  }
+
+  cancelCar() {
+    
+  }
+
+  // calculateDaysLeftForCancelationOfFlight(f) : number {
+
+  //   const beginDate = moment(f.timeBegin).subtract(3, 'hours').toLocaleString();
+  //   const tmp = moment(beginDate).diff(moment(), 'days', true);
+    
+  //   if (this.cancelFlightDays[f.flightId] === undefined) {
+  //     console.log('ORIGINAL DATE BEGIN: ' + moment(f.timeBegin).toLocaleString());
+  //     console.log('DATE BEGIN: ' + beginDate);
+  //     console.log(tmp);
+
+  
+  //     if (tmp < 1) {
+  //       this.cancelFlightDays[f.flightId] = {value: moment(beginDate).diff(moment(), 'hours', true), type: 'hours'};
+  //       console.log(this.cancelFlightDays[f.flightId].value);
+  //     } else if (tmp < 0.1) {
+  //       this.cancelFlightDays[f.flightId] = {value: moment(beginDate).diff(moment(), 'minutes', true), type: 'minutes'};
+  //       console.log(this.cancelFlightDays[f.flightId].value);
+  //     } else {
+  //       this.cancelFlightDays[f.flightId] = {value: moment(beginDate).diff(moment(), 'days', true), type: 'days'};
+  //       console.log(this.cancelFlightDays[f.flightId].value);
+  //     }
+  //   }
+
+  //   return tmp;
+  // }
+
+  isCancelableRoom(r): boolean {
+    const localDateTime = moment(moment(r.timeBegin).toLocaleString()).subtract(2, 'days').toLocaleString();
+    const isBefore = moment(moment().toLocaleString()).isBefore(localDateTime);
+    return isBefore;
   }
 
 

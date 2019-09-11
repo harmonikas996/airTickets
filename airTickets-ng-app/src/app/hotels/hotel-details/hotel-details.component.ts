@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomService } from 'src/app/shared/services/hotel/room/room.service';
-import { Room } from 'src/app/shared/model/hotel/room.model';
 import * as moment from 'moment';
 import { RoomReservationService } from 'src/app/shared/services/hotel/room-reservation/room-reservation.service';
 import { RoomReservation } from 'src/app/shared/model/hotel/room-reservation.model';
@@ -15,6 +14,8 @@ import { HttpClient } from '@angular/common/http';
 import { RoomPriceService } from 'src/app/shared/services/hotel/room-price/room-price.service';
 import { AmenityService } from 'src/app/shared/services/hotel/amenity/amenity.service';
 import { RoomRatingService } from 'src/app/shared/services/hotel/hotel-rating/room-rating.service';
+import { HotelReservationService } from 'src/app/shared/services/hotel/hotel-reservation/hotel-reservation.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 
 @Component({
@@ -55,7 +56,9 @@ export class HotelDetailsComponent implements OnInit {
     private amenityService: AmenityService,
     private router: Router,
     private hotelRatingService: HotelRatingService,
-    private roomRatingService: RoomRatingService
+    private roomRatingService: RoomRatingService,
+    private hotelReservationService: HotelReservationService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -111,11 +114,11 @@ export class HotelDetailsComponent implements OnInit {
                 const end = moment(timeEnd);
 
                 if (roomPrice.id !== 0) {
-                  console.log(room.id);
+                  // console.log(room.id);
                   this.roomRatingService.getRating(room.id).subscribe(
 
                     rating => {
-                      console.log(rating);
+                      // console.log(rating);
                       this.roomRating[room.id] = rating;
                     }
                   );
@@ -130,7 +133,8 @@ export class HotelDetailsComponent implements OnInit {
                       hotel: room.hotel,
                       image: room.image,
                       pricePerDay: roomPrice.price,
-                      price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1)
+                      price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1),
+                      version: room.version
                     }
                   );
                 }
@@ -168,54 +172,60 @@ export class HotelDetailsComponent implements OnInit {
       this.roomReservations = [];
       for (let roomReservation of roomReservations) {
 
-        this.roomService.getRoomById(roomReservation.roomId).subscribe(
-          room => {
+        this.hotelReservationService.getReservationById(roomReservation.hotelReservationId).subscribe(
+          hotelRes => {
 
-
-            this.roomRatingService.getRating(room.id).subscribe(
-
-              rating => {
-
-                this.quickRatingRating[room.id] = rating;
-              }
-            );
-
-            const timeBegin: string = moment(this.hotelRoomForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
-            const timeEnd: string = moment(this.hotelRoomForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
-            this.roomPriceService.searchRoomPriceForDateRange(room.id, timeBegin, timeEnd).subscribe(
-              roomPrice => {
-                const start = moment(timeBegin);
-                const end = moment(timeEnd);
-
-                if (roomPrice.id !== 0) {
-                  this.roomReservations.push({
-                    id: roomReservation.id,
-                    roomId: roomReservation.roomId,
-                    hotelReservationId: roomReservation.hotelReservationId,
-                    floor: room.floor,
-                    number: room.number,
-                    noOfBeds: room.noOfBeds,
-                    type: room.type,
-                    image: room.image,
-                    pricePerDay: roomPrice.price,
-                    from: timeBegin,
-                    to: timeEnd
+            this.roomService.getRoomById(roomReservation.roomId).subscribe(
+              room => {
+    
+    
+                this.roomRatingService.getRating(room.id).subscribe(
+    
+                  rating => {
+    
+                    this.quickRatingRating[room.id] = rating;
+                  }
+                );
+    
+                const timeBegin: string = moment(this.hotelRoomForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+                const timeEnd: string = moment(this.hotelRoomForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
+                this.roomPriceService.searchRoomPriceForDateRange(room.id, timeBegin, timeEnd).subscribe(
+                  roomPrice => {
+                    const start = moment(timeBegin);
+                    const end = moment(timeEnd);
+    
+                    if (roomPrice.id !== 0) {
+                      this.roomReservations.push({
+                        id: roomReservation.id,
+                        roomId: roomReservation.roomId,
+                        hotelReservationId: roomReservation.hotelReservationId,
+                        floor: room.floor,
+                        number: room.number,
+                        noOfBeds: room.noOfBeds,
+                        type: room.type,
+                        image: room.image,
+                        pricePerDay: roomPrice.price,
+                        from: hotelRes.dateFrom,
+                        to: hotelRes.dateTo,
+                        version: roomReservation.version
+                        }
+                      );
+                      // this.rooms.push(
+                      //   {
+                      //     id: room.id,
+                      //     floor: room.floor,
+                      //     number: room.number,
+                      //     noOfBeds: room.noOfBeds,
+                      //     type: room.type,
+                      //     hotel: room.hotel,
+                      //     image: room.image,
+                      //     pricePerDay: roomPrice.price,
+                      //     price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1)
+                      //   }
+                      // );
                     }
-                  );
-                  // this.rooms.push(
-                  //   {
-                  //     id: room.id,
-                  //     floor: room.floor,
-                  //     number: room.number,
-                  //     noOfBeds: room.noOfBeds,
-                  //     type: room.type,
-                  //     hotel: room.hotel,
-                  //     image: room.image,
-                  //     pricePerDay: roomPrice.price,
-                  //     price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1)
-                  //   }
-                  // );
-                }
+                  }
+                );
               }
             );
           }
@@ -265,11 +275,12 @@ export class HotelDetailsComponent implements OnInit {
           this.amenityService.makeReservation(this.selectedAmenitiesObj, hotelReservationId).subscribe(
             response => {
               sessionStorage.setItem('hotelReservationId', hotelReservationId.toString());
-              
+
               if (sessionStorage.getItem('carReservationId') === null) {
                 this.router.navigate(['./rentacars']);
               } else {
                 if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+                  this.userService.finishReservation(sessionStorage.getItem('reservationId'), sessionStorage.getItem('AuthUsername')).subscribe();
                   sessionStorage.removeItem('carReservationId');
                   sessionStorage.removeItem('hotelReservationId');
                   sessionStorage.removeItem('reservationId');
@@ -291,6 +302,7 @@ export class HotelDetailsComponent implements OnInit {
         this.router.navigate(['./rentacars']);
       } else {
         if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+          this.userService.finishReservation(sessionStorage.getItem('reservationId'), sessionStorage.getItem('AuthUsername')).subscribe();
           sessionStorage.removeItem('carReservationId');
           sessionStorage.removeItem('hotelReservationId');
           sessionStorage.removeItem('reservationId');

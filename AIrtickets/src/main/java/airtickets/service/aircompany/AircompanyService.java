@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.aircompany.AircompanyDTO;
 import airtickets.model.aircompany.Aircompany;
@@ -17,6 +19,7 @@ public class AircompanyService {
 	@Autowired
 	AircompanyRepository airCompanyRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<AircompanyDTO> getAircompanies(){
 		List<AircompanyDTO> aircompanies = new ArrayList<AircompanyDTO>();
 		List<Aircompany> air = airCompanyRepository.findAll();
@@ -28,6 +31,7 @@ public class AircompanyService {
 		return aircompanies;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public AircompanyDTO getAircompany(long id) {
 		Aircompany a = airCompanyRepository.findById(id);
 		AircompanyDTO aircompany = new AircompanyDTO(a);
@@ -35,6 +39,7 @@ public class AircompanyService {
 		return aircompany;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public AircompanyDTO addAircompany(AircompanyDTO aircompanyDTO) {
 		Aircompany aircompany = new Aircompany(aircompanyDTO);
 		airCompanyRepository.save(aircompany);
@@ -43,10 +48,12 @@ public class AircompanyService {
 		return aircompanyDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteAircompany(long id) {
 		airCompanyRepository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<Double> monthyIncome(long aircId, int year) {
 		
 		List<Double> incomes = new ArrayList<>();
@@ -89,6 +96,7 @@ public class AircompanyService {
 		return incomes;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<Double> weeklyIncome(long aircId, int year) {
 		
 		List<Double> incomes = new ArrayList<>();
@@ -128,6 +136,7 @@ public class AircompanyService {
 		return incomes;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public double yearlyIncome(long aircId, int year) {
 		
 		LocalDateTime from = LocalDateTime.parse(year + "-01-01T00:00:00");

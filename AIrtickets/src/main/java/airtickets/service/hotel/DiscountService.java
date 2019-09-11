@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.hotel.DiscountDTO;
 import airtickets.model.hotel.Discount;
@@ -16,6 +18,7 @@ public class DiscountService {
 	@Autowired
 	DiscountRepository discountRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<DiscountDTO> getDiscounts(){
 		List<DiscountDTO> discountsDTO = new ArrayList<DiscountDTO>();
 		List<Discount> discounts = discountRepository.findAll();
@@ -27,6 +30,7 @@ public class DiscountService {
 		return discountsDTO;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public DiscountDTO getDiscount(long id) {
 		Discount d = discountRepository.findById(id);
 		DiscountDTO amenityReservation = new DiscountDTO(d);
@@ -34,6 +38,7 @@ public class DiscountService {
 		return amenityReservation;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public DiscountDTO addDiscount(DiscountDTO discountDTO) {
 		Discount discount = new Discount(discountDTO);
 		discountRepository.save(discount);
@@ -42,6 +47,7 @@ public class DiscountService {
 		return discountDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteDiscount(long id) {
 		discountRepository.deleteById(id);
 	}

@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.aircompany.FlightReservationDTO;
 import airtickets.model.aircompany.FlightReservation;
@@ -25,6 +27,7 @@ public class FlightReservationService {
 	@Autowired
 	HotelReservationRepository hotelReservationRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<FlightReservationDTO> getFlightReservations(){
 		List<FlightReservationDTO> flights = new ArrayList<FlightReservationDTO>();
 		List<FlightReservation> flight = flightReservationRepository.findAll();
@@ -36,6 +39,7 @@ public class FlightReservationService {
 		return flights;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<FlightReservationDTO> getFlightReservationsByUser(Long id){
 		List<FlightReservationDTO> flights = new ArrayList<FlightReservationDTO>();
 		List<FlightReservation> flight = flightReservationRepository.getFlightReservationsByUser(id);
@@ -47,6 +51,7 @@ public class FlightReservationService {
 		return flights;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public FlightReservationDTO getFlightReservation(long id) {
 		FlightReservation f = flightReservationRepository.findById(id);
 		FlightReservationDTO flight = new FlightReservationDTO(f);
@@ -54,6 +59,7 @@ public class FlightReservationService {
 		return flight;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public FlightReservationDTO addFlightReservation(FlightReservationDTO flightResDTO) {
 		FlightReservation flight = new FlightReservation(flightResDTO);
 		
@@ -73,8 +79,15 @@ public class FlightReservationService {
 		return flightResDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteFlightReservation(long id) {
 		flightReservationRepository.deleteById(id);
+	}
+	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
+	public FlightReservation getFlightReservationObject(long id) {
+		FlightReservation f = flightReservationRepository.findById(id);
+		return f;
 	}
 
 }

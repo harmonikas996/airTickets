@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
 import airtickets.dto.hotel.RoomReservationDTO;
 
@@ -18,6 +19,18 @@ public class RoomReservation implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6872517284834872418L;
+	
+//	@Version
+//	private long version;
+//	
+//	public long getVersion() {
+//		return version;
+//	}
+//
+//	public void setVersion(long version) {
+//		this.version = version;
+//	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
@@ -40,6 +53,7 @@ public class RoomReservation implements Serializable {
 		this.room.setId(roomReservation.getRoomId());
 		this.hotelReservation = new HotelReservation();
 		this.hotelReservation.setId(roomReservation.getHotelReservationId());
+//		this.version = roomReservation.getVersion();
 	}
 
 	public long getId() {

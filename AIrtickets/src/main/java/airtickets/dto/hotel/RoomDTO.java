@@ -3,6 +3,17 @@ package airtickets.dto.hotel;
 import airtickets.model.hotel.Room;
 
 public class RoomDTO {
+	
+//	private long version;
+//	
+//	public long getVersion() {
+//		return version;
+//	}
+//
+//	public void setVersion(long version) {
+//		this.version = version;
+//	}
+	
 	private long id;
 	private int number;
 	private int floor;
@@ -21,6 +32,7 @@ public class RoomDTO {
 		type = room.getType();
 		hotel = room.getHotel().getId();
 		image = room.getImage();
+//		version = room.getVersion();
 	}
 
 	public long getId() {

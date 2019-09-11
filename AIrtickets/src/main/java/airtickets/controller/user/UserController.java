@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import airtickets.dto.aircompany.FlightReservationDTO;
 import airtickets.dto.user.UserDTO;
-import airtickets.model.user.User;
+import airtickets.model.aircompany.FlightReservation;
+import airtickets.service.aircompany.FlightReservationService;
+import airtickets.service.mail.MailerService;
 import airtickets.service.user.UserService;
 
 @RestController
@@ -28,7 +31,13 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MailerService mailerService;
 
+	@Autowired
+	private FlightReservationService flightReservationService;
+	
 	// Za pristup ovoj metodi neophodno je da ulogovani korisnik ima ADMIN ulogu
 	// Ukoliko nema, server ce vratiti gresku 403 Forbidden
 	// Korisnik jeste autentifikovan, ali nije autorizovan da pristupi resursu
@@ -71,6 +80,12 @@ public class UserController {
 	@RequestMapping(method = GET, value = "/user/search/{name1}")
 	public List<UserDTO> searchUsers(@PathVariable String name1) {
 		return userService.searchUsers(name1);
+	}
+	
+	@RequestMapping(method = GET, value = "finishReservation/{email}/{flightReservationId}")
+	public void  finishReservation(@PathVariable String email, @PathVariable long flightReservationId) {
+		FlightReservation fr = flightReservationService.getFlightReservationObject(flightReservationId);
+		mailerService.sendReservationDetails(fr, email);
 	}
 	
 }

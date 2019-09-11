@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-navigation',
@@ -6,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
 
   hotelReservationDone = false;
   carReservationDone = false;
@@ -34,11 +37,15 @@ export class NavigationComponent implements OnInit {
     }
   }
 
-  exitReservation() {
+  finishReservation() {
+
+    this.userService.finishReservation(sessionStorage.getItem('reservationId'), sessionStorage.getItem('AuthUsername')).subscribe();
+
     sessionStorage.removeItem('carReservationId');
     sessionStorage.removeItem('hotelReservationId');
     sessionStorage.removeItem('reservationId');
     sessionStorage.removeItem('flightStart');
+    location.assign('./user-dashboard/history');
   }
 
 }

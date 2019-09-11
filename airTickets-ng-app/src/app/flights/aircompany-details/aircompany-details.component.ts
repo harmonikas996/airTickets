@@ -12,6 +12,7 @@ import { FlightsService } from './../../shared/services/aircompany/flights.servi
 import { AirportService } from './../../shared/services/aircompany/airport.service';
 import { Seat } from 'src/app/shared/model/aircompany/seat.model';
 import * as moment from 'moment';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-aircompany-details',
@@ -38,7 +39,8 @@ export class AircompanyDetailsComponent implements OnInit {
     private flightService: FlightsService,
     private airportService: AirportService,
     private http: HttpClient,
-    private flightRatingService: FlightRatingService
+    private flightRatingService: FlightRatingService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -144,8 +146,20 @@ export class AircompanyDetailsComponent implements OnInit {
     
     this.seatService.makeReservation([reservedSeat]).subscribe(
       // vrati nazad
-      response => location.assign('/')
+      response => {
+        this.finishReservation(response.id);
+      }
     );
+  }
+  finishReservation(flightReservationId: number) {
+
+    this.userService.finishReservation(flightReservationId.toString(), sessionStorage.getItem('AuthUsername')).subscribe();
+
+    sessionStorage.removeItem('carReservationId');
+    sessionStorage.removeItem('hotelReservationId');
+    sessionStorage.removeItem('reservationId');
+    sessionStorage.removeItem('flightStart');
+    location.assign('./user-dashboard/history');
   }
 
 }

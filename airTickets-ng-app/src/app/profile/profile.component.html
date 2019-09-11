@@ -19,6 +19,7 @@
               <th scope="col">Air Company Rating</th>
               <th scope="col">Flight Rating</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -70,6 +71,8 @@
                 <ng-template #btn>
                   <button type="button" class="btn btn-primary" (click)="ratingFlight(f)" [disabled] = "!(isRatableFlight(f))">Submit</button>
                 </ng-template>
+
+                <td class="align-middle"><button type="button" class="btn btn-danger" (click)="cancelFlight(f)" [disabled] = "!(isCancelableFlight(f))">Cancel Flight</button></td>
             </tr>
           </tbody>
         </table>
@@ -92,6 +95,7 @@
               <th scope="col">Price</th>
               <th scope="col">Rent-A-Car Rating</th>
               <th scope="col">Car Rating</th>
+              <th scope="col"></th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -147,6 +151,7 @@
                 <button type="button" class="btn btn-primary" (click)="ratingCarReservation(c)" [disabled] = "!(isRatableCar(c))">Submit</button>
               </ng-template>
 
+              <td class="align-middle"><button type="button" class="btn btn-danger" (click)="cancelCar(c)" [disabled] = "!(isCancelableCar(c))">Cancel Car</button></td>
             </tr>
           </tbody>
         </table>
@@ -169,6 +174,7 @@
               <th scope="col">Date To</th>
               <th scope="col">Hotel Rating</th>
               <th scope="col">Room Rating</th>
+              <th scope="col"></th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -222,6 +228,7 @@
                 <button type="button" class="btn btn-primary" (click)="ratingHotel(r)" [disabled] = "!(isRatableRoom(r))">Submit</button>
               </ng-template>
 
+              <td class="align-middle"><button type="button" class="btn btn-danger" (click)="cancelRoom(r)" [disabled] = "!(isCancelableRoom(r))">Cancel Room</button></td>
             </tr>
           </tbody>
         </table>

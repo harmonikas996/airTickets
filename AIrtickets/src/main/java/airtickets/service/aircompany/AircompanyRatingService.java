@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.aircompany.AircompanyRatingDTO;
 import airtickets.dto.aircompany.FlightRatingDTO;
@@ -20,6 +22,7 @@ public class AircompanyRatingService {
 	@Autowired
 	AircompanyRatingRepository aircompanyRatingRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<AircompanyRatingDTO> getAircompanyRatings(){
 		List<AircompanyRatingDTO> aircompanyRatings = new ArrayList<AircompanyRatingDTO>();
 		List<AircompanyRating> air = aircompanyRatingRepository.findAll();
@@ -32,6 +35,7 @@ public class AircompanyRatingService {
 		return aircompanyRatings;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public AircompanyRatingDTO getAircompanyRating(long id) {
 		AircompanyRating a = aircompanyRatingRepository.findById(id);
 		AircompanyRatingDTO aircompanyRating = new AircompanyRatingDTO(a);
@@ -39,6 +43,7 @@ public class AircompanyRatingService {
 		return aircompanyRating;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public AircompanyRatingDTO getRatingByAirCompanyId(long companyId) {
 		AircompanyRating a = aircompanyRatingRepository.findBycompanyId(companyId);
 		
@@ -51,6 +56,7 @@ public class AircompanyRatingService {
 		return company;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public AircompanyRatingDTO addAircompanyRating(AircompanyRatingDTO aircompanyRatingDTO) {
 		AircompanyRating aircompanyRating = new AircompanyRating(aircompanyRatingDTO);
 		aircompanyRatingRepository.save(aircompanyRating);
@@ -59,10 +65,12 @@ public class AircompanyRatingService {
 		return aircompanyRatingDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteAircompanyRating(long id) {
 		aircompanyRatingRepository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public double getRating(Long companyId) {
 		List<AircompanyRatingDTO> aircompanies = new ArrayList<AircompanyRatingDTO>();
 		

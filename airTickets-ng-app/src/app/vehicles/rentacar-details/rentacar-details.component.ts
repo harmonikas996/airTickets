@@ -15,6 +15,7 @@ import { CarReservation } from 'src/app/shared/model/rentacar/car-reservation';
 import { CarReservationService } from 'src/app/shared/services/rentacar/car-reservation.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-rentacar-details',
@@ -62,7 +63,8 @@ export class RentacarDetailsComponent implements OnInit {
     private carReservationService: CarReservationService,
     private http: HttpClient,
     private carRatingService: CarRatingService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -275,6 +277,7 @@ export class RentacarDetailsComponent implements OnInit {
           this.router.navigate(['./hotels']);
         } else {
           if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+            this.userService.finishReservation(sessionStorage.getItem('reservationId'), sessionStorage.getItem('AuthUsername')).subscribe();
             sessionStorage.removeItem('carReservationId');
             sessionStorage.removeItem('hotelReservationId');
             sessionStorage.removeItem('reservationId');
@@ -295,6 +298,7 @@ export class RentacarDetailsComponent implements OnInit {
           this.router.navigate(['./hotels']);
         } else {
           if (sessionStorage.getItem('hotelReservationId') !== null && sessionStorage.getItem('carReservationId') !== null) {
+            this.userService.finishReservation(sessionStorage.getItem('reservationId'), sessionStorage.getItem('AuthUsername')).subscribe();
             sessionStorage.removeItem('carReservationId');
             sessionStorage.removeItem('hotelReservationId');
             sessionStorage.removeItem('reservationId');
@@ -305,7 +309,6 @@ export class RentacarDetailsComponent implements OnInit {
       },
       (error) => console.error('An error occurred, ', error),
       () => {
-        window.location.href = '/';
       }
     );
   }

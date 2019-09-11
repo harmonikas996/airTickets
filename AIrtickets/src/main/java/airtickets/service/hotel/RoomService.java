@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.hotel.RoomDTO;
 import airtickets.dto.rentacar.VehicleDTO;
@@ -27,6 +29,7 @@ public class RoomService {
 	@Autowired
 	UserRepository userRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> getRooms(){
 		List<RoomDTO> roomsDTO = new ArrayList<RoomDTO>();
 		List<Room> rooms = roomRepository.findAll();
@@ -38,6 +41,7 @@ public class RoomService {
 		return roomsDTO;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> getRoomsByHotel(long id){
 		List<RoomDTO> roomsDTO = new ArrayList<RoomDTO>();
 		List<Room> rooms = roomRepository.getRoomsByHotel(id);
@@ -49,6 +53,7 @@ public class RoomService {
 		return roomsDTO;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public RoomDTO getRoom(long id) {
 		Room r = roomRepository.findById(id);
 		RoomDTO roomDTO = new RoomDTO(r);
@@ -56,6 +61,7 @@ public class RoomService {
 		return roomDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public RoomDTO addRoom(RoomDTO roomDTO) {
 		//log.info("ROOM HOTELID: " + roomDTO.getHotelId());
 		Room room = new Room(roomDTO);
@@ -65,10 +71,12 @@ public class RoomService {
 		return roomDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteRoom(long id) {
 		roomRepository.deleteById(id);
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> freeRoomsForPeriod(long id, String from, String to) {
 		
 		LocalDateTime df = LocalDateTime.parse(from);
@@ -83,6 +91,7 @@ public class RoomService {
 		return veh;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> getFreeRooms(String email, String from, String to) {
 		User user = userRepository.findByEmail(email);
 		

@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.hotel.AmenityDTO;
 import airtickets.model.hotel.Amenity;
@@ -16,6 +18,7 @@ public class AmenityService {
 	@Autowired
 	AmenityRepository amenityRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<AmenityDTO> getAmenities(){
 		List<AmenityDTO> amenitiesDTO = new ArrayList<AmenityDTO>();
 		List<Amenity> amenities = amenityRepository.findAll();
@@ -27,6 +30,7 @@ public class AmenityService {
 		return amenitiesDTO;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<AmenityDTO> getAmenitiesByHotel(Long id) {
 		List<AmenityDTO> amenitiesDTO = new ArrayList<AmenityDTO>();
 		List<Amenity> amenities = amenityRepository.getAmenitiesByHotel(id);
@@ -38,6 +42,7 @@ public class AmenityService {
 		return amenitiesDTO;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public AmenityDTO getAmenity(long id) {
 		Amenity a = amenityRepository.findById(id);
 		AmenityDTO amenity = new AmenityDTO(a);
@@ -45,6 +50,7 @@ public class AmenityService {
 		return amenity;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public AmenityDTO addAmenity(AmenityDTO amenityDTO) {
 		Amenity amenity= new Amenity(amenityDTO);
 		amenityRepository.save(amenity);
@@ -53,6 +59,7 @@ public class AmenityService {
 		return amenityDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteAmenity(long id) {
 		amenityRepository.deleteById(id);
 	}

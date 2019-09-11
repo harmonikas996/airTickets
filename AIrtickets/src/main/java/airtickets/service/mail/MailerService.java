@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import airtickets.mail.MailerHelper;
+import airtickets.model.aircompany.FlightReservation;
 
 @Service
 public class MailerService {
@@ -18,5 +19,10 @@ public class MailerService {
   @Async
   public void sendMail(String address, String username) {
     mailerHelper.sendMail(address, username);
+  }
+  
+  @Async
+  public void sendReservationDetails(FlightReservation fr, String email) {
+    mailerHelper.sendReservationDetails(fr, email);
   }
 }

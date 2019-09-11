@@ -15,6 +15,10 @@ import com.sendgrid.Request;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
 
+import airtickets.model.aircompany.FlightReservation;
+import airtickets.model.hotel.HotelReservation;
+import airtickets.model.hotel.RoomReservation;
+import airtickets.model.rentacar.CarReservation;
 import airtickets.security.TokenUtils;
 
 @Component
@@ -32,7 +36,7 @@ public class MailerHelper {
 	String message = "Click on the link to verify your email address: " + "http://localhost:8080/auth/verify?token="+jwt+"&username="+username;
     Email from = new Email("sandor.taher@plutocow.com");
     Email to = new Email(address);
-    Content emailContent = new Content("text/plain", message);
+    Content emailContent = new Content("text/html", message);
 
     SendGrid sendgrid = new SendGrid("");
     Request request = new Request();
@@ -52,46 +56,71 @@ public class MailerHelper {
     }
   }
   
-//  public void sendReservationDetails(long flightReservationId) {
-//  	SimpleMailMessage mailMessage = new SimpleMailMessage();
-//      mailMessage.setTo(receiver.getEmail());
-//      mailMessage.setSubject("Reservation info!");
-//      mailMessage.setFrom("bice10izise@gmail.com");
-//      String text = "You have confirmed the following reservation:\n\n\n" +
-//      "----------Ticket----------\n" +
-//      "Airline: " + reservation.getTicket().getSeats().get(0).getFlight().getAirline().getName() + "\n" +
-//      "From: " + reservation.getTicket().getSeats().get(0).getFlight().getStartDestination().getName() + "\n" + 
-//      "To: " + reservation.getTicket().getSeats().get(0).getFlight().getFinishDestination().getName() + "\n" +
-//      "Departue Time: " + reservation.getTicket().getSeats().get(0).getFlight().getDepartureTime() + "\n" +
-//      "Arrival Time: " + reservation.getTicket().getSeats().get(0).getFlight().getArrivalTime() + "\n" + 
-//      "Price(euro): " + reservation.getTicket().getPrice() + "\n\n";
-//      
-//      if(reservation.getVehicleReservation() != null) {
-//      	text += "----------Vehicle----------\n" + 
-//      			"Rent A Car: " + reservation.getVehicleReservation().getVehicle().getBranchOffice().getRentACar().getName() + "\n" +
-//      			"Begin Date: " + reservation.getVehicleReservation().getBeginDate() + "\n" +
-//      			"End Date: " + reservation.getVehicleReservation().getEndDate() + "\n" +
-//      			"Brand: " + reservation.getVehicleReservation().getVehicle().getBrand() + "\n" +
-//      			"Model: " + reservation.getVehicleReservation().getVehicle().getModel() + "\n" +
-//      			"Type: " + reservation.getVehicleReservation().getVehicle().getType() + "\n" +
-//      			"Number Of Seats: " + reservation.getVehicleReservation().getVehicle().getSeatsNumber() + "\n" +
-//      			"Price(euro): " + reservation.getVehicleReservation().getPrice() + "\n\n";
-//      }
-//      
-//      if(reservation.getRoomReservation() != null){
-//      	text += "----------Room----------\n" + 
-//      			"Hotel: " + reservation.getRoomReservation().getRoom().getFloor().getHotel().getName() + "\n" +
-//      			"Begin Date: " + reservation.getRoomReservation().getBeginDate() + "\n" +
-//      			"End Date: " + reservation.getRoomReservation().getEndDate() + "\n" +
-//      			"Room Type: " + reservation.getRoomReservation().getRoom().getRoomType().getName() + "\n" +
-//      			"Number Of Beds: " + reservation.getRoomReservation().getRoom().getNumberOfBeds() + "\n" +
-//      			"Price(euro): " + reservation.getRoomReservation().getPrice() + "\n\n";
-//      }
-//      
-//      text+= "-------------------------\n" +
-//      		"Price(euro): " + reservation.getPrice() + "\n";
-//     
-//      mailMessage.setText(text);
-//      this.sendEmail(mailMessage);
-//  }
+  public void sendReservationDetails(FlightReservation fr, String email) {
+	 
+    CarReservation cr = fr.getCarReservation();
+    HotelReservation hr = fr.getHotelReservation();
+	  
+  	String subject = "[Airtickets] Reservation Confirmation";
+	String message = "<h1>You've booked your next flight on Airtickets</h1><br><br>" +
+		      "<h2>Flight Reservation</h2><br>" +
+		      "<p style=\"font-weight:100\">From: <b>" + fr.getFlight().getPlaceFrom().getCity() + "</b></p>" + 
+		      "<p style=\"font-weight:100\">To: <b>" + fr.getFlight().getPlaceTo().getCity() + "</b></p>" +
+		      "<p style=\"font-weight:100\">Departue Time: <b>" + fr.getFlight().getTimeBegin() + "</b></p>" +
+		      "<p style=\"font-weight:100\">Arrival Time: <b>" + fr.getFlight().getTimeBegin() + "</b></p>" + 
+		      "<p style=\"font-weight:100\">Aircompany: <b>" + fr.getFlight().getCompany().getName() + "</b></p>" +
+		      "<p style=\"font-weight:100\">Price: <b>" + fr.getFlight().getPrice() + "€</b></p>" +
+		      "<hr>";
+		      
+		      if(cr != null) {
+		      	message += "<br><h2>Car Reservation</h2><br>" + 
+		      			"<p style=\"font-weight:100\">Rent A Car: <b>" + cr.getVehicle().getRentACar().getName() + "</b></p>" +
+		      			"<p style=\"font-weight:100\">Begin Date: <b>" + cr.getDateFrom() + "</b></p>" +
+		      			"<p style=\"font-weight:100\">End Date: <b>" + cr.getDateTo() + "</b></p>" +
+		      			"<p style=\"font-weight:100\">Brand: <b>" + cr.getVehicle().getBrand() + "</b></p>" +
+		      			"<p style=\"font-weight:100\">Model: <b>" + cr.getVehicle().getModel() + "</b></p>" +
+		      			"<p style=\"font-weight:100\">Type: <b>" + cr.getVehicle().getTypeString() + "</b></p>" +
+		      			"<p style=\"font-weight:100\">Number Of Seats: <b>" + cr.getVehicle().getNumberOfSeats() + "</b></p>" +
+		      			"<p style=\"font-weight:100\">Price: <b>" + cr.getVehicle().getPricePerDay() + "€/day</b></p>" +
+		      			"<hr>";
+		      }
+		      
+		      if(hr != null){
+		    	  message += "<br><h2>Room Reservation</h2><br>" +
+		    			     "<p style=\"font-weight:100\">Hotel: " + hr.getHotel().getName() + "</b></p>" +
+	    				     "<p style=\"font-weight:100\">Begin Date: " + hr.getDateFrom() + "</b></p>" +
+	    				     "<p style=\"font-weight:100\">End Date: " + hr.getDateTo() + "</b></p>";
+		    	  message += "<br><h4>Room(s)</h4>"; 
+		    	  for (RoomReservation roomReservation : hr.getRoomReservations()) {
+					
+	    		   message += "<p style=\"font-weight:100\">Room Type: " + roomReservation.getRoom().getType() + "</b></p>" +
+	    				      "<p style=\"font-weight:100\">Room Number: " + roomReservation.getRoom().getNumber() + "</b></p>" +
+	    				      "<p style=\"font-weight:100\">Room Floor: " + roomReservation.getRoom().getFloor() + "</b></p>" +
+		    				  "<p style=\"font-weight:100\">Number Of Beds: " + roomReservation.getRoom().getNoOfBeds() + "</b></p>" +
+		    				  "<hr>";
+		    	  }
+		    	  message+= "<br><h4>Price(euro): " + hr.getPrice() + "<h4>";
+		      }
+		      
+	Email from = new Email("bepar@mailfile.net");
+	Email to = new Email(email);
+	Content emailContent = new Content("text/html", message);
+	
+	SendGrid sendgrid = new SendGrid("");
+	Request request = new Request();
+	
+	Mail mail = new Mail(from, subject, to, emailContent);
+	  
+	try {
+      request.setMethod(Method.POST);
+      request.setEndpoint("mail/send");
+      request.setBody(mail.build());
+      Response response = sendgrid.api(request);
+      logger.info("--> Status: " + response.getStatusCode());
+      logger.info("--> Body: " + response.getBody());
+      logger.info("--> Header: " + response.getHeaders());
+    } catch(IOException ex) {
+      logger.error(ex.getMessage());
+    }
+  }
 }

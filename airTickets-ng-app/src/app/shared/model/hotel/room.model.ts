@@ -6,4 +6,5 @@ export interface Room {
     type: string;
     hotel: any;
     image: any;
+    version?: number;
 }

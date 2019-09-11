@@ -26,6 +26,10 @@ export class UserService {
     return this.http.get<User>(this.profileUrl + '/' + this.token.getUsername());
   }
 
+  finishReservation(flightReservationId: string, email: string) {
+    return this.http.get('http://localhost:8080/api/finishReservation/' + email + '/' + flightReservationId);
+  }
+
   getUserByIdParam(id: number): Observable<User> {
     return this.http.get<User>(this.userUrl + '/' + id);
   }

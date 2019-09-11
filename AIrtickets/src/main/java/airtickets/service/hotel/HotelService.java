@@ -9,6 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.hotel.HotelDTO;
 import airtickets.dto.hotel.RoomDTO;
@@ -36,6 +38,7 @@ public class HotelService {
 	@Autowired
 	RoomRepository roomRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<HotelDTO> getHotels(){
 		List<HotelDTO> hotelsDTO = new ArrayList<HotelDTO>();
 		List<Hotel> hotels = hotelRepository.findAll();
@@ -47,6 +50,7 @@ public class HotelService {
 		return hotelsDTO;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public HotelDTO getHotel(long id) {
 		Hotel h = hotelRepository.findById(id);
 		HotelDTO hotelDTO = new HotelDTO(h);
@@ -54,6 +58,7 @@ public class HotelService {
 		return hotelDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public HotelDTO addHotel(HotelDTO hotelDTO) {
 		Hotel hotel = new Hotel(hotelDTO);
 		hotelRepository.save(hotel);
@@ -62,10 +67,12 @@ public class HotelService {
 		return hotelDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteHotel(long id) {
 		hotelRepository.deleteById(id);
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public HotelDTO getHotelByAdmin(String adminUsername) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -77,6 +84,7 @@ public class HotelService {
 		return hotel;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<Double> monthyIncome(long hotId, int year) {
 		
 		List<Double> incomes = new ArrayList<>();
@@ -111,6 +119,7 @@ public class HotelService {
 		return incomes;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public List<Double> weeklyIncome(long hotId, int year) {
 		
 		List<Double> incomes = new ArrayList<>();
@@ -132,6 +141,7 @@ public class HotelService {
 		return incomes;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.REPEATABLE_READ)
 	public double yearlyIncome(long hotId, int year) {
 		
 		LocalDateTime from = LocalDateTime.parse(year + "-01-01T00:00:00");
@@ -145,6 +155,7 @@ public class HotelService {
 		return income;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> freeRoomsForPeriod(long id, String from, String to) {
 		
 		LocalDateTime df = LocalDateTime.parse(from);
@@ -159,6 +170,7 @@ public class HotelService {
 		return rooms;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> reservedRoomsForPeriod(long id, String from, String to) {
 		
 		LocalDateTime df = LocalDateTime.parse(from);
@@ -173,6 +185,7 @@ public class HotelService {
 		return rooms;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> getRoomsFromHotel(long id) {
 		List<RoomDTO> veh = new ArrayList<>();
 		for (Room v  : roomRepository.findByHotelId(id)) {
@@ -186,6 +199,7 @@ public class HotelService {
 		return false;
 	}
 
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<HotelDTO> searchHotels(String name, String location, String timeBegin, String timeEnd) {
 		
 		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
@@ -206,6 +220,8 @@ public class HotelService {
 		return hotels;
 	}
 
+	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<RoomDTO> searchRooms(long hotelId, String type, String timeBegin, String timeEnd) {
 		
 		LocalDateTime ldtFrom = LocalDateTime.parse(timeBegin);
@@ -221,6 +237,7 @@ public class HotelService {
 		return null;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<String> getLocations() {
 		List<String> locations = new ArrayList<String>();
 		

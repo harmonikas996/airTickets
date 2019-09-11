@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import airtickets.dto.hotel.AmenityDTO;
 import airtickets.dto.hotel.AmenityReservationDTO;
@@ -23,6 +25,7 @@ public class AmenityReservationService {
 	@Autowired
 	HotelReservationRepository hotelReservationRepository;
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public List<AmenityReservationDTO> getAmenityReservations(){
 		List<AmenityReservationDTO> amenityReservationsDTO = new ArrayList<AmenityReservationDTO>();
 		List<AmenityReservation> amenityReservations = amenityReservationRepository.findAll();
@@ -34,6 +37,7 @@ public class AmenityReservationService {
 		return amenityReservationsDTO;
 	}
 	
+	@Transactional(readOnly = true, isolation=Isolation.READ_COMMITTED)
 	public AmenityReservationDTO getAmenityReservation(long id) {
 		AmenityReservation a = amenityReservationRepository.findById(id);
 		AmenityReservationDTO amenityReservation = new AmenityReservationDTO(a);
@@ -41,6 +45,7 @@ public class AmenityReservationService {
 		return amenityReservation;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public AmenityReservationDTO addAmenityReservation(AmenityReservationDTO amenityreservationDTO) {
 		AmenityReservation amenity = new AmenityReservation(amenityreservationDTO);
 		amenityReservationRepository.save(amenity);
@@ -49,10 +54,12 @@ public class AmenityReservationService {
 		return amenityreservationDTO;
 	}
 	
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public void deleteAmenityReservation(long id) {
 		amenityReservationRepository.deleteById(id);
 	}
 
+	@Transactional(readOnly = false, isolation=Isolation.READ_COMMITTED)
 	public boolean makeReservation(List<AmenityDTO> amenities, Long hotelReservationId) {
 
 		List<AmenityReservation> amenityReservations = amenityReservationRepository.findAll();

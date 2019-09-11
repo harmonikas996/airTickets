@@ -1,15 +1,14 @@
-import { HotelRatingService } from './../../shared/services/hotel/hotel-rating/hotel-rating.service';
-import { RoomReservationService } from './../../shared/services/hotel/room-reservation/room-reservation.service';
-import { Room } from './../../shared/model/hotel/room.model';
-import { RoomReservation } from './../../shared/model/hotel/room-reservation.model';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as moment from 'moment';
 import { Hotel } from 'src/app/shared/model/hotel/hotel.model';
 import { HotelService } from 'src/app/shared/services/hotel/hotel.service';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import * as moment from 'moment';
-import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+
+import { RoomReservation } from './../../shared/model/hotel/room-reservation.model';
+import { HotelRatingService } from './../../shared/services/hotel/hotel-rating/hotel-rating.service';
+import { RoomReservationService } from './../../shared/services/hotel/room-reservation/room-reservation.service';
 
 @Component({
   selector: 'app-hotels-list',
