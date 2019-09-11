@@ -1,3 +1,4 @@
+import { Room } from './../../model/hotel/room.model';
 import { Hotel } from 'src/app/shared/model/hotel/hotel.model';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
@@ -28,6 +29,10 @@ export class HotelService {
 
   getHotelById(id: number): Observable<Hotel> {
     return this.http.get<Hotel>(this.hotelsUrl + '/' + id);
+  }
+
+  getFreeRooms(email: string, datebegin: String, dateEnd: String): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>('http://localhost:8080/rooms/free?user=' + email + '&datebegin=' + datebegin + '&dateEnd=' + dateEnd);
   }
 
   getHotelByAdminUsername(adminUsername: String): Observable<Hotel> {
@@ -82,6 +87,10 @@ export class HotelService {
       '&timeBegin=' + timeBegin +
       '&timeEnd=' + timeEnd
       );
+  }
+
+  getReservedRooms(rentacarId: number, dateBegin: String, dateEnd: String): Observable<Room[]> {
+    return this.http.get<Room[]>(this.hotelsUrl + '/reservedRooms?id=' + rentacarId + '&dateBegin=' + dateBegin + '&dateEnd=' + dateEnd);
   }
 
 

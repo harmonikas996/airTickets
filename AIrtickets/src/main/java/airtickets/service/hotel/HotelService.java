@@ -246,4 +246,17 @@ public class HotelService {
  		}
 		return locations;
 	}
+
+	public List<RoomDTO> freeRoomsForPeriodWithBeds(long id, String from, String to, String beds) {
+		LocalDateTime df = LocalDateTime.parse(from);
+		LocalDateTime dt = LocalDateTime.parse(to);
+		
+		List<RoomDTO> rooms = new ArrayList<>();
+		
+		for (Room r : roomRepository.freeRoomsForPeriodWithBeds(id, df, dt, beds)) {
+			rooms.add(new RoomDTO(r));
+		}
+		
+		return rooms;
+	}
 }

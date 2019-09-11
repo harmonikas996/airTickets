@@ -1,3 +1,4 @@
+import { HotelService } from './../../services/hotel/hotel.service';
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -19,10 +20,11 @@ import { TokenStorageService } from 'src/app/user-authentication/service/token-s
 export class ReservationsReportComponent implements OnInit {
 
   rentacar: RentACar;
-  freeVehiclesObservable: Observable<Vehicle[]>;
-  reservedVehiclesObservable: Observable<Vehicle[]>;
-  freeVehicles: Vehicle[];
-  reservedVehicles: Vehicle[];
+  freeVehiclesObservable: Observable<any[]>;
+  reservedVehiclesObservable: Observable<any[]>;
+
+  freeVehicles: any[];
+  reservedVehicles: any[];
   vehicleReportForm: FormGroup;
   id: number;
   datePeriod: String;
@@ -35,7 +37,8 @@ export class ReservationsReportComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private formBuilder: FormBuilder,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+    private hotelService: HotelService
   ) { }
 
   ngOnInit() {
@@ -45,42 +48,82 @@ export class ReservationsReportComponent implements OnInit {
     });
   }
 
+  getUserType() {
+
+      return this.token.isRentacar();
+
+
+  }
+
   onSubmit() {
 
     this.dateBegin = moment(this.vehicleReportForm.controls['datePeriod'].value[0]).format('YYYY-MM-DDTHH:mm:ss.SSS');
     this.dateEnd = moment(this.vehicleReportForm.controls['datePeriod'].value[1]).format('YYYY-MM-DDTHH:mm:ss.SSS');
 
-    this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).subscribe(
-      rentacar => this.id = rentacar.id,
-      (error) => console.error('An error occurred, ', error),
-      () => {
-        // this.rentacarService.getFreeVehicles(this.id, this.dateBegin, this.dateEnd).subscribe(
-        //   data => this.freeVehicles = data,
-        //   (error) => console.error('An error occurred, ', error),
-        //   () => {
-        //     this.rentacarService.getReservedVehicles(this.id, this.dateBegin, this.dateEnd).subscribe(
-        //       data2 => this.reservedVehicles = data2,
-        //     );
-        //   }
 
-        // );
+    if (this.token.getAuthorities().includes('rentacar')) {
+
+      this.rentacarService.getRentacarByAdminUsername(this.token.getUsername()).subscribe(
+        data => {
+
+          this.id = data.id;
+
+          this.getFv();
+          this.getRv();
+        });
+
+
+    } else if (this.token.getAuthorities().includes('hotel')) {
+
+      this.hotelService.getHotelByAdminUsername(this.token.getUsername()).subscribe(data => {
+
+        this.id = data.id;
 
         this.getFv();
         this.getRv();
-      }
-    );
+
+      });
+
+    }
+
   }
-  
+
   getFv() {
-    this.freeVehiclesObservable = this.rentacarService.getFreeVehicles(this.id, this.dateBegin, this.dateEnd).pipe(
-      tap(vehicles => this.freeVehicles = vehicles)
-    );
+
+    if (this.token.getAuthorities().includes('rentacar')) {
+
+      this.freeVehiclesObservable = this.rentacarService.getFreeVehicles(this.id, this.dateBegin, this.dateEnd).pipe(
+        tap(vehicles => this.freeVehicles = vehicles)
+      );
+
+
+    } else if (this.token.getAuthorities().includes('hotel')) {
+
+      this.freeVehiclesObservable = this.hotelService.getFreeRooms(this.token.getUsername(), this.dateBegin, this.dateEnd).pipe(
+        tap(hotels => this.freeVehicles = hotels)
+      );
+
+    }
+
   }
 
   getRv() {
-    this.reservedVehiclesObservable = this.rentacarService.getReservedVehicles(this.id, this.dateBegin, this.dateEnd).pipe(
-      tap(vehicles => this.reservedVehicles = vehicles)
-    );
+    if (this.token.getAuthorities().includes('rentacar')) {
+
+      this.reservedVehiclesObservable = this.rentacarService.getReservedVehicles(this.id, this.dateBegin, this.dateEnd).pipe(
+        tap(vehicles => this.reservedVehicles = vehicles)
+      );
+
+
+    } else if (this.token.getAuthorities().includes('hotel')) {
+
+      this.reservedVehiclesObservable = this.hotelService.getReservedRooms(this.id, this.dateBegin, this.dateEnd).pipe(
+        tap(vehicles => this.reservedVehicles = vehicles)
+      );
+
+    }
+
+
   }
 
 }

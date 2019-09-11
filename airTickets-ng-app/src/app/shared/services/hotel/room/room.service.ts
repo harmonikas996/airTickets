@@ -61,4 +61,13 @@ export class RoomService {
       '&dateEnd=' + dateEnd
       );
   }
+
+  searchRoomsByDateWithBeds(datebegin: String, dateEnd: String, hotelId: number, beds: number): Observable<Room[]> {
+    return this.http.get<Room[]>('http://localhost:8080/hotels' +
+      '/freeRoomsWithBeds?id=' + hotelId +
+      '&dateBegin=' + datebegin +
+      '&dateEnd=' + dateEnd +
+      '&beds=' + beds
+      );
+  }
 }

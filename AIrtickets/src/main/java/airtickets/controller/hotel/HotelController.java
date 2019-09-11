@@ -102,6 +102,18 @@ public class HotelController {
 		
 		return hotelService.freeRoomsForPeriod(rcrId, timeBegin, timeEnd);
 	}
+	
+	@GetMapping("/freeRoomsWithBeds")
+//	@PreAuthorize("hasAuthority(rentacar)")
+	public List<RoomDTO> freeRoomsWithBeds(
+			@RequestParam(value="id") long rcrId,
+			@RequestParam(value="dateBegin") String timeBegin,
+			@RequestParam(value="dateEnd") String timeEnd,
+			@RequestParam(value="beds") String beds
+			) {
+		
+		return hotelService.freeRoomsForPeriodWithBeds(rcrId, timeBegin, timeEnd, beds);
+	}
 
 	@GetMapping("/reservedRooms")
 //	@PreAuthorize("hasAuthority(rentacar)")

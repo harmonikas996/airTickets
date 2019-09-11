@@ -32,4 +32,9 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 	public List<Room> searchRooms(long id, String type, LocalDateTime df, LocalDateTime dt);
 	@Query(value="select * from airtickets.room where hotel_id = ?1", nativeQuery=true)
 	public List<Room> getRoomsByHotel(long id);
+	@Query(value="select * from airtickets.room where hotel_id=?1 and no_of_beds >= ?4 and id not in (\r\n" + 
+			"SELECT airtickets.room_reservation.room_id FROM airtickets.hotel_reservation, airtickets.room_reservation\r\n" + 
+			"where airtickets.hotel_reservation.id = airtickets.room_reservation.hotel_reservation_id and airtickets.hotel_reservation.hotel_id = ?1\r\n" + 
+			"and airtickets.hotel_reservation.date_from <= ?3 and airtickets.hotel_reservation.date_to >= ?2)", nativeQuery=true)
+	public List<Room> freeRoomsForPeriodWithBeds(long id, LocalDateTime df, LocalDateTime dt, String beds);
 }

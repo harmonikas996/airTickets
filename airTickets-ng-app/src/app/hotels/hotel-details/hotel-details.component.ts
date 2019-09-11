@@ -101,48 +101,99 @@ export class HotelDetailsComponent implements OnInit {
 
       this.getQuickReservation(this.id);
 
-      this.roomService.searchRoomsByDate2(timeBegin, timeEnd, this.id).subscribe(
-        rooms => {
+      const guest = this.hotelRoomForm.controls['guest'].value;
+      console.log('gosti' + guest);
 
-          this.rooms = [];
-          for (const room of rooms) {
 
-            this.roomPriceService.searchRoomPriceForDateRange(room.id, timeBegin, timeEnd).subscribe(
-              roomPrice => {
+      if(guest != null) {
+        console.log('usaooo')
+        this.roomService.searchRoomsByDateWithBeds(timeBegin, timeEnd, this.id, guest).subscribe(
+          rooms => {
 
-                const start = moment(timeBegin);
-                const end = moment(timeEnd);
+            this.rooms = [];
+            for (const room of rooms) {
 
-                if (roomPrice.id !== 0) {
-                  // console.log(room.id);
-                  this.roomRatingService.getRating(room.id).subscribe(
+              this.roomPriceService.searchRoomPriceForDateRange(room.id, timeBegin, timeEnd).subscribe(
+                roomPrice => {
 
-                    rating => {
-                      // console.log(rating);
-                      this.roomRating[room.id] = rating;
-                    }
-                  );
+                  const start = moment(timeBegin);
+                  const end = moment(timeEnd);
 
-                  this.rooms.push(
-                    {
-                      id: room.id,
-                      floor: room.floor,
-                      number: room.number,
-                      noOfBeds: room.noOfBeds,
-                      type: room.type,
-                      hotel: room.hotel,
-                      image: room.image,
-                      pricePerDay: roomPrice.price,
-                      price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1),
-                      version: room.version
-                    }
-                  );
+                  if (roomPrice.id !== 0) {
+                    console.log(room.id);
+                    this.roomRatingService.getRating(room.id).subscribe(
+
+                      rating => {
+                        console.log(rating);
+                        this.roomRating[room.id] = rating;
+                      }
+                    );
+
+                    this.rooms.push(
+                      {
+                        id: room.id,
+                        floor: room.floor,
+                        number: room.number,
+                        noOfBeds: room.noOfBeds,
+                        type: room.type,
+                        hotel: room.hotel,
+                        image: room.image,
+                        pricePerDay: roomPrice.price,
+                        price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1),
+                        version: room.version
+                      }
+                    );
+                  }
                 }
-              }
-            );
+              );
+            }
           }
-        }
-      );
+        );
+      } else {
+
+          this.roomService.searchRoomsByDate2(timeBegin, timeEnd, this.id).subscribe(
+            rooms => {
+
+              this.rooms = [];
+              for (const room of rooms) {
+
+                this.roomPriceService.searchRoomPriceForDateRange(room.id, timeBegin, timeEnd).subscribe(
+                  roomPrice => {
+
+                    const start = moment(timeBegin);
+                    const end = moment(timeEnd);
+
+                    if (roomPrice.id !== 0) {
+                      console.log(room.id);
+                      this.roomRatingService.getRating(room.id).subscribe(
+
+                        rating => {
+                          console.log(rating);
+                          this.roomRating[room.id] = rating;
+                        }
+                      );
+
+                      this.rooms.push(
+                        {
+                          id: room.id,
+                          floor: room.floor,
+                          number: room.number,
+                          noOfBeds: room.noOfBeds,
+                          type: room.type,
+                          hotel: room.hotel,
+                          image: room.image,
+                          pricePerDay: roomPrice.price,
+                          price: +roomPrice.price * (moment.duration(start.diff(end)).asDays() - 1) * (-1)
+                        }
+                      );
+                    }
+                  }
+                );
+              }
+            }
+          );
+
+      }
       // this.searchRooms();
   }
 
